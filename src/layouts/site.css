@@ -1,0 +1,117 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: Overpass Mono !important;
+  margin-top: 0;
+}
+
+a,
+a:active,
+a:visited {
+  color: inherit;
+}
+
+html, body {
+  height: 100%;
+  line-height: 1.7em;
+}
+
+body {
+  max-width: 768px;
+  margin: 0 auto;
+  font-size: 16px;
+  color: hsla(0, 0%, 0%, 0.8);
+}
+
+#___gatsby {
+  height: 100%;
+}
+
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+.container {
+  padding: 150px 50px 100px;
+  display: flex;
+}
+
+.logo {
+  margin-right: 35px;
+}
+
+.logo img {
+  height: 75px;
+  width: 75px;
+  border-radius: 50px;
+  max-width: auto;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin-bottom: 5px;
+}
+
+header h1 a {
+  text-decoration: none;
+}
+
+header h2 {
+  font-weight: normal;
+  margin-bottom: 15px;
+}
+
+header nav {
+  font-size: 0.9em;
+}
+
+header nav a {
+  margin-right: 15px;
+}
+
+.content {
+  border-top: 1px dashed #ddd;
+  max-width: 960px;
+  padding-top: 20px;
+}
+
+.player {
+  position: fixed;
+  right: 0; bottom: 0; left: 0;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-top: 1px dashed #ddd;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.player__left {
+  display: flex;
+  align-items: center;
+}
+
+.player__play {
+  font-size: 30px;
+}
+
+.player__status--live {
+  color: red;
+}

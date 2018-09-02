@@ -1,0 +1,21 @@
+{
+  "name": "soulprovidr.fm",
+  "description": "Soul Provider FM website.",
+  "version": "1.0.0",
+  "author": "Shola Anozie <shola@soulprovidr.co>",
+  "dependencies": {
+    "gatsby": "^1.9.277",
+    "gatsby-link": "^1.6.46",
+    "gatsby-plugin-react-helmet": "^2.0.11",
+    "react-helmet": "^5.2.0"
+  },
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write 'src/**/*.js'"
+  },
+  "devDependencies": {
+    "prettier": "^1.13.7"
+  }
+}
