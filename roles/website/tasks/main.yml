@@ -1,0 +1,24 @@
+---
+- name: Clone website repository
+  tags: ['never']
+  when:
+    - not repository is undefined
+    - not web_dir is undefined
+  git:
+    repo: "{{ repository }}"
+    dest: "{{ web_dir }}"
+
+- name: Install website dependencies
+  tags: ['never']
+  when:
+    - not web_dir is undefined
+  yarn:
+    path: "{{ web_dir }}"
+    state: latest
+
+- name: Build website
+  tags: ['never']
+  when: not web_dir is undefined
+  shell: yarn build
+  args:
+    chdir: "{{ web_dir }}"

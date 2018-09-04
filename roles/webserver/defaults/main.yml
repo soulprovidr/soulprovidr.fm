@@ -1,0 +1,7 @@
+---
+ansible_python_interpreter: /usr/bin/python3
+
+email: shola@soulprovidr.co
+domains: []
+
+web_root: /usr/share/nginx/html

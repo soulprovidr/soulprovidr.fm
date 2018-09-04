@@ -1,0 +1,18 @@
+---
+- hosts: soulprovidr.fm
+  remote_user: soulprovidr
+  become: yes
+  become_method: sudo
+
+  vars:
+    domains:
+      - soulprovidr.fm
+      - www.soulprovidr.fm
+    repository: https://github.com/soulprovidr/soulprovidr.fm
+    user: soulprovidr
+    web_dir: "/home/{{ user }}/{{ domains | first }}"
+    web_root: "{{ web_dir }}/public"
+
+  roles:
+    - { role: 'webserver', tags: ['webserver'] }
+    - { role: 'website', tags: ['website'] }
