@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
+import Favicon from '../assets/favicon.png';
 import Header from '../components/header';
 import Logo from '../assets/rpj.png';
 import Player from '../components/player';
@@ -18,7 +19,9 @@ const Layout = ({ children, data }) => (
         { name: 'description', content: data.site.siteMetadata.description },
         { name: 'keywords', content: data.site.siteMetadata.keywords },
       ]}
-    />
+    >
+      <link rel="icon" type="image/png" href={Favicon} />
+    </Helmet>
     <div>
       <div className="logo">
         <a
