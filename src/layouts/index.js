@@ -19,9 +19,10 @@ const Layout = ({ children, data }) => (
         { name: 'description', content: data.site.siteMetadata.description },
         { name: 'keywords', content: data.site.siteMetadata.keywords },
       ]}
-    >
-      <link rel="icon" type="image/png" href={Favicon} />
-    </Helmet>
+      link={[
+        { rel: 'shortcut icon', type: 'image/png', href: `${Favicon}` }
+      ]}
+    />
     <div>
       <div className="logo">
         <a
