@@ -13,7 +13,7 @@ const IndexPage = () => {
         If this is your first time here, you should probably <a href="/faq">check out the FAQ</a>.
       </p>
       <p>
-        (For the technically-inclined, you can <a href="https://github.com/soulprovidr/raydio">view the source code</a> on GitHub).
+        (For the technically-inclined, you can <a href="https://github.com/soulprovidr/soulprovidr.fm">view the source code</a> on GitHub).
       </p>
       <p>
         Enjoy!

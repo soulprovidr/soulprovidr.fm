@@ -16,7 +16,7 @@ const Nav = () => (
       Donate
     </a>
     <a
-      href="https://github.com/soulprovidr/raydio"
+      href="https://github.com/soulprovidr/soulprovidr.fm"
       target="_blank"
     >
       Source
