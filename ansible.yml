@@ -8,11 +8,13 @@
     domains:
       - soulprovidr.fm
       - www.soulprovidr.fm
+    email: shola@soulprovidr.co
     repository: https://github.com/soulprovidr/soulprovidr.fm
     user: soulprovidr
     web_dir: "/home/{{ user }}/{{ domains | first }}"
     web_root: "{{ web_dir }}/public"
 
   roles:
+    - { role: 'icecast', tags: ['icecast'] }
     - { role: 'webserver', tags: ['webserver'] }
     - { role: 'website', tags: ['website'] }

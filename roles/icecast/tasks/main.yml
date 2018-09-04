@@ -1,0 +1,18 @@
+---
+- name: Install icecast
+  tags: ['never']
+  apt:
+    name: icecast2
+    state: present
+
+- name: Copy icecast config
+  tags: ['never']
+  template:
+    src: templates/icecast.xml
+    dest: /etc/icecast2/icecast.xml
+
+- name: Start icecast
+  tags: ['never']
+  systemd:
+    name: icecast2
+    state: restarted

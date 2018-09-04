@@ -12,10 +12,10 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "deploy": "ansible-playbook ansible.yml -K --tags 'website'",
+    "deploy": "ansible-playbook ansible.yml -K --tags=website",
     "develop": "gatsby develop",
     "format": "prettier --write 'src/**/*.js'",
-    "provision": "ansible-playbook ansible.yml -K --tags 'webserver'"
+    "provision": "ansible-playbook ansible.yml -K --tags=webserver,icecast"
   },
   "devDependencies": {
     "prettier": "^1.13.7"
