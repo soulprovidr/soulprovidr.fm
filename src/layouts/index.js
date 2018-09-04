@@ -6,8 +6,9 @@ import Header from '../components/header';
 import Logo from '../assets/rpj.png';
 import Player from '../components/player';
 
-import './site.css';
-import './mobile.css';
+import '../styles/fonts.css';
+import '../styles/site.css';
+import '../styles/mobile.css';
 
 const Layout = ({ children, data }) => (
   <div className="container">

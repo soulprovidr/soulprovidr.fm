@@ -1,4 +1,4 @@
-@media (max-device-width: 400px) {
+@media (max-width: 415px) {
   body {
     font-size: 15px;
   }
@@ -16,10 +16,6 @@
   .logo img {
     width: 60px;
     height: 60px;
-  }
-
-  header {
-    /* text-align: center; */
   }
 
   .player__right {
