@@ -5,6 +5,8 @@
     name: icecast2
     state: present
 
+- include_vars: credentials.yml
+
 - name: Copy icecast config
   tags: ['never']
   template:

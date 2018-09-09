@@ -18,3 +18,4 @@
     - { role: 'icecast', tags: ['icecast'] }
     - { role: 'webserver', tags: ['webserver'] }
     - { role: 'website', tags: ['website'] }
+    - { role: 'storage', tags: ['storage'] }

@@ -15,10 +15,10 @@
 
     <authentication>
         <!-- Sources log in with username 'source' -->
-        <source-password>5U6=r!EzqpLRB%3B</source-password>
+        <source-password>{{ source_password }}</source-password>
         <!-- Admin logs in with the username given below -->
         <admin-user>admin</admin-user>
-        <admin-password>xyf8b=rFpYqyfm</admin-password>
+        <admin-password>{{ admin_password }}</admin-password>
     </authentication>
 
     <hostname>soulprovidr.fm</hostname>
