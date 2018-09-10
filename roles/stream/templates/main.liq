@@ -10,7 +10,7 @@ source = crossfade(source)
 # This is configuration for the Icecast mount.
 # The password corresponds to the source password set in icecast.xml.
 output.icecast(
-  %mp3.vbr,
+  %mp3.cbr(bitrate=192),
   port = {{ icecast_port }},
   password = "{{ source_password }}",
   mount = "{{ stream_name }}",
