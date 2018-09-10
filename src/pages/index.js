@@ -16,9 +16,6 @@ const IndexPage = () => {
         (For the technically-inclined, you can <a href="https://github.com/soulprovidr/soulprovidr.fm">view the source code</a> on GitHub).
       </p>
       <p>
-        Enjoy!
-      </p>
-      <p>
         <em>
           - Soul Provider
         </em>
