@@ -14,17 +14,31 @@
 
 - name: Create password file
   tags: ['never']
+  become_user: "{{ ssh_user }}"
   template:
     src: templates/passwd-s3fs
-    dest: "{{ home_directory }}/.passwd-s3fs"
+    dest: "{{ home_path }}/.passwd-s3fs"
     mode: 0600
+
+- name: Unmount directory
+  tags: ['never']
+  shell: "umount {{ home_path }}/{{ media_folder }} || :"
+
+- name: Remove directory
+  tags: ['never']
+  file:
+    path: "{{ home_path }}/{{ media_folder }}"
+    state: absent
 
 - name: Create mount directory
   tags: ['never']
+  become_user: "{{ ssh_user }}"
   file:
-    path: "{{ home_directory }}/media"
+    path: "{{ home_path }}/{{ media_folder }}"
     state: directory
+    mode: 0755
 
 - name: Mount S3 bucket
   tags: ['never']
-  shell: "s3fs {{ bucket_name }} {{ home_directory }}/media -o passwd_file={{ home_directory }}/.passwd-s3fs"
+  become_user: "{{ ssh_user }}"
+  shell: "s3fs {{ bucket_name }} {{ home_path }}/{{ media_folder }} -o passwd_file={{ home_path }}/.passwd-s3fs -o umask=0022"

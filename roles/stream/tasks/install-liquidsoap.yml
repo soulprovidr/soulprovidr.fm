@@ -1,0 +1,30 @@
+---
+- name: Install OPAM
+  tags: ['never']
+  apt:
+    name: opam
+    state: present
+
+- name: Install liquidsoap
+  tags: ['never']
+  become_user: "{{ ssh_user }}"
+  shell: "opam init -y && opam install {{ liquidsoap_deps | join(' ') }}"
+
+- name: Copy stream config
+  tags: ['never']
+  template:
+    src: templates/main.liq
+    dest: "{{ home_path }}/main.liq"
+
+- name: Create log file
+  tags: ['never']
+  file:
+    path: "{{ home_path }}/{{ log_file }}"
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    state: touch
+
+- name: Generate stream
+  tags: ['never']
+  become_user: "{{ ssh_user }}"
+  shell: "eval $(opam config env) liquidsoap main.liq"

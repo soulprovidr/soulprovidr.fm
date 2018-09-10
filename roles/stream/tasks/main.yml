@@ -1,0 +1,3 @@
+---
+- include_tasks: install-icecast.yml
+- include_tasks: install-liquidsoap.yml

@@ -1,6 +1,6 @@
 ---
 - hosts: soulprovidr.fm
-  remote_user: soulprovidr
+  remote_user: "{{ ssh_user }}"
   become: yes
   become_method: sudo
 
@@ -10,13 +10,15 @@
       - soulprovidr.fm
       - www.soulprovidr.fm
     email: shola@soulprovidr.co
+    home_path: /home/{{ ssh_user }}
     repository: https://github.com/soulprovidr/soulprovidr.fm
-    user: soulprovidr
-    web_dir: "/home/{{ user }}/{{ domains | first }}"
+    ssh_user: soulprovidr
+    stream_name: stream.m3u
+    web_dir: "/home/{{ ssh_user }}/{{ domains | first }}"
     web_root: "{{ web_dir }}/public"
 
   roles:
-    - { role: 'icecast', tags: ['icecast'] }
     - { role: 'webserver', tags: ['webserver'] }
     - { role: 'website', tags: ['website'] }
     - { role: 'storage', tags: ['storage'] }
+    - { role: 'stream', tags: ['stream'] }

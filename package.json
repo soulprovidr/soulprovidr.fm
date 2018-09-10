@@ -17,10 +17,10 @@
     "develop": "gatsby develop",
     "encrypt": "ansible-vault encrypt --vault-password-file .vault_pass",
     "format": "prettier --write 'src/**/*.js'",
-    "provision": "ansible-playbook site.yml -K --tags=webserver,icecast,storage --vault-password-file .vault_pass",
-    "provision:icecast": "ansible-playbook site.yml -K --tags=icecast --vault-password-file .vault_pass",
+    "provision": "ansible-playbook site.yml -K --tags=webserver,stream,storage --vault-password-file .vault_pass",
     "provision:webserver": "ansible-playbook site.yml -K --tags=webserver --vault-password-file .vault_pass",
-    "provision:storage": "ansible-playbook site.yml -K --tags=storage --vault-password-file .vault_pass"
+    "provision:storage": "ansible-playbook site.yml -K --tags=storage --vault-password-file .vault_pass",
+    "provision:stream": "ansible-playbook site.yml -K --tags=stream --vault-password-file .vault_pass"
   },
   "devDependencies": {
     "prettier": "^1.13.7"

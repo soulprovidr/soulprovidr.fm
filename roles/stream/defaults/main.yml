@@ -1,0 +1,14 @@
+# Icecast variables.
+admin_password: "admin"
+icecast_port: 8000
+source_password: "source"
+
+# Liquidsoap variables.
+liquidsoap_deps:
+  - taglib
+  - mad
+  - lame
+  - cry
+  - samplerate
+  - liquidsoap
+log_file: liquidsoap.log

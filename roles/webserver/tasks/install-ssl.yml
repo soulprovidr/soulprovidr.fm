@@ -43,4 +43,4 @@
     job: "certbot renew --quiet --no-self-upgrade"
     minute: 30
     hour: 3
-    user: "{{ ansible_user }}"
+    user: "{{ ssh_user }}"

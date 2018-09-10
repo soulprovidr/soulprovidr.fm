@@ -10,7 +10,7 @@
         <header-timeout>15</header-timeout>
         <source-timeout>10</source-timeout>
         <burst-on-connect>0</burst-on-connect>
-        <burst-size>0</burst-size>
+        <burst-size>65536</burst-size>
     </limits>
 
     <authentication>
@@ -24,7 +24,7 @@
     <hostname>soulprovidr.fm</hostname>
 
     <listen-socket>
-        <port>8000</port>
+        <port>{{ icecast_port }}</port>
     </listen-socket>
 
     <http-headers>
