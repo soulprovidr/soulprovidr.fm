@@ -5,6 +5,7 @@
   become_method: sudo
 
   vars:
+    bucket_name: soulprovidr.fm
     domains:
       - soulprovidr.fm
       - www.soulprovidr.fm

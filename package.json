@@ -12,10 +12,12 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "decrypt": "ansible-vault decrypt --vault-password-file .vault_pass",
     "deploy": "ansible-playbook site.yml -K --tags=website",
     "develop": "gatsby develop",
+    "encrypt": "ansible-vault encrypt --vault-password-file .vault_pass",
     "format": "prettier --write 'src/**/*.js'",
-    "provision": "ansible-playbook site.yml -K --tags=webserver,icecast --vault-password-file .vault_pass"
+    "provision": "ansible-playbook site.yml -K --tags=webserver,icecast,storage --vault-password-file .vault_pass"
   },
   "devDependencies": {
     "prettier": "^1.13.7"

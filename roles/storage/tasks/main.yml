@@ -1,0 +1,30 @@
+---
+# - s3_bucket:
+#     name: "{{ bucket_name }}"
+#     profile: "{{ profile }}"
+#     state: present
+
+- name: Install s3fs
+  tags: ['never']
+  apt:
+    name: s3fs
+    state: present
+
+- include_vars: credentials.yml
+
+- name: Create password file
+  tags: ['never']
+  template:
+    src: templates/passwd-s3fs
+    dest: "{{ home_directory }}/.passwd-s3fs"
+    mode: 0600
+
+- name: Create mount directory
+  tags: ['never']
+  file:
+    path: "{{ home_directory }}/media"
+    state: directory
+
+- name: Mount S3 bucket
+  tags: ['never']
+  shell: "s3fs {{ bucket_name }} {{ home_directory }}/media -o passwd_file={{ home_directory }}/.passwd-s3fs"

@@ -1,0 +1,3 @@
+---
+bucket_name: my-s3-bucket
+home_directory: /home/{{ ansible_user }}
