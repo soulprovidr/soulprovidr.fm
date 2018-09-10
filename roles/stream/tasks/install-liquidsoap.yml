@@ -27,4 +27,4 @@
 - name: Generate stream
   tags: ['never']
   become_user: "{{ ssh_user }}"
-  shell: "eval $(opam config env) liquidsoap main.liq"
+  shell: "eval $(opam config env) liquidsoap main.liq &"

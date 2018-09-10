@@ -11,6 +11,7 @@
       - www.soulprovidr.fm
     email: shola@soulprovidr.co
     home_path: /home/{{ ssh_user }}
+    media_folder: media
     repository: https://github.com/soulprovidr/soulprovidr.fm
     ssh_user: soulprovidr
     stream_name: stream.m3u
