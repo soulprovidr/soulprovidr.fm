@@ -16,6 +16,7 @@
     src: templates/main.liq
     dest: "{{ home_path }}/main.liq"
 
+# TODO: Add loop
 - name: Create log file
   tags: ['never']
   file:
@@ -24,7 +25,15 @@
     group: "{{ ssh_user }}"
     state: touch
 
+- name: Create pid file
+  tags: ['never']
+  file:
+    path: "{{ home_path }}/{{ pid_file }}"
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    state: touch
+
 - name: Generate stream
   tags: ['never']
   become_user: "{{ ssh_user }}"
-  shell: "eval $(opam config env) liquidsoap main.liq &"
+  shell: "eval $(opam config env) liquidsoap --daemon main.liq"

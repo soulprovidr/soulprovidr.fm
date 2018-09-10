@@ -1,5 +1,6 @@
 enable_replaygain_metadata()
 
+set("init.daemon.pidfile.path", "{{ home_path }}/{{ pid_file }}")
 set("log.file.path", "{{ home_path }}/{{ log_file }}")
 
 # "{{ home_path }}/{{ media_folder }}" is the location of the S3 folder mount.

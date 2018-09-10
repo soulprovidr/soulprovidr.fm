@@ -12,3 +12,4 @@ liquidsoap_deps:
   - samplerate
   - liquidsoap
 log_file: liquidsoap.log
+pid_file: liquidsoap.pid
