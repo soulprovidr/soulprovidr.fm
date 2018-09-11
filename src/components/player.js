@@ -36,14 +36,12 @@ class Player extends Component {
         volume: 0,
         onplay: () => {
           this.stream.fade(0, 1, 1000);
-        },
-        onpause: () => {
-          this.stream.fade(1, 0, 1000);
         }
       });
     }
     if (playing) {
-      this.stream.pause();
+      this.stream.unload();
+      this.stream = null;
     } else {
       this.stream.play();
     }
