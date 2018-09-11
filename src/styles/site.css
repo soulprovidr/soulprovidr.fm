@@ -110,6 +110,7 @@ header nav a {
 
 .player__play {
   font-size: 30px;
+  cursor: pointer;
 }
 
 .player__status--live {
