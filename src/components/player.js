@@ -12,7 +12,7 @@ class Player extends Component {
 
   componentDidMount() {
     this.fetchStatus();
-    this.fetchInterval = setInterval(this.fetchStatus, 30000);
+    this.fetchInterval = setInterval(this.fetchStatus, 5000);
   }
 
   fetchStatus = () => {
