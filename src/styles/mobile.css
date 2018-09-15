@@ -4,21 +4,13 @@
   }
 
   .container {
-    flex-direction: column;
-    padding: 25px 25px 100px;
+    padding: 25px;
+    display: block;
   }
 
-  .logo {
-    /* text-align: center; */
-    margin-bottom: 10px;
-  }
-
-  .logo img {
-    width: 60px;
-    height: 60px;
-  }
-
-  .player__right {
-    display: none;
+  header {
+    display: block;
+    position: relative;
+    padding: 0;
   }
 }

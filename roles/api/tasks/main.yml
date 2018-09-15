@@ -1,0 +1,6 @@
+---
+- name: Install pm2
+  yarn:
+    name: pm2
+    global: yes
+    state: present

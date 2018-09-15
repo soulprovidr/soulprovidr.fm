@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Shola Anozie <shola@soulprovidr.co>",
   "dependencies": {
+    "bee-queue": "^1.2.2",
     "gatsby": "^1.9.277",
     "gatsby-link": "^1.6.46",
     "gatsby-plugin-react-helmet": "^2.0.11",
@@ -19,8 +20,9 @@
     "develop": "gatsby develop",
     "encrypt": "ansible-vault encrypt --vault-password-file .vault_pass",
     "format": "prettier --write 'src/**/*.js'",
-    "provision": "ansible-playbook site.yml -K --tags=webserver,stream,storage --vault-password-file .vault_pass",
-    "provision:webserver": "ansible-playbook site.yml -K --tags=webserver --vault-password-file .vault_pass",
+    "provision": "ansible-playbook site.yml -K --tags=nginx,redis,stream,storage --vault-password-file .vault_pass",
+    "provision:nginx": "ansible-playbook site.yml -K --tags=nginx --vault-password-file .vault_pass",
+    "provision:redis": "ansible-playbook site.yml -K --tags=redis --vault-password-file .vault_pass",
     "provision:storage": "ansible-playbook site.yml -K --tags=storage --vault-password-file .vault_pass",
     "provision:stream": "ansible-playbook site.yml -K --tags=stream --vault-password-file .vault_pass"
   },

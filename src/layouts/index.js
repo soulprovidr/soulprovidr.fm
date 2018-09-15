@@ -4,8 +4,6 @@ import Helmet from 'react-helmet';
 
 import Favicon from '../assets/favicon.png';
 import Header from '../components/header';
-import Logo from '../assets/rpj.png';
-import Player from '../components/player';
 
 import '../styles/fonts.css';
 import '../styles/site.css';
@@ -24,16 +22,6 @@ const Layout = ({ children, data }) => (
       ]}
     />
     <div>
-      <div className="logo">
-        <a
-          href="//soulprovidr.co"
-          target="_blank"
-        >
-          <img src={Logo} />
-        </a>
-      </div>
-    </div>
-    <div>
       <Header
         description={data.site.siteMetadata.description}
         title={data.site.siteMetadata.title}
@@ -42,7 +30,6 @@ const Layout = ({ children, data }) => (
         {children()}
       </div>
     </div>
-    <Player />
   </div>
 );
 

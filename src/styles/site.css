@@ -44,8 +44,11 @@ h2 {
 }
 
 .container {
-  padding: 100px 50px 100px;
+  padding: 100px 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .logo {
@@ -61,23 +64,42 @@ h2 {
 
 header {
   margin-bottom: 20px;
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  display: flex;
+  padding: 50px 75px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+}
+
+header img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50px;
 }
 
 header h1 {
   margin-bottom: 5px;
 }
 
-header h1 a {
-  text-decoration: none;
+header h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 0 0 0 15px;
 }
 
-header h2 {
-  font-weight: normal;
-  margin-bottom: 15px;
+header h2 a {
+  text-decoration: none;
 }
 
 header nav {
   font-size: 0.9em;
+  line-height: 0.9em;
 }
 
 header nav a {
@@ -85,32 +107,64 @@ header nav a {
 }
 
 .content {
-  border-top: 1px dashed #ddd;
   max-width: 960px;
   padding-top: 20px;
 }
 
 .player {
-  position: fixed;
-  right: 0; bottom: 0; left: 0;
-  padding: 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background: white;
-  border-top: 1px dashed #ddd;
   font-size: 16px;
   font-weight: bold;
+  text-align: center;
 }
 
-.player__left {
-  display: flex;
-  align-items: center;
+.player__title {
+  font-size: 20px;
+}
+
+.player__art {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto 25px;
+}
+
+.player__art img {
+  width: 100%;
+  height: auto;
 }
 
 .player__play {
-  font-size: 30px;
+  position: absolute;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  font-size: 36px;
   cursor: pointer;
+  height: 60px;
+  width: 60px;
+  border-radius: 50px;
+  border: 2px solid rgb(172, 172, 172);
+  background: white;
+  color: pink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 250ms ease;
+}
+
+.player__play:hover {
+  transform: scale(1.1);
+}
+
+.player__play span {
+  line-height: 0.5em;
+  margin-top: 2px;
+}
+
+.player__play span:hover {
+}
+
+.player__status {
+  
 }
 
 .player__status--live {

@@ -19,7 +19,8 @@
     web_root: "{{ web_dir }}/public"
 
   roles:
-    - { role: 'webserver', tags: ['webserver'] }
-    - { role: 'website', tags: ['website'] }
+    - { role: 'nginx', tags: ['nginx'] }
+    - { role: 'redis', tags: ['redis'] }
     - { role: 'storage', tags: ['storage'] }
     - { role: 'stream', tags: ['stream'] }
+    - { role: 'website', tags: ['website'] }
