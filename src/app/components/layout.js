@@ -29,11 +29,21 @@ const Layout = ({ children, data }) => (
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
-            { name: 'description', content: data.site.siteMetadata.description },
-            { name: 'keywords', content: data.site.siteMetadata.keywords },
+            {
+              name: 'description',
+              content: data.site.siteMetadata.description
+            },
+            {
+              name: 'keywords',
+              content: data.site.siteMetadata.keywords
+            },
           ]}
           link={[
-            { rel: 'shortcut icon', type: 'image/png', href: `${Favicon}` }
+            {
+              rel: 'shortcut icon',
+              type: 'image/png',
+              href: `${Favicon}`
+            }
           ]}
         />
         <Header

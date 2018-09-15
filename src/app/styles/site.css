@@ -2,6 +2,10 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-y: auto;
+}
+
 body,
 p,
 h1,
@@ -31,9 +35,6 @@ body {
   color: hsla(0, 0%, 0%, 0.8);
 }
 
-#___gatsby {
-  height: 100%;
-}
 
 h1 {
   font-size: 1.6em;
@@ -46,80 +47,88 @@ h2 {
 .container {
   position: fixed;
   top: 0; right: 0; bottom: 0; left: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
 }
 
-.logo {
-  margin-right: 35px;
-}
-
-.logo img {
-  height: 75px;
-  width: 75px;
-  border-radius: 50px;
-  max-width: auto;
-}
-
-header {
-  margin-bottom: 20px;
-  padding: 50px;
+.header {
+  padding: 50px 50px 25px;
   margin: 0 auto;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  background: white;
+  z-index: 5;
 }
 
 .header__left {
-  margin-right: 15px;
   display: flex;
 }
 
-header img {
-  height: 45px;
-  width: 45px;
+.header__logo {
+  height: 60px;
+  width: 60px;
   border-radius: 50px;
-  margin-top: 3px;
   margin-right: 15px;
 }
 
-header h1 {
-  margin-bottom: 5px;
+.header__text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
-header h2 {
+.header__title {
+  font-size: 1.3em;
   font-weight: bold;
-  text-transform: uppercase;
-  margin: 0 0 0px;
+  /* text-transform: uppercase; */
+  margin: 0;
+  line-height: 1em;
 }
 
-header h2 a {
+.header__title a {
   text-decoration: none;
 }
 
-header nav {
+.header__description {
+  margin: 0;
+  line-height: 1.75em;
+  color: gray;
+}
+
+.header__nav {
   font-size: 0.9em;
   line-height: 0.9em;
 }
 
-header nav a {
+.header__nav a {
   margin-right: 20px;
+  text-decoration: none;
+  font-weight: bold;
+  color: gray;
+  font-size: 1.2em;
+}
+
+.header__nav a:hover {
+  text-decoration: underline;
 }
 
 .content {
-  width: 960px;
-  padding-top: 20px;
+  max-width: 960px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 300px 25px 0;
 }
 
 .player {
-  background: white;
   font-size: 16px;
   font-weight: bold;
   display: flex;
   width: 100%;
+  height: 100%;
+  margin-top: -135px;
   justify-content: flex-start;
   align-items: center;
 }
@@ -136,14 +145,16 @@ header nav a {
 }
 
 .player__track {
-  font-size: 48px;
+  font-size: 36px;
+  line-height: 1.25em;
 }
 
 .player__art {
   position: relative;
-  max-width: 350px;
+  width: 350px;
   border: 5px solid white;
   outline: 1px solid #ddd;
+  flex-shrink: 0;
 }
 
 .player__art img {
@@ -186,7 +197,7 @@ header nav a {
 .player__status {
   font-weight: normal;
   font-size: 14px;
-  margin-bottom: 5px;
+  margin-bottom: 50px;
 }
 
 .player__status--live {
