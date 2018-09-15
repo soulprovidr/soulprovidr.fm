@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
+
+import Album from '../assets/album.jpg';
+import Layout from '../components/layout';
 
 class Player extends Component {
   stream = null;
@@ -51,25 +54,37 @@ class Player extends Component {
   render() {
     const { playing, title } = this.state;
     return (
-      <div className="player">
-        <div className="player__left">
-          <span
-            className="player__play"
-            onClick={this.play}
-            dangerouslySetInnerHTML={{
-              __html: playing ? '&#9208;&nbsp;' : '&#x25b6;&nbsp;' 
-            }}
-          />
-          <span>
-            {title}
-          </span>
+      <Layout>
+        <div className="player">
+          <div
+            className="player__art"
+          >
+            <img
+              src={Album}
+              alt={title}
+            />
+            <div
+              className="player__play"
+              onClick={this.play}
+            >
+              <span dangerouslySetInnerHTML={{
+                __html: playing ? '&#9646;' : '&#x25b6;'
+              }} />
+            </div>
+          </div>
+          <p className="player__title">
+            <div className="player__status player__status--live">
+            Now playing:
+            </div>
+            <p className="player__artist">
+              {title.split(' - ')[0]}
+            </p>
+            <p className="player__track">
+              {title.split(' - ')[1]}
+            </p>
+          </p>
         </div>
-        <div className="player__right">
-          <span className="player__status player__status--live">
-            &#9210; Live
-          </span>
-        </div>
-      </div>
+      </Layout>
     );
   }
 };

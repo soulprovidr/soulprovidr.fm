@@ -44,9 +44,10 @@ h2 {
 }
 
 .container {
-  padding: 100px 0;
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   height: 100%;
 }
@@ -64,23 +65,25 @@ h2 {
 
 header {
   margin-bottom: 20px;
-  position: fixed;
-  top: 0; right: 0; left: 0;
+  padding: 50px;
+  margin: 0 auto;
+  width: 100%;
   display: flex;
-  padding: 50px 75px;
   justify-content: space-between;
   align-items: center;
 }
 
-.header__logo {
+.header__left {
+  margin-right: 15px;
   display: flex;
-  align-items: center;
 }
 
 header img {
   height: 45px;
   width: 45px;
   border-radius: 50px;
+  margin-top: 3px;
+  margin-right: 15px;
 }
 
 header h1 {
@@ -90,7 +93,7 @@ header h1 {
 header h2 {
   font-weight: bold;
   text-transform: uppercase;
-  margin: 0 0 0 15px;
+  margin: 0 0 0px;
 }
 
 header h2 a {
@@ -103,11 +106,11 @@ header nav {
 }
 
 header nav a {
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 .content {
-  max-width: 960px;
+  width: 960px;
   padding-top: 20px;
 }
 
@@ -115,22 +118,38 @@ header nav a {
   background: white;
   font-size: 16px;
   font-weight: bold;
-  text-align: center;
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .player__title {
   font-size: 20px;
+  margin-left: 50px;
+}
+
+.player__artist {
+  font-size: 28px;
+  margin: 0 0 20px;
+  color: gray;
+}
+
+.player__track {
+  font-size: 48px;
 }
 
 .player__art {
   position: relative;
-  max-width: 400px;
-  margin: 0 auto 25px;
+  max-width: 350px;
+  border: 5px solid white;
+  outline: 1px solid #ddd;
 }
 
 .player__art img {
   width: 100%;
   height: auto;
+  vertical-align: middle;
 }
 
 .player__play {
@@ -142,13 +161,14 @@ header nav a {
   height: 60px;
   width: 60px;
   border-radius: 50px;
-  border: 2px solid rgb(172, 172, 172);
+  border: 1px solid rgb(197, 197, 197);
   background: white;
   color: pink;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 250ms ease;
+  margin: 0 auto;
 }
 
 .player__play:hover {
@@ -164,9 +184,11 @@ header nav a {
 }
 
 .player__status {
-  
+  font-weight: normal;
+  font-size: 14px;
+  margin-bottom: 5px;
 }
 
 .player__status--live {
-  color: red;
+  color: darkgray;
 }

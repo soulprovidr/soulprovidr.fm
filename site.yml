@@ -15,7 +15,7 @@
     repository: https://github.com/soulprovidr/soulprovidr.fm
     ssh_user: soulprovidr
     stream_name: stream.mp3
-    web_dir: "/home/{{ ssh_user }}/{{ domains | first }}"
+    web_dir: "/home/{{ ssh_user }}/{{ domains | first }}/src/app"
     web_root: "{{ web_dir }}/public"
 
   roles:

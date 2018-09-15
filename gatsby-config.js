@@ -4,5 +4,13 @@ module.exports = {
     description: 'Internet radio for those who like to groove.',
     keywords: 'internet radio, streaming, funk, soul, disco, jazz, soul provider, soul providr fm, groove'
   },
-  plugins: ['gatsby-plugin-react-helmet']
-}
+  plugins: [
+    'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: `${__dirname}/src/app/pages`
+      }
+    }
+  ]
+};

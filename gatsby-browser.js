@@ -1,3 +1,3 @@
-import 'whatwg-fetch'
+require('whatwg-fetch');
 
 exports.onClientEntry = () => true;
