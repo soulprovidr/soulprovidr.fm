@@ -28,7 +28,7 @@
 
   .header__nav {
     line-height: 1em;
-    display: none;
+    margin-top: 10px;
   }
 
   .header__nav a:last-of-type {
@@ -38,7 +38,6 @@
   .content {
     width: 100%;
     min-width: 400px;
-    padding: 50px 0 0;
   }
 
   .player {

@@ -10,13 +10,15 @@ const FAQPage = () => (
         What is Soul Provider FM?
       </strong>
       <p>
-        Soul Provider FM is an online radio station based in Winnipeg, Canada. Its goal is simple: to heal the world through the power of funk, soul, disco, and jazz.
+        Soul Provider FM is an online radio station based in Winnipeg, Canada.
+        <br />
+        Its mission is simple: to heal the world through the power of funk, soul, disco, and jazz.
       </p>
       <strong>
         Where is the stream hosted?
       </strong>
       <p>
-        The station is kindly hosted in Winnipeg by <a
+        The station is graciously hosted in Winnipeg by <a
           href="https://pegboardhosting.ca/"
           target="_blank"
           rel="noopener noreferrer"
