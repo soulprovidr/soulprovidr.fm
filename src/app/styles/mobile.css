@@ -40,10 +40,13 @@
     min-width: 400px;
   }
 
+  .content > * {
+    margin-bottom: 0;
+  }
+
   .player {
     flex-direction: column;
     text-align: center;
-    margin-top: 100px;
   }
 
   .player__art {
