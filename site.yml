@@ -27,6 +27,7 @@
 
   roles:
     - { role: 'app', tags: ['app'] }
+    - { role: 'api', tags: ['api'] }
     - { role: 'nginx', tags: ['nginx'] }
     - { role: 'redis', tags: ['redis'] }
     - { role: 'storage', tags: ['storage'] }

@@ -19,6 +19,7 @@
     "develop": "gatsby develop",
     "encrypt": "ansible-vault encrypt --vault-password-file .vault_pass",
     "provision": "ansible-playbook site.yml -K --tags=nginx,redis,stream,storage --vault-password-file .vault_pass",
+    "provision:api": "ansible-playbook site.yml -K --tags=api",
     "provision:app": "ansible-playbook site.yml -K --tags=app",
     "provision:nginx": "ansible-playbook site.yml -K --tags=nginx --vault-password-file .vault_pass",
     "provision:redis": "ansible-playbook site.yml -K --tags=redis --vault-password-file .vault_pass",

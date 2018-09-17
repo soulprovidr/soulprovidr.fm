@@ -1,14 +1,12 @@
 ---
 - name: Install pm2
   tags: ['never']
-  yarn:
-    name: pm2
-    global: yes
-    state: present
+  become: true
+  shell: yarn global add pm2
 
-- name: Delete pm2 jobs
-  tags: ['never']
-  shell: pm2 delete all
+# - name: Delete pm2 jobs
+#   tags: ['never']
+#   shell: pm2 delete all 2>/dev/null
 
 - name: Start api process
   tags: ['never']
