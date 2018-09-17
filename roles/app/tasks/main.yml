@@ -1,0 +1,18 @@
+---
+- name: Clone repository
+  tags: ['never']
+  git:
+    repo: "{{ project.repository }}"
+    dest: "{{ project.path }}"
+
+- name: Install app dependencies
+  tags: ['never']
+  yarn:
+    path: "{{ project.path }}"
+    state: latest
+
+- name: Build app
+  tags: ['never']
+  shell: yarn build
+  args:
+    chdir: "{{ project.path }}"

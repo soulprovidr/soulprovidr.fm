@@ -1,5 +1,4 @@
 ---
-domains: []
-email: shola@soulprovidr.co
-
-web_root: /usr/share/nginx/html
+nginx:
+  domains: []
+  root: /usr/share/nginx/html

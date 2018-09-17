@@ -20,7 +20,7 @@
 - name: Check for SSL certificate
   tags: [ 'never' ]
   stat:
-    path: "/etc/letsencrypt/live/{{ domains | first }}/cert.pem"
+    path: "/etc/letsencrypt/live/{{ nginx.domains | first }}/cert.pem"
   register: letsencrypt_cert
 
 - name: Stop nginx
@@ -43,4 +43,4 @@
     job: "certbot renew --quiet --no-self-upgrade"
     minute: 30
     hour: 3
-    user: "{{ ssh_user }}"
+    user: "{{ project.user }}"

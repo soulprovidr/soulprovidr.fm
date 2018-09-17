@@ -16,10 +16,10 @@
   "scripts": {
     "build": "gatsby build",
     "decrypt": "ansible-vault decrypt --vault-password-file .vault_pass",
-    "deploy": "ansible-playbook site.yml -K --tags=website",
     "develop": "gatsby develop",
     "encrypt": "ansible-vault encrypt --vault-password-file .vault_pass",
     "provision": "ansible-playbook site.yml -K --tags=nginx,redis,stream,storage --vault-password-file .vault_pass",
+    "provision:app": "ansible-playbook site.yml -K --tags=app",
     "provision:nginx": "ansible-playbook site.yml -K --tags=nginx --vault-password-file .vault_pass",
     "provision:redis": "ansible-playbook site.yml -K --tags=redis --vault-password-file .vault_pass",
     "provision:storage": "ansible-playbook site.yml -K --tags=storage --vault-password-file .vault_pass",

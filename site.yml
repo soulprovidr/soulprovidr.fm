@@ -1,26 +1,33 @@
 ---
 - hosts: soulprovidr.fm
-  remote_user: "{{ ssh_user }}"
+  remote_user: "{{ project.user }}"
   become: yes
   become_method: sudo
 
   vars:
-    bucket_name: soulprovidr.fm
-    domains:
-      - soulprovidr.fm
-      - www.soulprovidr.fm
-    email: shola@soulprovidr.co
-    home_path: /home/{{ ssh_user }}
-    media_folder: media
-    repository: https://github.com/soulprovidr/soulprovidr.fm
-    ssh_user: soulprovidr
-    stream_name: stream.mp3
-    web_dir: "/home/{{ ssh_user }}/{{ domains | first }}/src/app"
-    web_root: "{{ web_dir }}/public"
+    project:
+      email: shola@soulprovidr.co
+      path: "{{ lookup('env', 'HOME') }}/soulprovidr.fm"
+      repository: https://github.com/soulprovidr/soulprovidr.fm
+      user: soulprovidr
+    api:
+      path: "{{ project.path }}/src/api"
+    app:
+      path: "{{ project.path }}/src/app"
+    nginx:
+      domains:
+        - soulprovidr.fm
+        - www.soulprovidr.fm
+      root: "{{ project.path }}/public"
+    storage:
+      bucket: soulprovidr.fm
+      path: "{{ lookup('env', 'HOME') }}/media"
+    stream:
+      notify: node {{ api.path }}/notify
 
   roles:
+    - { role: 'app', tags: ['app'] }
     - { role: 'nginx', tags: ['nginx'] }
     - { role: 'redis', tags: ['redis'] }
     - { role: 'storage', tags: ['storage'] }
     - { role: 'stream', tags: ['stream'] }
-    - { role: 'website', tags: ['website'] }

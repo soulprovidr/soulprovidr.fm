@@ -1,15 +1,15 @@
-set("init.daemon.pidfile.path", "{{ home_path }}/{{ pid_file }}")
-set("log.file.path", "{{ home_path }}/{{ log_file }}")
+set("init.daemon.pidfile.path", "{{ stream.liquidsoap.paths.pid }}")
+set("log.file.path", "{{ stream.liquidsoap.paths.log }}")
 
-# "{{ home_path }}/{{ media_folder }}" is the location of the S3 folder mount.
-source = mksafe( playlist( "{{ home_path }}/{{ media_folder }}", conservative = true, reload_mode = "watch" ) )
+# "{{ storage.path }}" is the location of the S3 folder mount.
+source = mksafe( playlist( "{{ storage.path }}", conservative = true, reload_mode = "watch" ) )
 source = amplify(1.,override="replay_gain", source)
-source = crossfade(source, conservative=false)
+source = crossfade(source)
 
 def apply_metadata(m)
   artist = m["artist"]
   title = m["title"]
-  log("#{artist} - #{title}")
+  #run_process("{{ stream.notify }} #{json_of(m)}")
 end
 
 source = on_metadata(apply_metadata, source)
@@ -18,9 +18,9 @@ source = on_metadata(apply_metadata, source)
 # The password corresponds to the source password set in icecast.xml.
 output.icecast(
   %mp3.vbr,
-  port = {{ icecast_port }},
-  password = "{{ source_password }}",
-  mount = "{{ stream_name }}",
+  port = {{ stream.icecast.port }},
+  password = "{{ passwords.source }}",
+  mount = "{{ stream.filename }}",
   description = "Online radio for those who like to groove.",
   genre = "Funk / Soul / Jazz",
   url = "https://soulprovidr.fm",

@@ -1,6 +1,6 @@
 <icecast>
     <location>Winnipeg, Canada</location>
-    <admin>{{ email }}</admin>
+    <admin>{{ project.email }}</admin>
 
     <limits>
         <clients>15000</clients>
@@ -15,16 +15,16 @@
 
     <authentication>
         <!-- Sources log in with username 'source' -->
-        <source-password>{{ source_password }}</source-password>
+        <source-password>{{ passwords.source }}</source-password>
         <!-- Admin logs in with the username given below -->
         <admin-user>admin</admin-user>
-        <admin-password>{{ admin_password }}</admin-password>
+        <admin-password>{{ passwords.admin }}</admin-password>
     </authentication>
 
     <hostname>soulprovidr.fm</hostname>
 
     <listen-socket>
-        <port>{{ icecast_port }}</port>
+        <port>{{ stream.icecast.port }}</port>
     </listen-socket>
 
     <http-headers>

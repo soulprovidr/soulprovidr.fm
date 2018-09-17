@@ -1,6 +1,15 @@
 ---
 - name: Install pm2
+  tags: ['never']
   yarn:
     name: pm2
     global: yes
     state: present
+
+- name: Delete pm2 jobs
+  tags: ['never']
+  shell: pm2 delete all
+
+- name: Start api process
+  tags: ['never']
+  shell: pm2 start {{ api.path }}/main.js

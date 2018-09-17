@@ -7,33 +7,33 @@
 
 - name: Install liquidsoap
   tags: ['never']
-  become_user: "{{ ssh_user }}"
-  shell: "opam init -y && opam install {{ liquidsoap_deps | join(' ') }}"
+  become_user: "{{ project.user }}"
+  shell: "opam init -y && opam install {{ stream.liquidsoap.dependencies | join(' ') }}"
 
 - name: Copy stream config
   tags: ['never']
   template:
     src: templates/main.liq
-    dest: "{{ home_path }}/main.liq"
+    dest: "{{ stream.liquidsoap.paths.script }}"
 
 # TODO: Add loop
 - name: Create log file
   tags: ['never']
   file:
-    path: "{{ home_path }}/{{ log_file }}"
-    owner: "{{ ssh_user }}"
-    group: "{{ ssh_user }}"
+    path: "{{ stream.liquidsoap.paths.log }}"
+    owner: "{{ project.user }}"
+    group: "{{ project.user }}"
     state: touch
 
 - name: Create pid file
   tags: ['never']
   file:
-    path: "{{ home_path }}/{{ pid_file }}"
-    owner: "{{ ssh_user }}"
-    group: "{{ ssh_user }}"
+    path: "{{ stream.liquidsoap.paths.pid }}"
+    owner: "{{ project.user }}"
+    group: "{{ project.user }}"
     state: touch
 
 - name: Generate stream
   tags: ['never']
-  become_user: "{{ ssh_user }}"
-  shell: "eval $(opam config env) liquidsoap --daemon main.liq"
+  become_user: "{{ project.user }}"
+  shell: "eval $(opam config env) liquidsoap --daemon {{ stream.liquidsoap.paths.script }}"

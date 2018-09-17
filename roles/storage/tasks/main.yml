@@ -1,9 +1,4 @@
 ---
-# - s3_bucket:
-#     name: "{{ bucket_name }}"
-#     profile: "{{ profile }}"
-#     state: present
-
 - name: Install s3fs
   tags: ['never']
   apt:
@@ -14,31 +9,31 @@
 
 - name: Create password file
   tags: ['never']
-  become_user: "{{ ssh_user }}"
+  become_user: "{{ project.user }}"
   template:
     src: templates/passwd-s3fs
-    dest: "{{ home_path }}/.passwd-s3fs"
+    dest: "{{ lookup('env', 'HOME') }}/.passwd-s3fs"
     mode: 0600
 
 - name: Unmount directory
   tags: ['never']
-  shell: "umount {{ home_path }}/{{ media_folder }} || :"
+  shell: "umount {{ storage.path }} || :"
 
 - name: Remove directory
   tags: ['never']
   file:
-    path: "{{ home_path }}/{{ media_folder }}"
+    path: "{{ storage.path }}"
     state: absent
 
 - name: Create mount directory
   tags: ['never']
-  become_user: "{{ ssh_user }}"
+  become_user: "{{ project.user }}"
   file:
-    path: "{{ home_path }}/{{ media_folder }}"
+    path: "{{ storage.path }}"
     state: directory
     mode: 0755
 
 - name: Mount S3 bucket
   tags: ['never']
-  become_user: "{{ ssh_user }}"
-  shell: "s3fs {{ bucket_name }} {{ home_path }}/{{ media_folder }} -o passwd_file={{ home_path }}/.passwd-s3fs -o umask=0022"
+  become_user: "{{ project.user }}"
+  shell: "s3fs {{ storage.bucket }} {{ storage.path }} -o passwd_file={{ lookup('env', 'HOME') }}/.passwd-s3fs -o umask=0022"
