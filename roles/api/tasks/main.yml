@@ -10,4 +10,4 @@
 
 - name: Start api process
   tags: ['never']
-  shell: pm2 start {{ api.path }}/main.js
+  shell: pm2 start {{ api.path }}/main.js -f --name api

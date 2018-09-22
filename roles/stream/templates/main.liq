@@ -9,7 +9,7 @@ source = crossfade(source)
 def apply_metadata(m)
   artist = m["artist"]
   title = m["title"]
-  #run_process("{{ stream.notify }} #{json_of(m)}")
+  run_process("{{ stream.notify }} #{json_of(m)}")
 end
 
 source = on_metadata(apply_metadata, source)
