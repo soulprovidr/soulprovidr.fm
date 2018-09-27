@@ -2,7 +2,7 @@ set("init.daemon.pidfile.path", "{{ stream.liquidsoap.paths.pid }}")
 set("log.file.path", "{{ stream.liquidsoap.paths.log }}")
 
 # "{{ storage.path }}" is the location of the S3 folder mount.
-source = mksafe( playlist( "{{ storage.path }}", conservative = true, reload_mode = "watch" ) )
+source = mksafe( playlist( "{{ storage.path }}", conservative = true, reload = 21600 ) )
 source = amplify(1.,override="replay_gain", source)
 source = crossfade(source)
 
