@@ -1,0 +1,18 @@
+{
+  "name": "soulprovidr.fm-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "autoprefixer": "^9.1.5",
+    "babel-preset-react-app": "^5.0.2",
+    "parcel-bundler": "^1.10.1",
+    "prop-types": "^15.6.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-helmet": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.2"
+  }
+}
