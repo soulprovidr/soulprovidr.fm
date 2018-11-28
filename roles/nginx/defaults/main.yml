@@ -1,4 +1,0 @@
----
-nginx:
-  domains: []
-  root: /usr/share/nginx/html
