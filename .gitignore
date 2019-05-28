@@ -1,11 +1,19 @@
-# Project dependencies
-.cache
-node_modules
-yarn-error.log
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# Build directory
-/public
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/dist
+/.next
+
+# misc
 .DS_Store
-
-*.retry
-.vault_pass
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
