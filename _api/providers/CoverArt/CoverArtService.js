@@ -7,7 +7,7 @@ const getReleases = async (artist, album) => {
   return data.releases;
 }
 
-const getRelease = async(releaseId) => {
+const getRelease = async (releaseId) => {
   const { data } = await axios.get(`
     https://coverartarchive.org/release/${releaseId}
   `);

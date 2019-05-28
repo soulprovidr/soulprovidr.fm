@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 
 class Player extends Component {
@@ -6,7 +6,6 @@ class Player extends Component {
     isPlaying: PropTypes.bool,
     setVolume: PropTypes.func,
     track: PropTypes.object,
-    volume: PropTypes.number
   };
 
   static defaultProps = {
@@ -33,7 +32,7 @@ class Player extends Component {
       return null;
     }
     return (
-      <div className="player text-center position-sticky d-flex flex-column align-items-center">
+      <div className="player text-center position-relative d-flex flex-column align-items-center">
         <img
           className="player__artwork"
           src={track.image || '/static/images/lady-lady.jpg'}
@@ -42,7 +41,7 @@ class Player extends Component {
         <p className="player__title font-weight-bold m-0 mt-3">
           {track.artist} - {track.title}
         </p>
-        <p className="h7 text-black-50">
+        <p className="h7 text-black-50 m-0">
           {track.album} ({track.year})
         </p>
         <button className="player__play mt-4 rounded-circle">
