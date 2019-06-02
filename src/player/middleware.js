@@ -8,12 +8,12 @@ function createSound() {
     src: [STREAM_URL],
     format: ['mp3'],
     html5: true,
-    preload: true,
+    preload: false,
     volume: 0
   });
 }
 
-let _sound = createSound();
+let _sound = null;
 
 export default ({ dispatch, getState }) => next => action => {
   switch (action.type) {
