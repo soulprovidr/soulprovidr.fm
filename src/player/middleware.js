@@ -1,4 +1,5 @@
 import { Howl } from 'howler';
+import Actions from './actions';
 
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
@@ -8,25 +9,27 @@ function createSound() {
     format: ['mp3'],
     html5: true,
     preload: true,
-    volume: 0,
-    onplay: function () {
-      this.fade(0, 1, 1000);
-    }
+    volume: 0
   });
 }
 
 let _sound = createSound();
 
-export default store => next => action => {
+export default ({ dispatch, getState }) => next => action => {
   switch (action.type) {
     case 'PLAY':
-      const { player } = store.getState();
+      const { player } = getState();
       if (!_sound) {
         _sound = createSound();
       }
-      if (!player.isPlaying) {
-        _sound.play();
-      }
+      _sound.on('play', () => {
+        dispatch(Actions.playSuccess());
+        _sound.fade(0, 1, 1000);
+      });
+      _sound.on('playerror', err => {
+        dispatch(Actions.playFailure(err));
+      });
+      _sound.play();
       break;
     case 'PAUSE':
       if (_sound) {

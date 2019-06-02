@@ -6,6 +6,14 @@ import Menu from './menu/components/Menu';
 
 const globalStyles = (
   <style jsx global>{`
+    html, body {
+      font-family: Avenir Next, sans-serif;
+    }
+    
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+      font-family: Avenir Next;
+    }
+
     main {
       width: 100vw;
       height: 100vh;
@@ -19,7 +27,7 @@ const styles = (
       overflow-y: auto;
       position: fixed;
       top: 60px; right: 0; bottom: 0; left: 0;
-      transition: transform 150ms ease;
+      transition: transform 350ms cubic-bezier(.37,.52,.26,1);
       width: 100%;
     }
     section.hidden {
@@ -44,7 +52,10 @@ export default function App() {
         toggleMenu={toggleMenu}
       />
       <Menu isOpen={isMenuOpen} />
-      <section className={isMenuOpen ? 'hidden' : ''}>
+      <section className={`
+        container
+        ${isMenuOpen ? 'hidden' : ''}
+      `}>
         <Listen />
       </section>
     </>

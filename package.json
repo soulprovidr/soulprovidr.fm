@@ -1,9 +1,8 @@
 {
   "name": "create-next-example-app",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start"
+    "build": "parcel build src/static/index.html",
+    "start": "parcel src/static/index.html"
   },
   "dependencies": {
     "@adonisjs/websocket-client": "^1.0.9",

@@ -18,7 +18,7 @@ function Header({ isMenuOpen, toggleMenu }) {
           height="35"
           src={LogoImage}
         />
-        <span className="h4 font-weight-bold m-0">
+        <span className="h5 font-weight-bold m-0">
           SOUL PROVIDER
         </span>
         <Hamburger

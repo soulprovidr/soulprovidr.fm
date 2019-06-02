@@ -11,7 +11,7 @@ const styles = (
       position: fixed;
       top: 60px; left: 0; right: 0; bottom: 0;
       transform: translateX(100%);
-      transition: transform 150ms ease;
+      transition: transform 250ms cubic-bezier(.37,.52,.26,1);
       z-index: 1;
     }
 
@@ -20,7 +20,6 @@ const styles = (
     }
 
     .menu__content {
-      #animation: fadeIn 150ms ease 150ms;
       animation-fill-mode: backwards;
     }
   `}</style>
