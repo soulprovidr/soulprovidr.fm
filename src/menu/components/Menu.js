@@ -1,7 +1,5 @@
 import React from 'react';
 
-import LadyLady from '../../static/images/lady-lady.jpg';
-
 const styles = (
   <style jsx>{`
     @keyframes fadeIn {
