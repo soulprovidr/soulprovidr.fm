@@ -31,7 +31,7 @@ const styles = (
       width: 100%;
     }
     section.hidden {
-      transform: translateX(-25%);
+      transform: translateX(25%);
     }
   `}</style>
 );

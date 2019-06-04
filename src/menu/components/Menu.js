@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LadyLady from '../../static/images/lady-lady.jpg';
+
 const styles = (
   <style jsx>{`
     @keyframes fadeIn {
@@ -8,9 +10,10 @@ const styles = (
     }
 
     .menu {
+      overflow-y: auto;
       position: fixed;
       top: 60px; left: 0; right: 0; bottom: 0;
-      transform: translateX(100%);
+      transform: translateX(-100%);
       transition: transform 250ms cubic-bezier(.37,.52,.26,1);
       z-index: 1;
     }
@@ -31,17 +34,18 @@ function Menu({ isOpen }) {
       menu bg-white ${isOpen ? 'is-open' : ''}
     `}>
       {styles}
-      <div className="container menu__content mt-3 text-justify d-flex flex-column flex-grow-1">
+      {/* <img src={RayImage} width="100%" /> */}
+      <div className="container menu__content mt-3 d-flex flex-column justify-content-center align-items-center h-100 text-center">
         <div>
-          <p>
-            <strong>Soul Provider</strong> is an online radio station for those who like to groove.
+          <p className="h6">
+            Internet radio for those who like to groove.
           </p>
-          <p>Tune in daily for a handpicked mix of soulful music spanning the genres of <strong>funk, soul, disco, R&B, hip-hop</strong>, and everything in-between.</p>
-          <p>Stay in the loop by signing up for the <strong>Soul Provider</strong> newsletter:</p>
+          <p><a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a></p>
+          {/* <p>Stay in the loop by signing up for the <strong>Soul Provider</strong> newsletter:</p>
           <form className="form-inline">
             <input type="email" placeholder="shola@soulprovidr.fm" />
             <button type="submit">Sign up</button>
-          </form>
+          </form> */}
           <ul className="d-none">
             <li>LISTEN</li>
             <li>SCHEDULE</li>

@@ -11,8 +11,8 @@ export default onSuccess => {
         onSuccess({
           artist: data.artist,
           album: data.album,
+          buy_link: data.buy_link,
           image: data.cover,
-          year: 2000,
           title: data.title
         })
       });

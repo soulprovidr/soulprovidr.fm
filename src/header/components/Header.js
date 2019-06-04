@@ -3,6 +3,18 @@ import React from 'react';
 import LogoImage from '../../static/images/logo.svg';
 import Hamburger from './Hamburger';
 
+const styles = (
+  <style jsx>{`
+    header {
+      border-bottom: 1px solid #ddd;
+      height: 60px;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1;
+    }
+  `}</style>
+)
+
 const defaultProps = {
   isMenuOpen: false,
   toggleMenu: () => null
@@ -11,6 +23,7 @@ const defaultProps = {
 function Header({ isMenuOpen, toggleMenu }) {
   return (
     <header className="bg-white">
+      {styles}
       <div className="d-flex justify-content-between align-items-center py-1 px-4">
         <img
           className="d-inline-block align-middle rounded-circle"
@@ -26,17 +39,6 @@ function Header({ isMenuOpen, toggleMenu }) {
           onClick={toggleMenu}
         />
       </div>
-
-      <style jsx>{`
-        header {
-          border-bottom: 1px solid #ddd;
-          height: 60px;
-          position: fixed;
-          top: 0; left: 0; right: 0;
-          z-index: 1;
-        }
-      `}</style>
-
     </header>
   );
 }

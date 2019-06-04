@@ -1,6 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const styles = (
+  <style jsx>{`
+    .hamburger,
+    .hamburger:active,
+    .hamburger:focus {
+      outline: 0;
+    }
+  `}</style>
+)
+
 const propTypes = {
   isActive: PropTypes.bool,
   onClick: PropTypes.func
@@ -22,6 +32,7 @@ function Hamburger({ isActive, onClick }) {
       onClick={onClick}
       type="button"
     >
+      {styles}
       <span className="hamburger-box">
         <span className="hamburger-inner"></span>
       </span>
