@@ -26,7 +26,7 @@ const styles = (
     section {
       overflow-y: auto;
       position: fixed;
-      top: 60px; right: 0; bottom: 0; left: 0;
+      top: 59px; right: 0; bottom: 0; left: 0;
       transition: transform 350ms cubic-bezier(.37,.52,.26,1);
       width: 100%;
     }

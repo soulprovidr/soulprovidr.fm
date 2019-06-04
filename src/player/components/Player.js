@@ -5,7 +5,6 @@ import BuyIcon from '../../static/images/buy.png';
 import DefaultCover from '../../static/images/default.png';
 import HeartIcon from '../../static/images/heart.png';
 
-import Actions from '../actions';
 import fetchCurrentTrack from '../effects/fetchCurrentTrack';
 
 import PlayButton from './PlayButton';
@@ -70,19 +69,21 @@ const Player = ({
   }
 
   return track ? (
-    <div className="player text-center position-relative d-flex flex-column align-items-center">
+    <div className="player d-flex flex-column">
       {styles}
       <img
         className="player__artwork"
         src={track.image || DefaultCover}
         width="100%"
       />
-      <p className="player__title font-weight-bold m-0 mt-3">
-        {track.title}
-      </p>
-      <p className="h7 text-black-50 m-0">
-      {track.artist}
-      </p>
+      <div className="player__text text-left mt-3 px-1">
+        <p className="player__title font-weight-bold m-0">
+          {track.title}
+        </p>
+        <p className="h7 text-black-50 m-0">
+        {track.artist}
+        </p>
+      </div>
       <div className="player__controls d-flex align-items-center justify-content-between w-100 mt-4 px-4">
         {renderLikeLink()}
         <PlayButton />
