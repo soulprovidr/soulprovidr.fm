@@ -7,7 +7,7 @@ const styles = (
   <style jsx>{`
     header {
       border-bottom: 1px solid #ddd;
-      height: 59px;
+      height: 75px;
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 1;
@@ -34,7 +34,7 @@ function Header({ isMenuOpen, toggleMenu }) {
   return (
     <header className="bg-white">
       {styles}
-      <div className="d-flex align-items-center py-2 px-4">
+      <div className="d-flex align-items-center py-3 px-4">
         <img
           className="d-inline-block align-middle rounded-circle mr-3"
           width="40"
