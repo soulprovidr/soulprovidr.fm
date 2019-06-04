@@ -8,7 +8,7 @@ function createSound() {
     src: [STREAM_URL],
     format: ['mp3'],
     html5: true,
-    preload: true,
+    preload: false,
     volume: 0
   });
 }
