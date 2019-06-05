@@ -14,6 +14,8 @@ const styles = (
     .player__artwork {
       border: 1px solid #dddddd9c;
       border-radius: 4px;
+      max-height: 350px;
+      width: auto;
     }
 
     .player__title {
