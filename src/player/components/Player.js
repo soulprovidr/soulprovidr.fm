@@ -31,7 +31,7 @@ const styles = (
 
     @media (orientation: portrait) and (max-width: 400px) and (max-height: 600px) {
       .player__artwork img {
-        height: 300px;
+        height: 250px;
       }
     }
   `}</style>
