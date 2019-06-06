@@ -17,7 +17,6 @@ const styles = (
     }
 
     .player__artwork {
-      height: calc(100vw - 30px);
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -45,7 +44,7 @@ const Player = ({ like }) => {
         <div className="player h-100 w-100 d-flex flex-column justify-content-center">
           {styles}
           <div
-            className="player__artwork text-center"
+            className="player__artwork text-center flex-grow-1"
             style={{ backgroundImage: `url(${track.image || DefaultCover})` }}
           >
           </div>
