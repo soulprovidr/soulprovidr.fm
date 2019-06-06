@@ -45,7 +45,7 @@ function Header({ isMenuOpen, toggleMenu }) {
           <p className="h5 font-weight-bold m-0">
             SOUL PROVIDER
           </p>
-          <p className="header__subtitle m-0 text-muted d-sm-none d-block">
+          <p className="header__subtitle m-0 text-muted">
             Internet radio for those who like to groove.
           </p>
         </div>

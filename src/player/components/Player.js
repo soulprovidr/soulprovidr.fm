@@ -17,7 +17,10 @@ const styles = (
     }
 
     .player__artwork {
-      min-height: 0;
+      height: calc(100vw - 30px);
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .player__artwork img {
@@ -37,17 +40,16 @@ const Player = ({ like }) => {
   useEffect(fetchCurrentTrack(setTrack), []);
 
   return (
-    <div className="h-100 w-100 d-flex align-items-center justify-content-center py-3">
+    <div className="h-100 w-100 d-flex align-items-center justify-content-center py-5">
       {track ? (
         <div className="player h-100 w-100 d-flex flex-column justify-content-center">
           {styles}
-          <div className="player__artwork text-center">
-            <img
-              className="mh-100 mw-100"
-              src={track.image || DefaultCover}
-            />
+          <div
+            className="player__artwork text-center"
+            style={{ backgroundImage: `url(${track.image || DefaultCover})` }}
+          >
           </div>
-          <div className="player__text text-left mt-3 px-1">
+          <div className="player__text text-center mt-3 px-1">
             <p className="player__title font-weight-bold m-0">
               {track.title}
             </p>
