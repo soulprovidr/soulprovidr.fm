@@ -17,7 +17,7 @@ const styles = (
       font-size: 0.8em;
     }
 
-    @media (max-width: 360px) {
+    @media (max-width: 368px) {
       header {
         font-size: .9em;
       }  
@@ -45,7 +45,7 @@ function Header({ isMenuOpen, toggleMenu }) {
           <p className="h5 font-weight-bold m-0">
             SOUL PROVIDER
           </p>
-          <p className="header__subtitle m-0 text-muted">
+          <p className="header__subtitle m-0 text-muted d-sm-none d-block">
             Internet radio for those who like to groove.
           </p>
         </div>
