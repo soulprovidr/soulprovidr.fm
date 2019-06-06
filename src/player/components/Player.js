@@ -28,6 +28,12 @@ const styles = (
     .player__title {
       font-size: 1.25em;
     }
+
+    @media (orientation: portrait) and (max-width: 400px) and (max-height: 600px) {
+      .player__artwork img {
+        height: 300px;
+      }
+    }
   `}</style>
 );
 
@@ -44,7 +50,6 @@ const Player = ({ like }) => {
             <img
               className="m-auto w-auto mh-100 mw-100"
               src={track.image || DefaultCover}
-              width="100%"
             />
           </div>
           <div className="player__text text-left mt-3 px-1">
