@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import Header from './header/components/Header';
 import Listen from './views/Listen';
 import Menu from './menu/components/Menu';
+import Player from './player/components/Player';
 
 const globalStyles = (
   <style jsx global>{`
@@ -12,11 +13,6 @@ const globalStyles = (
     
     .h1, .h2, .h3, .h4, .h5, .h6 {
       font-family: Avenir Next;
-    }
-
-    main {
-      width: 100vw;
-      height: 100vh;
     }
   `}</style>
 );
@@ -56,7 +52,7 @@ export default function App() {
         container
         ${isMenuOpen ? 'hidden' : ''}
       `}>
-        <Listen />
+        <Player />
       </section>
     </>
   );

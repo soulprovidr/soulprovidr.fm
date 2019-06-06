@@ -7,95 +7,71 @@ import HeartIcon from '../../static/images/heart.png';
 
 import fetchCurrentTrack from '../effects/fetchCurrentTrack';
 
+import Icon from './Icon';
 import PlayButton from './PlayButton';
 
 const styles = (
   <style jsx>{`
+    .player {
+      max-width: 450px;
+    }
+
     .player__artwork {
       border: 1px solid #dddddd9c;
       border-radius: 4px;
-      max-height: 350px;
-      width: auto;
+      # height: 300px;
+      width: 100%;
+      margin: 0 auto;
     }
 
     .player__title {
       font-size: 1.25em;
     }
-
-    .player__icon {
-      height: 35px;
-      width: 35px;
-    }
-
-    .player__icon img {
-      width: 100%;
-      height: 100%;
-    }
-
-    .player__icon:hover {
-      opacity: 1;
-    }
   `}</style>
 );
 
-const Player = ({
-  isBuffering,
-  isPlaying,
-  like,
-  pause,
-  play
-}) => {
+const Player = ({ like }) => {
   const [track, setTrack] = useState(null);
   useEffect(fetchCurrentTrack(setTrack), []);
 
-  function renderBuyLink() {
-    return track && track.buy_link ? (
-      <a
-        className="player__icon"
-        href={track.buy_link}
-        target="_blank"
-      >
-        <img src={BuyIcon} />
-      </a>
-    ) : <span className="player__icon" />
-  }
-
-  function renderLikeLink() {
-    return track ? (
-      <img
-        className="player__icon"
-        onClick={like}
-        src={HeartIcon}
-      />
-    ) : <span className="player__icon" />;
-  }
-
-  return track ? (
-    <div className="player d-flex flex-column">
-      {styles}
-      <img
-        className="player__artwork"
-        src={track.image || DefaultCover}
-        width="100%"
-      />
-      <div className="player__text text-left mt-3 px-1">
-        <p className="player__title font-weight-bold m-0">
-          {track.title}
+  return (
+    <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+      {track ? (
+        <div className="player d-flex flex-column">
+          {styles}
+          <img
+            className="player__artwork flex-shrink-1"
+            src={track.image || DefaultCover}
+            width="100%"
+          />
+          <div className="player__text text-left mt-3 px-1">
+            <p className="player__title font-weight-bold m-0">
+              {track.title}
+            </p>
+            <p className="h7 text-black-50 m-0">
+            {track.artist}
+            </p>
+          </div>
+          <div className="player__controls d-flex align-items-center justify-content-between w-100 mt-4 px-4">
+            <Icon
+              disabled={!track}
+              onClick={like}
+              src={HeartIcon}
+            />
+            <PlayButton />
+            <Icon
+              disabled={!track.buy_link}
+              onClick={() => window.location(track.buy_link, '_blank')}
+              src={BuyIcon}
+            />
+          </div>
+        </div>
+      ) : (
+        <p className="h6 font-weight-bold align-self-center">
+          No track currently playing.
         </p>
-        <p className="h7 text-black-50 m-0">
-        {track.artist}
-        </p>
-      </div>
-      <div className="player__controls d-flex align-items-center justify-content-between w-100 mt-4 px-4">
-        {renderLikeLink()}
-        <PlayButton />
-        {renderBuyLink()}
-      </div>
+      )}
     </div>
-  ) : (
-    <p className="h6 font-weight-bold align-self-center">
-      No track currently playing.
-    </p>
   );
 }
 

@@ -19,6 +19,10 @@ const styles = (
       outline: none;
       line-height: 1em;
     }
+
+    .player__btn.play img {
+      margin-left: 4px;
+    }
   `}</style>
 )
 
@@ -30,7 +34,10 @@ function PlayButton({
 }) {
   return (
     <button
-      className="player__btn rounded-circle"
+      className={`
+        player__btn rounded-circle
+        ${isPlaying ? 'pause' : 'play'}
+      `}
       onClick={
         !isBuffering
           ? isPlaying ? pause : play
