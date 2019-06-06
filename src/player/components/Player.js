@@ -13,15 +13,16 @@ import PlayButton from './PlayButton';
 const styles = (
   <style jsx>{`
     .player {
-      max-width: 450px;
+      max-width: 400px;
     }
 
     .player__artwork {
+      min-height: 0;
+    }
+
+    .player__artwork img {
       border: 1px solid #dddddd9c;
       border-radius: 4px;
-      # height: 300px;
-      width: 100%;
-      margin: 0 auto;
     }
 
     .player__title {
@@ -35,15 +36,17 @@ const Player = ({ like }) => {
   useEffect(fetchCurrentTrack(setTrack), []);
 
   return (
-    <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+    <div className="h-100 w-100 d-flex align-items-center justify-content-center py-3">
       {track ? (
-        <div className="player d-flex flex-column">
+        <div className="player h-100 w-100 d-flex flex-column justify-content-center">
           {styles}
-          <img
-            className="player__artwork flex-shrink-1"
-            src={track.image || DefaultCover}
-            width="100%"
-          />
+          <div className="player__artwork text-center">
+            <img
+              className="m-auto w-auto mh-100 mw-100"
+              src={track.image || DefaultCover}
+              width="100%"
+            />
+          </div>
           <div className="player__text text-left mt-3 px-1">
             <p className="player__title font-weight-bold m-0">
               {track.title}
