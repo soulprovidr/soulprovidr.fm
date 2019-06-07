@@ -30,12 +30,6 @@ const Player = ({ like }) => {
               background-repeat: no-repeat;
             }
 
-            .player__artwork img {
-              border: 1px solid #dddddd9c;
-              border-radius: 4px;
-              object-fit: contain;
-            }
-
             .player__title {
               font-size: 1.25em;
             }
@@ -44,8 +38,7 @@ const Player = ({ like }) => {
           <div
             className="player__artwork text-center flex-grow-1"
             style={{ backgroundImage: `url(${track.image || DefaultCover})` }}
-          >
-          </div>
+          />
           <div className="player__text text-center mt-3 px-1">
             <p className="player__title font-weight-bold m-0">
               {track.title}
