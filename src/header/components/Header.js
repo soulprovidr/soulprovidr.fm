@@ -1,39 +1,30 @@
 import React from 'react';
 
 import LogoImage from '../../static/images/logo.svg';
-import Hamburger from './Hamburger';
 
-const styles = (
-  <style jsx>{`
-    header {
-      border-bottom: 1px solid #ddd;
-      height: 75px;
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 1;
-    }
-
-    .header__subtitle {
-      font-size: 0.8em;
-    }
-
-    @media (max-width: 368px) {
-      header {
-        font-size: .9em;
-      }  
-    }
-  `}</style>
-)
-
-const defaultProps = {
-  isMenuOpen: false,
-  toggleMenu: () => null
-};
-
-function Header({ isMenuOpen, toggleMenu }) {
+export default function Header() {
   return (
     <header className="bg-white">
-      {styles}
+      <style jsx>{`
+        header {
+          border-bottom: 1px solid #ddd;
+          height: 75px;
+          position: fixed;
+          top: 0; left: 0; right: 0;
+          z-index: 1;
+        }
+
+        .header__subtitle {
+          font-size: 0.8em;
+        }
+
+        @media (max-width: 368px) {
+          header {
+            font-size: .9em;
+          }  
+        }
+      `}</style>
+
       <div className="d-flex align-items-center py-3 px-4">
         <img
           className="d-inline-block align-middle rounded-circle mr-3"
@@ -49,15 +40,7 @@ function Header({ isMenuOpen, toggleMenu }) {
             Internet radio for those who like to groove.
           </p>
         </div>
-        {/* <Hamburger
-          isActive={isMenuOpen}
-          onClick={toggleMenu}
-        /> */}
       </div>
     </header>
   );
 }
-
-Header.defaultProps = defaultProps;
-
-export default Header;

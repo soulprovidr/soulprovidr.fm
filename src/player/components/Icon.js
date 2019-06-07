@@ -12,10 +12,16 @@ export default function Icon({
           height: 35px;
           width: 35px;
           cursor: pointer;
+          opacity: 1;
+          transition: transform 150ms ease;
+        }
+
+        .player__icon:hover {
+          transform: scale(1.1);
         }
 
         .player__icon--disabled {
-          opacity: 0.5;
+          opacity: 0.3;
           cursor: not-allowed;
         }
       `}</style>
