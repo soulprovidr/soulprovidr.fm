@@ -1,20 +1,50 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import BuyIcon from '../../static/images/buy.png';
-import DefaultCover from '../../static/images/default.png';
-import HeartIcon from '../../static/images/heart.png';
-import HeartOutlineIcon from '../../static/images/heart_outline.png';
-import HeartRedIcon from '../../static/images/heart_red.png';
-
-import fetchCurrentTrack from '../effects/fetchCurrentTrack';
+import BuyIcon from '../static/images/buy.png';
+import DefaultCover from '../static/images/default.png';
+import HeartIcon from '../static/images/heart.png';
+import HeartOutlineIcon from '../static/images/heart_outline.png';
+import HeartRedIcon from '../static/images/heart_red.png';
 
 import Icon from './Icon';
 import PlayButton from './PlayButton';
 
 const Player = ({ like }) => {
   const [track, setTrack] = useState(null);
-  useEffect(fetchCurrentTrack(setTrack), []);
+
+  useEffect(() => {
+    let timeout = null;
+    (function fetchMeta() {
+      fetch('https://www.radioking.com/widgets/api/v1/radio/210013/track/current')
+        .then(response => response.json())
+        .then(data => {
+          setTrack({
+            id: data.id,
+            artist: data.artist,
+            album: data.album,
+            buy_link: data.buy_link,
+            image: data.cover,
+            title: data.title
+          })
+        });
+      timeout = setTimeout(fetchMeta, 5000);
+    })();
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  function onBuyClick() {
+    if (track.buy_link) {
+      window.open(track.buy_link, '_blank');
+    }
+  }
+
+  function onLikeClick() {
+
+  }
+
   return (
     <div className="h-100 w-100 d-flex align-items-center justify-content-center py-5">
       {track ? (
@@ -49,20 +79,20 @@ const Player = ({ like }) => {
           </div>
           <div className="player__controls d-flex align-items-center justify-content-between w-100 mt-4 px-4">
             <Icon
-              onClick={like}
-              src={false ? HeartIcon : HeartRedIcon}
+              onClick={onLikeClick}
+              src={false ? HeartRedIcon : HeartOutlineIcon}
             />
             <PlayButton />
             <Icon
               disabled={!track.buy_link}
-              onClick={() => window.open(track.buy_link, '_blank')}
+              onClick={onBuyClick}
               src={BuyIcon}
             />
           </div>
         </div>
       ) : (
         <p className="h6 font-weight-bold align-self-center">
-          No track currently playing.
+          Loading...
         </p>
       )}
     </div>

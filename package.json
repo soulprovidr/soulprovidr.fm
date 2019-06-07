@@ -16,6 +16,7 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
+    "soundmanager2": "^2.97.20170602",
     "styled-jsx": "^3.2.1",
     "whatwg-fetch": "^3.0.0"
   },

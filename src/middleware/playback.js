@@ -1,5 +1,5 @@
 import { Howl } from 'howler';
-import Actions from './actions';
+import Actions from '../actions';
 
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 

@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import Actions from '../actions';
 
-import PauseIcon from '../../static/images/pause.png';
-import PlayIcon from '../../static/images/play.png';
+import PauseIcon from '../static/images/pause.png';
+import PlayIcon from '../static/images/play.png';
 
 const styles = (
   <style jsx>{`
@@ -59,8 +59,8 @@ function PlayButton({
 }
 
 const mapStateToProps = state => ({
-  isBuffering: state.player.isBuffering,
-  isPlaying: state.player.isPlaying
+  isBuffering: state.isBuffering,
+  isPlaying: state.isPlaying
 });
 
 const mapDispatchToProps = {

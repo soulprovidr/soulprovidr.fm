@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
-import Header from './header/components/Header';
-import Player from './player/components/Player';
+import Header from './Header';
+import Player from './Player';
 
 export default function App() {
   return (

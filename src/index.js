@@ -6,23 +6,15 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-import App from './App';
-
-// Middleware.
-import playerMiddleware from './player/middleware';
-
-// Reducers.
-import playerReducer from './player/reducer';
-
-const reducer = combineReducers({
-  player: playerReducer
-});
+import App from './components/App';
+import playbackMiddleware from './middleware/playback';
+import reducer from './reducer';
 
 const store = createStore(
   reducer,
   {},
   composeWithDevTools(applyMiddleware(
-    playerMiddleware
+    playbackMiddleware
   ))
 );
   
