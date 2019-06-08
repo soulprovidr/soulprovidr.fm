@@ -1,28 +1,28 @@
 {
-  "name": "create-next-example-app",
+  "name": "soulprovidr.fm",
   "scripts": {
     "build": "parcel build src/static/index.html",
     "start": "parcel src/static/index.html"
   },
   "dependencies": {
-    "@adonisjs/websocket-client": "^1.0.9",
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "howler": "^2.1.2",
-    "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-progressive-bg-image": "^3.0.0",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
     "soundmanager2": "^2.97.20170602",
-    "styled-jsx": "^3.2.1",
+    "styled-components": "^4.3.1",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.3",
+    "styled-jsx": "^3.2.1"
   }
 }

@@ -1,30 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import Actions from '../actions';
 
 import PauseIcon from '../static/images/pause.png';
 import PlayIcon from '../static/images/play.png';
 
-const styles = (
-  <style jsx>{`
-    .player__btn,
-    .player__btn:active,
-    .player__btn:focus {
-      width: 65px;
-      height: 65px;
-      background: black;
-      border: none;
-      top: 125px;
-      outline: none;
-      line-height: 1em;
-    }
+const Button = styled.button`
+  &, &:active, &:focus {
+    width: 65px;
+    height: 65px;
+    background: black;
+    border: none;
+    top: 125px;
+    outline: none;
+    line-height: 1em;
+  }
+`;
 
-    .player__btn.play img {
-      margin-left: 4px;
-    }
-  `}</style>
-)
+const ButtonImage = styled.img`
+  width: 50%;
+`;
 
 function PlayButton({
   isBuffering,
@@ -33,28 +30,24 @@ function PlayButton({
   play
 }) {
   return (
-    <button
-      className={`
-        player__btn rounded-circle
-        ${isPlaying ? 'pause' : 'play'}
-      `}
+    <Button
+      className="rounded-circle"
       onClick={
         !isBuffering
           ? isPlaying ? pause : play
           : null}
     >
-      {styles}
       {isBuffering ? (
         <div className="spinner-border text-light" role="status">
           <span className="sr-only">Loading...</span>
         </div>
       ) : (
-        <img
+        <ButtonImage
           src={isPlaying ? PauseIcon : PlayIcon}
           width="50%"
         />
       )}
-    </button>
+    </Button>
   );
 }
 
