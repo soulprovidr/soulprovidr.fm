@@ -6,6 +6,7 @@ const initialState = {
   isBuffering: false,
   isPlaying: false
 };
+
 export default handleActions({
   [Actions.pause]: state => ({ ...state, isPlaying: false }),
   [Actions.play]: state => ({ ...state, isBuffering: true }),
