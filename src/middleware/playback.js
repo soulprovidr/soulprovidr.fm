@@ -15,10 +15,9 @@ function createSound() {
 
 let _sound = createSound();
 
-export default ({ dispatch, getState }) => next => action => {
+export default ({ dispatch }) => next => action => {
   switch (action.type) {
     case 'PLAY':
-      const { player } = getState();
       if (!_sound) {
         _sound = createSound();
       }

@@ -1,11 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import ProgressiveImage from 'react-progressive-bg-image';
 import styled from 'styled-components';
 
+import Actions from '../actions';
 import BuyIcon from '../static/images/buy.png';
 import DefaultCover from '../static/images/default.png';
 import HeartOutlineIcon from '../static/images/heart_outline.png';
 import HeartRedIcon from '../static/images/heart_red.png';
+import useMeta from '../hooks/useMeta';
 
 import Icon from './Icon';
 import PlayButton from './PlayButton';
@@ -14,80 +17,58 @@ const Player = styled.div`
   max-width: 400px;
 `;
 
-const TrackCover = styled(ProgressiveImage)`
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-`;
+const TrackCover = React.memo(
+  styled(ProgressiveImage)`
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+`);
 
 const TrackTitle = styled.p`
   font-size: 1.25em;
 `;
 
 const PlayerView = () => {
-  const [track, setTrack] = useState(null);
-  const trackRef = useRef(track);
+  const dispatch = useDispatch();
+  const likes = useSelector(state => state.likes || []);
+  const meta = useMeta(5000);
+  const isLiked = meta ? likes.includes(meta.id) : false;
 
-  useEffect(() => {
-    let timeout = null;
-    (function fetchMeta() {
-      fetch('https://www.radioking.com/widgets/api/v1/radio/210013/track/current')
-        .then(response => response.json())
-        .then(data => {
-          if (!trackRef.current || trackRef.current.id !== data.id) {
-            trackRef.current = data;
-            setTrack({
-              id: data.id,
-              artist: data.artist,
-              album: data.album,
-              buy_link: data.buy_link,
-              image: data.cover,
-              title: data.title
-            });
-          }
-        });
-      timeout = setTimeout(fetchMeta, 5000);
-    })();
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, []);
-
-  function onBuyClick() {
-    if (track.buy_link) {
-      window.open(track.buy_link, '_blank');
+  const onBuyClick = () => {
+    if (meta.buy_link) {
+      window.open(meta.buy_link, '_blank');
     }
-  }
+  };
 
-  function onLikeClick() {
-
-  }
+  const onLikeClick = () => {
+    dispatch(Actions.like(meta.id));
+  };
 
   return (
     <div className="h-100 w-100 d-flex align-items-center justify-content-center py-5">
-      {track ? (
+      {meta ? (
         <Player className="h-100 w-100 d-flex flex-column justify-content-center">
           <TrackCover
             className="text-center flex-grow-1"
-            src={track.image || DefaultCover}
+            src={meta.cover || DefaultCover}
             placeholder={DefaultCover}
           />
           <div className="text-center mt-3 px-1">
             <TrackTitle className="font-weight-bold m-0">
-              {track.title}
+              {meta.title}
             </TrackTitle>
             <p className="h7 text-black-50 m-0">
-            {track.artist}
+            {meta.artist}
             </p>
           </div>
           <div className="d-flex align-items-center justify-content-between w-100 mt-4 px-4">
             <Icon
-              onClick={onLikeClick}
-              src={false ? HeartRedIcon : HeartOutlineIcon}
+              onClick={!isLiked ? onLikeClick : null}
+              src={isLiked ? HeartRedIcon : HeartOutlineIcon}
             />
             <PlayButton />
             <Icon
-              disabled={!track.buy_link}
+              disabled={!meta.buy_link}
               onClick={onBuyClick}
               src={BuyIcon}
             />
