@@ -3,7 +3,7 @@ import Actions from './actions';
 import initialState from './initialState';
 
 export default handleActions({
-  [Actions.likeSuccess]: (state, { payload: { id } }) => ({
+  [Actions.like]: (state, { payload: { id } }) => ({
     ...state,
     likes: [...state.likes, id]
   }),
