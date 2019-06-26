@@ -9,6 +9,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './components/App';
 import initialState from './initialState';
 import likeMiddleware from './middleware/like';
+import metaMiddleware from './middleware/meta';
 import playbackMiddleware from './middleware/playback';
 import reducer from './reducer';
 
@@ -17,6 +18,7 @@ const store = createStore(
   initialState,
   composeWithDevTools(applyMiddleware(
     likeMiddleware,
+    metaMiddleware,
     playbackMiddleware
   ))
 );

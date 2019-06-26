@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import ProgressiveImage from 'react-progressive-bg-image';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ import BuyIcon from '../static/images/buy.png';
 import DefaultCover from '../static/images/default.png';
 import HeartOutlineIcon from '../static/images/heart_outline.png';
 import HeartRedIcon from '../static/images/heart_red.png';
-import useMeta from '../hooks/useMeta';
+import useFetchMeta from '../hooks/useFetchMeta';
 
 import Icon from './Icon';
 import PlayButton from './PlayButton';
@@ -28,22 +28,17 @@ const TrackTitle = styled.p`
   font-size: 1.25em;
 `;
 
-const PlayerView = () => {
-  const dispatch = useDispatch();
-  const likes = useSelector(state => state.likes || []);
-  const meta = useMeta(5000);
+const PlayerView = ({ like, likes, meta }) => {
+  useFetchMeta(5000);
   const isLiked = meta ? likes.includes(meta.id) : false;
-
   const onBuyClick = () => {
     if (meta.buy_link) {
       window.open(meta.buy_link, '_blank');
     }
   };
-
   const onLikeClick = () => {
-    dispatch(Actions.like(meta.id));
+    like(meta.id);
   };
-
   return (
     <div className="h-100 w-100 d-flex align-items-center justify-content-center py-5">
       {meta ? (
@@ -83,4 +78,16 @@ const PlayerView = () => {
   );
 }
 
-export default PlayerView;
+const mapStateToProps = state => ({
+  likes: state.likes || [],
+  meta: state.meta || null
+});
+
+const mapDispatchToProps = {
+  like: Actions.like
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlayerView);

@@ -3,6 +3,15 @@ import Actions from './actions';
 import initialState from './initialState';
 
 export default handleActions({
+  [Actions.fetchMetaSuccess]: (state, { payload: { meta } }) => {
+    if (!meta) return state;
+    return {
+      ...state,
+      meta: !state.meta || (state.meta.id !== meta.id)
+        ? meta
+        : state.meta
+    };
+  },
   [Actions.like]: (state, { payload: { id } }) => ({
     ...state,
     likes: [...state.likes, id]

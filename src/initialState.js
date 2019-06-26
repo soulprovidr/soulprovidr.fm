@@ -1,5 +1,6 @@
 export default {
   isBuffering: false,
   isPlaying: false,
-  likes: []
+  likes: [],
+  meta: null
 };
