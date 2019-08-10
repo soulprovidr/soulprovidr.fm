@@ -3,8 +3,18 @@ const router = express.Router();
 
 const User = require('../users/models/User');
 
-router.post('/login', (req, res) => {
-  
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.query().findOne({ email });
+    if (user && user.authenticate(password)) {
+      return res.status(200).end();
+    } else {
+      return res.status(401).end();
+    }
+  } catch (e) {
+    return res.status(500).end();
+  }
 });
 
 router.post('/register', async (req, res) => {
@@ -12,8 +22,7 @@ router.post('/register', async (req, res) => {
     const user = await User.query().insertAndFetch(req.body);
     return res.status(200).json(user);
   } catch (e) {
-    console.error(e);
-    return res.status(500).json();
+    return res.status(500);
   }
 });
 

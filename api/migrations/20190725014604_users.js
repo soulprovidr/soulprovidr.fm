@@ -8,7 +8,8 @@ exports.up = knex => {
       table.string('lastName');
       table.string('email');
       table.string('password');
-      table.timestamps();
+      table.timestamp('createdAt');
+      table.timestamp('updatedAt');
     });
 };
 

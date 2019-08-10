@@ -18,7 +18,6 @@ class User extends Model {
         'email',
         'password'
       ],
-
       properties: {
         id: { type: 'integer' },
         firstName: { type: 'string', minLength: 1, maxLength: 255 },
