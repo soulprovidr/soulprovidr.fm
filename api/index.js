@@ -21,5 +21,5 @@ if (
   return 1;
 }
 
-require('./modules/db/objection');
-require('./api')(SERVER_PORT || 8000);
+require('./src/modules/db/objection');
+require('./src/api')(SERVER_PORT || 8000);

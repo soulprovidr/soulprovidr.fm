@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const authMiddleware = require('./modules/auth/middleware');
 const authRouter = require('./modules/auth/router');
