@@ -36,7 +36,7 @@ $ node src
 To create a migration, first `cd` into the `api` directory, then run the following command:
 
 ```
-$ npx knex make:migration <name>
+$ npx knex migrate:make <name>
 ```
 
 To run all unapplied migrations, run the following command:
