@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const { knexSnakeCaseMappers } = require('objection');
+
 const {
   DB_HOST,
   DB_NAME,
@@ -15,6 +17,7 @@ module.exports = {
       user: DB_USER,
       password: DB_PASSWORD,
       database: DB_NAME
-    }
+    },
+    ...knexSnakeCaseMappers()
   }
 };

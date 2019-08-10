@@ -24,22 +24,41 @@ class User extends Model {
         firstName: { type: 'string', minLength: 1, maxLength: 255 },
         lastName: { type: 'string', minLength: 1, maxLength: 255 },
         email: { type: 'string ', minLength: 1, maxLength: 255 },
-        password: { type: 'string', minLength: 60, maxLength: 60 }
+        password: { type: 'string', minLength: 8, maxLength: 60 }
       }
     };
+  }
+
+  addTimestamps() {
+    this.updatedAt = new Date().toISOString();
+    if (!this.id) {
+      this.createdAt = new Date().toISOString();
+      return;
+    }
+  }
+
+  async hashPassword() {
+    this.password = await hashPassword(this.password);
   }
 
   async $beforeInsert(queryContext) {
     try {
       await super.$beforeInsert(queryContext);
-      this.password = await hashPassword(this.password);
+      await this.hashPassword();
+      this.addTimestamps();
       return;
     } catch (e) {
       throw e;
     }
   }
 
+  $beforeUpdate() {
+    this.addTimestamps();
+  }
+
   async authenticate(password) {
     return authenticate(password, this.password);
   }
 }
+
+module.exports = User;

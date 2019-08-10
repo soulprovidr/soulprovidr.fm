@@ -9,11 +9,11 @@ router.post('/login', (req, res) => {
 
 router.post('/register', async (req, res) => {
   try {
-    const user = new User()
-    await AuthService.register(req);
-    return res.status(200).send(req.user);
+    const user = await User.query().insertAndFetch(req.body);
+    return res.status(200).json(user);
   } catch (e) {
-    return res.status(401).send();
+    console.error(e);
+    return res.status(500).json();
   }
 });
 
