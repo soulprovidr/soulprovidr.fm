@@ -8,6 +8,7 @@ router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     const user = await User.query().findOne({ email });
     if (user && user.authenticate(password)) {
+      req.session.user = user;
       return res.status(200).end();
     } else {
       return res.status(401).end();
@@ -18,16 +19,18 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
+  console.log(req.body);
   try {
     const user = await User.query().insertAndFetch(req.body);
     return res.status(200).json(user);
   } catch (e) {
-    return res.status(500);
+    return res.status(500).end();
   }
 });
 
 router.get('/logout', (req, res) => {
-
+  console.log(req.session.user);
+  return res.status(200).end();
 });
 
 module.exports = router;
