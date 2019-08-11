@@ -17,7 +17,6 @@ api.set('trust proxy', 1);
 api.use(cookieSession({
   name: 'session',
   keys: ['iamasecretkey'],
-  maxAge: 60,
   secure: NODE_ENV === 'production'
 }));
 

@@ -55,6 +55,12 @@ class User extends Model {
     this.addTimestamps();
   }
 
+  $formatJson(json) {
+    json = super.$formatJson(json);
+    delete json.password;
+    return json;
+  }
+
   async authenticate(password) {
     return authenticate(password, this.password);
   }
