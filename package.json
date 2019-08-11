@@ -16,5 +16,8 @@
   },
   "devDependencies": {
     "chokidar": "^3.0.2"
+  },
+  "scripts": {
+    "start": "node index"
   }
 }

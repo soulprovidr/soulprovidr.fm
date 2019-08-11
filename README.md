@@ -1,6 +1,12 @@
 # soulprovidr.fm
 
-## Docker
+
+
+## Getting started
+
+Before you can run the API locally, you must first ensure the environment variables in the `.env` file are defined correctly.
+
+### Docker
 
 The following services are packaged in `docker-compose.yml`:
 
@@ -18,22 +24,16 @@ $ docker-compose up -d
 
 To log in, use the credentials specified in the project's `.env` file. Use the name of the database service defined in `docker-compose.yml` as the "DB" value (`db`, by default).
 
-## API
-
-### Getting started
-
-Before you can run the API locally, you must first ensure the environment variables in the `.env` file are defined correctly.
-
-Run the API with the following commands:
+## Development
+Run the API with the following command:
 
 ```
-$ cd soulprovidr.fm/api
-$ node src
+$ yarn && yarn start
 ```
 
 ### Migrations
 
-To create a migration, first `cd` into the `api` directory, then run the following command:
+To create a migration, run the following command:
 
 ```
 $ npx knex migrate:make <name>
@@ -50,3 +50,55 @@ To undo the last migration:
 ```
 $ npx knex migrate:down
 ```
+
+---
+
+## Endpoints
+
+### Authentication
+
+#### `POST /auth/register`
+
+Creates a new user in the database.
+
+##### Request
+````
+{
+  email : String,     // The user's email address.
+  firstName : String, // The user's first name.
+  lastName : String,  // The user's last name.
+  password : String   // The user's password.
+}
+````
+
+##### Response
+````
+{
+  id : Integer,       // The user's ID.
+  email : String,     // The user's email address.
+  firstName : String, // The user's first name.
+  lastName : String,  // The user's last name.
+}
+````
+
+#### `POST /auth/login`
+
+Authenticates a user and sets a secure cookie on the client.
+
+##### Request
+````
+{
+  email : String,     // The user's email address.
+  password : String   // The user's password.
+}
+````
+
+##### Response
+````
+{
+  id : Integer,       // The user's ID.
+  email : String,     // The user's email address.
+  firstName : String, // The user's first name.
+  lastName : String,  // The user's last name.
+}
+````
