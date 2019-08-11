@@ -1,5 +1,4 @@
-require('dotenv').config({ path: `${__dirname}/../.env` });
-
+require('dotenv').config()
 const { knexSnakeCaseMappers } = require('objection');
 
 const {

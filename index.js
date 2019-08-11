@@ -26,7 +26,4 @@ if (
 // Reload server when files are changed.
 if (NODE_ENV === 'development') require('./watcher')('src');
 
-require('./src/objection');
 require('./src/api')(SERVER_PORT || 8000);
-
-console.log(`Server listening on port ${SERVER_PORT || 8000}.`);
