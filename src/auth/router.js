@@ -3,6 +3,14 @@ const router = express.Router();
 
 const User = require('../users/models/User');
 
+router.get('/current', async (req, res) => {
+  if (req.session.user) {
+    return res.status(200).json(req.session.user);
+  } else {
+    return res.status(401).end();
+  }
+});
+
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;

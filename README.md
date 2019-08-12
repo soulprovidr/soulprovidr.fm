@@ -57,6 +57,25 @@ $ npx knex migrate:down
 
 ### Authentication
 
+#### `GET /auth/current`
+
+Fetch the user information associated with the current session.
+
+##### Request
+````
+<Empty>
+````
+
+##### Response
+````
+200 OK {
+  id : Integer,       // The user's ID.
+  email : String,     // The user's email address.
+  firstName : String, // The user's first name.
+  lastName : String,  // The user's last name.
+}
+````
+
 #### `POST /auth/register`
 
 Creates a new user in the database.
@@ -73,7 +92,7 @@ Creates a new user in the database.
 
 ##### Response
 ````
-{
+201 Created {
   id : Integer,       // The user's ID.
   email : String,     // The user's email address.
   firstName : String, // The user's first name.
@@ -95,10 +114,24 @@ Authenticates a user and sets a secure cookie on the client.
 
 ##### Response
 ````
-{
+200 OK {
   id : Integer,       // The user's ID.
   email : String,     // The user's email address.
   firstName : String, // The user's first name.
   lastName : String,  // The user's last name.
 }
+````
+
+#### `GET /auth/logout`
+
+Ends a user's session. (i.e. unsets their session cookie).
+
+##### Request
+````
+<Empty>
+````
+
+##### Response
+````
+200 OK
 ````

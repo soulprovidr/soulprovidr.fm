@@ -17,6 +17,7 @@ api.set('trust proxy', 1);
 api.use(cookieSession({
   name: 'session',
   keys: ['iamasecretkey'],
+  sameSite: true,
   secure: NODE_ENV === 'production'
 }));
 
