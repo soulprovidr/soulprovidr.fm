@@ -1,15 +1,24 @@
 {
   "name": "soulprovidr.fm",
   "scripts": {
-    "build": "parcel build src/static/index.html",
-    "start": "parcel src/static/index.html"
+    "build": "gatsby build",
+    "start": "gatsby develop"
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
+    "babel-preset-gatsby": "^0.2.14",
+    "bootstrap": "^4.3.1",
+    "gatsby": "^2.15.20",
+    "gatsby-image": "^2.2.20",
+    "gatsby-link": "^2.2.15",
+    "gatsby-plugin-react-helmet": "^3.1.8",
+    "gatsby-source-contentful": "^2.1.40",
+    "gatsby-transformer-remark": "^2.6.24",
     "howler": "^2.1.2",
     "react": ">= 16.3.0",
     "react-dom": ">= 16.3.0",
+    "react-helmet": "^5.2.1",
     "react-progressive-bg-image": "^3.0.0",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
@@ -19,10 +28,5 @@
     "styled-components": "^4.3.2",
     "whatwg-fetch": "^3.0.0"
   },
-  "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "parcel-bundler": "^1.12.3",
-    "styled-jsx": "^3.2.1"
-  }
+  "devDependencies": {}
 }

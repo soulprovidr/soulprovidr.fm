@@ -21,13 +21,14 @@ const Section = styled.section`
   width: 100%;
 `;
 
-export default function App() {
+export default function Layout({ children }) {
   return (
     <>
       <GlobalStyle />
       <Header />
       <Section className="container">
-        <PlayerView />
+        {/* <PlayerView /> */}
+        {children}
       </Section>
     </>
   );

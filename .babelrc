@@ -1,6 +1,3 @@
 {
-  "plugins": [
-    "@babel/plugin-proposal-class-properties",
-    "styled-jsx/babel"
-  ]
+  "presets": ["babel-preset-gatsby"]
 }

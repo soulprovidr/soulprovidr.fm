@@ -18,14 +18,17 @@ const Subtitle = styled.p`
   }
 `;
 
+const Logo = styled.img`
+  width: 40px;
+  height: 40px;
+`;
+
 export default function Header() {
   return (
     <StyledHeader className="bg-white position-fixed">
       <div className="d-flex align-items-center py-3 px-4">
-        <img
+        <Logo
           className="d-inline-block align-middle rounded-circle mr-3"
-          width="40"
-          height="40"
           src={LogoImage}
         />
         <div>
