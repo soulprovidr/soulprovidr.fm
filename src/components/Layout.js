@@ -2,23 +2,25 @@ import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components';
 
 import Header from './Header';
-import PlayerView from './PlayerView';
+
+import '../static/fonts/hk-grotesk/hk-grotesk.css';
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    font-family: Avenir Next, sans-serif;
+    font-family: hk-grotesk, Avenir Next, sans-serif;
   }
 
   .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: Avenir Next;
+    font-family: hk-grotesk, Avenir Next, sans-serif;
   }
 `;
 
-const Section = styled.section`
-  overflow-y: auto;
-  position: fixed;
-  top: 75px; right: 0; bottom: 0; left: 0;
-  width: 100%;
+const Hero = styled.section`
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://unsplash.it/1920/1080/?random);
+  background-size: cover;
+  filter: brightness(40%) grayscale(80%);
 `;
 
 export default function Layout({ children }) {
@@ -26,10 +28,7 @@ export default function Layout({ children }) {
     <>
       <GlobalStyle />
       <Header />
-      <Section className="container">
-        {/* <PlayerView /> */}
-        {children}
-      </Section>
+      {children}
     </>
   );
 }

@@ -17,58 +17,45 @@ const Player = styled.div`
   max-width: 400px;
 `;
 
-const TrackCover = React.memo(
-  styled(ProgressiveImage)`
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-`);
-
-const TrackTitle = styled.p`
-  font-size: 1.25em;
+const Hero = styled.section`
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://unsplash.it/1920/1080/?random);
+  background-size: cover;
+  filter: brightness(40%) grayscale(80%);
 `;
+
+// const TrackCover = React.memo(
+//   styled(ProgressiveImage)`
+//     width: 100%;
+//     height: auto;
+//     background-position: center;
+//     background-repeat: no-repeat;
+//     background-size: cover;
+// `);
 
 const PlayerView = ({ like, likes, meta }) => {
   useFetchMeta(5000);
-  const isLiked = meta ? likes.includes(meta.id) : false;
-  const onBuyClick = () => {
-    if (meta.buy_link) {
-      window.open(meta.buy_link, '_blank');
-    }
-  };
-  const onLikeClick = () => {
-    like(meta.id);
-  };
   return (
-    <div className="h-100 w-100 d-flex align-items-center justify-content-center py-5">
+    <div className="col-md-4 pb-4">
       {meta ? (
-        <Player className="h-100 w-100 d-flex flex-column justify-content-center">
-          <TrackCover
-            className="text-center flex-grow-1"
+        <div className="card">
+          <img
+            className="card-img-top"
             src={meta.cover || DefaultCover}
             placeholder={DefaultCover}
           />
-          <div className="text-center mt-3 px-1">
-            <TrackTitle className="font-weight-bold m-0">
+          <div className="card-body">
+            <p className="h5 font-weight-bold m-0">
               {meta.title}
-            </TrackTitle>
-            <p className="h7 text-black-50 m-0">
+            </p>
+            <p className="h6 m-0">
             {meta.artist}
             </p>
           </div>
-          <div className="d-flex align-items-center justify-content-between w-100 mt-4 px-4">
-            <Icon
-              onClick={!isLiked ? onLikeClick : null}
-              src={isLiked ? HeartRedIcon : HeartOutlineIcon}
-            />
-            <PlayButton />
-            <Icon
-              disabled={!meta.buy_link}
-              onClick={onBuyClick}
-              src={BuyIcon}
-            />
-          </div>
-        </Player>
+        </div>
       ) : (
         <p className="h6 font-weight-bold align-self-center">
           Loading...

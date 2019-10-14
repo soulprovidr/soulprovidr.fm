@@ -11,7 +11,7 @@ body {
   font-size: 1em;
   line-height: 1.65;
   color: #373F49;
-  background: #eee;
+  background: white;
   margin: 0;
 }
 
@@ -35,6 +35,14 @@ a {
   width: calc(100% - 10vmin);
   margin: 0 auto;
   padding: 5vmin 0;
+}
+
+.hero {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://picsum.photos/id/879/1920/1080);
+  background-size: cover;
+  filter: brightness(40%) grayscale(80%);
 }
 
 /**

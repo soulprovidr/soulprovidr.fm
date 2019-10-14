@@ -1,8 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
 import get from 'lodash/get';
 import Helmet from 'react-helmet';
-import Layout from '../layouts';
+
 import ArticlePreview from '../components/article-preview'
+import Player from '../components/PlayerView';
+
+const Hero = styled.section`
+  width: 100vw;
+  height: 100vh;
+  background-image: url(https://unsplash.it/1920/1080/?random);
+  background-size: cover;
+  // filter: brightness(40%) grayscale(80%);
+`;
 
 class RootIndex extends React.Component {
   render() {
@@ -10,24 +20,28 @@ class RootIndex extends React.Component {
     const posts = get(this, 'props.data.allContentfulBlogPost.edges')
 
     return (
-      <Layout location={this.props.location}>
-        <div style={{ background: '#fff' }}>
-          <Helmet title={siteTitle} />
-          <div className="wrapper">
-            <h2 className="section-headline">Recent articles</h2>
-            <ul className="article-list">
-              {posts.map(({ node }) => {
-                return (
-                  <li key={node.slug}>
-                    <ArticlePreview article={node} />
-                  </li>
-                )
-              })}
-            </ul>
-          </div>
+      <div className="container">
+        <Helmet title={siteTitle} />
+        <div className="row">
+          <Player />
+          {posts.map(({ node }) => {
+            return (
+              <ArticlePreview article={node} />
+            )
+          })}
+          {posts.map(({ node }) => {
+            return (
+              <ArticlePreview article={node} />
+            )
+          })}
+          {posts.map(({ node }) => {
+            return (
+              <ArticlePreview article={node} />
+            )
+          })}
         </div>
-      </Layout>
-    )
+      </div>
+    );
   }
 }
 
