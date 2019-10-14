@@ -8,9 +8,10 @@ import PauseIcon from '../static/images/pause.png';
 import PlayIcon from '../static/images/play.png';
 
 const Button = styled.button`
+  flex-shrink: 0;
   &, &:active, &:focus {
-    width: 65px;
-    height: 65px;
+    width: 45px;
+    height: 45px;
     background: black;
     border: none;
     top: 125px;
@@ -20,7 +21,7 @@ const Button = styled.button`
 `;
 
 const ButtonImage = styled.img`
-  width: 50%;
+  width: 30%;
 `;
 
 function PlayButton({
@@ -31,7 +32,7 @@ function PlayButton({
 }) {
   return (
     <Button
-      className="rounded-circle"
+      className="rounded-circle mr-2"
       onClick={
         !isBuffering
           ? isPlaying ? pause : play

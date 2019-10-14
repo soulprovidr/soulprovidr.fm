@@ -7,29 +7,43 @@ import heroStyles from '../components/hero.module.css'
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = get(this.props, 'data.contentfulBlogPost')
+    const post = get(this.props, 'data.contentfulArticle')
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
 
     return (
-      <div style={{ background: '#fff' }}>
+      <div className="container">
         <Helmet title={`${post.title} | ${siteTitle}`} />
-        <div className={heroStyles.hero}>
-          <Img className={heroStyles.heroImage} alt={post.title} sizes={post.heroImage.sizes} />
-        </div>
-        <div className="wrapper">
-          <h1 className="section-headline">{post.title}</h1>
-          <p
-            style={{
-              display: 'block',
-            }}
-          >
-            {post.publishDate}
-          </p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post.body.childMarkdownRemark.html,
-            }}
-          />
+        <div className="">
+          <Img className="card-img-top" alt={post.title} sizes={post.heroImage.sizes} />
+          <div className="card-body">
+            <div className="row pt-3">
+              <div className="col-md-4">
+                <button className="btn btn-primary">
+                  Listen
+                </button>
+                <p className="h4">Tracklist</p>
+                <ul className="list-group">
+                  <li className="list-group-item">1. The Four Tops - Under The Boardwalk</li>
+                  <li className="list-group-item">2. Smokey Robinson - Tears Of A Clown</li>
+                  <li className="list-group-item">3. Diana Ross - Upside Down</li>
+                  <li className="list-group-item">4. The Four Tops - Under The Boardwalk</li>
+                  <li className="list-group-item">5. Smokey Robinson - Tears Of A Clown</li>
+                  <li className="list-group-item">6. Diana Ross - Upside Down</li>
+                  <li className="list-group-item">7. The Four Tops - Under The Boardwalk</li>
+                  <li className="list-group-item">8. Smokey Robinson - Tears Of A Clown</li>
+                  <li className="list-group-item">9. Diana Ross - Upside Down</li>
+                </ul>
+              </div>
+              <div className="col-md-8">
+                <p className="h2 pb-3">{post.title}</p>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: post.body.childMarkdownRemark.html,
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -39,8 +53,8 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
-    contentfulBlogPost(slug: { eq: $slug }) {
+  query ArticleBySlug($slug: String!) {
+    contentfulArticle(slug: { eq: $slug }) {
       title
       publishDate(formatString: "MMMM Do, YYYY")
       heroImage {

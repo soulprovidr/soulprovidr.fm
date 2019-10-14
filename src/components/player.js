@@ -4,18 +4,11 @@ import ProgressiveImage from 'react-progressive-bg-image';
 import styled from 'styled-components';
 
 import Actions from '../actions';
-import BuyIcon from '../static/images/buy.png';
 import DefaultCover from '../static/images/default.png';
-import HeartOutlineIcon from '../static/images/heart_outline.png';
-import HeartRedIcon from '../static/images/heart_red.png';
 import useFetchMeta from '../hooks/useFetchMeta';
 
 import Icon from './Icon';
 import PlayButton from './PlayButton';
-
-const Player = styled.div`
-  max-width: 400px;
-`;
 
 const Hero = styled.section`
   position: absolute;
@@ -27,33 +20,43 @@ const Hero = styled.section`
   filter: brightness(40%) grayscale(80%);
 `;
 
-// const TrackCover = React.memo(
-//   styled(ProgressiveImage)`
-//     width: 100%;
-//     height: auto;
-//     background-position: center;
-//     background-repeat: no-repeat;
-//     background-size: cover;
-// `);
+const LiveBadge = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: white;
+  background: red;
+  border-radius: 4px;
+  padding: 2px 8px;
+  &::before {
+    content: 'LIVE';
+    font-weight: 600;
+    font-size: 12px;
+  }
+`;
 
-const PlayerView = ({ like, likes, meta }) => {
+const Player = ({ like, likes, meta }) => {
   useFetchMeta(5000);
   return (
-    <div className="col-md-4 pb-4">
+    <div className="pb-4">
       {meta ? (
         <div className="card">
+          <LiveBadge />
           <img
             className="card-img-top"
             src={meta.cover || DefaultCover}
             placeholder={DefaultCover}
           />
-          <div className="card-body">
-            <p className="h5 font-weight-bold m-0">
-              {meta.title}
-            </p>
-            <p className="h6 m-0">
-            {meta.artist}
-            </p>
+          <div className="card-body d-flex">
+            <PlayButton />
+            <div>
+              <p className="h5 font-weight-bold m-0">
+                {meta.title}
+              </p>
+              <p className="h6 m-0">
+              {meta.artist}
+              </p>
+            </div>
           </div>
         </div>
       ) : (
@@ -77,4 +80,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlayerView);
+)(Player);
