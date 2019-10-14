@@ -15,7 +15,7 @@ export default ({ article }) => (
             {article.title}
           </Link>
         </h5>
-        <p
+        <div
           className="card-text"
           dangerouslySetInnerHTML={{
             __html: article.description.childMarkdownRemark.html,
