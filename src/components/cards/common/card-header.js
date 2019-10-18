@@ -21,7 +21,7 @@ const StyledCardHeader = styled.div`
 `;
 
 const PlayButton = styled.img`
-  width: 100px;
+  width: 60px;
 `;
 
 export default function CardHeader({ children, onClick }) {
