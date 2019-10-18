@@ -59,7 +59,7 @@ export default function Header() {
               />
             </a>
             <a
-              href="https://github.com/soulprovidr/soulprovidr.fm"
+              href="https://github.com/soulprovidr"
               target="_blank"
             >
               <Icon
