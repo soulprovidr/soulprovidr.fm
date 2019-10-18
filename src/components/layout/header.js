@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import LogoImage from '../static/images/logo.svg';
+import LogoImage from '../../static/images/logo.svg';
 
 const StyledHeader = styled.header`
   top: 0; left: 0; right: 0;

@@ -4,7 +4,6 @@ import get from 'lodash/get'
 import Helmet from 'react-helmet'
 import styles from './blog.module.css'
 import { graphql } from 'gatsby';
-import ArticlePreview from '../components/article-preview'
 
 class BlogIndex extends React.Component {
   render() {
@@ -20,13 +19,13 @@ class BlogIndex extends React.Component {
         <div className="wrapper">
           <h2 className="section-headline">Recent articles</h2>
           <ul className="article-list">
-            {posts.map(({ node }) => {
+            {/* {posts.map(({ node }) => {
               return (
                 <li key={node.slug}>
                   <ArticlePreview article={node} />
                 </li>
               )
-            })}
+            })} */}
           </ul>
         </div>
       </div>

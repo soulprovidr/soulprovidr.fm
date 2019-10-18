@@ -3,7 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 import Header from './header';
 
-import '../static/fonts/hk-grotesk/hk-grotesk.css';
+import '../../static/fonts/hk-grotesk/hk-grotesk.css';
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -16,7 +16,7 @@ const GlobalStyle = createGlobalStyle`
 
   .card {
     cursor: pointer;
-    transition: transform 100ms ease-in-out;
+    transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     &:hover {
       transform: scale(1.01);
     }
