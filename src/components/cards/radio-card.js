@@ -34,7 +34,7 @@ const RadioCard = ({ meta, play }) => {
         <LiveBadge />
         <img
           className="card-img-top"
-          src={meta ? meta.cover : DefaultCover}
+          src={meta ? meta.cover || DefaultCover : DefaultCover}
         />
         <div className="card-body">
           <p className="h5 font-weight-bold m-0">
