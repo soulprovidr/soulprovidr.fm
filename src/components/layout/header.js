@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// https://www.iconfinder.com/iconsets/picons-social
 import GithubIcon from '../../static/images/github.svg';
 import InstagramIcon from '../../static/images/instagram.svg';
 import SpotifyIcon from '../../static/images/spotify.svg';
@@ -45,7 +46,7 @@ export default function Header() {
               target="_blank"
             >
               <Icon
-                className="mr-3"
+                className="mr-3 align-text-bottom"
                 src={InstagramIcon}
               />
             </a>
@@ -54,7 +55,7 @@ export default function Header() {
               target="_blank"
             >
               <Icon
-                className="mr-3"
+                className="mr-3 align-text-bottom"
                 src={SpotifyIcon}
               />
             </a>
@@ -63,7 +64,7 @@ export default function Header() {
               target="_blank"
             >
               <Icon
-                className="mr-3"
+                className="mr-3 align-text-bottom"
                 src={GithubIcon}
               />
             </a>
