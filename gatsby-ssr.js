@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import React from 'react';
 import { Provider } from 'react-redux';
-import Layout from './src/components/Layout';
+import Layout from './src/layout';
 import store from './src/store';
 
 export const wrapPageElement = ({ element, props }) => {

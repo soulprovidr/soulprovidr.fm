@@ -13,6 +13,14 @@ const GlobalStyle = createGlobalStyle`
   .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: hk-grotesk;
   }
+
+  .card {
+    cursor: pointer;
+    transition: transform 100ms ease-in-out;
+    &:hover {
+      transform: scale(1.01);
+    }
+  }
 `;
 
 export default function Layout({ children }) {
