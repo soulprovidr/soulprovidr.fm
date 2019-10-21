@@ -8,23 +8,16 @@ import Actions from '../../actions';
 import DefaultCover from '../../static/images/default.png';
 import useFetchMeta from '../../hooks/useFetchMeta';
 
-import CardHeader from './common/card-header';
+import CardBadge from './common/card-badge';
+import CardImage from './common/card-image';
+import './card.css';
 
-const LiveBadge = styled.div`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  color: white;
-  background: red;
-  border-radius: 4px;
-  padding: 2px 8px;
-  z-index: 2;
-  &::before {
-    content: 'LIVE';
-    font-weight: 600;
-    font-size: 12px;
-  }
-`;
+// For now, live posts will be hard-coded.
+const liveCategory = {
+  key: 'live',
+  label: 'Live',
+  colour: 'red'
+};
 
 function RadioCard({ meta, play }) {
   useFetchMeta(2500);
@@ -34,13 +27,13 @@ function RadioCard({ meta, play }) {
         className="card"
         onClick={play}
       >
-        <LiveBadge />
-        <CardHeader>
+        <CardBadge category={liveCategory} />
+        <CardImage>
           <img
             className="card-img-top"
             src={meta ? meta.cover || DefaultCover : DefaultCover}
           />
-        </CardHeader>
+        </CardImage>
         <div className="card-body">
           <p className="h5 font-weight-bold m-0">
             {meta ? meta.title : 'Loading...'}

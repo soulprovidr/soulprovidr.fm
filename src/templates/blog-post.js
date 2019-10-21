@@ -54,7 +54,6 @@ export const pageQuery = graphql`
   query ArticleBySlug($slug: String!) {
     contentfulArticle(slug: { eq: $slug }) {
       title
-      publishDate(formatString: "MMMM Do, YYYY")
       heroImage {
         sizes(maxWidth: 1180, background: "rgb:000000") {
           ...GatsbyContentfulSizes_withWebp

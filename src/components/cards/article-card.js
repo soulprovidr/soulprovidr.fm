@@ -2,18 +2,21 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Img from 'gatsby-image';
 
-import CardHeader from './common/card-header';
+import CardBadge from './common/card-badge';
+import CardImage from './common/card-image';
+import './card.css';
 
 export default function ArticleCard({ article }) {
   return (
     <div className="pb-4">
       <div className="card">
-        <CardHeader>
+        <CardBadge category={article.category} />
+        <CardImage>
           <Img
             className="card-img-top"
             sizes={article.heroImage.sizes}
           />
-        </CardHeader>
+        </CardImage>
         <div className="card-body">
           <h5 className="card-title">
             <Link
