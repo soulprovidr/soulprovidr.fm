@@ -24,11 +24,10 @@ class RootIndex extends React.Component {
           <Masonry
             breakpointCols={{
               default: 3,
-              700: 2,
-              500: 1
+              800: 1
             }}
             className="d-flex"
-            columnClassName="col-md-4"
+            columnClassName="col-lg-4"
           >
             {children}
           </Masonry>
