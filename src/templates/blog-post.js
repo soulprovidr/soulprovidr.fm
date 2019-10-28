@@ -10,7 +10,7 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <div className="container">
-        <Helmet title={`${post.title} | ${siteTitle}`} />
+        <Helmet title={post.title} />
         <div className="">
           <Img className="card-img-top" alt={post.title} sizes={post.heroImage.sizes} />
           <div className="card-body">

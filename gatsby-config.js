@@ -1,9 +1,9 @@
-let contentfulConfig
+let contentfulConfig;
 
 try {
   // Load the Contentful config from the .contentful.json
-  contentfulConfig = require('./.contentful')
-} catch (_) {}
+  contentfulConfig = require('./.contentful');
+} catch (_) { }
 
 // Overwrite the Contentful config with environment variables if they exist
 contentfulConfig = {
@@ -11,12 +11,12 @@ contentfulConfig = {
   accessToken: process.env.CONTENTFUL_DELIVERY_TOKEN || contentfulConfig.accessToken,
 }
 
-const { spaceId, accessToken } = contentfulConfig
+const { spaceId, accessToken } = contentfulConfig;
 
 if (!spaceId || !accessToken) {
   throw new Error(
     'Contentful spaceId and the delivery token need to be provided.'
-  )
+  );
 }
 
 module.exports = {
@@ -27,5 +27,5 @@ module.exports = {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig,
     }
-  ],
-}
+  ]
+};

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled, { createGlobalStyle } from 'styled-components';
 
+import Head from './head';
 import Header from './header';
 
 import '../../static/fonts/hk-grotesk/hk-grotesk.css';
@@ -19,6 +20,10 @@ export default function Layout({ children }) {
   return (
     <>
       <GlobalStyle />
+      <Head
+        description="For those who like to groove."
+        title="Soul Provider"
+      />
       <Header />
       {children}
     </>

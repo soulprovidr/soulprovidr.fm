@@ -9,7 +9,6 @@ import RadioCard from '../components/cards/radio-card';
 
 class RootIndex extends React.Component {
   render() {
-    const siteTitle = get(this, 'props.data.site.siteMetadata.title')
     const articles = get(this, 'props.data.allContentfulArticle.edges')
     const children = [
       <RadioCard />,
@@ -19,7 +18,7 @@ class RootIndex extends React.Component {
     ];
     return (
       <div className="container">
-        <Helmet title={siteTitle} />
+        <Helmet title="Home" />
         <div className="row">
           <Masonry
             breakpointCols={{
