@@ -20,7 +20,7 @@ export default function ArticleCard({ article }) {
         <div className="card-body">
           <h5 className="card-title">
             <Link
-              className="text-black font-weight-bold"
+              className="text-dark font-weight-bold"
               to={`/${article.slug}`}
             >
               {article.title}

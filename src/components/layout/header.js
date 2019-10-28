@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Link from 'gatsby-link';
 
 // https://www.iconfinder.com/iconsets/picons-social
 import GithubIcon from '../../static/images/github.svg';
@@ -31,12 +32,19 @@ export default function Header() {
     <StyledHeader className="bg-white py-4">
       <div className="d-flex align-items-center justify-content-between py-2 px-4 container">
         <div className="d-flex align-items-center">
-          <Logo
-            className="d-inline-block align-middle rounded-circle mr-3"
-            src={LogoImage}
-          />
+          <Link to="/">
+            <Logo
+              className="d-inline-block align-middle rounded-circle mr-3"
+              src={LogoImage}
+            />
+          </Link>
           <p className="h5 font-weight-bold m-0">
-            SOUL PROVIDER
+            <Link
+              to="/"
+              className="text-dark"
+            >
+              SOUL PROVIDER
+            </Link>
           </p>
         </div>
         <nav>
@@ -73,7 +81,8 @@ export default function Header() {
                 Newsletter
               </NavItem>
               <NavItem className="h7 d-inline-block text-uppercase pr-4">
-                <a 
+                <a
+                  className="text-dark"
                   href="https://reddit.com/r/rnb"
                   target="_blank"
                 >
