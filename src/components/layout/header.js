@@ -29,7 +29,7 @@ const NavItem = styled.li`
 
 export default function Header() {
   return (
-    <StyledHeader className="bg-white py-4">
+    <StyledHeader className="bg-white py-5">
       <div className="d-flex align-items-center justify-content-between py-2 px-4 container">
         <div className="d-flex align-items-center">
           <Link to="/">

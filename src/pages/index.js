@@ -11,9 +11,12 @@ class RootIndex extends React.Component {
   render() {
     const articles = get(this, 'props.data.allContentfulArticle.edges')
     const children = [
-      <RadioCard />,
+      <RadioCard key="radio" />,
       ...articles.map(({ node: article }) => (
-        <ArticleCard article={article} />
+        <ArticleCard
+          article={article}
+          key={article.slug}
+        />
       ))
     ];
     return (

@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 
+import Favicon from '../../static/images/favicon.png';
+
 function Head({ description, lang, meta, title }) {
   return (
     <Helmet
       htmlAttributes={{ lang }}
-      title={title}
+      defaultTitle={title}
       titleTemplate={`%s | ${title}`}
       meta={[
         {
@@ -43,7 +45,9 @@ function Head({ description, lang, meta, title }) {
           content: description,
         },
       ].concat(meta)}
-    />
+    >
+      <link rel="icon" href={Favicon} type="image/png" />
+    </Helmet>
   )
 }
 
