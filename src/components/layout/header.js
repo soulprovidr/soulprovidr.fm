@@ -78,9 +78,17 @@ export default function Header() {
             </a>
             <ul className="m-0">
               <NavItem className="h7 d-inline-block text-uppercase pr-4">
-                Newsletter
+                <Link
+                  className="text-dark"
+                  to="/about"
+                >
+                  About
+                </Link>
               </NavItem>
               <NavItem className="h7 d-inline-block text-uppercase pr-4">
+                Newsletter
+              </NavItem>
+              <NavItem className="h7 d-inline-block text-uppercase">
                 <a
                   className="text-dark"
                   href="https://reddit.com/r/rnb"
@@ -88,9 +96,6 @@ export default function Header() {
                 >
                   Community
                 </a>
-              </NavItem>
-              <NavItem className="h7 d-inline-block text-uppercase">
-                Contact
               </NavItem>
             </ul>
           </div>
