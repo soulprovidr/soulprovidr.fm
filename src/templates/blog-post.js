@@ -16,21 +16,6 @@ class BlogPostTemplate extends React.Component {
           <div className="card-body">
             <div className="row pt-3">
               <div className="col-md-4">
-                <button className="btn btn-primary">
-                  Listen
-                </button>
-                <p className="h4">Tracklist</p>
-                <ul className="list-group">
-                  <li className="list-group-item">1. The Four Tops - Under The Boardwalk</li>
-                  <li className="list-group-item">2. Smokey Robinson - Tears Of A Clown</li>
-                  <li className="list-group-item">3. Diana Ross - Upside Down</li>
-                  <li className="list-group-item">4. The Four Tops - Under The Boardwalk</li>
-                  <li className="list-group-item">5. Smokey Robinson - Tears Of A Clown</li>
-                  <li className="list-group-item">6. Diana Ross - Upside Down</li>
-                  <li className="list-group-item">7. The Four Tops - Under The Boardwalk</li>
-                  <li className="list-group-item">8. Smokey Robinson - Tears Of A Clown</li>
-                  <li className="list-group-item">9. Diana Ross - Upside Down</li>
-                </ul>
               </div>
               <div className="col-md-8">
                 <p className="h2 pb-3">{post.title}</p>
