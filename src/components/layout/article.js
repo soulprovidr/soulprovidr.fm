@@ -8,11 +8,11 @@ function Article(props) {
   return (
     <div className="container">
       <Helmet title={post.title} />
-      <div className="">
+      <div className="col-md-8 mx-auto">
         <Img className="card-img-top" alt={post.title} sizes={post.heroImage.sizes} />
         <div className="card-body">
           <div className="row pt-3">
-            <div className="col-md-8">
+            <div className="col">
               <p className="h2 pb-3">{post.title}</p>
               <div
                 dangerouslySetInnerHTML={{
