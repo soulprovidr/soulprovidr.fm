@@ -43,7 +43,15 @@ export default RootIndex
 
 export const pageQuery = graphql`
   query HomeQuery {
-    allContentfulArticle(sort: { fields: [publishDate], order: DESC }) {
+    allContentfulArticle(
+      filter: {
+        publish: { ne: false }
+      }
+      sort: {
+        fields: [publishDate],
+        order: DESC
+      }
+    ) {
       edges {
         node {
           title

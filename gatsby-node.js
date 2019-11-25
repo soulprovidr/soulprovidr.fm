@@ -5,7 +5,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators
 
   return new Promise((resolve, reject) => {
-    const blogPost = path.resolve('./src/templates/blog-post.js')
+    const article = path.resolve('./src/components/layout/article.js')
     resolve(
       graphql(
         `
@@ -30,7 +30,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         posts.forEach((post, index) => {
           createPage({
             path: `/${post.node.slug}/`,
-            component: blogPost,
+            component: article,
             context: {
               slug: post.node.slug
             },
