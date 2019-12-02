@@ -1,5 +1,6 @@
 import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components';
+import { useStaticQuery, graphql } from 'gatsby';
+import { createGlobalStyle } from 'styled-components';
 
 import Head from './head';
 import Header from './header';
@@ -17,15 +18,37 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function Layout({ children }) {
+  const { site: { siteMetadata } } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+        }
+      }
+    }
+  `);
+      
   return (
     <>
       <GlobalStyle />
       <Head
-        description="For those who like to groove."
-        title="Soul Provider"
+        description={siteMetadata.description}
+        title={siteMetadata.title}
       />
       <Header />
       {children}
     </>
   );
 }
+
+export const query = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+        description
+      }
+    }
+  }
+`;

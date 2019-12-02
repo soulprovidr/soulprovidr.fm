@@ -16,6 +16,7 @@
     "gatsby-source-contentful": "^2.1.40",
     "gatsby-transformer-remark": "^2.6.24",
     "howler": "^2.1.2",
+    "lodash.chunk": "^4.2.0",
     "react": ">= 16.3.0",
     "react-dom": ">= 16.3.0",
     "react-helmet": "^5.2.1",
@@ -24,6 +25,7 @@
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
+    "soundcloud": "^3.3.2",
     "soundmanager2": "^2.97.20170602",
     "styled-components": "^4.3.2",
     "whatwg-fetch": "^3.0.0"

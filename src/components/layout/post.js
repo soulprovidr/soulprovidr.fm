@@ -1,10 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import SoundCloud from 'soundcloud';
 import Helmet from 'react-helmet';
 import get from 'lodash/get';
 import Img from 'gatsby-image';
 
-function Article(props) {
-  const post = get(props, 'data.contentfulArticle');
+import Waveform from '../Waveform';
+
+function Post({ data }) {
+  const post = get(data, 'contentfulArticle');
+
+  const [soundCloudData, setSoundCloudData] = useState(null);
+
+  useEffect(() => {
+    async function getSoundCloudData() {
+      if (post.soundCloudUrl) {
+        const track = await SoundCloud.resolve(post.soundCloudUrl);
+        setSoundCloudData(track);
+      }
+    }
+    getSoundCloudData();
+  }, []);
+
   return (
     <div className="container">
       <Helmet title={post.title} />
@@ -13,6 +29,7 @@ function Article(props) {
           <Img className="card-img-top" alt={post.title} sizes={post.heroImage.sizes} />
           <div className="pt-3">
               <p className="h2 pb-3">{post.title}</p>
+              <Waveform waveformUrl={soundCloudData ? soundCloudData.waveform_url : null} />
               <div
                 dangerouslySetInnerHTML={{
                   __html: post.body.childMarkdownRemark.html,
@@ -25,7 +42,7 @@ function Article(props) {
   );
 }
 
-export default Article;
+export default Post;
 
 export const pageQuery = graphql`
   query ArticleBySlug($slug: String!) {
@@ -36,6 +53,7 @@ export const pageQuery = graphql`
           ...GatsbyContentfulSizes_withWebp
         }
       }
+      soundCloudUrl
       body {
         childMarkdownRemark {
           html
