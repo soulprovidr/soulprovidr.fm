@@ -1,38 +1,29 @@
 import React from 'react';
 import get from 'lodash/get';
 import Helmet from 'react-helmet';
-import Masonry from 'react-masonry-css'
 import { graphql } from 'gatsby';
 
-import ArticleCard from '../components/cards/article-card';
-import RadioCard from '../components/cards/radio-card';
+import ArticleCard from '@/cards/ArticleCard';
+import RadioCard from '@/cards/RadioCard';
 
 class RootIndex extends React.Component {
   render() {
     const articles = get(this, 'props.data.allContentfulArticle.edges')
-    const children = [
-      <RadioCard key="radio" />,
-      ...articles.map(({ node: article }) => (
-        <ArticleCard
-          article={article}
-          key={article.slug}
-        />
-      ))
-    ];
     return (
       <div className="container">
         <Helmet title="Home" />
         <div className="row">
-          <Masonry
-            breakpointCols={{
-              default: 3,
-              800: 1
-            }}
-            className="d-flex"
-            columnClassName="col-lg-4"
-          >
-            {children}
-          </Masonry>
+          <div className="w-100">
+            <RadioCard key="radio" />
+          </div>
+          {articles.map(({ node: article }) => (
+            <div className="d-flex col-lg-4">
+              <ArticleCard
+                article={article}
+                key={article.slug}
+              />
+            </div>
+          ))}
         </div>
       </div>
     );

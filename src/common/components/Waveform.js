@@ -65,6 +65,6 @@ Waveform.defaultProps = {
   height: 75,
   numSamples: 150,
   percentProgress: 50
-}
+};
 
 export default Waveform;

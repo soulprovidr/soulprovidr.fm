@@ -1,3 +1,5 @@
+const path = require('path');
+
 let contentfulConfig;
 
 try {
@@ -30,6 +32,14 @@ module.exports = {
     {
       resolve: 'gatsby-source-contentful',
       options: contentfulConfig,
+    },
+    {
+      resolve: 'gatsby-plugin-alias-imports',
+      options: {
+        alias: {
+          '@': path.resolve(__dirname, 'src')
+        }
+      }
     }
   ]
 };

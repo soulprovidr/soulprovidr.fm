@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 // import PauseIcon from '../static/images/pause.png';
-import PlayIcon from '../../../static/images/play.png';
+import PlayIcon from '@/static/images/play.png';
 
 export default function CardImage({ children, onClick }) {
   return (

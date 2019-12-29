@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import get from 'lodash/get';
 import Img from 'gatsby-image';
 
-import Waveform from '../Waveform';
+import Waveform from '@/common/components/Waveform';
 
 function Post({ data }) {
   const post = get(data, 'contentfulArticle');
@@ -37,6 +37,9 @@ function Post({ data }) {
               />
           </div>
         </div>
+      </div>
+      <div class="card-footer text-muted">
+        <button className="button-muted">Play</button>
       </div>
     </div>
   );

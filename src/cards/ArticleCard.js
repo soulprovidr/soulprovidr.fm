@@ -2,8 +2,9 @@ import React from 'react';
 import Link from 'gatsby-link';
 import Img from 'gatsby-image';
 
-import CardBadge from './common/card-badge';
-import CardImage from './common/card-image';
+import CardBadge from './CardBadge';
+import CardImage from './CardImage';
+import Waveform from '@/common/components/Waveform';
 import './card.css';
 
 export default function ArticleCard({ article }) {
@@ -33,6 +34,9 @@ export default function ArticleCard({ article }) {
             }}
           />
         </div>
+        {/* <div className="card-footer">
+          <button className="btn btn-muted">Play</button>
+        </div> */}
       </div>
     </div>
   );

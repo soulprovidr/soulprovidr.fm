@@ -2,26 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import Actions from '../actions';
+import Actions from '@/actions';
 
-import PauseIcon from '../static/images/pause.png';
-import PlayIcon from '../static/images/play.png';
+import PauseIcon from '@/static/images/pause.png';
+import PlayIcon from '@/static/images/play.png';
 
 const Button = styled.button`
-  flex-shrink: 0;
   &, &:active, &:focus {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     background: black;
     border: none;
-    top: 125px;
     outline: none;
     line-height: 1em;
   }
 `;
 
 const ButtonImage = styled.img`
-  width: 30%;
+  width: 50%;
 `;
 
 function PlayButton({
@@ -32,7 +30,7 @@ function PlayButton({
 }) {
   return (
     <Button
-      className="rounded-circle mr-2"
+      className="rounded-circle mr-2 mt-4"
       onClick={
         !isBuffering
           ? isPlaying ? pause : play

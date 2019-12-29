@@ -1,0 +1,12 @@
+header {
+  border-bottom: 1px solid #ddd;
+}
+
+.icon {
+  width: 20px;
+  height: 20px
+}
+
+.link {
+  font-weight: 600;
+}

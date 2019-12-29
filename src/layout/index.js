@@ -3,9 +3,9 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { createGlobalStyle } from 'styled-components';
 
 import Head from './head';
-import Header from './header';
+import Header from '@/header/Header';
 
-import '../../static/fonts/hk-grotesk/hk-grotesk.css';
+import '@/static/fonts/hk-grotesk/hk-grotesk.css';
 
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -14,6 +14,12 @@ const GlobalStyle = createGlobalStyle`
 
   .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: hk-grotesk;
+  }
+
+  button {
+    font-family: hk-grotesk;
+    text-transform: uppercase;
+    font-weight: 700 !important;
   }
 `;
 
