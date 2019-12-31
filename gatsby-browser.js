@@ -4,7 +4,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 
 import initializeSoundCloud from './src/soundcloud/initialize';
-import Layout from './src/components/layout';
+import Layout from '@/templates/layout';
 import store from './src/store';
 
 export const onClientEntry = () => {
