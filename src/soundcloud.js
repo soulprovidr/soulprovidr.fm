@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import qs from 'qs';
 
 const API_URL = 'https://api.soundcloud.com';
