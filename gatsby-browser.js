@@ -3,13 +3,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import initializeSoundCloud from './src/soundcloud/initialize';
+import store from '@/store';
 import Layout from '@/templates/layout';
-import store from './src/store';
-
-export const onClientEntry = () => {
-  initializeSoundCloud();
-};
 
 export const wrapPageElement = ({ element, props }) => {
   return (

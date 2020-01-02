@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import SoundCloud from 'soundcloud';
 import Helmet from 'react-helmet';
 import get from 'lodash/get';
 import Img from 'gatsby-image';
 
+import SoundCloud from '@/soundcloud';
 import Waveform from '@/common/components/Waveform';
 
 function Post({ data }) {
@@ -12,6 +12,7 @@ function Post({ data }) {
   const [soundCloudData, setSoundCloudData] = useState(null);
 
   useEffect(() => {
+    console.log(SoundCloud);
     async function getSoundCloudData() {
       if (post.soundCloudUrl) {
         const track = await SoundCloud.resolve(post.soundCloudUrl);
@@ -38,7 +39,7 @@ function Post({ data }) {
           </div>
         </div>
       </div>
-      <div class="card-footer text-muted">
+      <div className="card-footer text-muted">
         <button className="button-muted">Play</button>
       </div>
     </div>

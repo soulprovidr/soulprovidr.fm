@@ -1,16 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import Link from 'gatsby-link';
-import Img from 'gatsby-image';
-
-import PlayIcon from '@/static/images/play.png';
 
 import Actions from '@/actions';
 import DefaultCover from '@/static/images/default.png';
 import useFetchMeta from '@/hooks/useFetchMeta';
 
-import PlayButton from '@/common/components/PlayButton';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import './card.css';
@@ -25,16 +19,17 @@ const liveCategory = {
 function RadioCard({ meta, play }) {
   useFetchMeta(2500);
   return (
-    <div className="px-3 pb-5">
+    <div className="px-3">
       <div
-        className="card my-5"
+        className="card"
         onClick={play}
       >
+        <CardBadge category={liveCategory} />
         <div className="row w-100">
           <div className="col-md-4">
-            <CardBadge category={liveCategory} />
             <CardImage>
               <img
+                alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
                 className="card-img-top"
                 src={meta ? meta.cover || DefaultCover : DefaultCover}
               />
@@ -42,6 +37,9 @@ function RadioCard({ meta, play }) {
           </div>
           <div className="col-md-8 d-flex align-items-center">
             <div className="card-body ">
+              <p className="font-weight-bold text-uppercase mb-3">
+                Now Playing:
+              </p>
               <p className="h1 font-weight-bold">
                 {meta ? meta.title : 'Loading...'}
               </p>

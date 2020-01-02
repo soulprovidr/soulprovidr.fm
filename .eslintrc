@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "__SOUNDCLOUD_CLIENT_ID__": true,
+    "SoundCloud": true,
+    "Window": true
+  },
+  "extends": "react-app"
+}
