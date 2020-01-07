@@ -1,4 +1,5 @@
 import qs from 'qs';
+import { Howl, Howler } from 'howler';
 
 const API_URL = 'https://api.soundcloud.com';
 
@@ -20,7 +21,20 @@ async function request(path, params = {}) {
 }
 
 class SoundCloud {
+  sound = null;
+
   resolve = async (url) => await request('/resolve', { url });
+
+  play = src => {
+    this.stop();
+    this.sound = new Howl({ src });
+  };
+
+  stop = () => {
+    if (this.sound) {
+      this.sound.unload();
+    }
+  };
 }
 
 export default new SoundCloud();

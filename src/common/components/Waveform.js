@@ -59,8 +59,8 @@ function Waveform({
 }
 
 Waveform.defaultProps = {
-  activeColor: '#000000',
-  inactiveColor: '#dddddd',
+  activeColor: '#7F7F7F',
+  inactiveColor: '#AFAFAF',
   width: '100%',
   height: 75,
   numSamples: 150,
