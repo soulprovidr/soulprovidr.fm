@@ -25,7 +25,7 @@ function RadioCard({ meta, play }) {
         onClick={play}
       >
         <CardBadge category={liveCategory} />
-        <div className="row w-100">
+        <div className="row">
           <div className="col-md-4">
             <CardImage>
               <img

@@ -38,7 +38,7 @@ function Post({ data }) {
         </div>
         <div className="col-md-8">
           <p className="h2 font-weight-bold">{post.title}</p>
-          <main
+          <div
             className="pt-2 pb-4"
             dangerouslySetInnerHTML={{
               __html: post.body.childMarkdownRemark.html,

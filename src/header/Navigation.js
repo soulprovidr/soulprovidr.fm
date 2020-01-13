@@ -7,8 +7,13 @@ export default function Navigation({ icons, links }) {
     <nav>
       <div className="d-flex align-items-center">
         {icons.map(icon => (
-          <a target="_blank" href={icon.href}>
+          <a
+            href={icon.href}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
             <img
+              alt=""
               className="icon mr-3 align-text-bottom"
               src={icon.src}
             />
@@ -21,6 +26,7 @@ export default function Navigation({ icons, links }) {
                 <a
                   className="text-dark"
                   href={link.href}
+                  rel="noopener noreferrer"
                   target="_blank"
                 >
                   {link.text}  

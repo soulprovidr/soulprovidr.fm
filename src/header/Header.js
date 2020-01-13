@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Link from 'gatsby-link';
 
 // https://www.iconfinder.com/iconsets/picons-social
@@ -39,10 +38,10 @@ const links = [
   }
 ];
 
-export default function Header() {
+function DesktopHeader() {
   return (
-    <header className="container bg-white py-5">
-      <div className="d-flex align-items-center justify-content-between py-2 px-4">
+    <header className="container d-md-block d-none bg-white py-5">
+      <div className="d-flex align-items-center justify-content-between py-2">
         <div className="d-flex align-items-center">
           <Link to="/">
             <Logo
@@ -66,3 +65,38 @@ export default function Header() {
     </header>
   );
 }
+
+function MobileHeader() {
+  return (
+    <header className="mobile container d-sm-block d-md-none bg-white py-2 mb-4 position-fixed">
+      <div className="d-flex align-items-center justify-content-between py-2">
+        <div className="d-flex align-items-center">
+          <Link to="/">
+            <Logo
+              className="d-inline-block align-middle mr-3"
+              size={30}
+            />
+          </Link>
+          <div>
+            <p className="h5 font-weight-bold m-0">
+              <Link
+                to="/"
+                className="text-dark"
+              >
+                SOUL PROVIDER
+              </Link>
+            </p>
+          </div>
+        </div>
+        {/* <Navigation icons={icons} links={links} /> */}
+      </div>
+    </header>
+  );
+}
+
+export default () => (
+  <>
+    <DesktopHeader />
+    <MobileHeader />
+  </>
+);

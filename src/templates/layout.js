@@ -43,7 +43,9 @@ export default function Layout({ children }) {
         title={siteMetadata.title}
       />
       <Header />
-      {children}
+      <div className="mt-5 mt-md-0 pt-5 pt-md-0">
+        {children}
+      </div>
     </>
   );
 }
