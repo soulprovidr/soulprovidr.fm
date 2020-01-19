@@ -11,7 +11,6 @@ import Waveform from '@/common/components/Waveform';
 function Post({ data }) {
   const post = get(data, 'contentfulArticle');
   const track = useTrack(post.soundCloudUrl || null);
-  console.log(track);
   return (
     <div className="container">
       <Helmet title={post.title} />
@@ -34,11 +33,11 @@ function Post({ data }) {
             }}
           />
           <Waveform
-            height={75}
+            height={90}
             numSamples={120}
             waveformUrl={track ? track.waveform_url : null}
           />
-          <Tracklist />
+          {/* <Tracklist /> */}
         </div>
       </div>
     </div>

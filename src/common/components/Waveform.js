@@ -1,69 +1,100 @@
 import React, { useEffect, useState } from 'react';
 import chunk from 'lodash.chunk';
 
+import { average } from '@/helpers';
 import { useWaveform } from '@/soundcloud';
-
-/**
- * Take the average of an array of numbers.
- *
- * @param {Array<Number>} array
- * @returns
- */
-function average(array) {
-  return array.reduce((total, value) => total + value, 0) / array.length;
-}
 
 function Waveform({
   activeColor,
   inactiveColor,
   width,
   height,
-  numSamples,
+  numChunks,
   percentProgress,
+  reflectionHeight,
   waveformUrl
 }) {
-  const [samples, setSamples] = useState([]);
-  const sampleWidthPercent = 100 / numSamples;
-
+  const [chunks, setChunks] = useState([]);  
   const waveform = useWaveform(waveformUrl);
+  
+  const chunkPercentWidth = 100 / numChunks;
 
   useEffect(() => {
-    async function getSamples() {
+    async function getChunks() {
       try {
-        const heightScale = height / waveform.height;
-        setSamples(
-          chunk(waveform.samples, waveform.samples.length / numSamples)
+        const heightScale = (height - reflectionHeight) / waveform.height;
+        setChunks(
+          chunk(waveform.samples, waveform.samples.length / numChunks)
             .map(average)
-            .map(sample => sample * heightScale)
+            .map(chunk => chunk * heightScale)
         );
       } catch (e) {
         // TODO: Error state.
         console.error(e);
       }
     }
-    if (waveform) getSamples();
-  }, [height, numSamples, waveform]);
+    if (waveform) getChunks();
+  }, [height, numChunks, waveform]);
 
-  if (!waveformUrl) return null;
+  function renderWaveform() {
+    return (
+      <>
+        <div style={{
+          alignItems: 'flex-end',
+          display: 'flex',
+          height: height - reflectionHeight
+        }}>
+          {chunks.map((s, index) => (
+            <div
+              key={index}
+              style={{
+                background: ((index + 1) * chunkPercentWidth) > percentProgress
+                  ? inactiveColor
+                  : activeColor,
+                height: s,
+                marginRight: 1,
+                width: `calc(${chunkPercentWidth}% - 1px)`
+              }}
+            />
+          ))}
+        </div>
+        <div style={{
+          alignItems: 'flex-start',
+          display: 'flex',
+          height: reflectionHeight,
+          position: 'relative'
+        }}>
+          <div style={{
+            background: 'linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.4) 70%)',
+            height: '100%',
+            position: 'absolute',
+            width: '100%'
+          }} />
+          {chunks.map((s, index) => (
+            <div
+              key={index}
+              style={{
+                background: ((index + 1) * chunkPercentWidth) > percentProgress
+                  ? inactiveColor
+                  : activeColor,
+                height: s * ((reflectionHeight / height) * 1.25),
+                marginRight: 1,
+                width: `calc(${chunkPercentWidth}% - 1px)`
+              }}
+            />
+          ))}
+        </div>
+      </>
+    );
+  }
+
+  function renderLoading() {
+    return 'Loading...';
+  }
+
   return (
-    <div
-      className="waveform"
-      style={{ height, width, display: 'flex', alignItems: 'center' }}
-    >
-      {samples.map((s, index) => (
-        <div
-          className="waveform__sample"
-          key={index}
-          style={{
-            background: ((index + 1) * sampleWidthPercent) > percentProgress
-              ? inactiveColor
-              : activeColor,
-            height: s,
-            marginRight: 1,
-            width: `calc(${sampleWidthPercent}% - 1px)`
-          }}
-        />
-      ))}
+    <div style={{ height, width }}>
+      {waveform ? renderWaveform() : renderLoading()}
     </div>
   );
 }
@@ -73,8 +104,9 @@ Waveform.defaultProps = {
   inactiveColor: '#AFAFAF',
   width: '100%',
   height: 75,
-  numSamples: 150,
-  percentProgress: 50
+  numChunks: 150,
+  percentProgress: 50,
+  reflectionHeight: 50
 };
 
 export default Waveform;
