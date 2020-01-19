@@ -3,7 +3,7 @@ const path = require('path');
 exports.createPages = async ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   try {
-    const postComponent = path.resolve('./src/templates/post.js');
+    const postComponent = path.resolve('./src/templates/Post.js');
     const result = await graphql(
       `
         {

@@ -20,11 +20,15 @@ async function request(path, params = {}) {
   }
 };
 
-function resolve(url) {
-  return request('/resolve', { url });
+async function resolve(url) {
+  try {
+    return await request('/resolve', { url });
+  } catch (e) {
+    return null;
+  }
 }
 
-export const useSoundCloudData = soundCloudUrl => {
+export function useTrack(soundCloudUrl) {
   const [data, setData] = useState(null); 
   useEffect(() => {
     (async () => soundCloudUrl
@@ -33,4 +37,21 @@ export const useSoundCloudData = soundCloudUrl => {
     )();
   }, [soundCloudUrl]);
   return data;
-};
+}
+
+export function useWaveform(waveformUrl) {
+  const [waveform, setWaveform] = useState(null);
+  useEffect(() => {
+    if (!waveformUrl) return;
+    (async () => {
+      const url = waveformUrl.replace('.png', '.json');
+      try {
+        const response = await fetch(url);
+        setWaveform(await response.json());
+      } catch (e) {
+        return;
+      }
+    })();
+  }, [waveformUrl]);
+  return waveform;
+}

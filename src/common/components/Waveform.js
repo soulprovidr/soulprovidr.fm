@@ -1,7 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import chunk from 'lodash.chunk';
 
-const averageSamples = samples => samples.reduce((total, value) => total + value, 0) / samples.length;
+import { useWaveform } from '@/soundcloud';
+
+/**
+ * Take the average of an array of numbers.
+ *
+ * @param {Array<Number>} array
+ * @returns
+ */
+function average(array) {
+  return array.reduce((total, value) => total + value, 0) / array.length;
+}
 
 function Waveform({
   activeColor,
@@ -13,19 +23,17 @@ function Waveform({
   waveformUrl
 }) {
   const [samples, setSamples] = useState([]);
-  const [sampleWidthPercent, setSampleWidthPercent] = useState(null);
+  const sampleWidthPercent = 100 / numSamples;
+
+  const waveform = useWaveform(waveformUrl);
 
   useEffect(() => {
     async function getSamples() {
       try {
-        const url = waveformUrl.replace('.png', '.json');
-        const response = await fetch(url);
-        const sampleData = await response.json();
-        const heightScale = height / sampleData.height;
-        setSampleWidthPercent(100 / numSamples);
+        const heightScale = height / waveform.height;
         setSamples(
-          chunk(sampleData.samples, sampleData.samples.length / numSamples)
-            .map(averageSamples)
+          chunk(waveform.samples, waveform.samples.length / numSamples)
+            .map(average)
             .map(sample => sample * heightScale)
         );
       } catch (e) {
@@ -33,8 +41,8 @@ function Waveform({
         console.error(e);
       }
     }
-    if (waveformUrl) getSamples();
-  }, [height, numSamples, waveformUrl]);
+    if (waveform) getSamples();
+  }, [height, numSamples, waveform]);
 
   if (!waveformUrl) return null;
   return (
@@ -47,7 +55,9 @@ function Waveform({
           className="waveform__sample"
           key={index}
           style={{
-            background: inactiveColor,
+            background: ((index + 1) * sampleWidthPercent) > percentProgress
+              ? inactiveColor
+              : activeColor,
             height: s,
             marginRight: 1,
             width: `calc(${sampleWidthPercent}% - 1px)`
@@ -59,7 +69,7 @@ function Waveform({
 }
 
 Waveform.defaultProps = {
-  activeColor: '#7F7F7F',
+  activeColor: '#257AD7',
   inactiveColor: '#AFAFAF',
   width: '100%',
   height: 75,

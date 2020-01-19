@@ -4,14 +4,14 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
-import { useSoundCloudData } from '@/soundcloud';
+import { useTrack } from '@/soundcloud';
 import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/common/components/Waveform';
 
 function Post({ data }) {
   const post = get(data, 'contentfulArticle');
-  const soundCloudData = useSoundCloudData(post.soundCloudUrl || null);
-  console.log(soundCloudData);
+  const track = useTrack(post.soundCloudUrl || null);
+  console.log(track);
   return (
     <div className="container">
       <Helmet title={post.title} />
@@ -36,7 +36,7 @@ function Post({ data }) {
           <Waveform
             height={75}
             numSamples={120}
-            waveformUrl={soundCloudData ? soundCloudData.waveform_url : null}
+            waveformUrl={track ? track.waveform_url : null}
           />
           <Tracklist />
         </div>
