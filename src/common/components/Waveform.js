@@ -1,8 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import chunk from 'lodash.chunk';
+import styled from 'styled-components';
 
 import { average } from '@/helpers';
 import { useWaveform } from '@/soundcloud';
+
+import Spinner from './Spinner';
+
+const WaveformTop = styled.div`
+  align-items: flex-end;
+  display: flex;
+  height: ${props => props.height - props.reflectionHeight};
+`;
+
+const WaveformBottom = styled.div`
+  align-items: flex-start;
+  display: flex;
+  height: ${props => props.reflectionHeight};
+  position: relative;
+`;
+
+const ReflectionGradient = styled.div`
+  background: linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.4) 70%);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+`;
 
 function Waveform({
   activeColor,
@@ -34,16 +57,12 @@ function Waveform({
       }
     }
     if (waveform) getChunks();
-  }, [height, numChunks, waveform]);
+  }, [height, numChunks, reflectionHeight, waveform]);
 
   function renderWaveform() {
     return (
       <>
-        <div style={{
-          alignItems: 'flex-end',
-          display: 'flex',
-          height: height - reflectionHeight
-        }}>
+        <WaveformTop>
           {chunks.map((s, index) => (
             <div
               key={index}
@@ -57,19 +76,9 @@ function Waveform({
               }}
             />
           ))}
-        </div>
-        <div style={{
-          alignItems: 'flex-start',
-          display: 'flex',
-          height: reflectionHeight,
-          position: 'relative'
-        }}>
-          <div style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.4) 70%)',
-            height: '100%',
-            position: 'absolute',
-            width: '100%'
-          }} />
+        </WaveformTop>
+        <WaveformBottom>
+          <ReflectionGradient />
           {chunks.map((s, index) => (
             <div
               key={index}
@@ -77,19 +86,23 @@ function Waveform({
                 background: ((index + 1) * chunkPercentWidth) > percentProgress
                   ? inactiveColor
                   : activeColor,
-                height: s * ((reflectionHeight / height) * 1.25),
+                height: s * (reflectionHeight / height),
                 marginRight: 1,
                 width: `calc(${chunkPercentWidth}% - 1px)`
               }}
             />
           ))}
-        </div>
+        </WaveformBottom>
       </>
     );
   }
 
   function renderLoading() {
-    return 'Loading...';
+    return (
+      <div className="d-flex h-100 w-100 justify-content-center">
+        <Spinner />
+      </div>
+    );
   }
 
   return (
@@ -103,9 +116,9 @@ Waveform.defaultProps = {
   activeColor: '#257AD7',
   inactiveColor: '#AFAFAF',
   width: '100%',
-  height: 75,
+  height: 90,
   numChunks: 150,
-  percentProgress: 50,
+  percentProgress: 25,
   reflectionHeight: 50
 };
 

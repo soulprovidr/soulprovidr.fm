@@ -3,7 +3,7 @@ import React from 'react';
 export default function Tracklist({ tracklist }) {
   return (
     <>
-      <p className="h6 font-weight-bold text-uppercase pt-5 pb-2">Tracklist</p>
+      <p className="h6 font-weight-bold text-uppercase pt-4 pb-2">Tracklist</p>
       <ul className="list-group list-group-flush">
         <li className="list-group-item list-group-item-action">
           <p className="m-0">Mariah Carey - We Belong Together</p>

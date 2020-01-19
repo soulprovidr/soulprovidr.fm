@@ -37,7 +37,7 @@ function Post({ data }) {
             numSamples={120}
             waveformUrl={track ? track.waveform_url : null}
           />
-          {/* <Tracklist /> */}
+          <Tracklist />
         </div>
       </div>
     </div>
