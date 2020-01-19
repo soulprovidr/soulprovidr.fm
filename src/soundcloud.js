@@ -1,5 +1,5 @@
+import React, { useEffect, useState } from 'react';
 import qs from 'qs';
-import { Howl, Howler } from 'howler';
 
 const API_URL = 'https://api.soundcloud.com';
 
@@ -18,23 +18,19 @@ async function request(path, params = {}) {
   } catch (e) {
     return null;
   }
+};
+
+function resolve(url) {
+  return request('/resolve', { url });
 }
 
-class SoundCloud {
-  sound = null;
-
-  resolve = async (url) => await request('/resolve', { url });
-
-  play = src => {
-    this.stop();
-    this.sound = new Howl({ src });
-  };
-
-  stop = () => {
-    if (this.sound) {
-      this.sound.unload();
-    }
-  };
-}
-
-export default new SoundCloud();
+export const useSoundCloudData = soundCloudUrl => {
+  const [data, setData] = useState(null); 
+  useEffect(() => {
+    (async () => soundCloudUrl
+      ? setData(await resolve(soundCloudUrl))
+      : false
+    )();
+  }, [soundCloudUrl]);
+  return data;
+};
