@@ -10,13 +10,13 @@ import Spinner from './Spinner';
 const WaveformTop = styled.div`
   align-items: flex-end;
   display: flex;
-  height: ${props => props.height - props.reflectionHeight};
+  height: ${props => props.height - props.reflectionHeight}px;
 `;
 
 const WaveformBottom = styled.div`
   align-items: flex-start;
   display: flex;
-  height: ${props => props.reflectionHeight};
+  height: ${props => props.reflectionHeight}px;
   position: relative;
 `;
 

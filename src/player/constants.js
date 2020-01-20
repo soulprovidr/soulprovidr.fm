@@ -1,0 +1,7 @@
+export const PLAYER_STATUS = {
+  UNSTARTED: -1,
+  BUFFERING: 0,
+  PLAYING: 1,
+  PAUSED: 2,
+  ENDED: 3
+};

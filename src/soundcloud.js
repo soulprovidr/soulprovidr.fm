@@ -10,6 +10,12 @@ function getQueryString(params) {
   });
 }
 
+export function getQualifiedStreamUrl(streamUrl) {
+  return streamUrl
+    ? `${streamUrl}?${getQueryString()}`
+    : null;
+}
+
 async function request(path, params = {}) {
   try {
     const queryString = getQueryString(params);
