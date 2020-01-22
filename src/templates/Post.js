@@ -59,7 +59,7 @@ function Post({ data, pause, play }) {
               duration={track?.duration}
               height={90}
               numSamples={120}
-              progress={progress}
+              progress={isSelected ? progress : 0}
               waveformUrl={track?.waveform_url}
             />
           )}
