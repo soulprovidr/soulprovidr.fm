@@ -36,12 +36,16 @@ async function resolve(url) {
 
 export function useTrack(soundCloudUrl) {
   const [data, setData] = useState(null); 
+
   useEffect(() => {
-    (async () => soundCloudUrl
-      ? setData(await resolve(soundCloudUrl))
-      : false
-    )();
+    async function resolveSoundCloudUrl() {
+      if (soundCloudUrl) {
+        setData(await resolve(soundCloudUrl))
+      }
+    }
+    resolveSoundCloudUrl();
   }, [soundCloudUrl]);
+
   return data;
 }
 

@@ -11,6 +11,14 @@ export function pause() {
   return { type: 'PAUSE' };
 }
 
+export function stop() {
+  return { type: 'STOP' };
+}
+
+export function updateMeta(meta) {
+  return { type: 'UPDATE_META', payload: { meta } };
+}
+
 export function updateProgress(progress) {
   return { type: 'UPDATE_PROGRESS', payload: { progress } };
 }

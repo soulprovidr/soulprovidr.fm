@@ -11,7 +11,7 @@
   opacity: 1;
 }
 
-.card:hover .card-image__play {
+.card:hover .card-image__icon {
   transform: scale(1);
 }
 
@@ -23,7 +23,7 @@
   z-index: 1;
 }
 
-.card-image__overlay .card-image__play {
+.card-image__overlay .card-image__icon {
   transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: scale(0);
 }

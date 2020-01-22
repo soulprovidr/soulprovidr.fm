@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import Actions from '@/actions';
+import useInterval from '@/common/hooks/useInterval';
+import fetchJson from '@/common/util/fetchJson';
+import { play, stop } from '@/player/actions';
+import { usePlayerState } from '@/player/hooks';
 import DefaultCover from '@/static/images/default.png';
-import useFetchMeta from '@/hooks/useFetchMeta';
 
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import './card.css';
+import { PLAYER_STATUS } from '../player/constants';
 
 // For now, live posts will be hard-coded.
 const liveCategory = {
@@ -16,18 +19,40 @@ const liveCategory = {
   colour: 'red'
 };
 
-function RadioCard({ meta, play }) {
-  useFetchMeta(2500);
+const STREAM_META_URL = 'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
+const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
+
+function RadioCard({ play, stop }) {
+  const [meta, setMeta] = useState(null);
+  const { status, streamUrl } = usePlayerState();
+
+  const isSelected = streamUrl === STREAM_URL;
+  const isBuffering =
+    isSelected && status === PLAYER_STATUS.BUFFERING;
+  const isPlaying =
+    isSelected && status === PLAYER_STATUS.PLAYING;
+
+  const pollFn = async () => setMeta(await fetchJson(STREAM_META_URL));
+
+  useEffect(() => {
+    pollFn();
+  }, [])
+  useInterval(pollFn, 60 * 1000);
+
   return (
     <div className="px-3">
       <div
         className="card"
-        onClick={play}
+        onClick={() =>
+          isPlaying || isBuffering
+            ? stop()
+            : play(STREAM_URL)
+        }
       >
         <CardBadge category={liveCategory} />
         <div className="row">
           <div className="col-md-4">
-            <CardImage>
+            <CardImage mediaStatus={isSelected ? status : null}>
               <img
                 alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
                 className="card-img-top"
@@ -46,7 +71,6 @@ function RadioCard({ meta, play }) {
               <p className="h4">
                 {meta ? meta.artist : null}
               </p>
-              {/* <PlayButton /> */}
             </div>
           </div>
         </div>
@@ -55,15 +79,9 @@ function RadioCard({ meta, play }) {
   );
 }
 
-const mapStateToProps = state => ({
-  meta: state.meta || null
-});
-
-const mapDispatchToProps = {
-  play: Actions.play
-};
+const mapDispatchToProps = { play, stop };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(RadioCard);

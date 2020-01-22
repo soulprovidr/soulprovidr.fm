@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import chunk from 'lodash.chunk';
 import styled from 'styled-components';
 
-import { average } from '@/helpers';
+import average from '@/common/util/average';
 import { useWaveform } from '@/soundcloud';
 
 import Spinner from './Spinner';

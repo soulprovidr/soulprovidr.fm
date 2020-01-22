@@ -55,7 +55,7 @@ function Post({ data, play }) {
   );
 }
 
-const mapDispatchToProps = ({ play });
+const mapDispatchToProps = { play };
 
 export default connect(null, mapDispatchToProps)(Post);
 

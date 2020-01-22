@@ -46,6 +46,7 @@ export const pageQuery = graphql`
         node {
           title
           slug
+          soundCloudUrl
           category {
             key
             label

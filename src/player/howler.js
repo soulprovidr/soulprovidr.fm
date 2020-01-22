@@ -74,7 +74,9 @@ class HowlerPlayer extends EventEmitter {
 
   stop = () => {
     if (this.sound) {
+      this.sound.stop();
       this.sound.unload();
+      this.sound = null;
     }
     if (this.timer) {
       clearTimeout(this.timer);
