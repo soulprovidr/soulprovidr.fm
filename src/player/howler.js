@@ -4,22 +4,34 @@ import { Howl, Howler } from 'howler';
 import { PLAYER_STATUS } from './constants';
 
 class HowlerPlayer extends EventEmitter {
-  progress = 0;
-  sound = null;
-  timer = null;
+  _id = null;
+  _progress = 0;
+  _sound = null;
+  _timer = null;
+  _status = null;
+
+  get progress() {
+    return this._progress;
+  }
+
+  set progress(progress) {
+    this.emit('progress', progress);
+    this._progress = progress;
+  }
+
+  get status() {
+    return this._status;
+  }
 
   set status(status) {
     this.emit('status', status);
+    this._status = status;
   }
 
-  emitProgress = () => {
-    this.emit('progress', ++this.progress);
-    this.timer = setTimeout(this.emitProgress, 1000);
-  };
-
-  isPlaying = src => {
-    if (this.sound) {
-      return this.sound._src.includes(src);
+  isPaused = src => {
+    if (this._sound) {
+      return this._sound._src === src
+        && this.status === PLAYER_STATUS.PAUSED;
     }
     return false;
   };
@@ -28,59 +40,62 @@ class HowlerPlayer extends EventEmitter {
     this.stop();
   };
   
-  onLoad = () => {
+  onPlay = () => {
     this.status = PLAYER_STATUS.PLAYING;
-    this.emitProgress();
-    this.sound.fade(0, 1, 100);
+    this.startProgressTimer();
+    this._sound.fade(0, 1, 100);
   };
 
   onPause = () => {
     this.status = PLAYER_STATUS.PAUSED;
   };
   
-  onProgress = () => {
-    this.emit('progress', ++this.progress);
-
-  };
-
-  onStop = () => {
-    this.status = PLAYER_STATUS.ENDED;
-  };
-
   pause = () => {
-    if (this.sound) {
-      this.sound.pause();
-      this.status = PLAYER_STATUS.PAUSED;
+    if (this._sound) {
+      this._sound.pause();
+      clearInterval(this._timer);
     }
   };
 
   play = src => {
-    if (!src || this.isPlaying(src)) {
+    // No `src` defined.
+    if (!src) {
       return false;
     }
-    if (this.sound) {
-      this.stop();
+
+    // Resume playing paused stream.
+    if (this.isPaused(src)) {
+      this._sound.play(this._id);
+      return;
     }
-    this.sound = new Howl({
+
+    // New `src`, stop what's playing and create a new sound.
+    this.stop();
+
+    this._sound = new Howl({
       src,
       format: 'mp3',
       html5: true,
-      autoplay: true,
-      onload: this.onLoad,
       onpause: this.onPause,
-      onstop: this.onStop
+      onplay: this.onPlay
     });
+    this._id = this._sound.play();
+  };
+
+  startProgressTimer = () => {
+    this._timer = setInterval(() => ++this.progress, 1000);
   };
 
   stop = () => {
-    if (this.sound) {
-      this.sound.stop();
-      this.sound.unload();
-      this.sound = null;
+    if (this._sound) {
+      this._sound.stop();
+      this._sound.unload();
+      this._id = null;
+      this._sound = null;
     }
-    if (this.timer) {
-      clearTimeout(this.timer);
-      this.progress = 0;
+    if (this._timer) {
+      clearInterval(this._timer);
+      this._progress = 0;
     }
   };
 }

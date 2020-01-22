@@ -27,10 +27,8 @@ function RadioCard({ play, stop }) {
   const { status, streamUrl } = usePlayerState();
 
   const isSelected = streamUrl === STREAM_URL;
-  const isBuffering =
-    isSelected && status === PLAYER_STATUS.BUFFERING;
-  const isPlaying =
-    isSelected && status === PLAYER_STATUS.PLAYING;
+  const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
+  const isPlaying = isSelected && status === PLAYER_STATUS.PLAYING;
 
   const pollFn = async () => setMeta(await fetchJson(STREAM_META_URL));
 
@@ -44,7 +42,7 @@ function RadioCard({ play, stop }) {
       <div
         className="card"
         onClick={() =>
-          isPlaying || isBuffering
+          isPlaying
             ? stop()
             : play(STREAM_URL)
         }
@@ -52,7 +50,7 @@ function RadioCard({ play, stop }) {
         <CardBadge category={liveCategory} />
         <div className="row">
           <div className="col-md-4">
-            <CardImage mediaStatus={isSelected ? status : null}>
+            <CardImage isPlaying={isSelected && !isPaused}>
               <img
                 alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
                 className="card-img-top"

@@ -20,6 +20,10 @@ const WaveformBottom = styled.div`
   position: relative;
 `;
 
+const Chunk = styled.div`
+  transition: background ${props => props.transitionDuration}s linear;
+`;
+
 const ReflectionGradient = styled.div`
   background: linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.4) 70%);
   height: 100%;
@@ -30,10 +34,11 @@ const ReflectionGradient = styled.div`
 function Waveform({
   activeColor,
   inactiveColor,
+  duration,
+  progress,
   width,
   height,
   numChunks,
-  percentProgress,
   reflectionHeight,
   waveformUrl
 }) {
@@ -41,6 +46,8 @@ function Waveform({
   const waveform = useWaveform(waveformUrl);
   
   const chunkPercentWidth = 100 / numChunks;
+  const percentProgress = ((progress * 1000) / duration * 100);
+  const transitionDuration = Math.round((duration / numChunks) / 1000);
 
   useEffect(() => {
     async function getChunks() {
@@ -63,27 +70,31 @@ function Waveform({
     return (
       <>
         <WaveformTop>
-          {chunks.map((s, index) => (
-            <div
-              key={index}
-              style={{
-                background: ((index + 1) * chunkPercentWidth) > percentProgress
-                  ? inactiveColor
-                  : activeColor,
-                height: s,
-                marginRight: 1,
-                width: `calc(${chunkPercentWidth}% - 1px)`
-              }}
-            />
-          ))}
+          {chunks.map((s, index) => {
+              return (
+              <Chunk
+                key={index}
+                transitionDuration={transitionDuration}
+                style={{
+                  background: (index * chunkPercentWidth) >= percentProgress
+                    ? inactiveColor
+                    : activeColor,
+                  height: s,
+                  marginRight: 1,
+                  width: `calc(${chunkPercentWidth}% - 1px)`
+                }}
+              />
+            )
+          })}
         </WaveformTop>
         <WaveformBottom>
           <ReflectionGradient />
           {chunks.map((s, index) => (
-            <div
+            <Chunk
               key={index}
+              transitionDuration={transitionDuration}
               style={{
-                background: ((index + 1) * chunkPercentWidth) > percentProgress
+                background: (index * chunkPercentWidth) >= percentProgress
                   ? inactiveColor
                   : activeColor,
                 height: s * (reflectionHeight / height),

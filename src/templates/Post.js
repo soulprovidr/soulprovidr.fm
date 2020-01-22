@@ -5,14 +5,24 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
-import { useTrack } from '@/soundcloud';
 import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/common/components/Waveform';
-import { play } from '../player/actions';
+import { pause, play } from '@/player/actions';
+import { PLAYER_STATUS } from '@/player/constants';
+import { usePlayerState } from '@/player/hooks';
+import { useTrack } from '@/soundcloud';
 
-function Post({ data, play }) {
+function Post({ data, pause, play }) {
   const post = get(data, 'contentfulArticle');
-  const track = useTrack(post?.soundCloudUrl);
+
+  const { progress, status, streamUrl } = usePlayerState();
+
+  const soundCloudUrl = get(post, 'soundCloudUrl', null);
+  const track = useTrack(soundCloudUrl);
+
+  const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
+  const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
+
   return (
     <div className="container">
       <Helmet title={post.title} />
@@ -24,9 +34,12 @@ function Post({ data, play }) {
               <div className="d-flex justify-content-between align-items-center">
                 <button
                   className="btn btn-sm btn-primary rounded my-3"
-                  onClick={() => play(track?.stream_url)}
+                  onClick={() => isSelected && !isPaused
+                    ? pause()
+                    : play(track?.stream_url)
+                  }
                 >
-                  &#9654;&nbsp;&nbsp;PLAY
+                  {isSelected && !isPaused ? 'PAUSE' : 'PLAY'}
                 </button>
                 <p className="text-muted m-0 p-0">16 tracks, 59 min</p>
               </div>
@@ -43,8 +56,10 @@ function Post({ data, play }) {
           />
           {post.soundCloudUrl && (
             <Waveform
+              duration={track?.duration}
               height={90}
               numSamples={120}
+              progress={progress}
               waveformUrl={track?.waveform_url}
             />
           )}
@@ -55,7 +70,7 @@ function Post({ data, play }) {
   );
 }
 
-const mapDispatchToProps = { play };
+const mapDispatchToProps = { pause, play };
 
 export default connect(null, mapDispatchToProps)(Post);
 
