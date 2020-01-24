@@ -7,9 +7,13 @@ import get from 'lodash.get';
 import { pause, play } from '@/player/actions';
 import { usePlayerState } from '@/player/hooks';
 import { useTrack } from '@/soundcloud';
+import PauseIcon from '@/static/images/pause.png';
+import PlayIcon from '@/static/images/play.png';
 
+import Card from './Card';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
+import CardOverlay from './CardOverlay';
 import './card.css';
 import { PLAYER_STATUS } from '../player/constants';
 
@@ -23,48 +27,64 @@ function ArticleCard({ article, pause, play }) {
   const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
   const isPlaying = isSelected && status === PLAYER_STATUS.PLAYING;
 
+  const getPlayerIcon = () => {
+    return isSelected && !isPaused ? (
+      <img
+        alt="Paused"
+        className="card-image__icon"
+        src={PauseIcon}
+      />
+    ) : (
+      <img
+        alt="Play"
+        className="card-image__icon"
+        src={PlayIcon}
+      />
+    )
+  };
+
   return (
-    <div className="pb-4">
-      <div
-        className="card"
-        onClick={() => track
-          ? isPlaying
-            ? pause()
-            : play(track.stream_url)
-          : null
-        }
-      >
-        <CardBadge category={article.category} />
-        <CardImage isPlaying={isSelected && !isPaused}>
-          <Img
-            className="card-img-top"
-            sizes={article.heroImage.sizes}
-          />
-        </CardImage>
-        <div className="card-body">
-          <h5 className="card-title">
-            <span
-              className="cursor-pointer text-dark font-weight-bold"
-              onClick={e => {
-                e.stopPropagation();
-                navigate(`/${article.slug}`);
-              }}
-            >
-              {article.title}
-            </span>
-          </h5>
-          <div
-            className="card-text"
-            dangerouslySetInnerHTML={{
-              __html: article.description.childMarkdownRemark.html
+    <Card
+      isPlayable={!!track}
+      onClick={() => track
+        ? isPlaying
+          ? pause()
+          : play(track.stream_url)
+        : null
+      }
+    >
+      <CardBadge category={article.category} />
+      <CardImage>
+        <Img
+          className="card-img-top"
+          sizes={article.heroImage.sizes}
+        />
+        {!!track && (
+          <CardOverlay>
+            {getPlayerIcon()}
+          </CardOverlay>
+        )}
+      </CardImage>
+      <div className="card-body">
+        <h5 className="card-title">
+          <span
+            className="cursor-pointer text-dark font-weight-bold"
+            onClick={e => {
+              e.stopPropagation();
+              navigate(`/${article.slug}`);
             }}
-          />
-        </div>
-        {/* <div className="card-footer">
-          <button className="btn btn-muted">Play</button>
-        </div> */}
+          >
+            {article.title}
+          </span>
+        </h5>
+        <div
+          className="card-text"
+          dangerouslySetInnerHTML={{
+            __html: article.description.childMarkdownRemark.html
+          }}
+        />
       </div>
-    </div>
+    </Card>
   );
 }
 

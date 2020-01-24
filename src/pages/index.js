@@ -13,7 +13,9 @@ function Home({ data }) {
       <Helmet title="Home" />
       <section className="row pb-4">
         <div className="w-100">
-          <RadioCard key="radio" />
+          <div className="px-3">
+            <RadioCard key="radio" />
+          </div>
         </div>
       </section>
       <section className="row py-5">
@@ -22,9 +24,9 @@ function Home({ data }) {
             className="d-flex col-lg-4"
             key={article.slug}
           >
-            <ArticleCard
-              article={article}
-            />
+            <div className="pb-4 w-100">
+              <ArticleCard article={article} />
+            </div>
           </div>
         ))}
       </section>
