@@ -1,14 +1,12 @@
 import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { Link, navigate } from 'gatsby';
+import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
 import { pause, play } from '@/player/actions';
 import { usePlayerState } from '@/player/hooks';
 import { useTrack } from '@/soundcloud';
-import PauseIcon from '@/static/images/pause.png';
-import PlayIcon from '@/static/images/play.png';
 
 import Card from './Card';
 import CardBadge from './CardBadge';
@@ -29,22 +27,6 @@ function ArticleCard({ article, pause, play }) {
   const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
   const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
   const isPlaying = isSelected && status === PLAYER_STATUS.PLAYING;
-
-  const getPlayerIcon = () => {
-    return isSelected && !isPaused ? (
-      <img
-        alt="Paused"
-        className="card-image__icon"
-        src={PauseIcon}
-      />
-    ) : (
-      <img
-        alt="Play"
-        className="card-image__icon"
-        src={PlayIcon}
-      />
-    )
-  };
 
   const onClick = e => {
     // Don't play the track if the title was clicked.

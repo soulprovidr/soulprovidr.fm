@@ -14,17 +14,16 @@ import { useTrack } from '@/soundcloud';
 
 function Post({ data, pause, play }) {
   const post = get(data, 'contentfulArticle');
-
-  const { progress, status, streamUrl } = usePlayerState();
-
   const soundCloudUrl = get(post, 'soundCloudUrl', null);
+  
+  const { progress, status, streamUrl } = usePlayerState();
   const track = useTrack(soundCloudUrl);
 
   const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
   const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
 
   return (
-    <div className="container">
+    <main className="container">
       <Helmet title={post.title} />
       <div className="row">
         <div className="col-md-4">
@@ -66,7 +65,7 @@ function Post({ data, pause, play }) {
           <Tracklist />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 
