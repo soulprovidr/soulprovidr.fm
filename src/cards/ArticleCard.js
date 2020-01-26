@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { connect } from 'react-redux';
-import { navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
@@ -12,12 +12,15 @@ import PlayIcon from '@/static/images/play.png';
 
 import Card from './Card';
 import CardBadge from './CardBadge';
+import CardControls from './CardControls';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
 import './card.css';
 import { PLAYER_STATUS } from '../player/constants';
 
 function ArticleCard({ article, pause, play }) {
+  const linkRef = useRef(null);
+
   const { status, streamUrl } = usePlayerState();
 
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
@@ -43,15 +46,22 @@ function ArticleCard({ article, pause, play }) {
     )
   };
 
+  const onClick = e => {
+    // Don't play the track if the title was clicked.
+    if (linkRef.current && e.target === linkRef.current) {
+      return;
+    }
+    return track
+      ? isPlaying
+        ? pause()
+        : play(track.stream_url)
+      : null;
+  }
+
   return (
     <Card
       isPlayable={!!track}
-      onClick={() => track
-        ? isPlaying
-          ? pause()
-          : play(track.stream_url)
-        : null
-      }
+      onClick={onClick}
     >
       <CardBadge category={article.category} />
       <CardImage>
@@ -61,21 +71,19 @@ function ArticleCard({ article, pause, play }) {
         />
         {!!track && (
           <CardOverlay>
-            {getPlayerIcon()}
+            <CardControls isPlaying={isSelected && !isPaused} />
           </CardOverlay>
         )}
       </CardImage>
       <div className="card-body">
         <h5 className="card-title">
-          <span
-            className="cursor-pointer text-dark font-weight-bold"
-            onClick={e => {
-              e.stopPropagation();
-              navigate(`/${article.slug}`);
-            }}
+          <Link
+            className="text-dark font-weight-bold"
+            ref={linkRef}
+            to={`/${article.slug}`}
           >
             {article.title}
-          </span>
+          </Link>
         </h5>
         <div
           className="card-text"

@@ -4,17 +4,16 @@ import { connect } from 'react-redux';
 import useInterval from '@/common/hooks/useInterval';
 import fetchJson from '@/common/util/fetchJson';
 import { play, stop } from '@/player/actions';
+import { PLAYER_STATUS } from '@/player/constants';
 import { usePlayerState } from '@/player/hooks';
 import DefaultCover from '@/static/images/default.png';
-import PauseIcon from '@/static/images/pause.png';
-import PlayIcon from '@/static/images/play.png';
 
 import Card from './Card';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
 import './card.css';
-import { PLAYER_STATUS } from '../player/constants';
+import CardControls from './CardControls';
 
 // For now, live posts will be hard-coded.
 const liveCategory = {
@@ -36,25 +35,9 @@ function RadioCard({ play, stop }) {
 
   const pollFn = async () => setMeta(await fetchJson(STREAM_META_URL));
 
-  const getPlayerIcon = () => {
-    return isSelected && !isPaused ? (
-      <img
-        alt="Paused"
-        className="card-image__icon"
-        src={PauseIcon}
-      />
-    ) : (
-        <img
-          alt="Play"
-          className="card-image__icon"
-          src={PlayIcon}
-        />
-      )
-  };
-
   useEffect(() => {
     pollFn();
-  }, [])
+  }, []);
   useInterval(pollFn, 30 * 1000);
 
   return (
@@ -71,7 +54,7 @@ function RadioCard({ play, stop }) {
         <div className="col-md-4">
           <CardImage isPlaying={isSelected && !isPaused}>
             <CardOverlay>
-              {getPlayerIcon()}
+              <CardControls isPlaying={isSelected && !isPaused} />
             </CardOverlay>
             <img
               alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
@@ -81,7 +64,7 @@ function RadioCard({ play, stop }) {
           </CardImage>
         </div>
         <div className="col-md-8 d-flex align-items-center">
-          <div className="card-body ">
+          <div className="card-body">
             <p className="font-weight-bold text-uppercase mb-3">
               Now Playing:
             </p>

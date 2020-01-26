@@ -7,15 +7,15 @@
   cursor: pointer;
 }
 
-.card.card--playable:hover .card-image__overlay {
+.card.card--playable:hover .card__overlay {
   opacity: 1;
 }
 
-.card.card--playable:hover .card-image__icon {
+.card.card--playable:hover .card__control {
   transform: scale(1);
 }
 
-.card-image__overlay {
+.card__overlay {
   top: 0; right: 0; bottom: 0; left: 0;
   background: rgba(0, 0, 0, .2);
   opacity: 0;
@@ -23,12 +23,12 @@
   z-index: 1;
 }
 
-.card-image__overlay .card-image__icon {
+.card__overlay .card__control {
   transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transform: scale(0);
 }
 
-.card-image__overlay:hover {
+.card__overlay:hover {
   opacity: 1;
 }
 
