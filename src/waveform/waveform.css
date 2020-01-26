@@ -1,0 +1,28 @@
+.waveform__top {
+  display: flex;
+  align-items: flex-end;
+}
+
+.waveform__bottom {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.waveform__sample {
+  cursor: pointer;
+}
+
+.waveform__gradient {
+  background: linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.4) 70%);
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.waveform__loading {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}

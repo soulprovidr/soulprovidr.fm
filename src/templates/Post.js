@@ -6,7 +6,7 @@ import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
 import Tracklist from '@/common/components/Tracklist';
-import Waveform from '@/common/components/Waveform';
+import Waveform from '@/waveform/Waveform';
 import { pause, play } from '@/player/actions';
 import { PLAYER_STATUS } from '@/player/constants';
 import { usePlayerState } from '@/player/hooks';
