@@ -21,6 +21,10 @@ export default ({ dispatch }) => next => {
       case 'PAUSE':
         Player.pause();
         break;
+      case 'SEEK':
+        const { duration } = payload;
+        // Player.seek(duration);
+        break;
       case 'STOP':
         Player.stop();
         break;

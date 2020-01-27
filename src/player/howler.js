@@ -3,6 +3,8 @@ import { Howl, Howler } from 'howler';
 
 import { PLAYER_STATUS } from './constants';
 
+const PROGRESS_INTERVAL = 100;
+
 class HowlerPlayer extends EventEmitter {
   _id = null;
   _progress = 0;
@@ -83,7 +85,10 @@ class HowlerPlayer extends EventEmitter {
   };
 
   startProgressTimer = () => {
-    this._timer = setInterval(() => ++this.progress, 1000);
+    this._timer = setInterval(
+      () => this.progress += PROGRESS_INTERVAL,
+      PROGRESS_INTERVAL
+    );
   };
 
   stop = () => {

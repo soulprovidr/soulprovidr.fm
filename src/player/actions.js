@@ -11,6 +11,10 @@ export function pause() {
   return { type: 'PAUSE' };
 }
 
+export function seek(duration) {
+  return { type: 'SEEK', payload: { duration } };
+}
+
 export function stop() {
   return { type: 'STOP' };
 }

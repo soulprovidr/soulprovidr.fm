@@ -62,7 +62,7 @@ function Post({ data, pause, play }) {
               waveformUrl={track?.waveform_url}
             />
           )}
-          <Tracklist />
+          {/* <Tracklist /> */}
         </div>
       </div>
     </main>

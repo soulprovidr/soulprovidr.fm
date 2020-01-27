@@ -9,8 +9,9 @@
   position: relative;
 }
 
-.waveform__sample {
+.waveform--hover .waveform__sample {
   cursor: pointer;
+  transition: none!important;
 }
 
 .waveform__gradient {

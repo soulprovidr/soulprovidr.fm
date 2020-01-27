@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import chunk from 'lodash.chunk';
 
 import Spinner from '@/common/components/Spinner';
 import average from '@/common/util/average';
+import useIsMouseOver from '@/common/hooks/useIsMouseOver';
 import { useWaveform } from '@/soundcloud';
 
 import './waveform.css';
@@ -16,30 +17,41 @@ function Waveform({
   height,
   numSamples,
   reflectionHeight,
-  waveformUrl
+  waveformUrl,
+  onClick
 }) {
-  const [samples, setSamples] = useState([]);
+  const waveformRef = useRef(null);
+
   const [selectedSampleIndex, setSelectedSampleIndex] = useState(-1);
+  const isMouseOver = useIsMouseOver(waveformRef)
   const waveform = useWaveform(waveformUrl);
   
   const samplePercentWidth = 100 / numSamples;
-  const percentProgress = ((progress * 1000) / duration) * 100;
-
+  const percentProgress = (progress / duration) * 100;
   // How long does it take to play a sample (in seconds)?
   const transitionDuration = Math.round((duration / numSamples) / 1000);
 
   // Chunk samples and average their amplitudes.
-  useMemo(() => {
-    if (!waveform) return false;
+  const samples = useMemo(() => {
+    if (!waveform) return [];
     const heightScale = (height - reflectionHeight) / waveform.height;
-    setSamples(
-      chunk(waveform.samples, waveform.samples.length / numSamples)
-        .map(average)
-        .map(sample => sample * heightScale)
-    );
+    return chunk(waveform.samples, waveform.samples.length / numSamples)
+      .map(average)
+      .map(sample => sample * heightScale)
   }, [height, numSamples, reflectionHeight, waveform]);
 
-  const clearSelectedSampleIndex = () => setSelectedSampleIndex(-1);
+
+  const onMouseOut = () => {
+    setSelectedSampleIndex(-1);
+  };
+
+  const renderLoading = () => {
+    return (
+      <div className="waveform__loading">
+        <Spinner />
+      </div>
+    );
+  };
 
   const renderSample = (sampleHeight, index) => {
     const previousSamplesWidth = index * samplePercentWidth;
@@ -49,12 +61,13 @@ function Waveform({
       <div
         className="waveform__sample"
         key={index}
+        onClick={() => onClick(previousSamplesWidth / 100) * duration}
         onMouseOver={() => setSelectedSampleIndex(index)}
         style={{
           background: isActive ? activeColor : inactiveColor,
           height: sampleHeight,
           marginRight: 1,
-          transition: `background ${transitionDuration} s linear`,
+          transition: `background ${transitionDuration}s linear`,
           width: `calc(${samplePercentWidth}% - 1px)`
         }}
       />
@@ -64,8 +77,12 @@ function Waveform({
   const renderWaveform = () => {
     return (
       <div
-        className="waveform"
-        onMouseOut={clearSelectedSampleIndex}
+        className={`
+          waveform
+          ${isMouseOver ? 'waveform--hover' : ''}
+        `}
+        onMouseOut={onMouseOut}
+        ref={waveformRef}
       >
         <div
           className="waveform__top"
@@ -83,14 +100,6 @@ function Waveform({
       </div>
     );;
   };
-
-  const renderLoading = () => {
-    return (
-      <div className="waveform__loading">
-        <Spinner />
-      </div>
-    );
-  }
 
   return (
     <div style={{ height, width }}>
