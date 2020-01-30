@@ -14,16 +14,13 @@ export default ({ dispatch }) => next => {
   return action => {
     const { type, payload } = action;
     switch (type) {
-      case 'PLAY':
-        const { streamUrl } = payload;
-        Player.play(streamUrl);
+      case 'PLAY': {
+        const { seekProgress, streamUrl } = payload;
+        Player.play(streamUrl, seekProgress);
         break;
+      }
       case 'PAUSE':
         Player.pause();
-        break;
-      case 'SEEK':
-        const { duration } = payload;
-        // Player.seek(duration);
         break;
       case 'STOP':
         Player.stop();

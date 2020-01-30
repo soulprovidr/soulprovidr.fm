@@ -16,9 +16,9 @@ function Waveform({
   width,
   height,
   numSamples,
+  onSeek,
   reflectionHeight,
-  waveformUrl,
-  onClick
+  waveformUrl
 }) {
   const waveformRef = useRef(null);
 
@@ -57,12 +57,16 @@ function Waveform({
     const previousSamplesWidth = index * samplePercentWidth;
     const isActive = (previousSamplesWidth < percentProgress)
       || (selectedSampleIndex >= index);
+    const onClick = () => onSeek(
+      Math.round((previousSamplesWidth / 100) * duration)
+    );
+    const onMouseOver = () => setSelectedSampleIndex(index);
     return (
       <div
         className="waveform__sample"
         key={index}
-        onClick={() => onClick(previousSamplesWidth / 100) * duration}
-        onMouseOver={() => setSelectedSampleIndex(index)}
+        onClick={onClick}
+        onMouseOver={onMouseOver}
         style={{
           background: isActive ? activeColor : inactiveColor,
           height: sampleHeight,
@@ -114,6 +118,7 @@ Waveform.defaultProps = {
   width: '100%',
   height: 90,
   numSamples: 150,
+  onSeek: () => null,
   percentProgress: 25,
   reflectionHeight: 50
 };

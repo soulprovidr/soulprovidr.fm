@@ -1,18 +1,14 @@
 import { getQualifiedStreamUrl } from '@/soundcloud';
 
-export function play(streamUrl) {
+export function play(streamUrl, seekProgress = 0) {
   if (streamUrl.includes('soundcloud')) {
     streamUrl = getQualifiedStreamUrl(streamUrl);
   }
-  return { type: 'PLAY', payload: { streamUrl } };
+  return { type: 'PLAY', payload: { streamUrl, seekProgress } };
 }
 
 export function pause() {
   return { type: 'PAUSE' };
-}
-
-export function seek(duration) {
-  return { type: 'SEEK', payload: { duration } };
 }
 
 export function stop() {

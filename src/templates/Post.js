@@ -5,9 +5,9 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
-import Tracklist from '@/common/components/Tracklist';
+// import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/waveform/Waveform';
-import { pause, play } from '@/player/actions';
+import { pause, play, seek } from '@/player/actions';
 import { PLAYER_STATUS } from '@/player/constants';
 import { usePlayerState } from '@/player/hooks';
 import { useTrack } from '@/soundcloud';
@@ -21,6 +21,8 @@ function Post({ data, pause, play }) {
 
   const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
   const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
+
+  const onSeek = seekProgress => play(track?.stream_url, seekProgress);
 
   return (
     <main className="container">
@@ -58,6 +60,7 @@ function Post({ data, pause, play }) {
               duration={track?.duration}
               height={90}
               numSamples={120}
+              onSeek={onSeek}
               progress={isSelected ? progress : 0}
               waveformUrl={track?.waveform_url}
             />
@@ -69,7 +72,7 @@ function Post({ data, pause, play }) {
   );
 }
 
-const mapDispatchToProps = { pause, play };
+const mapDispatchToProps = { pause, play, seek };
 
 export default connect(null, mapDispatchToProps)(Post);
 

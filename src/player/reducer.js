@@ -9,16 +9,19 @@ const initialState = {
 export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
-    case 'PLAY':
-      const { streamUrl } = payload;
+    case 'PLAY': {
+      const { seekProgress, streamUrl } = payload;
       return {
         ...state,
+        progress: seekProgress,
         status: PLAYER_STATUS.BUFFERING,
         streamUrl
       };
+    }
     case 'STOP':
       return {
         ...state,
+
         status: PLAYER_STATUS.UNSTARTED,
         streamUrl: null
       };

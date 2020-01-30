@@ -6,11 +6,10 @@ import { PLAYER_STATUS } from './constants';
 const PROGRESS_INTERVAL = 100;
 
 class HowlerPlayer extends EventEmitter {
-  _id = null;
   _progress = 0;
-  _sound = null;
+  _soundId = null;
   _timer = null;
-  _status = null;
+  _status = -1;
 
   get progress() {
     return this._progress;
@@ -29,59 +28,66 @@ class HowlerPlayer extends EventEmitter {
     this.emit('status', status);
     this._status = status;
   }
-
-  isPaused = src => {
-    if (this._sound) {
-      return this._sound._src === src
-        && this.status === PLAYER_STATUS.PAUSED;
-    }
-    return false;
-  };
-
-  onEnd = () => {
-    this.stop();
-  };
   
-  onPlay = () => {
-    this.status = PLAYER_STATUS.PLAYING;
-    this.startProgressTimer();
-    this._sound.fade(0, 1, 100);
-  };
-
   onPause = () => {
     this.status = PLAYER_STATUS.PAUSED;
+    this.stopProgressTimer();
   };
-  
+
+  onPlay = (seekProgress = 0) => {
+    this.status = PLAYER_STATUS.PLAYING;
+    this.startProgressTimer();
+    this._howler.fade(0, 1, 150);
+    this.seek(seekProgress);
+  };
+
   pause = () => {
-    if (this._sound) {
-      this._sound.pause();
-      clearInterval(this._timer);
+    if (this._howler) {
+      this._howler.pause();
     }
   };
 
-  play = src => {
-    // No `src` defined.
-    if (!src) {
-      return false;
-    }
-
+  play = (streamUrl, seekProgress = 0) => {
+    const isCurrentStream = this._howler && this._howler._src === streamUrl;
+    const isPaused = this.status === PLAYER_STATUS.PAUSED;
     // Resume playing paused stream.
-    if (this.isPaused(src)) {
-      this._sound.play(this._id);
-      return;
+    if (isCurrentStream) {
+      if (isPaused) {
+        this._howler.play();
+      }
+      this.seek(seekProgress);
     }
+    // New `streamUrl`, stop what's playing and create a new sound.
+    else {
+      this.stop();
+      this._howler = new Howl({
+        src: streamUrl,
+        format: 'mp3',
+        html5: true,
+        volume: 0,
+        onend: this.stop,
+        onpause: this.onPause,
+        onplay: () => this.onPlay(seekProgress)
+      });
+      this._soundId = this._howler.play();
+    }
+  };
 
-    // New `src`, stop what's playing and create a new sound.
-    this.stop();
+  seek = seekProgress => {
+    if (this._howler) { 
+      this._howler.seek(seekProgress / 1000);
+      this.progress = seekProgress;
+    }
+  };
 
-    this._sound = new Howl({
-      src,
-      format: 'mp3',
-      html5: true,
-      onpause: this.onPause,
-      onplay: this.onPlay
-    });
-    this._id = this._sound.play();
+  stop = () => {
+    if (this._howler) {
+      this.progress = 0;
+      this.state = PLAYER_STATUS.UNSTARTED;
+      this.stopProgressTimer();
+      this._howler.stop();
+      this._howler.unload();
+    }
   };
 
   startProgressTimer = () => {
@@ -91,18 +97,9 @@ class HowlerPlayer extends EventEmitter {
     );
   };
 
-  stop = () => {
-    if (this._sound) {
-      this._sound.stop();
-      this._sound.unload();
-      this._id = null;
-      this._sound = null;
-    }
-    if (this._timer) {
-      clearInterval(this._timer);
-      this._progress = 0;
-    }
+  stopProgressTimer = () => {
+    if (this._timer) clearInterval(this._timer);
   };
 }
 
-export default new HowlerPlayer()
+export default new HowlerPlayer();
