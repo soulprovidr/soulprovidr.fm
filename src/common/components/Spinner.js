@@ -1,9 +1,20 @@
 import React from 'react';
 
-export default function Spinner({ modifier ='secondary' }) {
+function Spinner({ modifier, size }) {
   return (
-    <div className={`spinner-border text-${modifier}`} role="status">
+    <div
+      className={`spinner-border text-${modifier}`}
+      role="status"
+      style={{ width: size, height: size }}
+    >
       <span className="sr-only">Loading...</span>
     </div>
   )
 }
+
+Spinner.defaultProps = {
+  modifier: 'secondary',
+  size: 50
+};
+
+export default Spinner;

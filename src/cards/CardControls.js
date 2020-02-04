@@ -1,20 +1,22 @@
 import React from 'react';
 
-import PauseIcon from '@/static/images/pause.png';
-import PlayIcon from '@/static/images/play.png';
+import PlayIcon from '@/common/components/PlayIcon';
+import PauseIcon from '@/common/components/PauseIcon';
 
 export default function CardControls({ isPlaying = false }) {
   return isPlaying ? (
-    <img
-      alt="Paused"
+    <PauseIcon
       className="card__control"
-      src={PauseIcon}
+      color="#FFFFFF"
+      onClick={() => console.log('pause')}
+      size={60}
     />
   ) : (
-      <img
-        alt="Play"
+      <PlayIcon
         className="card__control"
-        src={PlayIcon}
+        color="#FFFFFF"
+        onClick={() => console.log('play')}
+        size={60}
       />
     );
 }

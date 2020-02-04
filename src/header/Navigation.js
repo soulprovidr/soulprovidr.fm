@@ -6,9 +6,10 @@ export default function Navigation({ icons, links }) {
   return (
     <nav>
       <div className="d-flex align-items-center">
-        {icons.map(icon => (
+        {icons.map((icon, i) => (
           <a
             href={icon.href}
+            key={i}
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -21,7 +22,10 @@ export default function Navigation({ icons, links }) {
         ))}
         <ul className="m-0">
           {links.map(link => (
-            <div className="link h7 d-inline-block text-uppercase pr-4">
+            <div
+              className="link h7 d-inline-block text-uppercase pr-4"
+              key={link.href}
+            >
               {link.external ? (
                 <a
                   className="text-dark"

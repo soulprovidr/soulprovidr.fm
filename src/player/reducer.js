@@ -4,7 +4,7 @@ const initialState = {
   progress: 0,
   status: PLAYER_STATUS.UNSTARTED,
   streamUrl: null
-}
+};
 
 export default function (state = initialState, action) {
   const { type, payload } = action;
@@ -21,7 +21,7 @@ export default function (state = initialState, action) {
     case 'STOP':
       return {
         ...state,
-
+        progress: 0,
         status: PLAYER_STATUS.UNSTARTED,
         streamUrl: null
       };

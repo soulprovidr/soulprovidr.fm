@@ -1,0 +1,14 @@
+.player {
+  right: 0; bottom: 0; left: 0;
+  border-top: 1px solid #ddd;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 100ms ease-out,
+              opacity 150ms ease-out;
+  z-index: 3;
+}
+
+.player.visible {
+  opacity: 1;
+  transform: translateY(0);
+}

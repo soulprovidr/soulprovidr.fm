@@ -41,6 +41,10 @@ class HowlerPlayer extends EventEmitter {
     this.seek(seekProgress);
   };
 
+  onSeek = () => {
+    this.status = PLAYER_STATUS.PLAYING;
+  };
+
   pause = () => {
     if (this._howler) {
       this._howler.pause();
@@ -67,7 +71,8 @@ class HowlerPlayer extends EventEmitter {
         volume: 0,
         onend: this.stop,
         onpause: this.onPause,
-        onplay: () => this.onPlay(seekProgress)
+        onplay: () => this.onPlay(seekProgress),
+        onseek: this.onSeek
       });
       this._soundId = this._howler.play();
     }
