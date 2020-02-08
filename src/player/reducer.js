@@ -1,6 +1,7 @@
 import { PLAYER_STATUS } from './constants';
 
 const initialState = {
+  duration: 0,
   progress: 0,
   status: PLAYER_STATUS.UNSTARTED,
   streamUrl: null
@@ -10,9 +11,10 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case 'PLAY': {
-      const { seekProgress, streamUrl } = payload;
+      const { duration, seekProgress, streamUrl } = payload;
       return {
         ...state,
+        duration,
         progress: seekProgress,
         status: PLAYER_STATUS.BUFFERING,
         streamUrl

@@ -1,6 +1,6 @@
 import { getQualifiedStreamUrl } from '@/soundcloud';
 
-export function play(streamUrl, seekProgress = 0) {
+export function play(streamUrl = '', seekProgress = 0) {
   if (streamUrl.includes('soundcloud')) {
     streamUrl = getQualifiedStreamUrl(streamUrl);
   }
