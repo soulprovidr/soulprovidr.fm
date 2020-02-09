@@ -42,6 +42,12 @@ module.exports = {
           '@': path.resolve(__dirname, 'src')
         }
       }
+    },
+    {
+      resolve: 'gatsby-plugin-offline',
+      options: {
+        appendScript: require.resolve('./src/service-worker.js')
+      }
     }
   ]
 };

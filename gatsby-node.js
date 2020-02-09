@@ -3,7 +3,6 @@ const path = require('path');
 exports.createPages = async ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   try {
-    const postComponent = path.resolve('./src/templates/Post.js');
     const result = await graphql(
       `
         {
@@ -24,8 +23,9 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
       throw result.errors;
     }
 
+    const postComponent = path.resolve('./src/templates/Post.js');
     const posts = result.data.allContentfulArticle.edges;
-    posts.forEach((post, index) => {
+    posts.forEach(post => {
       createPage({
         path: `/${post.node.slug}/`,
         component: postComponent,

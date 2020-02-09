@@ -56,14 +56,3 @@ export default function Layout({ children }) {
     </>
   );
 }
-
-export const query = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-        description
-      }
-    }
-  }
-`;

@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import store from '@/store';
 import Layout from '@/templates/Layout';
 
+export const registerServiceWorker = () => true;
+
 export const wrapPageElement = ({ element, props }) => {
   return (
     <Layout {...props}>
