@@ -5,7 +5,10 @@ self.addEventListener('fetch', function (e) {
   }
   e.respondWith(
     caches.match(e.request).then(function (response) {
-      return response || fetch(e.request);
+      return response || fetch(e.request).then(function (response) {
+        caches.put(e.request, response.clone());
+        return response;
+      });
     })
   )
 });
