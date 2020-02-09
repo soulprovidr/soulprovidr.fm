@@ -1,14 +1,21 @@
-self.addEventListener('fetch', function (e) {
-  // Don't cache non-SoundCloud responses.
-  if (!e.request.url.match(/^.*(soundcloud.com).*$/)) {
-    return false;
+function cacheForDomain(domain) {
+  return function (e) {
+    if (!e.request.url.match(`/^.*(${domain}).*$/`)) {
+      return false;
+    }
+    e.respondWith(
+      caches.open(domain).then(function (cache) {
+        return cache.match(e.request).then(function (response) {
+          return response || fetch(e.request).then(function (response) {
+            cache.put(e.request, response.clone());
+            return response;
+          });
+        })
+      })
+    )
   }
-  e.respondWith(
-    caches.match(e.request).then(function (response) {
-      return response || fetch(e.request).then(function (response) {
-        caches.put(e.request, response.clone());
-        return response;
-      });
-    })
-  )
+}
+
+self.addEventListener('fetch', function (e) {
+  cacheForDomain('soundcloud.com')(e);
 });
