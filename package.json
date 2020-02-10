@@ -25,6 +25,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
+    "react-masonry-css": "^1.0.14",
     "react-progressive-bg-image": "^3.0.0",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",

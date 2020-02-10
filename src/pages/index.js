@@ -2,6 +2,7 @@ import React from 'react';
 import get from 'lodash/get';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
+import Masonry from 'react-masonry-css';
 
 import ArticleCard from '@/cards/ArticleCard';
 import RadioCard from '@/cards/RadioCard';
@@ -18,18 +19,22 @@ function Home({ data }) {
           </div>
         </div>
       </section>
-      <section className="row py-5">
+      <Masonry
+        breakpointCols={{
+          default: 3,
+          990: 1
+        }}
+        className="row py-5"
+        columnClassName="col"
+      >
         {articles.map(({ node: article }) => (
-          <div
-            className="d-flex col-lg-4"
-            key={article.slug}
-          >
+          <div key={article.slug}>
             <div className="pb-4 w-100">
               <ArticleCard article={article} />
             </div>
           </div>
         ))}
-      </section>
+      </Masonry>
     </main>
   );
 }
