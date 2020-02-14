@@ -68,8 +68,8 @@ function DesktopHeader() {
 
 function MobileHeader() {
   return (
-    <header className="mobile container d-sm-block d-md-none bg-white py-2 mb-4 position-fixed">
-      <div className="d-flex align-items-center justify-content-between py-2">
+    <header className="mobile d-sm-block d-md-none bg-white py-2 mb-4 position-fixed">
+      <div className="d-flex align-items-center justify-content-between py-2 container">
         <div className="d-flex align-items-center">
           <Link to="/">
             <Logo

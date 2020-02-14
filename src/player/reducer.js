@@ -1,10 +1,10 @@
 import { PLAYER_STATUS } from './constants';
+import PlayerItem from './models/PlayerItem';
 
 const initialState = {
-  duration: 0,
   progress: 0,
+  playableItem: new PlayerItem({}),
   status: PLAYER_STATUS.UNSTARTED,
-  streamUrl: null
 };
 
 export default function (state = initialState, action) {
