@@ -11,7 +11,12 @@ import { pause, play } from '@/player/actions';
 import './Player.css';
 
 function Player({ pause, play }) {
-  const { progress, status } = usePlayerState();
+  const { playerItem, progress, status } = usePlayerState();
+  if (!playerItem) {
+    return null;
+  }
+
+  const { artist, duration, postUrl, title } = playerItem;
 
   const renderControl = () => {
     switch (status) {
@@ -37,12 +42,33 @@ function Player({ pause, play }) {
         );
     }
   };
+
+  const renderProgress = () => {
+    if (!duration) {
+      return null;
+    }
+    return (
+      <div className="progress-bar mx-4">
+        <div
+          className="progress-bar__progress"
+          style={{
+            width: `${(progress/duration) * 100}%`
+          }}
+        />
+      </div>
+    )
+  };
+
   return (
     <div className={`
       player position-fixed px-4 py-2 bg-white
       ${status >= PLAYER_STATUS.BUFFERING ? 'visible' : ''}
     `}>
-      {renderControl()}
+      <div className="container d-flex justify-content-between align-items-center">
+        {renderControl()}
+        {renderProgress()}
+        {title}
+      </div>
     </div>
   );
 }

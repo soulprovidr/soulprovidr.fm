@@ -44,6 +44,13 @@ export default Home;
 export const pageQuery = graphql`
   query HomeQuery {
     allContentfulArticle(
+      filter: {
+        category: {
+          key: {
+            ne: "github"
+          }
+        }
+      }
       sort: {
         fields: [publishDate],
         order: DESC

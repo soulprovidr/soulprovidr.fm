@@ -16,3 +16,15 @@
 .player__control {
   cursor: pointer;
 }
+
+.progress-bar {
+  background: #ddd;
+  flex: 1;
+  height: 5px;
+  width: 100%;
+}
+
+.progress-bar__progress {
+  background: #257AD7;
+  height: 100%;
+}

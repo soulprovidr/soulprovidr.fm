@@ -15,7 +15,7 @@ export default ({ dispatch }) => next => {
     const { type, payload } = action;
     switch (type) {
       case 'PLAY': {
-        const { seekProgress, streamUrl } = payload;
+        const { seekProgress, playerItem: { streamUrl } } = payload;
         Player.play(streamUrl, seekProgress);
         break;
       }

@@ -1,8 +1,10 @@
+import { getQualifiedStreamUrl } from '../helpers';
+
 const defaultProps = {
   artist: null,
   duration: null,
   streamUrl: null,
-  postUrl: null,
+  postSlug: null,
   title: null
 };
 
@@ -13,12 +15,20 @@ const defaultProps = {
  * @param {object} {
  *   artist,
  *   duration,
- *   postUrl,
+ *   postSlug,
  *   streamUrl,
  *   title
  * }
  * @returns {object}
  */
 export default function PlayerItem(props) {
-  return { ...defaultProps, ...props };
+  const { artist, duration, postSlug, streamUrl, title } = props;
+  return {
+    ...defaultProps,
+    artist,
+    duration,
+    postSlug,
+    streamUrl: getQualifiedStreamUrl(streamUrl),
+    title
+  };
 }

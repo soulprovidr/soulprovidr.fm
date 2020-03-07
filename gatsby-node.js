@@ -6,7 +6,7 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
     const result = await graphql(
       `
         {
-          allContentfulArticle {
+          allContentfulArticle(filter: { category: { key: { ne: "github"} } }) {
             edges {
               node {
                 title
@@ -23,14 +23,14 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
       throw result.errors;
     }
 
-    const postComponent = path.resolve('./src/templates/Post.js');
-    const posts = result.data.allContentfulArticle.edges;
-    posts.forEach(post => {
+    const articleComponent = path.resolve('./src/templates/Article.js');
+    const articles = result.data.allContentfulArticle.edges;
+    articles.forEach(article => {
       createPage({
-        path: `/${post.node.slug}/`,
-        component: postComponent,
+        path: `/${article.node.slug}/`,
+        component: articleComponent,
         context: {
-          slug: post.node.slug
+          slug: article.node.slug
         },
       });
     });

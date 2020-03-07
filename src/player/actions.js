@@ -1,10 +1,8 @@
-import { getQualifiedStreamUrl } from '@/soundcloud';
-
-export function play(streamUrl = '', seekProgress = 0) {
-  if (streamUrl.includes('soundcloud')) {
-    streamUrl = getQualifiedStreamUrl(streamUrl);
+export function play(playerItem = null, seekProgress = 0) {
+  if (!playerItem) {
+    return null;
   }
-  return { type: 'PLAY', payload: { streamUrl, seekProgress } };
+  return { type: 'PLAY', payload: { playerItem, seekProgress } };
 }
 
 export function pause() {
@@ -13,10 +11,6 @@ export function pause() {
 
 export function stop() {
   return { type: 'STOP' };
-}
-
-export function updateMeta(meta) {
-  return { type: 'UPDATE_META', payload: { meta } };
 }
 
 export function updateProgress(progress) {

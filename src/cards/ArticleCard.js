@@ -6,6 +6,7 @@ import get from 'lodash.get';
 
 import { pause, play } from '@/player/actions';
 import { usePlayerState } from '@/player/hooks';
+import PlayerItem from '@/player/models/PlayerItem';
 import { useTrack } from '@/soundcloud';
 
 import Card from './Card';
@@ -19,12 +20,13 @@ import { PLAYER_STATUS } from '../player/constants';
 function ArticleCard({ article, pause, play }) {
   const linkRef = useRef(null);
 
-  const { status, streamUrl } = usePlayerState();
+  const { status, playerItem } = usePlayerState();
 
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
   const track = useTrack(soundCloudUrl);
 
-  const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
+  const streamUrl = get(playerItem, 'streamUrl', '');
+  const isSelected = track && streamUrl.includes(track.stream_url);
   const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
   const isPlaying = isSelected && status === PLAYER_STATUS.PLAYING;
 
@@ -36,7 +38,13 @@ function ArticleCard({ article, pause, play }) {
     return track
       ? isPlaying
         ? pause()
-        : play(track.stream_url)
+        : play(new PlayerItem({
+            artist: track.user.username,
+            duration: track.duration,
+            streamUrl: track.stream_url,
+            postSlug: article.slug,
+            title: track.title
+          }))
       : null;
   }
 

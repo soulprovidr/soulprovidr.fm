@@ -12,9 +12,9 @@ import { PLAYER_STATUS } from '@/player/constants';
 import { usePlayerState } from '@/player/hooks';
 import { useTrack } from '@/soundcloud';
 
-function Post({ data, pause, play }) {
-  const post = get(data, 'contentfulArticle');
-  const soundCloudUrl = get(post, 'soundCloudUrl', null);
+function Article({ data, pause, play }) {
+  const article = get(data, 'contentfulArticle');
+  const soundCloudUrl = get(article, 'soundCloudUrl', null);
   
   const { progress, status, streamUrl } = usePlayerState();
   const track = useTrack(soundCloudUrl);
@@ -26,11 +26,11 @@ function Post({ data, pause, play }) {
 
   return (
     <main className="container">
-      <Helmet title={post.title} />
+      <Helmet title={article.title} />
       <div className="row">
         <div className="col-md-4">
-          <Img className="card-img-top" alt={post.title} sizes={post.heroImage.sizes} />
-          {post.soundCloudUrl && (
+          <Img className="card-img-top" alt={article.title} sizes={article.heroImage.sizes} />
+          {article.soundCloudUrl && (
             <div className="pt-1">
               <div className="d-flex justify-content-between align-items-center">
                 <button
@@ -48,14 +48,14 @@ function Post({ data, pause, play }) {
           )}
         </div>
         <div className="col-md-8">
-          <p className="h2 font-weight-bold">{post.title}</p>
+          <p className="h2 font-weight-bold">{article.title}</p>
           <div
             className="pt-2 pb-4"
             dangerouslySetInnerHTML={{
-              __html: post.body.childMarkdownRemark.html,
+              __html: article.body.childMarkdownRemark.html,
             }}
           />
-          {post.soundCloudUrl && (
+          {article.soundCloudUrl && (
             <Waveform
               duration={track?.duration}
               height={90}
@@ -74,7 +74,7 @@ function Post({ data, pause, play }) {
 
 const mapDispatchToProps = { pause, play };
 
-export default connect(null, mapDispatchToProps)(Post);
+export default connect(null, mapDispatchToProps)(Article);
 
 export const pageQuery = graphql`
   query ArticleBySlug($slug: String!) {

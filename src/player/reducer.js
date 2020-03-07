@@ -1,9 +1,8 @@
 import { PLAYER_STATUS } from './constants';
-import PlayerItem from './models/PlayerItem';
 
 const initialState = {
   progress: 0,
-  playableItem: new PlayerItem({}),
+  playerItem: null,
   status: PLAYER_STATUS.UNSTARTED,
 };
 
@@ -11,21 +10,25 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case 'PLAY': {
-      const { duration, seekProgress, streamUrl } = payload;
+      const {
+        duration,
+        playerItem,
+        seekProgress,
+      } = payload;
       return {
         ...state,
         duration,
+        playerItem,
         progress: seekProgress,
-        status: PLAYER_STATUS.BUFFERING,
-        streamUrl
+        status: PLAYER_STATUS.BUFFERING
       };
     }
     case 'STOP':
       return {
         ...state,
+        playerItem: null,
         progress: 0,
         status: PLAYER_STATUS.UNSTARTED,
-        streamUrl: null
       };
     case 'UPDATE_PROGRESS':
       const { progress } = payload;
