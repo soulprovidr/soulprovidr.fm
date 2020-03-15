@@ -1,28 +1,29 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react-lite';
 
-import { PLAYER_STATUS } from '../constants';
-import { usePlayerState } from '../hooks';
+import { StreamableStatus } from '@/streamable';
+
 import Spinner from '@/common/components/Spinner';
 import PlayIcon from '@/common/components/PlayIcon';
 import PauseIcon from '@/common/components/PauseIcon';
-import { pause, play } from '@/player/actions';
+import { usePlayerStore } from '../index';
 
 import './Player.css';
 
-function Player({ pause, play }) {
-  const { playerItem, progress, status } = usePlayerState();
-  if (!playerItem) {
+const Player = observer(() => {
+  const { pause, streamable } = usePlayerStore();
+
+  if (!streamable) {
     return null;
   }
 
-  const { artist, duration, postUrl, title } = playerItem;
+  const { duration, progress, status } = streamable;
 
   const renderControl = () => {
     switch (status) {
-      case PLAYER_STATUS.BUFFERING:
+      case StreamableStatus.BUFFERING:
         return <Spinner size={20} />;
-      case PLAYER_STATUS.PLAYING:
+      case StreamableStatus.PLAYING:
         return (
           <PauseIcon
             className="player__control"
@@ -36,7 +37,7 @@ function Player({ pause, play }) {
           <PlayIcon
             className="player__control"
             color="#000000"
-            onClick={play}
+            onClick={() => null}
             size={20}
           />
         );
@@ -44,15 +45,13 @@ function Player({ pause, play }) {
   };
 
   const renderProgress = () => {
-    if (!duration) {
-      return null;
-    }
+    const widthPercent = duration ? (progress / duration) * 100 : 100;
     return (
-      <div className="progress-bar mx-4">
+      <div className="progress mx-4">
         <div
-          className="progress-bar__progress"
+          className="progress-bar progress-bar-striped progress-bar-animated"
           style={{
-            width: `${(progress/duration) * 100}%`
+            width: `${widthPercent}%`
           }}
         />
       </div>
@@ -62,22 +61,14 @@ function Player({ pause, play }) {
   return (
     <div className={`
       player position-fixed px-4 py-2 bg-white
-      ${status >= PLAYER_STATUS.BUFFERING ? 'visible' : ''}
+      ${status >= StreamableStatus.BUFFERING ? 'visible' : ''}
     `}>
       <div className="container d-flex justify-content-between align-items-center">
         {renderControl()}
         {renderProgress()}
-        {title}
       </div>
     </div>
   );
-}
+});
 
-Player.defaultProps = {
-  pause: () => null,
-  play: () => null
-};
-
-const mapDispatchToProps = { pause, play };
-
-export default connect(null, mapDispatchToProps)(Player);
+export default Player;

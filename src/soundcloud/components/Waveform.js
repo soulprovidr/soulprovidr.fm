@@ -4,7 +4,7 @@ import chunk from 'lodash.chunk';
 import Spinner from '@/common/components/Spinner';
 import average from '@/common/util/average';
 import useIsMouseOver from '@/common/hooks/useIsMouseOver';
-import { useWaveform } from '@/soundcloud';
+import { useWaveform } from '../';
 
 import './waveform.css';
 

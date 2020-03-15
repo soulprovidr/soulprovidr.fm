@@ -1,26 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
 // import Tracklist from '@/common/components/Tracklist';
-import Waveform from '@/waveform/Waveform';
-import { pause, play } from '@/player/actions';
-import { PLAYER_STATUS } from '@/player/constants';
-import { usePlayerState } from '@/player/hooks';
+import Waveform from '@/soundcloud/components/Waveform';
+import { StreamableStatus, usePlayerStore } from '@/player';
 import { useTrack } from '@/soundcloud';
 
 function Article({ data, pause, play }) {
   const article = get(data, 'contentfulArticle');
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
   
-  const { progress, status, streamUrl } = usePlayerState();
+  // const { progress, status, streamUrl } = usePlayerState();
   const track = useTrack(soundCloudUrl);
 
-  const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
-  const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
+  // const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
+  // const isPaused = isSelected && status === StreamableStatus.PAUSED;
 
   const onSeek = seekProgress => play(track?.stream_url, seekProgress);
 
@@ -35,12 +32,12 @@ function Article({ data, pause, play }) {
               <div className="d-flex justify-content-between align-items-center">
                 <button
                   className="btn btn-sm btn-primary rounded my-3"
-                  onClick={() => isSelected && !isPaused
-                    ? pause()
-                    : play(track?.stream_url)
-                  }
+                  // onClick={() => isSelected && !isPaused
+                  //   ? pause()
+                  //   : play(track?.stream_url)
+                  // }
                 >
-                  {isSelected && !isPaused ? 'PAUSE' : 'PLAY'}
+                  {/* {isSelected && !isPaused ? 'PAUSE' : 'PLAY'} */}
                 </button>
                 <p className="text-muted m-0 p-0">16 tracks, 59 min</p>
               </div>
@@ -61,7 +58,7 @@ function Article({ data, pause, play }) {
               height={90}
               numSamples={120}
               onSeek={onSeek}
-              progress={isSelected ? progress : 0}
+              // progress={isSelected ? progress : 0}
               waveformUrl={track?.waveform_url}
             />
           )}
@@ -72,9 +69,8 @@ function Article({ data, pause, play }) {
   );
 }
 
-const mapDispatchToProps = { pause, play };
 
-export default connect(null, mapDispatchToProps)(Article);
+export default Article;
 
 export const pageQuery = graphql`
   query ArticleBySlug($slug: String!) {

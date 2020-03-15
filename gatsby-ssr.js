@@ -1,9 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
 import React from 'react';
-import { Provider } from 'react-redux';
 import Layout from '@/templates/Layout';
-import store from './src/store';
+import { PlayerProvider } from '@/player';
 
 export const wrapPageElement = ({ element, props }) => {
   return (
@@ -15,8 +14,8 @@ export const wrapPageElement = ({ element, props }) => {
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <Provider store={store}>
+    <PlayerProvider>
       {element}
-    </Provider>
+    </PlayerProvider>
   );
 };

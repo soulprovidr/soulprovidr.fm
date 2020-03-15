@@ -1,10 +1,9 @@
-import 'bootstrap/dist/css/bootstrap.css';
-
 import React from 'react';
-import { Provider } from 'react-redux';
 
-import store from '@/store';
+import { PlayerStoreProvider } from '@/player';
 import Layout from '@/templates/Layout';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 export const registerServiceWorker = () => true;
 
@@ -16,10 +15,8 @@ export const wrapPageElement = ({ element, props }) => {
   );
 };
 
-export const wrapRootElement = ({ element }) => {
-  return (
-    <Provider store={store}>
-      {element}
-    </Provider>
-  );
-};
+export const wrapRootElement = ({ element }) => (
+  <PlayerStoreProvider>
+    {element}
+  </PlayerStoreProvider>
+);

@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { observer } from 'mobx-react-lite';
+import get from 'lodash.get'
 
-import useInterval from '@/common/hooks/useInterval';
 import fetchJson from '@/common/util/fetchJson';
-import { play, stop } from '@/player/actions';
-import { PLAYER_STATUS } from '@/player/constants';
-import { usePlayerState } from '@/player/hooks';
-import DefaultCover from '@/static/images/default.png';
+import Streamable, { StreamableStatus } from '@/streamable';
+import useInterval from '@/common/hooks/useInterval';
+import { usePlayerStore } from '@/player';
 
 import Card from './Card';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
 import './card.css';
-import CardControls from './CardControls';
+
+import DefaultCover from '@/static/images/default.png';
+import PauseIcon from '@/common/components/PauseIcon';
+import PlayIcon from '@/common/components/PlayIcon';
+
+const { BUFFERING, PLAYING, UNSTARTED } = StreamableStatus;
 
 // For now, live posts will be hard-coded.
 const liveCategory = {
@@ -25,36 +29,71 @@ const liveCategory = {
 const STREAM_META_URL = 'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
-function RadioCard({ play, stop }) {
+const RadioCard = observer(() => {
+  const { play, stop, streamable } = usePlayerStore();
+  
+  const status = get(streamable, 'status', -1);
+  const uid = get(streamable, 'uid', null);
+  const isActive = uid === 'live';
+  
   const [meta, setMeta] = useState(null);
-  const { status, streamUrl } = usePlayerState();
-
-  const isSelected = streamUrl === STREAM_URL;
-  const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
-  const isPlaying = isSelected && status === PLAYER_STATUS.PLAYING;
-
-  const pollFn = async () => setMeta(await fetchJson(STREAM_META_URL));
-
+  const pollFn = async () => {
+    setMeta(await fetchJson(STREAM_META_URL));
+  };
   useEffect(() => {
     pollFn();
   }, []);
-  useInterval(pollFn, 30 * 1000);
+  useInterval(pollFn, 5 * 1000);
+
+  const onClick = e => {
+    if (isActive) {
+      switch (status) {
+        case BUFFERING:
+          stop();
+          break;
+        case PLAYING:
+          stop();
+          break;
+        default:
+          play();
+      }
+    } else {
+      play(
+        new Streamable({
+          uid: 'radio',
+          src: STREAM_URL,
+          duration: null,
+          progress: 0
+        })
+      );
+    }
+  };
 
   return (
     <Card
       isPlayable
-      onClick={() =>
-        isPlaying
-          ? stop()
-          : play(STREAM_URL)
-      }
+      onClick={onClick}
     >
       <CardBadge category={liveCategory} />
       <div className="row">
         <div className="col-md-4">
-          <CardImage isPlaying={isSelected && !isPaused}>
+          <CardImage isPlaying={false}>
             <CardOverlay>
-              <CardControls isPlaying={isSelected && !isPaused} />
+              {isActive && status === PLAYING ? (
+                <PauseIcon
+                  className="card__control"
+                  color="#FFFFFF"
+                  onClick={onClick}
+                  size={60}
+                />
+              ) : (
+                <PlayIcon
+                  className="card__control"
+                  color="#FFFFFF"
+                  onClick={onClick}
+                  size={60}
+                />
+              )}
             </CardOverlay>
             <img
               alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
@@ -79,11 +118,6 @@ function RadioCard({ play, stop }) {
       </div>
     </Card>
   );
-}
+});
 
-const mapDispatchToProps = { play, stop };
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(RadioCard);
+export default RadioCard;

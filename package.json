@@ -5,9 +5,8 @@
     "start": "gatsby develop"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.0.0",
-    "axios": "^0.18.1",
-    "babel-preset-gatsby": "^0.2.14",
+    "@babel/plugin-proposal-decorators": "^7.8.3",
+    "@reduxjs/toolkit": "^1.2.5",
     "bootstrap": "^4.3.1",
     "gatsby": "^2.19.12",
     "gatsby-image": "^2.2.20",
@@ -15,6 +14,7 @@
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-offline": "^3.0.34",
     "gatsby-plugin-react-helmet": "^3.1.8",
+    "gatsby-plugin-ts": "^2.4.0",
     "gatsby-source-contentful": "^2.1.40",
     "gatsby-source-gh-readme": "^1.0.10",
     "gatsby-transformer-remark": "^2.6.24",
@@ -23,23 +23,19 @@
     "lodash.chunk": "^4.2.0",
     "lodash.get": "^4.4.2",
     "mobx": "^5.15.4",
-    "mobx-react": "^6.1.8",
+    "mobx-react-lite": "^1.5.2",
     "qs": "^6.9.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
     "react-masonry-css": "^1.0.14",
     "react-progressive-bg-image": "^3.0.0",
-    "react-redux": "^7.0.3",
-    "redux": "^4.0.1",
-    "redux-devtools-extension": "^2.13.8",
     "soundcloud": "^3.3.2",
-    "soundcloud-nodejs-api-wrapper": "^0.3.2",
     "styled-components": "^4.3.2",
+    "typescript": "^3.8.3",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
     "eslint-config-react-app": "^5.1.0"
   }
 }

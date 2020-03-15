@@ -1,52 +1,63 @@
 import React, { useRef } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'gatsby';
+import { observer } from 'mobx-react-lite';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import { pause, play } from '@/player/actions';
-import { usePlayerState } from '@/player/hooks';
-import PlayerItem from '@/player/models/PlayerItem';
+import Streamable, { StreamableStatus } from '@/streamable';
+import { usePlayerStore } from '@/player';
 import { useTrack } from '@/soundcloud';
 
 import Card from './Card';
 import CardBadge from './CardBadge';
-import CardControls from './CardControls';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
 import './card.css';
-import { PLAYER_STATUS } from '../player/constants';
 
-function ArticleCard({ article, pause, play }) {
+import PauseIcon from '@/common/components/PauseIcon';
+import PlayIcon from '@/common/components/PlayIcon';
+
+const { BUFFERING, PLAYING, UNSTARTED } = StreamableStatus;
+
+const ArticleCard = observer(({ article }) => {
+  const { pause, play, stop, streamable } = usePlayerStore();
+  
   const linkRef = useRef(null);
-
-  const { status, playerItem } = usePlayerState();
-
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
+  const status = get(streamable, 'status', -1);
   const track = useTrack(soundCloudUrl);
-
-  const streamUrl = get(playerItem, 'streamUrl', '');
-  const isSelected = track && streamUrl.includes(track.stream_url);
-  const isPaused = isSelected && status === PLAYER_STATUS.PAUSED;
-  const isPlaying = isSelected && status === PLAYER_STATUS.PLAYING;
-
+  const uid = get(streamable, 'uid', null);
+  
+  const isActive = track && (uid === track.id);
+  console.log(isActive, status);
+  
   const onClick = e => {
     // Don't play the track if the title was clicked.
-    if (linkRef.current && e.target === linkRef.current) {
-      return;
+    if (linkRef.current && e.target === linkRef.current)  {
+      return false;
     }
-    return track
-      ? isPlaying
-        ? pause()
-        : play(new PlayerItem({
-            artist: track.user.username,
-            duration: track.duration,
-            streamUrl: track.stream_url,
-            postSlug: article.slug,
-            title: track.title
-          }))
-      : null;
-  }
+    if (isActive) {
+      switch (status) {
+        case BUFFERING:
+          stop();
+          break;
+        case PLAYING:
+          pause();
+          break;
+        default:
+          play();
+      }
+    } else {
+      play(
+        new Streamable({
+          uid: track.id,
+          src: track.stream_url,
+          duration: track.duration,
+          progress: 0
+        })
+      );
+    }
+  };
 
   return (
     <Card
@@ -59,9 +70,21 @@ function ArticleCard({ article, pause, play }) {
           className="card-img-top"
           sizes={article.heroImage.sizes}
         />
-        {!!track && (
-          <CardOverlay>
-            <CardControls isPlaying={isSelected && !isPaused} />
+        {track && (
+          <CardOverlay onClick={onClick}>
+            {isActive && status === PLAYING ? (
+              <PauseIcon
+                className="card__control"
+                color="#FFFFFF"
+                size={60}
+              />
+            ) : (
+            <PlayIcon
+              className="card__control"
+              color="#FFFFFF"
+              size={60}
+            />
+          )}
           </CardOverlay>
         )}
       </CardImage>
@@ -84,11 +107,6 @@ function ArticleCard({ article, pause, play }) {
       </div>
     </Card>
   );
-}
+});
 
-const mapDispatchToProps = { pause, play };
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(ArticleCard);
+export default ArticleCard;

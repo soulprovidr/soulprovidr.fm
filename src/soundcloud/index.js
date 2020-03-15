@@ -10,7 +10,7 @@ function getQueryString(params) {
   });
 }
 
-export function getQualifiedStreamUrl(streamUrl) {
+function getQualifiedStreamUrl(streamUrl) {
   return streamUrl
     ? `${streamUrl}?${getQueryString()}`
     : null;
@@ -36,16 +36,18 @@ async function resolve(url) {
 
 export function useTrack(soundCloudUrl) {
   const [data, setData] = useState(null); 
-
   useEffect(() => {
     async function resolveSoundCloudUrl() {
       if (soundCloudUrl) {
-        setData(await resolve(soundCloudUrl))
+        const trackData = await resolve(soundCloudUrl);
+        setData({
+          ...trackData,
+          stream_url: getQualifiedStreamUrl(trackData.stream_url)
+        })
       }
     }
     resolveSoundCloudUrl();
   }, [soundCloudUrl]);
-
   return data;
 }
 
