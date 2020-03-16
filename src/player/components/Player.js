@@ -1,5 +1,4 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
 
 import { StreamableStatus } from '@/streamable';
 
@@ -10,7 +9,7 @@ import { usePlayerStore } from '../index';
 
 import './Player.css';
 
-const Player = observer(() => {
+const Player = () => {
   const { pause, streamable } = usePlayerStore();
 
   if (!streamable) {
@@ -69,6 +68,6 @@ const Player = observer(() => {
       </div>
     </div>
   );
-});
+};
 
 export default Player;

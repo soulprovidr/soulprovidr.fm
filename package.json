@@ -30,6 +30,7 @@
     "react-helmet": "^5.2.1",
     "react-masonry-css": "^1.0.14",
     "react-progressive-bg-image": "^3.0.0",
+    "react-redux": "^7.2.0",
     "soundcloud": "^3.3.2",
     "styled-components": "^4.3.2",
     "typescript": "^3.8.3",

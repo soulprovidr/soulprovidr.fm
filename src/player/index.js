@@ -1,63 +1,72 @@
-import React, { useContext } from 'react';
 import { createSlice } from '@reduxjs/toolkit';
-import PlayerStore from './store';
 
-export const PlayerStatus = {
-  UNSTARTED: -1,
-  BUFFERING: 0,
-  PLAYING: 1,
-  PAUSED: 2,
-  ENDED: 3,
-  STOPPED: 4
-};
+import { PlayerStatus } from './constants';
 
 const {
   UNSTARTED,
-  BUFFERING,
-  PLAYING,
-  PAUSED,
-  ENDED,
-  STOPPED
 } = PlayerStatus;
 
 const initialState = {
-  duration: null,
   meta: {},
   progress: null,
   status: UNSTARTED,
   src: null
 };
 
-export const playerSlice = createSlice({
+const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    play: {
+    queue: {
       reducer(state, action) {
-        
+        const { meta, src } = action.payload;
+        state.src = src;
+        state.meta = meta;
       },
-      prepare(src = null, meta = null) {
-        if (!src && !meta) {
-          return 
+      prepare(src = null, meta = {}) {
+        if (!src) {
+          throw new Error('No `src` specified!');
         }
-        return { payload: { src } }
+        return { payload: { src, meta } };
       }
     }
-  }
-})
+  },
+  reset: () => initialState,
+  updateMeta: {
+    reducer(state, action) {
+      const { meta } = action.payload;
+      Object.keys(meta).reduce(
+        (acc, key) => acc[key] = meta[key],
+        state.meta
+      );
+    },
+    prepare(meta = {}) {
+      return { payload: { meta } };
+    }
+  },
+  updateProgress: {
+    reducer(state, action) {
+      const { status } = action.payload;
+      state.status = status;
+    },
+    prepare(progress) {
+      return { payload: { progress } };
+    }
+  },
+  updateStatus: {
+    reducer(state, action) {
+      const { status } = action.payload;
+      state.status = status;
+    }
+  },
+});
 
-const PlayerContext = React.createContext(null);
+export const {
+  queue,
+  reset,
+  updateMeta,
+  updateProgress,
+  updateStatus
+} = playerSlice.actions;
 
-export const PlayerStoreProvider = ({ children }) => (
-  <PlayerContext.Provider value={PlayerStore}>
-    {children}
-  </PlayerContext.Provider>
-);
-
-export const usePlayerStore = () => {
-  const store = useContext(PlayerContext);
-  if (!store) {
-    throw new Error('usePlayerStore must be used within a PlayerStoreProvider.')
-  }
-  return store;
-};
+export default playerSlice.reducer;

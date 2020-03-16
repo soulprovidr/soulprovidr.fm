@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'gatsby';
-import { observer } from 'mobx-react-lite';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
 import Streamable, { StreamableStatus } from '@/streamable';
-import { usePlayerStore } from '@/player';
 import { useTrack } from '@/soundcloud';
 
 import Card from './Card';
@@ -19,16 +18,14 @@ import PlayIcon from '@/common/components/PlayIcon';
 
 const { BUFFERING, PLAYING, UNSTARTED } = StreamableStatus;
 
-const ArticleCard = observer(({ article }) => {
-  const { pause, play, stop, streamable } = usePlayerStore();
+const ArticleCard = ({ article, status, src }) => {
+  // const { pause, play, stop, streamable } = usePlayerStore();
   
   const linkRef = useRef(null);
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
-  const status = get(streamable, 'status', -1);
   const track = useTrack(soundCloudUrl);
-  const uid = get(streamable, 'uid', null);
   
-  const isActive = track && (uid === track.id);
+  const isActive = track && (src === track.stream_url);
   console.log(isActive, status);
   
   const onClick = e => {
@@ -39,23 +36,23 @@ const ArticleCard = observer(({ article }) => {
     if (isActive) {
       switch (status) {
         case BUFFERING:
-          stop();
+          // stop();
           break;
         case PLAYING:
-          pause();
+          // pause();
           break;
         default:
-          play();
+          // play();
       }
     } else {
-      play(
-        new Streamable({
-          uid: track.id,
-          src: track.stream_url,
-          duration: track.duration,
-          progress: 0
-        })
-      );
+      // play(
+      //   new Streamable({
+      //     uid: track.id,
+      //     src: track.stream_url,
+      //     duration: track.duration,
+      //     progress: 0
+      //   })
+      // );
     }
   };
 
@@ -107,6 +104,6 @@ const ArticleCard = observer(({ article }) => {
       </div>
     </Card>
   );
-});
+};
 
 export default ArticleCard;

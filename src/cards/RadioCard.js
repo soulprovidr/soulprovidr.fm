@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { observer } from 'mobx-react-lite';
 import get from 'lodash.get'
 
 import fetchJson from '@/common/util/fetchJson';
@@ -17,7 +16,7 @@ import DefaultCover from '@/static/images/default.png';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 
-const { BUFFERING, PLAYING, UNSTARTED } = StreamableStatus;
+const { BUFFERING, PLAYING } = StreamableStatus;
 
 // For now, live posts will be hard-coded.
 const liveCategory = {
@@ -29,7 +28,7 @@ const liveCategory = {
 const STREAM_META_URL = 'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
-const RadioCard = observer(() => {
+const RadioCard = () => {
   const { play, stop, streamable } = usePlayerStore();
   
   const status = get(streamable, 'status', -1);
@@ -118,6 +117,6 @@ const RadioCard = observer(() => {
       </div>
     </Card>
   );
-});
+};
 
 export default RadioCard;
