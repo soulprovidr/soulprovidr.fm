@@ -3,17 +3,17 @@
   border-top: 1px solid #ddd;
   opacity: 0;
   transform: translateY(100%);
-  transition: transform 250ms ease-out,
+  transition: transform 150ms ease-out,
               opacity 150ms ease-out;
   z-index: 3;
 }
 
-.player.visible {
+.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.player__control {
+.playerBtn {
   cursor: pointer;
 }
 
@@ -24,7 +24,17 @@
   width: 100%;
 }
 
-/* .progress-bar__progress {
-  background: #257AD7;
+.meta {
+  width: 300px;
+  height: 40px;
+}
+
+.cover {
   height: 100%;
-} */
+}
+
+.truncated {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

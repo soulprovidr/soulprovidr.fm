@@ -4,6 +4,7 @@ function PlayIcon({ className, color, onClick, size }) {
   return (
     <svg
       className={className}
+      onClick={onClick}
       version="1.1"
       width={size}
       height={size}

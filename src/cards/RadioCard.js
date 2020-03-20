@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import get from 'lodash.get'
 
 import fetchJson from '@/common/util/fetchJson';
-import Streamable, { StreamableStatus } from '@/streamable';
 import useInterval from '@/common/hooks/useInterval';
-import { usePlayerStore } from '@/player';
+import {
+  PlayerStatus,
+  load,
+  play,
+  pause,
+  stop,
+  updateMeta
+} from '@/player';
 
 import Card from './Card';
 import CardBadge from './CardBadge';
@@ -16,7 +23,7 @@ import DefaultCover from '@/static/images/default.png';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 
-const { BUFFERING, PLAYING } = StreamableStatus;
+const { BUFFERING, PLAYING } = PlayerStatus;
 
 // For now, live posts will be hard-coded.
 const liveCategory = {
@@ -28,16 +35,30 @@ const liveCategory = {
 const STREAM_META_URL = 'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
-const RadioCard = () => {
-  const { play, stop, streamable } = usePlayerStore();
-  
-  const status = get(streamable, 'status', -1);
-  const uid = get(streamable, 'uid', null);
-  const isActive = uid === 'live';
-  
+const RadioCard = props => {
+  const {
+    load,
+    play,
+    src,
+    status,
+    stop,
+    updateMeta: updatePlayerMeta
+  } = props;
+
   const [meta, setMeta] = useState(null);
+
+  // Is the stream associated with this card active?
+  const isStreamActive = src === STREAM_URL;
+  const artist = get(meta, 'artist', null);
+  const cover = get(meta, 'cover', null);
+  const title = get(meta, 'title', null);
+
+  // Poll for metadata every 5 seconds.
   const pollFn = async () => {
     setMeta(await fetchJson(STREAM_META_URL));
+    if (isStreamActive) {
+      updatePlayerMeta({ artist, cover, title })
+    }
   };
   useEffect(() => {
     pollFn();
@@ -45,7 +66,7 @@ const RadioCard = () => {
   useInterval(pollFn, 5 * 1000);
 
   const onClick = e => {
-    if (isActive) {
+    if (isStreamActive) {
       switch (status) {
         case BUFFERING:
           stop();
@@ -57,16 +78,32 @@ const RadioCard = () => {
           play();
       }
     } else {
-      play(
-        new Streamable({
-          uid: 'radio',
-          src: STREAM_URL,
-          duration: null,
-          progress: 0
-        })
-      );
+      load(STREAM_URL, {
+        artist,
+        cover,
+        duration: 1,
+        title
+      });
     }
   };
+
+  const renderOverlay = () => (
+    <CardOverlay>
+      {isStreamActive && [BUFFERING, PLAYING].includes(status) ? (
+        <PauseIcon
+          className="card__control"
+          color="#FFFFFF"
+          size={60}
+        />
+      ) : (
+          <PlayIcon
+            className="card__control"
+            color="#FFFFFF"
+            size={60}
+          />
+        )}
+    </CardOverlay>
+  )
 
   return (
     <Card
@@ -77,23 +114,7 @@ const RadioCard = () => {
       <div className="row">
         <div className="col-md-4">
           <CardImage isPlaying={false}>
-            <CardOverlay>
-              {isActive && status === PLAYING ? (
-                <PauseIcon
-                  className="card__control"
-                  color="#FFFFFF"
-                  onClick={onClick}
-                  size={60}
-                />
-              ) : (
-                <PlayIcon
-                  className="card__control"
-                  color="#FFFFFF"
-                  onClick={onClick}
-                  size={60}
-                />
-              )}
-            </CardOverlay>
+            {renderOverlay()}
             <img
               alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
               className="card-img-top"
@@ -119,4 +140,11 @@ const RadioCard = () => {
   );
 };
 
-export default RadioCard;
+const mapState = state => ({
+  src: state.player.src,
+  status: state.player.status
+});
+
+const mapDispatch = { load, play, pause, stop, updateMeta };
+
+export default connect(mapState, mapDispatch)(RadioCard);

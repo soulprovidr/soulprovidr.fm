@@ -4,5 +4,8 @@
     "SoundCloud": true,
     "Window": true
   },
-  "extends": "react-app"
+  "extends": "react-app",
+  "rules": {
+    "react-hooks/exhaustive-deps": false
+  }
 }

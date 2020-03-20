@@ -4,7 +4,13 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import Streamable, { StreamableStatus } from '@/streamable';
+import {
+  PlayerStatus,
+  load,
+  play,
+  pause,
+  stop
+} from '@/player';
 import { useTrack } from '@/soundcloud';
 
 import Card from './Card';
@@ -16,44 +22,76 @@ import './card.css';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 
-const { BUFFERING, PLAYING, UNSTARTED } = StreamableStatus;
+const { BUFFERING, PLAYING } = PlayerStatus;
 
-const ArticleCard = ({ article, status, src }) => {
-  // const { pause, play, stop, streamable } = usePlayerStore();
-  
+const ArticleCard = props => {
+  const {
+    article,
+    load,
+    play,
+    pause,
+    src,
+    status,
+    stop
+  } = props;
+
   const linkRef = useRef(null);
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
   const track = useTrack(soundCloudUrl);
-  
-  const isActive = track && (src === track.stream_url);
-  console.log(isActive, status);
-  
+
+  // Is the track associated with this card active?
+  const isTrackActive = track && (src === track.stream_url);
+
   const onClick = e => {
-    // Don't play the track if the title was clicked.
+    // Ignore clicks on card title.
     if (linkRef.current && e.target === linkRef.current)  {
       return false;
     }
-    if (isActive) {
+    // Ignore clicks when track has not yet loaded.
+    if (!track) {
+      return false;
+    }
+
+    if (isTrackActive) {
       switch (status) {
         case BUFFERING:
-          // stop();
+          stop();
           break;
         case PLAYING:
-          // pause();
+          pause();
           break;
         default:
-          // play();
+          play();
+          break;
       }
     } else {
-      // play(
-      //   new Streamable({
-      //     uid: track.id,
-      //     src: track.stream_url,
-      //     duration: track.duration,
-      //     progress: 0
-      //   })
-      // );
+      load(track.stream_url, {
+        artist: track.user.username,
+        duration: track.duration,
+        slug: article.slug,
+        title: article.title,
+      });
     }
+  };
+
+  const renderOverlay = () => {
+    return track && (
+      <CardOverlay>
+        {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
+          <PauseIcon
+            className="card__control"
+            color="#FFFFFF"
+            size={60}
+          />
+        ) : (
+            <PlayIcon
+              className="card__control"
+              color="#FFFFFF"
+              size={60}
+            />
+          )}
+      </CardOverlay>
+    );
   };
 
   return (
@@ -67,23 +105,7 @@ const ArticleCard = ({ article, status, src }) => {
           className="card-img-top"
           sizes={article.heroImage.sizes}
         />
-        {track && (
-          <CardOverlay onClick={onClick}>
-            {isActive && status === PLAYING ? (
-              <PauseIcon
-                className="card__control"
-                color="#FFFFFF"
-                size={60}
-              />
-            ) : (
-            <PlayIcon
-              className="card__control"
-              color="#FFFFFF"
-              size={60}
-            />
-          )}
-          </CardOverlay>
-        )}
+        {renderOverlay()}
       </CardImage>
       <div className="card-body">
         <h5 className="card-title">
@@ -106,4 +128,11 @@ const ArticleCard = ({ article, status, src }) => {
   );
 };
 
-export default ArticleCard;
+const mapState = state => ({
+  src: state.player.src,
+  status: state.player.status
+});
+
+const mapDispatch = { load, play, pause, stop };
+
+export default connect(mapState, mapDispatch)(ArticleCard);

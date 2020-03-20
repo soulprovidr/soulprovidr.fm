@@ -1,4 +1,3 @@
-
 export const PlayerStatus = {
   UNSTARTED: -1,
   BUFFERING: 0,
