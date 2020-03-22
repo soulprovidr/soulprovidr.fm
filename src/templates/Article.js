@@ -28,6 +28,7 @@ function Article(props) {
     load,
     play,
     pause,
+    progress,
     src,
     status,
     stop
@@ -77,22 +78,24 @@ function Article(props) {
 
   const renderAction = () => (
     <button
-      className="btn btn-sm btn-primary rounded my-3"
+      className="btn btn-sm btn-primary rounded my-3 d-flex align-items-center"
       onClick={onButtonClick}
     >
       {isTrackActive && [BUFFERING, PLAYING].includes(status)
         ? (
           <>
             <PauseIcon
+              className="mr-2"
               color="#FFFFFF"
-              size={15}
+              size={12}
             />{' PAUSE'}
           </>
         ) : (
           <>
             <PlayIcon
+              className="mr-2"
               color="#FFFFFF"
-              size={15}
+              size={12}
             />{' PLAY'}
           </>
         )}
@@ -130,7 +133,7 @@ function Article(props) {
               height={90}
               numSamples={120}
               onSeek={onSeek}
-              // progress={isSelected ? progress : 0}
+              progress={isTrackActive ? progress : 0}
               waveformUrl={track?.waveform_url}
             />
           )}
@@ -142,6 +145,7 @@ function Article(props) {
 }
 
 const mapState = state => ({
+  progress: state.player.progress,
   src: state.player.src,
   status: state.player.status
 });
