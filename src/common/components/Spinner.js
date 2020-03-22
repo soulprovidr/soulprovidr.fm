@@ -9,7 +9,7 @@ function Spinner({ modifier, size }) {
     >
       <span className="sr-only">Loading...</span>
     </div>
-  )
+  );
 }
 
 Spinner.defaultProps = {

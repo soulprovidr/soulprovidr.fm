@@ -20,7 +20,7 @@ import styles from './Player.module.css';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
-const Player = props => {
+function Player(props) {
   const {
     meta,
     pause,
