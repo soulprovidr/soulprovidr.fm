@@ -1,25 +1,103 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import { connect } from 'react-redux';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 
 // import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/soundcloud/components/Waveform';
-import { StreamableStatus, usePlayerStore } from '@/player';
+import {
+  PlayerStatus,
+  load,
+  play,
+  pause,
+  stop
+} from '@/player';
+import msToTime from '@/player/helpers/msToTime';
 import { useTrack } from '@/soundcloud';
 
-function Article({ data, pause, play }) {
+import PauseIcon from '@/common/components/PauseIcon';
+import PlayIcon from '@/common/components/PlayIcon';
+
+const { BUFFERING, PLAYING } = PlayerStatus;
+
+function Article(props) {
+  const {
+    data,
+    load,
+    play,
+    pause,
+    src,
+    status,
+    stop
+  } = props;
+
   const article = get(data, 'contentfulArticle');
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
-  
-  // const { progress, status, streamUrl } = usePlayerState();
   const track = useTrack(soundCloudUrl);
 
-  // const isSelected = track && streamUrl && (streamUrl.includes(track.stream_url));
-  // const isPaused = isSelected && status === StreamableStatus.PAUSED;
+  // Is the track associated with this card active?
+  const isTrackActive = track && (src === track.stream_url);
+  const isPlaying = isTrackActive && status === PLAYING;
 
+  const loadTrack = meta => {
+    load(track.stream_url, {
+      artist: track.user.username,
+      duration: track.duration,
+      slug: article.slug,
+      title: article.title,
+      ...meta
+    });
+  };
+
+  const onButtonClick = e => {
+    // Ignore clicks when track has not yet loaded.
+    if (!track) {
+      return false;
+    }
+
+    if (isTrackActive) {
+      switch (status) {
+        case BUFFERING:
+          stop();
+          break;
+        case PLAYING:
+          pause();
+          break;
+        default:
+          play();
+          break;
+      }
+    } else {
+      loadTrack();
+    }
+  };
   const onSeek = seekProgress => play(track?.stream_url, seekProgress);
+
+  const renderAction = () => (
+    <button
+      className="btn btn-sm btn-primary rounded my-3"
+      onClick={onButtonClick}
+    >
+      {isTrackActive && [BUFFERING, PLAYING].includes(status)
+        ? (
+          <>
+            <PauseIcon
+              color="#FFFFFF"
+              size={15}
+            />{' PAUSE'}
+          </>
+        ) : (
+          <>
+            <PlayIcon
+              color="#FFFFFF"
+              size={15}
+            />{' PLAY'}
+          </>
+        )}
+    </button>
+  );
 
   return (
     <main className="container">
@@ -30,16 +108,10 @@ function Article({ data, pause, play }) {
           {article.soundCloudUrl && (
             <div className="pt-1">
               <div className="d-flex justify-content-between align-items-center">
-                <button
-                  className="btn btn-sm btn-primary rounded my-3"
-                  // onClick={() => isSelected && !isPaused
-                  //   ? pause()
-                  //   : play(track?.stream_url)
-                  // }
-                >
-                  {/* {isSelected && !isPaused ? 'PAUSE' : 'PLAY'} */}
-                </button>
-                <p className="text-muted m-0 p-0">16 tracks, 59 min</p>
+                {renderAction()}
+                <p className="text-muted m-0 p-0">
+                  {msToTime(track?.duration)}
+                </p>
               </div>
             </div>
           )}
@@ -69,8 +141,14 @@ function Article({ data, pause, play }) {
   );
 }
 
+const mapState = state => ({
+  src: state.player.src,
+  status: state.player.status
+});
 
-export default Article;
+const mapDispatch = { load, play, pause, stop };
+
+export default connect(mapState, mapDispatch)(Article);
 
 export const pageQuery = graphql`
   query ArticleBySlug($slug: String!) {
