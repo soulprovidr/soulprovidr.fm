@@ -40,3 +40,18 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
     throw e;
   }
 }
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  // if (stage === 'build-html') {
+  //   actions.setWebpackConfig({
+  //     module: {
+  //       rules: [
+  //         {
+  //           test: /mobx/,
+  //           use: loaders.null()
+  //         }
+  //       ]
+  //     }
+  //   });
+  // }
+};

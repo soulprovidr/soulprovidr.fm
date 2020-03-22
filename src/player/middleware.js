@@ -8,6 +8,7 @@ import {
   reset,
   seek,
   stop,
+  updateMeta,
   updateProgress,
   updateStatus,
   PlayerStatus
@@ -113,9 +114,7 @@ class AudioPlayer {
   }
 
   @action play = () => {
-    console.log('play');
     if (this._sound && this.status !== PLAYING) {
-      console.log('status not playing');
       this._sound.play();
     }
   };
@@ -127,6 +126,12 @@ class AudioPlayer {
     this.src = null;
     this.status = UNSTARTED;
   };
+
+  @action seek = progress => {
+    if (progress > 0 && this.status === PLAYING) {
+      this._sound.seek(progress);
+    }
+  }
 
   @action stop = () => {
     this.destroy();
@@ -159,7 +164,8 @@ export default store => {
     switch (action.type) {
       case load.type:
         const { src, meta } = action.payload;
-        audioPlayer.load(src, 0);
+        audioPlayer.load(src, meta.duration || 0);
+        store.dispatch(updateMeta(meta));
         break;
       case pause.type:
         audioPlayer.pause();

@@ -13,6 +13,7 @@ import {
 import Spinner from '@/common/components/Spinner';
 import PlayIcon from '@/common/components/PlayIcon';
 import PauseIcon from '@/common/components/PauseIcon';
+import ProgressBar from './ProgressBar';
 import DefaultCover from '@/static/images/default.png';
 
 import styles from './Player.module.css';
@@ -49,29 +50,12 @@ const Player = props => {
             className={styles.playerBtn}
             color="#000000"
             onClick={() => {
-              console.log('onclick');
               play();
             }}
             size={20}
           />
         );
     }
-  };
-
-  const renderProgress = () => {
-    const duration = get(meta, 'duration', null);
-    const widthPercent = duration ? Math.min(100, (progress / duration) * 100) : 100;
-    return (
-      <div className={c(styles.progress, 'mx-4')}>
-        <div
-          className="progress-bar progress-bar-striped progress-bar-animated"
-          style={{
-            height: '100%',
-            width: `${widthPercent}%`
-          }}
-        />
-      </div>
-    )
   };
 
   const renderMeta = () => {
@@ -101,12 +85,17 @@ const Player = props => {
     'py-2',
     'bg-white'
   );
+  const duration = get(meta, 'duration', 0);
 
   return (
     <div className={className}>
       <div className="container d-flex justify-content-between align-items-center">
         {renderControl()}
-        {renderProgress()}
+        <ProgressBar
+          duration={duration}
+          progress={progress}
+          status={status}
+        />
         {renderMeta()}
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import c from 'classnames';
 import { connect } from 'react-redux';
 import get from 'lodash.get'
 
@@ -17,9 +18,10 @@ import Card from './Card';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
-import './card.css';
+import cardStyles from './card.css';
 
 import DefaultCover from '@/static/images/default.png';
+import LiveIcon from '@/common/components/LiveIcon';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 
@@ -28,7 +30,14 @@ const { BUFFERING, PLAYING } = PlayerStatus;
 // For now, live posts will be hard-coded.
 const liveCategory = {
   key: 'live',
-  label: 'Live',
+  label: (
+    <span className={c('d-flex', 'align-items-center',)}>
+      <LiveIcon
+        className={c('live-icon', 'mr-2')}
+        size={8}
+      /> Live
+    </span>
+  ),
   colour: 'red'
 };
 
@@ -56,7 +65,7 @@ const RadioCard = props => {
   // Poll for metadata every 5 seconds.
   const pollFn = async () => {
     setMeta(await fetchJson(STREAM_META_URL));
-    if (isStreamActive) {
+    if (isStreamActive && artist && title) {
       updatePlayerMeta({ artist, cover, title })
     }
   };
@@ -81,7 +90,7 @@ const RadioCard = props => {
       load(STREAM_URL, {
         artist,
         cover,
-        duration: 1,
+        duration: 0,
         title
       });
     }
