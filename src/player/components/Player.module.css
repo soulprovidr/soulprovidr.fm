@@ -13,9 +13,13 @@
   transform: translateY(0);
 }
 
-.playerBtn {
+/* Controls */
+
+.controlsBtn {
   cursor: pointer;
 }
+
+/* Progress bar */
 
 .progress {
   background: #ddd;
@@ -28,16 +32,18 @@
   font-size: 13px;
 }
 
+/* Meta */
+
 .meta {
   width: 300px;
   height: 40px;
 }
 
-.cover {
+.metaCover {
   height: 100%;
 }
 
-.truncated {
+.metaTruncated {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
