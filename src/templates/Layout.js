@@ -10,7 +10,7 @@ import '@/static/fonts/hk-grotesk/hk-grotesk.css';
 
 const GlobalStyle = createGlobalStyle`
   html, body {
-    font-family: hk-grotesk, sans-serif;
+    font-family: sans-serif;
   }
 
   h1, .h1,
