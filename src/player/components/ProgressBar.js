@@ -21,7 +21,7 @@ export default function ProgressBar({ duration, progress, seek, status }) {
       </span>
       <div className={c(styles.progress)}>
         <div
-          className="progress-bar progress-bar-striped progress-bar-animated flex-grow-1"
+          className={c(styles.progressBar, 'progress-bar progress-bar-striped progress-bar-animated flex-grow-1')}
           style={{
             height: '100%',
             width: `${widthPercent}%`

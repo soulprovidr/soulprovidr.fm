@@ -28,6 +28,10 @@
   width: 100%;
 }
 
+.progressBar {
+  transition-duration: 0.3s!important;
+}
+
 .progressDuration {
   font-size: 13px;
 }
