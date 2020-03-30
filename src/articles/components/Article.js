@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
+import c from 'classnames';
 
 // import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/soundcloud/components/Waveform';
@@ -13,6 +14,8 @@ import { useTrack } from '@/soundcloud';
 
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
+
+import styles from './Article.module.css';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
@@ -80,48 +83,47 @@ function Article(props) {
     </button>
   );
 
+  const renderControls = () =>
+    article.soundCloudUrl && (
+      <div className="pt-1">
+        <div className="d-flex justify-content-between align-items-center">
+          {renderAction()}
+          <p className="text-muted m-0 p-0">
+            {msToTime(isTrackActive ? progress : null)} /{' '}
+            {msToTime(track?.duration)}
+          </p>
+        </div>
+      </div>
+    );
+
   return (
     <main className="container">
       <Helmet title={article.title} />
-      <div className="row">
-        <div className="col-md-4">
-          <Img
-            className="card-img-top"
-            alt={article.title}
-            sizes={article.heroImage.sizes}
+      <div className="col-lg-8 col-md-10 col-sm-12 mx-auto mb-5 pb-5">
+        <Img
+          className={c(styles.image, 'card-img-top')}
+          alt={article.title}
+          sizes={article.heroImage.sizes}
+        />
+        <p className="h2 mt-4 font-weight-bold">{article.title}</p>
+        <div
+          className="pt-2 pb-4"
+          dangerouslySetInnerHTML={{
+            __html: article.body.childMarkdownRemark.html
+          }}
+        />
+        {article.soundCloudUrl && (
+          <Waveform
+            duration={track?.duration}
+            height={90}
+            numSamples={120}
+            onSeek={onSeek}
+            progress={isTrackActive ? progress : 0}
+            waveformUrl={track?.waveform_url}
           />
-          {article.soundCloudUrl && (
-            <div className="pt-1">
-              <div className="d-flex justify-content-between align-items-center">
-                {renderAction()}
-                <p className="text-muted m-0 p-0">
-                  {msToTime(isTrackActive ? progress : null)} /{' '}
-                  {msToTime(track?.duration)}
-                </p>
-              </div>
-            </div>
-          )}
-        </div>
-        <div className="col-md-8">
-          <p className="h2 font-weight-bold">{article.title}</p>
-          <div
-            className="pt-2 pb-4"
-            dangerouslySetInnerHTML={{
-              __html: article.body.childMarkdownRemark.html
-            }}
-          />
-          {article.soundCloudUrl && (
-            <Waveform
-              duration={track?.duration}
-              height={90}
-              numSamples={120}
-              onSeek={onSeek}
-              progress={isTrackActive ? progress : 0}
-              waveformUrl={track?.waveform_url}
-            />
-          )}
-          {/* <Tracklist /> */}
-        </div>
+        )}
+        {renderControls()}
+        {/* <Tracklist /> */}
       </div>
     </main>
   );
