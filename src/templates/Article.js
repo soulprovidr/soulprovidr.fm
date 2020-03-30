@@ -113,7 +113,7 @@ function Article(props) {
               <div className="d-flex justify-content-between align-items-center">
                 {renderAction()}
                 <p className="text-muted m-0 p-0">
-                  {msToTime(track?.duration)}
+                  {msToTime(isTrackActive ? progress : null)} / {msToTime(track?.duration)}
                 </p>
               </div>
             </div>
