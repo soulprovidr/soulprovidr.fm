@@ -12,7 +12,7 @@ export default function Navigation({ icons, links }) {
           <a href={icon.href} key={i} rel="noopener noreferrer" target="_blank">
             <img
               alt=""
-              className="icon mr-3 align-text-bottom"
+              className={c(styles.icon, 'mr-3 align-text-bottom')}
               src={icon.src}
             />
           </a>
@@ -20,7 +20,10 @@ export default function Navigation({ icons, links }) {
         <ul className="m-0">
           {links.map((link) => (
             <div
-              className="link h7 d-inline-block text-uppercase pr-4"
+              className={c(
+                styles.link,
+                'h7 d-inline-block text-uppercase pr-4'
+              )}
               key={link.href}
             >
               {link.external ? (

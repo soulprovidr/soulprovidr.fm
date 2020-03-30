@@ -1,12 +1,13 @@
 import React, { useMemo, useRef, useState } from 'react';
 import chunk from 'lodash.chunk';
+import c from 'classnames';
 
 import Spinner from '@/common/components/Spinner';
 import average from '@/common/util/average';
 import useIsMouseOver from '@/common/hooks/useIsMouseOver';
 import { useWaveform } from '../';
 
-import './waveform.css';
+import styles from './Waveform.module.css';
 
 function Waveform({
   activeColor,
@@ -46,7 +47,7 @@ function Waveform({
 
   const renderLoading = () => {
     return (
-      <div className="waveform__loading">
+      <div className={styles.loading}>
         <Spinner />
       </div>
     );
@@ -61,7 +62,7 @@ function Waveform({
     const onMouseOver = () => setSelectedSampleIndex(index);
     return (
       <div
-        className="waveform__sample"
+        className={styles.sample}
         key={index}
         onClick={onClick}
         onMouseOver={onMouseOver}
@@ -79,21 +80,18 @@ function Waveform({
   const renderWaveform = () => {
     return (
       <div
-        className={`
-          waveform
-          ${isMouseOver ? 'waveform--hover' : ''}
-        `}
+        className={c(styles.waveform, { [styles.hover]: isMouseOver })}
         onMouseOut={onMouseOut}
         ref={waveformRef}
       >
         <div
-          className="waveform__top"
+          className={styles.top}
           style={{ height: height - reflectionHeight }}
         >
           {samples.map(renderSample)}
         </div>
-        <div className="waveform__bottom">
-          <div className="waveform__gradient" />
+        <div className={styles.bottom}>
+          <div className={styles.gradient} />
           {samples
             .map((sample) => sample * (reflectionHeight / height))
             .map(renderSample)}

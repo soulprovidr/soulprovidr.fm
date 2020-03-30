@@ -1,20 +1,20 @@
-.waveform__top {
+.top {
   display: flex;
   align-items: flex-end;
 }
 
-.waveform__bottom {
+.bottom {
   display: flex;
   align-items: flex-start;
   position: relative;
 }
 
-.waveform--hover .waveform__sample {
+.hover .sample {
   cursor: pointer;
   transition: none !important;
 }
 
-.waveform__gradient {
+.gradient {
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.7) 0%,
@@ -25,7 +25,7 @@
   width: 100%;
 }
 
-.waveform__loading {
+.loading {
   display: flex;
   height: 100%;
   width: 100%;
