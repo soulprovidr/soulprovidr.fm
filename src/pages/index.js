@@ -22,7 +22,8 @@ function Home({ data }) {
       <Masonry
         breakpointCols={{
           default: 3,
-          990: 1
+          990: 2,
+          768: 1
         }}
         className="row py-5"
         columnClassName="col"
