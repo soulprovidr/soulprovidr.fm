@@ -1,3 +1,7 @@
+.header {
+  font-family: hk-grotesk;
+}
+
 header.mobile {
   border-bottom: 1px solid #ddd;
   top: 0; right: 0; left: 0;
