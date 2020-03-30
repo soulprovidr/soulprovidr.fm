@@ -8,7 +8,6 @@ import useInterval from '@/common/hooks/useInterval';
 import { PlayerStatus, load, play, pause, stop, updateMeta } from '@/player';
 
 import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
-
 import DefaultCover from '@/static/images/default.png';
 import LiveIcon from '@/common/components/LiveIcon';
 import PauseIcon from '@/common/components/PauseIcon';
