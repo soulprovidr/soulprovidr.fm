@@ -14,11 +14,13 @@ import {
   updateMeta
 } from '@/player';
 
-import Card from './Card';
-import CardBadge from './CardBadge';
-import CardImage from './CardImage';
-import CardOverlay from './CardOverlay';
-import cardStyles from './Card.module.css';
+import {
+  Card,
+  CardBadge,
+  CardImage,
+  CardOverlay,
+  cardStyles
+} from '@/cards';
 
 import DefaultCover from '@/static/images/default.png';
 import LiveIcon from '@/common/components/LiveIcon';

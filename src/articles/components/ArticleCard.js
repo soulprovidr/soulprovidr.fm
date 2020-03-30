@@ -13,11 +13,13 @@ import {
 } from '@/player';
 import { useTrack } from '@/soundcloud';
 
-import Card from './Card';
-import CardBadge from './CardBadge';
-import CardImage from './CardImage';
-import CardOverlay from './CardOverlay';
-import cardStyles from './Card.module.css';
+import {
+  Card,
+  CardBadge,
+  CardImage,
+  CardOverlay,
+  cardStyles
+} from '@/cards';
 
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';

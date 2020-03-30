@@ -4,8 +4,8 @@ import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 
-import ArticleCard from '@/cards/ArticleCard';
-import RadioCard from '@/cards/RadioCard';
+import ArticleCard from '@/articles/components/ArticleCard';
+import RadioCard from '@/radio/components/RadioCard';
 
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges')
