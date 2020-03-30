@@ -7,15 +7,9 @@ import store from '@/store';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export const wrapPageElement = ({ element, props }) => {
-  return (
-    <Layout {...props}>
-      {element}
-    </Layout>
-  );
+  return <Layout {...props}>{element}</Layout>;
 };
 
 export const wrapRootElement = ({ element }) => (
-  <Provider store={store}>
-    {element}
-  </Provider>
+  <Provider store={store}>{element}</Provider>
 );
