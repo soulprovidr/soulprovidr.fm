@@ -17,7 +17,7 @@ import Card from './Card';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
-import './card.css';
+import cardStyles from './Card.module.css';
 
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
@@ -80,13 +80,13 @@ const ArticleCard = props => {
       <CardOverlay>
         {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
           <PauseIcon
-            className="card__control"
+            className={cardStyles.control}
             color="#FFFFFF"
             size={60}
           />
         ) : (
             <PlayIcon
-              className="card__control"
+              className={cardStyles.control}
               color="#FFFFFF"
               size={60}
             />

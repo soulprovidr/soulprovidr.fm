@@ -1,12 +1,11 @@
 import React from 'react';
 
-export default function CardBadge({ category }) {  
+import styles from './Card.module.css';
+
+export default function CardBadge({ category }) {
   return (
     <div
-      className={`
-        card-badge
-        ${category ? `card-badge--${category.key}` : ''}
-      `}
+      className={styles.badge}
       style={{
         background: category
           ? category.colour

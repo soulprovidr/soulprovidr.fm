@@ -1,8 +1,9 @@
 import React from 'react';
+import c from 'classnames';
 
 export default function CardImage({ children }) {
   return (
-    <div className="card-image card-img-top position-relative">
+    <div className={c('card-img-top', 'position-relative')}>
       {children}
     </div>
   );

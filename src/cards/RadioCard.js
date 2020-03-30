@@ -18,7 +18,7 @@ import Card from './Card';
 import CardBadge from './CardBadge';
 import CardImage from './CardImage';
 import CardOverlay from './CardOverlay';
-import cardStyles from './card.css';
+import cardStyles from './Card.module.css';
 
 import DefaultCover from '@/static/images/default.png';
 import LiveIcon from '@/common/components/LiveIcon';
@@ -100,13 +100,13 @@ const RadioCard = props => {
     <CardOverlay>
       {isStreamActive && [BUFFERING, PLAYING].includes(status) ? (
         <PauseIcon
-          className="card__control"
+          className={cardStyles.control}
           color="#FFFFFF"
           size={60}
         />
       ) : (
           <PlayIcon
-            className="card__control"
+            className={cardStyles.control}
             color="#FFFFFF"
             size={60}
           />
