@@ -31,5 +31,5 @@ export default function Tracklist({ tracklist }) {
         </li>
       </ul>
     </>
-  )
+  );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import c from 'classnames';
 
 // https://www.iconfinder.com/iconsets/picons-social
 import GithubIcon from '@/static/images/github.svg';
@@ -9,7 +10,7 @@ import SpotifyIcon from '@/static/images/spotify.svg';
 import Logo from '@/common/components/Logo';
 import Navigation from './Navigation';
 
-import './header.css';
+import styles from './Header.module.css';
 
 const icons = [
   {
@@ -40,21 +41,17 @@ const links = [
 
 function DesktopHeader() {
   return (
-    <header className="container d-md-block d-none bg-white py-5">
+    <header
+      className={c(styles.header, 'container d-md-block d-none bg-white py-5')}
+    >
       <div className="d-flex align-items-center justify-content-between py-2">
         <div className="d-flex align-items-center">
           <Link to="/">
-            <Logo
-              className="d-inline-block align-middle mr-3"
-              size={45}
-            />
+            <Logo className="d-inline-block align-middle mr-3" size={45} />
           </Link>
           <div>
             <p className="h5 font-weight-bold m-0">
-              <Link
-                to="/"
-                className="text-dark"
-              >
+              <Link to="/" className="text-dark">
                 SOUL PROVIDER
               </Link>
             </p>
@@ -68,21 +65,21 @@ function DesktopHeader() {
 
 function MobileHeader() {
   return (
-    <header className="mobile d-sm-block d-md-none bg-white py-2 mb-4 position-fixed">
+    <header
+      className={c(
+        styles.header,
+        styles.mobile,
+        'd-sm-block d-md-none bg-white py-2 mb-4 position-fixed'
+      )}
+    >
       <div className="d-flex align-items-center justify-content-between py-2 container">
         <div className="d-flex align-items-center">
           <Link to="/">
-            <Logo
-              className="d-inline-block align-middle mr-3"
-              size={30}
-            />
+            <Logo className="d-inline-block align-middle mr-3" size={30} />
           </Link>
           <div>
             <p className="h5 font-weight-bold m-0">
-              <Link
-                to="/"
-                className="text-dark"
-              >
+              <Link to="/" className="text-dark">
                 SOUL PROVIDER
               </Link>
             </p>

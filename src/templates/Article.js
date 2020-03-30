@@ -7,13 +7,7 @@ import Img from 'gatsby-image';
 
 // import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/soundcloud/components/Waveform';
-import {
-  PlayerStatus,
-  load,
-  play,
-  pause,
-  stop
-} from '@/player';
+import { PlayerStatus, load, play, pause, stop } from '@/player';
 import msToTime from '@/player/helpers/msToTime';
 import { useTrack } from '@/soundcloud';
 
@@ -23,26 +17,17 @@ import PlayIcon from '@/common/components/PlayIcon';
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 function Article(props) {
-  const {
-    data,
-    load,
-    play,
-    pause,
-    progress,
-    src,
-    status,
-    stop
-  } = props;
+  const { data, load, play, pause, progress, src, status, stop } = props;
 
   const article = get(data, 'contentfulArticle');
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
   const track = useTrack(soundCloudUrl);
 
   // Is the track associated with this card active?
-  const isTrackActive = track && (src === track.stream_url);
+  const isTrackActive = track && src === track.stream_url;
   const isPlaying = isTrackActive && status === PLAYING;
 
-  const loadTrack = meta => {
+  const loadTrack = (meta) => {
     load(track.stream_url, {
       artist: track.user.username,
       duration: track.duration,
@@ -52,7 +37,7 @@ function Article(props) {
     });
   };
 
-  const onButtonClick = e => {
+  const onButtonClick = (e) => {
     // Ignore clicks when track has not yet loaded.
     if (!track) {
       return false;
@@ -74,31 +59,24 @@ function Article(props) {
       loadTrack();
     }
   };
-  const onSeek = seekProgress => play(track?.stream_url, seekProgress);
+  const onSeek = (seekProgress) => play(track?.stream_url, seekProgress);
 
   const renderAction = () => (
     <button
       className="btn btn-sm btn-primary rounded my-3 d-flex align-items-center"
       onClick={onButtonClick}
     >
-      {isTrackActive && [BUFFERING, PLAYING].includes(status)
-        ? (
-          <>
-            <PauseIcon
-              className="mr-2"
-              color="#FFFFFF"
-              size={12}
-            />{' PAUSE'}
-          </>
-        ) : (
-          <>
-            <PlayIcon
-              className="mr-2"
-              color="#FFFFFF"
-              size={12}
-            />{' PLAY'}
-          </>
-        )}
+      {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
+        <>
+          <PauseIcon className="mr-2" color="#FFFFFF" size={12} />
+          {' PAUSE'}
+        </>
+      ) : (
+        <>
+          <PlayIcon className="mr-2" color="#FFFFFF" size={12} />
+          {' PLAY'}
+        </>
+      )}
     </button>
   );
 
@@ -107,13 +85,18 @@ function Article(props) {
       <Helmet title={article.title} />
       <div className="row">
         <div className="col-md-4">
-          <Img className="card-img-top" alt={article.title} sizes={article.heroImage.sizes} />
+          <Img
+            className="card-img-top"
+            alt={article.title}
+            sizes={article.heroImage.sizes}
+          />
           {article.soundCloudUrl && (
             <div className="pt-1">
               <div className="d-flex justify-content-between align-items-center">
                 {renderAction()}
                 <p className="text-muted m-0 p-0">
-                  {msToTime(isTrackActive ? progress : null)} / {msToTime(track?.duration)}
+                  {msToTime(isTrackActive ? progress : null)} /{' '}
+                  {msToTime(track?.duration)}
                 </p>
               </div>
             </div>
@@ -124,7 +107,7 @@ function Article(props) {
           <div
             className="pt-2 pb-4"
             dangerouslySetInnerHTML={{
-              __html: article.body.childMarkdownRemark.html,
+              __html: article.body.childMarkdownRemark.html
             }}
           />
           {article.soundCloudUrl && (
@@ -144,7 +127,7 @@ function Article(props) {
   );
 }
 
-const mapState = state => ({
+const mapState = (state) => ({
   progress: state.player.progress,
   src: state.player.src,
   status: state.player.status

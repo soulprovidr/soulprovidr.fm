@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import c from 'classnames';
 import get from 'lodash.get';
 
-import {
-  PlayerStatus,
-  play,
-  pause,
-  stop
-} from '@/player';
+import { PlayerStatus, play, pause, stop } from '@/player';
 
 import Controls from './Controls';
 import Meta from './Meta';
@@ -19,15 +14,7 @@ import styles from './Player.module.css';
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 function Player(props) {
-  const {
-    meta,
-    pause,
-    play,
-    progress,
-    src,
-    status,
-    stop
-  } = props;
+  const { meta, pause, play, progress, src, status, stop } = props;
 
   const className = c(
     styles.player,
@@ -42,23 +29,15 @@ function Player(props) {
   return (
     <div className={className}>
       <div className="container d-flex justify-content-between align-items-center">
-        <Controls
-          pause={pause}
-          play={play}
-          status={status}
-        />
-        <ProgressBar
-          duration={duration}
-          progress={progress}
-          status={status}
-        />
+        <Controls pause={pause} play={play} status={status} />
+        <ProgressBar duration={duration} progress={progress} status={status} />
         <Meta meta={meta} />
       </div>
     </div>
   );
-};
+}
 
-const mapState = state => ({
+const mapState = (state) => ({
   meta: state.player.meta,
   progress: state.player.progress,
   src: state.player.src,

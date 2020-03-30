@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { createGlobalStyle } from 'styled-components';
 
@@ -30,7 +30,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 export default function Layout({ children }) {
-  const { site: { siteMetadata } } = useStaticQuery(graphql`
+  const {
+    site: { siteMetadata }
+  } = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
@@ -40,14 +42,11 @@ export default function Layout({ children }) {
       }
     }
   `);
-      
+
   return (
     <>
       <GlobalStyle />
-      <Head
-        description={siteMetadata.description}
-        title={siteMetadata.title}
-      />
+      <Head description={siteMetadata.description} title={siteMetadata.title} />
       <Header />
       <div className="mt-5 mt-md-0 pt-5 pt-md-0">
         {children}

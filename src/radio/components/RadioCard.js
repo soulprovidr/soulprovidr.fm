@@ -1,26 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import c from 'classnames';
 import { connect } from 'react-redux';
-import get from 'lodash.get'
+import get from 'lodash.get';
 
 import fetchJson from '@/common/util/fetchJson';
 import useInterval from '@/common/hooks/useInterval';
-import {
-  PlayerStatus,
-  load,
-  play,
-  pause,
-  stop,
-  updateMeta
-} from '@/player';
+import { PlayerStatus, load, play, pause, stop, updateMeta } from '@/player';
 
-import {
-  Card,
-  CardBadge,
-  CardImage,
-  CardOverlay,
-  cardStyles
-} from '@/cards';
+import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
 
 import DefaultCover from '@/static/images/default.png';
 import LiveIcon from '@/common/components/LiveIcon';
@@ -33,28 +20,19 @@ const { BUFFERING, PLAYING } = PlayerStatus;
 const liveCategory = {
   key: 'live',
   label: (
-    <span className={c('d-flex', 'align-items-center',)}>
-      <LiveIcon
-        className={c('live-icon', 'mr-2')}
-        size={8}
-      /> Live
+    <span className={c('d-flex', 'align-items-center')}>
+      <LiveIcon className={c('live-icon', 'mr-2')} size={8} /> Live
     </span>
   ),
   colour: 'red'
 };
 
-const STREAM_META_URL = 'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
+const STREAM_META_URL =
+  'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
-const RadioCard = props => {
-  const {
-    load,
-    play,
-    src,
-    status,
-    stop,
-    updateMeta: updatePlayerMeta
-  } = props;
+const RadioCard = (props) => {
+  const { load, play, src, status, stop, updateMeta: updatePlayerMeta } = props;
 
   const [meta, setMeta] = useState(null);
 
@@ -68,7 +46,7 @@ const RadioCard = props => {
   const pollFn = async () => {
     setMeta(await fetchJson(STREAM_META_URL));
     if (isStreamActive && artist && title) {
-      updatePlayerMeta({ artist, cover, title })
+      updatePlayerMeta({ artist, cover, title });
     }
   };
   useEffect(() => {
@@ -76,7 +54,7 @@ const RadioCard = props => {
   }, []);
   useInterval(pollFn, 5 * 1000);
 
-  const onClick = e => {
+  const onClick = (e) => {
     if (isStreamActive) {
       switch (status) {
         case BUFFERING:
@@ -101,26 +79,15 @@ const RadioCard = props => {
   const renderOverlay = () => (
     <CardOverlay>
       {isStreamActive && [BUFFERING, PLAYING].includes(status) ? (
-        <PauseIcon
-          className={cardStyles.control}
-          color="#FFFFFF"
-          size={60}
-        />
+        <PauseIcon className={cardStyles.control} color="#FFFFFF" size={60} />
       ) : (
-          <PlayIcon
-            className={cardStyles.control}
-            color="#FFFFFF"
-            size={60}
-          />
-        )}
+        <PlayIcon className={cardStyles.control} color="#FFFFFF" size={60} />
+      )}
     </CardOverlay>
-  )
+  );
 
   return (
-    <Card
-      isPlayable
-      onClick={onClick}
-    >
+    <Card isPlayable onClick={onClick}>
       <CardBadge category={liveCategory} />
       <div className="row">
         <div className="col-md-4">
@@ -135,15 +102,11 @@ const RadioCard = props => {
         </div>
         <div className="col-md-8 d-flex align-items-center">
           <div className="card-body">
-            <p className="font-weight-bold text-uppercase mb-3">
-              Now Playing:
-            </p>
+            <p className="font-weight-bold text-uppercase mb-3">Now Playing:</p>
             <p className="h1 font-weight-bold">
               {meta ? meta.title : 'Loading...'}
             </p>
-            <p className="h4">
-              {meta ? meta.artist : null}
-            </p>
+            <p className="h4">{meta ? meta.artist : null}</p>
           </div>
         </div>
       </div>
@@ -151,7 +114,7 @@ const RadioCard = props => {
   );
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   src: state.player.src,
   status: state.player.status
 });

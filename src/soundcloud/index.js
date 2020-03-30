@@ -11,9 +11,7 @@ function getQueryString(params) {
 }
 
 function getQualifiedStreamUrl(streamUrl) {
-  return streamUrl
-    ? `${streamUrl}?${getQueryString()}`
-    : null;
+  return streamUrl ? `${streamUrl}?${getQueryString()}` : null;
 }
 
 async function request(path, params = {}) {
@@ -24,7 +22,7 @@ async function request(path, params = {}) {
   } catch (e) {
     return null;
   }
-};
+}
 
 async function resolve(url) {
   try {
@@ -35,7 +33,7 @@ async function resolve(url) {
 }
 
 export function useTrack(soundCloudUrl) {
-  const [data, setData] = useState(null); 
+  const [data, setData] = useState(null);
   useEffect(() => {
     async function resolveSoundCloudUrl() {
       if (soundCloudUrl) {
@@ -43,7 +41,7 @@ export function useTrack(soundCloudUrl) {
         setData({
           ...trackData,
           stream_url: getQualifiedStreamUrl(trackData.stream_url)
-        })
+        });
       }
     }
     resolveSoundCloudUrl();

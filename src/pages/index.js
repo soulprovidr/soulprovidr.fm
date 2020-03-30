@@ -8,7 +8,7 @@ import ArticleCard from '@/articles/components/ArticleCard';
 import RadioCard from '@/radio/components/RadioCard';
 
 function Home({ data }) {
-  const articles = get(data, 'allContentfulArticle.edges')
+  const articles = get(data, 'allContentfulArticle.edges');
   return (
     <main className="container">
       <Helmet title="Home" />
@@ -44,17 +44,8 @@ export default Home;
 export const pageQuery = graphql`
   query HomeQuery {
     allContentfulArticle(
-      filter: {
-        category: {
-          key: {
-            ne: "github"
-          }
-        }
-      }
-      sort: {
-        fields: [publishDate],
-        order: DESC
-      }
+      filter: { category: { key: { ne: "github" } } }
+      sort: { fields: [publishDate], order: DESC }
     ) {
       edges {
         node {
@@ -68,7 +59,7 @@ export const pageQuery = graphql`
           }
           heroImage {
             sizes(maxWidth: 350, resizingBehavior: SCALE) {
-             ...GatsbyContentfulSizes_withWebp
+              ...GatsbyContentfulSizes_withWebp
             }
           }
           description {
@@ -80,4 +71,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;

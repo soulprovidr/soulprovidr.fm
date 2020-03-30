@@ -23,13 +23,13 @@ function Waveform({
   const waveformRef = useRef(null);
 
   const [selectedSampleIndex, setSelectedSampleIndex] = useState(-1);
-  const isMouseOver = useIsMouseOver(waveformRef)
+  const isMouseOver = useIsMouseOver(waveformRef);
   const waveform = useWaveform(waveformUrl);
-  
+
   const samplePercentWidth = 100 / numSamples;
   const percentProgress = (progress / duration) * 100;
   // How long does it take to play a sample (in seconds)?
-  const transitionDuration = Math.round((duration / numSamples) / 1000);
+  const transitionDuration = Math.round(duration / numSamples / 1000);
 
   // Chunk samples and average their amplitudes.
   const samples = useMemo(() => {
@@ -37,9 +37,8 @@ function Waveform({
     const heightScale = (height - reflectionHeight) / waveform.height;
     return chunk(waveform.samples, waveform.samples.length / numSamples)
       .map(average)
-      .map(sample => sample * heightScale)
+      .map((sample) => sample * heightScale);
   }, [height, numSamples, reflectionHeight, waveform]);
-
 
   const onMouseOut = () => {
     setSelectedSampleIndex(-1);
@@ -55,11 +54,10 @@ function Waveform({
 
   const renderSample = (sampleHeight, index) => {
     const previousSamplesWidth = index * samplePercentWidth;
-    const isActive = (previousSamplesWidth < percentProgress)
-      || (selectedSampleIndex >= index);
-    const onClick = () => onSeek(
-      Math.round((previousSamplesWidth / 100) * duration)
-    );
+    const isActive =
+      previousSamplesWidth < percentProgress || selectedSampleIndex >= index;
+    const onClick = () =>
+      onSeek(Math.round((previousSamplesWidth / 100) * duration));
     const onMouseOver = () => setSelectedSampleIndex(index);
     return (
       <div
@@ -75,8 +73,8 @@ function Waveform({
           width: `calc(${samplePercentWidth}% - 1px)`
         }}
       />
-    )
-  }
+    );
+  };
 
   const renderWaveform = () => {
     return (
@@ -97,12 +95,11 @@ function Waveform({
         <div className="waveform__bottom">
           <div className="waveform__gradient" />
           {samples
-            .map(sample => sample * (reflectionHeight / height))
-            .map(renderSample)
-          }
+            .map((sample) => sample * (reflectionHeight / height))
+            .map(renderSample)}
         </div>
       </div>
-    );;
+    );
   };
 
   return (

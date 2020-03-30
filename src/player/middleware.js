@@ -1,4 +1,3 @@
-
 import { Howl, Howler } from 'howler';
 import { action, observable, reaction } from 'mobx';
 import {
@@ -14,18 +13,12 @@ import {
   PlayerStatus
 } from './';
 
-const {
-  UNSTARTED,
-  BUFFERING,
-  PAUSED,
-  PLAYING,
-  STOPPED
-} = PlayerStatus;
+const { UNSTARTED, BUFFERING, PAUSED, PLAYING, STOPPED } = PlayerStatus;
 
 class AudioPlayer {
   static PROGRESS_INTERVAL = 100; // milliseconds
 
-  @observable progress = 0;       // milliseconds
+  @observable progress = 0; // milliseconds
   @observable status = UNSTARTED;
   src = null;
 
@@ -34,7 +27,7 @@ class AudioPlayer {
     interval: null,
     start: action(() => {
       this._timer.interval = setInterval(
-        () => this.progress += AudioPlayer.PROGRESS_INTERVAL,
+        () => (this.progress += AudioPlayer.PROGRESS_INTERVAL),
         AudioPlayer.PROGRESS_INTERVAL
       );
     }),
@@ -44,10 +37,7 @@ class AudioPlayer {
   };
 
   constructor() {
-    reaction(
-      () => this.status,
-      this.handleStatus
-    );
+    reaction(() => this.status, this.handleStatus);
   }
 
   @action destroy = () => {
@@ -59,7 +49,7 @@ class AudioPlayer {
     }
   };
 
-  @action handleStatus = status => {
+  @action handleStatus = (status) => {
     switch (status) {
       case PAUSED:
         this._timer.stop();
@@ -73,7 +63,7 @@ class AudioPlayer {
       default:
         break;
     }
-  }
+  };
 
   @action load = (src, progress = 0) => {
     this.destroy();
@@ -111,7 +101,7 @@ class AudioPlayer {
     if (this._sound && this.status === PLAYING) {
       this._sound.pause();
     }
-  }
+  };
 
   @action play = () => {
     if (this._sound && this.status !== PLAYING) {
@@ -127,11 +117,11 @@ class AudioPlayer {
     this.status = UNSTARTED;
   };
 
-  @action seek = progress => {
+  @action seek = (progress) => {
     if (progress > 0 && this.status === PLAYING) {
       this._sound.seek(progress);
     }
-  }
+  };
 
   @action stop = () => {
     this.destroy();
@@ -140,17 +130,17 @@ class AudioPlayer {
 
 const audioPlayer = new AudioPlayer();
 
-export default store => {
+export default (store) => {
   // Handle progress updates.
   reaction(
     () => audioPlayer.progress,
-    progress => store.dispatch(updateProgress(progress))
+    (progress) => store.dispatch(updateProgress(progress))
   );
 
   // Handle status updates.
   reaction(
     () => audioPlayer.status,
-    status => {
+    (status) => {
       if (status === UNSTARTED) {
         store.dispatch(reset());
       } else {
@@ -160,7 +150,7 @@ export default store => {
   );
 
   // Handle user commands.
-  return next => action => {
+  return (next) => (action) => {
     switch (action.type) {
       case load.type:
         const { src, meta } = action.payload;
@@ -184,5 +174,5 @@ export default store => {
         break;
     }
     next(action);
-  }
-}
+  };
+};

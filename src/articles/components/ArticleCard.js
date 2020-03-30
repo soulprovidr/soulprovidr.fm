@@ -4,49 +4,29 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import {
-  PlayerStatus,
-  load,
-  play,
-  pause,
-  stop
-} from '@/player';
+import { PlayerStatus, load, play, pause, stop } from '@/player';
 import { useTrack } from '@/soundcloud';
 
-import {
-  Card,
-  CardBadge,
-  CardImage,
-  CardOverlay,
-  cardStyles
-} from '@/cards';
+import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
 
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
-const ArticleCard = props => {
-  const {
-    article,
-    load,
-    play,
-    pause,
-    src,
-    status,
-    stop
-  } = props;
+const ArticleCard = (props) => {
+  const { article, load, play, pause, src, status, stop } = props;
 
   const linkRef = useRef(null);
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
   const track = useTrack(soundCloudUrl);
 
   // Is the track associated with this card active?
-  const isTrackActive = track && (src === track.stream_url);
+  const isTrackActive = track && src === track.stream_url;
 
-  const onClick = e => {
+  const onClick = (e) => {
     // Ignore clicks on card title.
-    if (linkRef.current && e.target === linkRef.current)  {
+    if (linkRef.current && e.target === linkRef.current) {
       return false;
     }
     // Ignore clicks when track has not yet loaded.
@@ -72,42 +52,38 @@ const ArticleCard = props => {
         cover: article.heroImage.sizes.src,
         duration: track.duration,
         slug: article.slug,
-        title: article.title,
+        title: article.title
       });
     }
   };
 
   const renderOverlay = () => {
-    return track && (
-      <CardOverlay>
-        {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
-          <PauseIcon
-            className={cardStyles.control}
-            color="#FFFFFF"
-            size={60}
-          />
-        ) : (
+    return (
+      track && (
+        <CardOverlay>
+          {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
+            <PauseIcon
+              className={cardStyles.control}
+              color="#FFFFFF"
+              size={60}
+            />
+          ) : (
             <PlayIcon
               className={cardStyles.control}
               color="#FFFFFF"
               size={60}
             />
           )}
-      </CardOverlay>
+        </CardOverlay>
+      )
     );
   };
 
   return (
-    <Card
-      isPlayable={!!track}
-      onClick={onClick}
-    >
+    <Card isPlayable={!!track} onClick={onClick}>
       <CardBadge category={article.category} />
       <CardImage>
-        <Img
-          className="card-img-top"
-          sizes={article.heroImage.sizes}
-        />
+        <Img className="card-img-top" sizes={article.heroImage.sizes} />
         {renderOverlay()}
       </CardImage>
       <div className="card-body">
@@ -131,7 +107,7 @@ const ArticleCard = props => {
   );
 };
 
-const mapState = state => ({
+const mapState = (state) => ({
   src: state.player.src,
   status: state.player.status
 });

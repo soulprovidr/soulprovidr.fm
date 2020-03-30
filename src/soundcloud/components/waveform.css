@@ -11,11 +11,15 @@
 
 .waveform--hover .waveform__sample {
   cursor: pointer;
-  transition: none!important;
+  transition: none !important;
 }
 
 .waveform__gradient {
-  background: linear-gradient(180deg, rgba(255,255,255,.7) 0%, rgba(255,255,255,.4) 70%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.4) 70%
+  );
   height: 100%;
   position: absolute;
   width: 100%;

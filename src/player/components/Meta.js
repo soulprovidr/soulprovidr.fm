@@ -16,10 +16,8 @@ export default function Meta({ meta }) {
         <p className={c(styles.metaTruncated, 'h5', 'font-weight-bold', 'm-0')}>
           {title}
         </p>
-        <p className={c(styles.metaTruncated, 'h6', 'm-0')}>
-          {artist}
-        </p>
+        <p className={c(styles.metaTruncated, 'h6', 'm-0')}>{artist}</p>
       </div>
     </div>
   );
-};
+}

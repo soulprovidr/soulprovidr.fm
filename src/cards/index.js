@@ -8,20 +8,15 @@ export { styles as cardStyles };
 export function Card({ children, onClick, isPlayable }) {
   const className = c(styles.card, { [styles.playable]: isPlayable });
   return (
-    <div
-      className={className}
-      onClick={onClick}
-    >
+    <div className={className} onClick={onClick}>
       {children}
     </div>
-  )
+  );
 }
 
 export function CardImage({ children }) {
   return (
-    <div className={c('card-img-top', 'position-relative')}>
-      {children}
-    </div>
+    <div className={c('card-img-top', 'position-relative')}>{children}</div>
   );
 }
 
@@ -30,9 +25,7 @@ export function CardBadge({ category }) {
     <div
       className={styles.badge}
       style={{
-        background: category
-          ? category.colour
-          : 'transparent'
+        background: category ? category.colour : 'transparent'
       }}
     >
       {category ? category.label : ''}
@@ -49,10 +42,7 @@ export function CardOverlay({ children, onClick }) {
     'align-items-center'
   );
   return (
-    <div
-      className={className}
-      onClick={onClick}
-    >
+    <div className={className} onClick={onClick}>
       {children}
     </div>
   );

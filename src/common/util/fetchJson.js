@@ -10,4 +10,4 @@ export default async function fetchJson(url, params = {}) {
   } catch (e) {
     return null;
   }
-};
+}

@@ -28,15 +28,15 @@ export default createSlice({
         return { payload: { src, meta } };
       }
     },
-    pause: state => state,
-    play: state => state,
+    pause: (state) => state,
+    play: (state) => state,
     reset: () => initialState,
     seek: {
       prepare(progress) {
         return { payload: { progress } };
       }
     },
-    stop: state => state,
+    stop: (state) => state,
     updateMeta: {
       reducer(state, action) {
         const { meta } = action.payload;

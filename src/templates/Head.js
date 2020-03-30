@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import React from 'react';
+import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 
 import Favicon from '@/static/images/favicon.png';
 
@@ -17,37 +17,37 @@ function Head({ description, lang, meta, title }) {
         },
         {
           name: 'description',
-          content: description,
+          content: description
         },
         {
           property: 'og:title',
-          content: title,
+          content: title
         },
         {
           property: 'og:description',
-          content: description,
+          content: description
         },
         {
           property: 'og:type',
-          content: 'website',
+          content: 'website'
         },
         {
           name: 'twitter:card',
-          content: 'summary',
+          content: 'summary'
         },
         {
           name: 'twitter:title',
-          content: title,
+          content: title
         },
         {
           name: 'twitter:description',
-          content: description,
-        },
+          content: description
+        }
       ].concat(meta)}
     >
       <link rel="icon" href={Favicon} type="image/png" />
     </Helmet>
-  )
+  );
 }
 
 Head.defaultProps = {

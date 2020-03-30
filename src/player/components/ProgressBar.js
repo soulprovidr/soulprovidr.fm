@@ -12,8 +12,8 @@ export default function ProgressBar({ duration, progress, seek, status }) {
   const widthPercent = duration
     ? Math.min(100, (progress / duration) * 100)
     : status <= BUFFERING
-      ? 0
-      : 100;
+    ? 0
+    : 100;
   return (
     <div className={c('d-flex', 'flex-grow-1', 'align-items-center')}>
       <span className={c(styles.progressDuration, 'px-3', 'text-muted')}>
@@ -21,7 +21,10 @@ export default function ProgressBar({ duration, progress, seek, status }) {
       </span>
       <div className={c(styles.progress)}>
         <div
-          className={c(styles.progressBar, 'progress-bar progress-bar-striped progress-bar-animated flex-grow-1')}
+          className={c(
+            styles.progressBar,
+            'progress-bar progress-bar-striped progress-bar-animated flex-grow-1'
+          )}
           style={{
             height: '100%',
             width: `${widthPercent}%`
@@ -32,5 +35,5 @@ export default function ProgressBar({ duration, progress, seek, status }) {
         {msToTime(duration)}
       </span>
     </div>
-  )
+  );
 }
