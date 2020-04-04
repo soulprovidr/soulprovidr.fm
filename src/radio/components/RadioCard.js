@@ -20,7 +20,7 @@ const liveCategory = {
   key: 'live',
   label: (
     <span className={c('d-flex', 'align-items-center')}>
-      <LiveIcon className={c('live-icon', 'mr-2')} size={8} /> Live
+      <LiveIcon className={c('mr-2')} size={8} /> Live
     </span>
   ),
   colour: 'red'

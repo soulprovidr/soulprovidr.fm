@@ -1,4 +1,7 @@
 import React from 'react';
+import c from 'classnames';
+
+import styles from './LiveIcon.module.css';
 
 export default function LiveIcon({
   className = '',
@@ -6,7 +9,7 @@ export default function LiveIcon({
   size = 25
 }) {
   return (
-    <svg className={className} width={size} height={size}>
+    <svg className={c(styles.liveIcon, className)} width={size} height={size}>
       <circle
         xmlns="http://www.w3.org/2000/svg"
         fill={color}
