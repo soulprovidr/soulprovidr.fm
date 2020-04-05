@@ -36,6 +36,11 @@ const links = [
   {
     href: '/about',
     text: 'About'
+  },
+  {
+    href: 'https://www.buymeacoffee.com/ZPCo2GTd1',
+    text: 'Donate',
+    external: true
   }
 ];
 
