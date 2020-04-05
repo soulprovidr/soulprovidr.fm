@@ -27,7 +27,7 @@ function Waveform({
   const isMouseOver = useIsMouseOver(waveformRef);
   const waveform = useWaveform(waveformUrl);
 
-  const samplePercentWidth = 100 / numSamples;
+  const sampleWidthPercent = 100 / numSamples;
   const percentProgress = (progress / duration) * 100;
   // How long does it take to play a sample (in seconds)?
   const transitionDuration = Math.round(duration / numSamples / 1000);
@@ -41,7 +41,7 @@ function Waveform({
       .map((sample) => sample * heightScale);
   }, [height, numSamples, reflectionHeight, waveform]);
 
-  const onMouseOut = () => {
+  const onMouseLeave = () => {
     setSelectedSampleIndex(-1);
   };
 
@@ -54,11 +54,11 @@ function Waveform({
   };
 
   const renderSample = (sampleHeight, index) => {
-    const previousSamplesWidth = index * samplePercentWidth;
+    const progressWidthPercent = index * sampleWidthPercent;
     const isActive =
-      previousSamplesWidth < percentProgress || selectedSampleIndex >= index;
+      progressWidthPercent < percentProgress || selectedSampleIndex >= index;
     const onClick = () =>
-      onSeek(Math.round((previousSamplesWidth / 100) * duration));
+      onSeek(Math.round((progressWidthPercent / 100) * duration));
     const onMouseOver = () => setSelectedSampleIndex(index);
     return (
       <div
@@ -70,8 +70,8 @@ function Waveform({
           background: isActive ? activeColor : inactiveColor,
           height: sampleHeight,
           marginRight: 1,
-          transition: `background ${transitionDuration}s linear`,
-          width: `calc(${samplePercentWidth}% - 1px)`
+          // transition: `background ${transitionDuration}s linear`,
+          width: `calc(${sampleWidthPercent}% - 1px)`
         }}
       />
     );
@@ -81,7 +81,7 @@ function Waveform({
     return (
       <div
         className={c(styles.waveform, { [styles.hover]: isMouseOver })}
-        onMouseOut={onMouseOut}
+        onMouseLeave={onMouseLeave}
         ref={waveformRef}
       >
         <div
