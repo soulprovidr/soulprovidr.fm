@@ -105,7 +105,7 @@ function Article(props) {
           alt={article.title}
           sizes={article.heroImage.sizes}
         />
-        <p className="h2 mt-4 font-weight-bold">{article.title}</p>
+        <p className="h2 mt-5 font-weight-bold">{article.title}</p>
         <div
           className="pt-2 pb-4"
           dangerouslySetInnerHTML={{

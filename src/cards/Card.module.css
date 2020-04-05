@@ -5,18 +5,34 @@
   border: 1px solid #e9eaeb;
 }
 
-.playable:hover {
-  cursor: pointer;
-  box-shadow: 0 4px 4px rgba(197, 211, 219, 0.25);
-  transform: translate3d(0, -2px, 0);
+@media (hover: hover) {
+  .playable:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 4px rgba(197, 211, 219, 0.25);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .playable:hover .overlay {
+    opacity: 1;
+  }
+
+  .playable:hover .control {
+    transform: scale(1);
+  }
 }
 
-.playable:hover .overlay {
-  opacity: 1;
-}
+@media (hover: none) {
+  .card {
+    box-shadow: 0 4px 4px rgba(197, 211, 219, 0.25);
+  }
 
-.playable:hover .control {
-  transform: scale(1);
+  .playable .overlay {
+    opacity: 1;
+  }
+
+  .playable .control {
+    transform: scale(1);
+  }
 }
 
 .overlay {
@@ -59,4 +75,10 @@
 
 .title:hover {
   text-decoration: underline;
+}
+
+@media (hover: none) {
+  .title:hover {
+    text-decoration: none;
+  }
 }

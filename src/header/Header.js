@@ -5,6 +5,7 @@ import c from 'classnames';
 // https://www.iconfinder.com/iconsets/picons-social
 import GithubIcon from '@/static/images/github.svg';
 import InstagramIcon from '@/static/images/instagram.svg';
+import RedditIcon from '@/static/images/reddit.svg';
 import SpotifyIcon from '@/static/images/spotify.svg';
 
 import Logo from '@/common/components/Logo';
@@ -16,6 +17,10 @@ const icons = [
   {
     href: 'https://instagram.com/soulprovidr',
     src: InstagramIcon
+  },
+  {
+    href: 'https://reddit.com/u/soulprovidr',
+    src: RedditIcon
   },
   {
     href: 'https://open.spotify.com/user/soulprovidr',
@@ -31,11 +36,6 @@ const links = [
   {
     href: '/about',
     text: 'About'
-  },
-  {
-    href: 'https://reddit.com/r/rnb',
-    text: 'Community',
-    external: true
   }
 ];
 

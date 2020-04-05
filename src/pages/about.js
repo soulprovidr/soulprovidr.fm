@@ -3,30 +3,30 @@ import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import get from 'lodash/get';
 import Img from 'gatsby-image';
+import c from 'classnames';
+
+import articleStyles from '@/articles/components/Article.module.css';
 
 function About(props) {
   const post = get(props, 'data.contentfulPage');
   return (
-    <div className="container">
+    <main className="container">
       <Helmet title={post.title} />
-      <div className="row">
-        <div className="col-md-4">
-          <Img
-            className="card-img-top"
-            alt={post.title}
-            sizes={post.heroImage.sizes}
-          />
-        </div>
-        <div className="col-md-8">
-          <p className="h2 font-weight-bold pb-3">{post.title}</p>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: post.body.childMarkdownRemark.html
-            }}
-          />
-        </div>
+      <div className="col-lg-8 col-md-10 col-sm-12 mx-auto mb-5 pb-5">
+        <Img
+          className={c(articleStyles.image, 'card-img-top')}
+          alt={post.title}
+          sizes={post.heroImage.sizes}
+        />
+        <p className="h2 mt-5 font-weight-bold">{post.title}</p>
+        <div
+          className="pt-2 pb-4"
+          dangerouslySetInnerHTML={{
+            __html: post.body.childMarkdownRemark.html
+          }}
+        />
       </div>
-    </div>
+    </main>
   );
 }
 
