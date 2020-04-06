@@ -101,7 +101,6 @@ const RadioCard = (props) => {
         </div>
         <div className="col-md-8 d-flex align-items-center">
           <div className="card-body">
-            <p className="font-weight-bold text-uppercase mb-3">Now Playing:</p>
             <p className="h1 font-weight-bold">
               {meta ? meta.title : 'Loading...'}
             </p>

@@ -33,6 +33,7 @@ function Article(props) {
   const loadTrack = (meta) => {
     load(track.stream_url, {
       artist: track.user.username,
+      cover: article.heroImage.sizes.src,
       duration: track.duration,
       slug: article.slug,
       title: article.title,
