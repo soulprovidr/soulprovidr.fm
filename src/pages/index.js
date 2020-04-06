@@ -12,7 +12,7 @@ function Home({ data }) {
   return (
     <main className="container">
       <Helmet title="Home" />
-      <section className="row pb-4">
+      <section className="row pb-5">
         <div className="w-100">
           <div className="px-3">
             <RadioCard key="radio" />
@@ -30,7 +30,7 @@ function Home({ data }) {
       >
         {articles.map(({ node: article }) => (
           <div key={article.slug}>
-            <div className="pb-4 w-100">
+            <div className="pb-5 w-100">
               <ArticleCard article={article} />
             </div>
           </div>

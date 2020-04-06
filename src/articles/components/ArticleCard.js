@@ -52,7 +52,7 @@ const ArticleCard = (props) => {
         cover: article.heroImage.sizes.src,
         duration: track.duration,
         slug: article.slug,
-        title: article.title
+        title: article.title,
       });
     }
   };
@@ -80,7 +80,7 @@ const ArticleCard = (props) => {
   };
 
   return (
-    <Card isPlayable={!!track} onClick={onClick}>
+    <Card isActive={isTrackActive} isPlayable={!!track} onClick={onClick}>
       <CardBadge category={article.category} />
       <CardImage>
         <Img className="card-img-top" sizes={article.heroImage.sizes} />
@@ -99,7 +99,7 @@ const ArticleCard = (props) => {
         <div
           className="card-text"
           dangerouslySetInnerHTML={{
-            __html: article.description.childMarkdownRemark.html
+            __html: article.description.childMarkdownRemark.html,
           }}
         />
       </div>
@@ -109,7 +109,7 @@ const ArticleCard = (props) => {
 
 const mapState = (state) => ({
   src: state.player.src,
-  status: state.player.status
+  status: state.player.status,
 });
 
 const mapDispatch = { load, play, pause, stop };

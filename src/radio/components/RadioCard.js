@@ -86,7 +86,7 @@ const RadioCard = (props) => {
   );
 
   return (
-    <Card isPlayable onClick={onClick}>
+    <Card isActive={isStreamActive} isPlayable onClick={onClick}>
       <CardBadge category={liveCategory} />
       <div className="row">
         <div className="col-md-4">

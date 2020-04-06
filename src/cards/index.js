@@ -5,8 +5,12 @@ import styles from './Card.module.css';
 
 export { styles as cardStyles };
 
-export function Card({ children, onClick, isPlayable }) {
-  const className = c(styles.card, { [styles.playable]: isPlayable });
+export function Card({ children, onClick, isActive, isPlayable }) {
+  const className = c(
+    styles.card,
+    { [styles.playable]: isPlayable },
+    { [styles.active]: isActive }
+  );
   return (
     <div className={className} onClick={onClick}>
       {children}
@@ -25,7 +29,7 @@ export function CardBadge({ category }) {
     <div
       className={styles.badge}
       style={{
-        background: category ? category.colour : 'transparent'
+        background: category ? category.colour : 'transparent',
       }}
     >
       {category ? category.label : ''}
