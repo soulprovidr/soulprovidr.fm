@@ -18,9 +18,9 @@ function About(props) {
           alt={post.title}
           sizes={post.heroImage.sizes}
         />
-        <p className="h2 mt-5 font-weight-bold">{post.title}</p>
+        <p className="h3 mt-4 font-weight-bold">{post.title}</p>
         <div
-          className="pt-2 pb-4"
+          className="pt-2 pb-3"
           dangerouslySetInnerHTML={{
             __html: post.body.childMarkdownRemark.html
           }}

@@ -15,7 +15,7 @@ export default function ProgressBar({ duration, progress, seek, status }) {
     ? 0
     : 100;
   return (
-    <div className={c('d-flex', 'flex-grow-1', 'align-items-center')}>
+    <div className={c('d-none d-md-flex', 'flex-grow-1', 'align-items-center')}>
       <span className={c(styles.progressDuration, 'px-3', 'text-muted')}>
         {msToTime(progress)}
       </span>

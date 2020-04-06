@@ -22,13 +22,14 @@ function Player(props) {
     'position-fixed',
     'px-4',
     'py-2',
-    'bg-white'
+    'bg-white',
+    'row'
   );
   const duration = get(meta, 'duration', 0);
 
   return (
     <div className={className}>
-      <div className="container d-flex justify-content-between align-items-center">
+      <div className="container-lg d-flex flex-row-reverse flex-md-row justify-content-between align-items-center">
         <Controls pause={pause} play={play} status={status} />
         <ProgressBar duration={duration} progress={progress} status={status} />
         <Meta meta={meta} />

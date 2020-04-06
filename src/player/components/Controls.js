@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import c from 'classnames';
 
 import { PlayerStatus } from '@/player';
 
@@ -13,6 +14,7 @@ const { BUFFERING, PLAYING } = PlayerStatus;
 export default function Controls({ pause, play, status }) {
   const onPauseClick = useCallback(() => pause(), [pause]);
   const onPlayClick = useCallback(() => play(), [play]);
+  const className = c(styles.controlsBtn, 'flex-shrink-0');
   switch (status) {
     case BUFFERING:
       return <Spinner size={20} />;

@@ -9,14 +9,14 @@ export default function Meta({ meta }) {
   return (
     <div className={c(styles.meta, 'd-flex')}>
       <img
-        className={c(styles.metaCover, 'mr-3')}
+        className={c(styles.metaCover, 'mr-2', 'mr-md-3')}
         src={cover || DefaultCover}
       />
       <div className="d-flex flex-column justify-content-center overflow-hidden">
-        <p className={c(styles.metaTruncated, 'h5', 'font-weight-bold', 'm-0')}>
+        <p className={c(styles.metaTruncated, 'h6', 'font-weight-bold', 'm-0')}>
           {title}
         </p>
-        <p className={c(styles.metaTruncated, 'h6', 'm-0')}>{artist}</p>
+        <p className={c(styles.metaTruncated, 'h6', 'm-0', 'text-muted')}>{artist}</p>
       </div>
     </div>
   );
