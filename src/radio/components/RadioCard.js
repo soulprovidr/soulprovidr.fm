@@ -75,6 +75,16 @@ const RadioCard = (props) => {
     }
   };
 
+  const renderArtist = () => {
+    const artist = meta ? meta.artist : null;
+    return (
+      <>
+        <p className="d-none d-md-block h4">{artist}</p>
+        <p className="d-block d-md-none h5">{artist}</p>
+      </>
+    );
+  };
+
   const renderOverlay = () => (
     <CardOverlay>
       {isStreamActive && [BUFFERING, PLAYING].includes(status) ? (
@@ -84,6 +94,20 @@ const RadioCard = (props) => {
       )}
     </CardOverlay>
   );
+
+  const renderTitle = () => {
+    const title = meta ? meta.title : 'Loading...';
+    return (
+      <>
+        <p className="d-none d-md-block h1 font-weight-bold">
+          {title}
+        </p>
+        <p className="d-block d-md-none h4 font-weight-bold">
+          {title}
+        </p>
+      </>
+    );
+  };
 
   return (
     <Card isActive={isStreamActive} isPlayable onClick={onClick}>
@@ -101,10 +125,8 @@ const RadioCard = (props) => {
         </div>
         <div className="col-md-8 d-flex align-items-center">
           <div className="card-body">
-            <p className="h1 font-weight-bold">
-              {meta ? meta.title : 'Loading...'}
-            </p>
-            <p className="h4">{meta ? meta.artist : null}</p>
+            {renderTitle()}
+            {renderArtist()}
           </div>
         </div>
       </div>

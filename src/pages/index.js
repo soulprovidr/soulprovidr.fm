@@ -12,7 +12,7 @@ function Home({ data }) {
   return (
     <main className="container">
       <Helmet title="Home" />
-      <section className="row pb-5">
+      <section className="row pb-4">
         <div className="w-100">
           <div className="px-3">
             <RadioCard key="radio" />
