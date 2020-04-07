@@ -1,0 +1,57 @@
+.player {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #ddd;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+  z-index: 3;
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Controls */
+
+.controlsBtn {
+  cursor: pointer;
+  width: 20px;
+}
+
+/* Progress bar */
+
+.progress {
+  background: #ddd;
+  flex: 1;
+  height: 5px !important;
+  width: 100%;
+}
+
+.progressBar {
+  transition-duration: 0.3s !important;
+}
+
+.progressDuration {
+  font-size: 13px;
+  width: 90px;
+}
+
+/* Meta */
+
+.meta {
+  width: 300px;
+  height: 40px;
+}
+
+.metaCover {
+  height: 100%;
+}
+
+.metaTruncated {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

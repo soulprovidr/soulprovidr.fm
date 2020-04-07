@@ -1,0 +1,24 @@
+.header {
+  font-family: hk-grotesk;
+}
+
+.mobile {
+  border-bottom: 1px solid #ddd;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.link {
+  font-weight: 600;
+}
+
+.link:last-child {
+  padding: 0 !important;
+}

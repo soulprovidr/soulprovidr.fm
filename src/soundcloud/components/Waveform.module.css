@@ -1,0 +1,34 @@
+.top {
+  display: flex;
+  align-items: flex-end;
+}
+
+.bottom {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.hover .sample {
+  cursor: pointer;
+  transition: none !important;
+}
+
+.gradient {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.4) 70%
+  );
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  pointer-events: none;
+}
+
+.loading {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}

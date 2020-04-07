@@ -1,0 +1,89 @@
+.card {
+  position: relative;
+  transition: transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid #e9eaeb;
+}
+
+@media (hover: hover) {
+  .playable:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 4px rgba(197, 211, 219, 0.25);
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .playable:hover .overlay {
+    opacity: 1;
+  }
+
+  .playable:hover .control {
+    transform: scale(1);
+  }
+}
+
+@media (hover: none) {
+  .card {
+    box-shadow: 0 4px 4px rgba(197, 211, 219, 0.25);
+  }
+
+  .playable .overlay {
+    opacity: 1;
+  }
+
+  .playable .control {
+    transform: scale(1);
+  }
+}
+
+.overlay {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 1;
+}
+
+.active .overlay,
+.overlay:hover {
+  opacity: 1;
+}
+
+.control {
+  transition: transform 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(0);
+}
+
+.active .control {
+  transform: scale(1);
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  color: white;
+  background: transparent;
+  border-radius: 4px;
+  padding: 2px 8px;
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+.title {
+  cursor: pointer;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+@media (hover: none) {
+  .title:hover {
+    text-decoration: none;
+  }
+}
