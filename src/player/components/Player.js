@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import c from 'classnames';
 import get from 'lodash.get';
 
-import { PlayerStatus, play, pause, stop } from '@/player';
+import { play, pause, stop } from '@/player/actions';
+import { PlayerStatus } from '@/player/constants';
 
 import Controls from './Controls';
 import Meta from './Meta';
@@ -42,7 +43,7 @@ const mapState = (state) => ({
   meta: state.player.meta,
   progress: state.player.progress,
   src: state.player.src,
-  status: state.player.status
+  status: state.player.status,
 });
 
 const mapDispatch = { play, pause, stop };

@@ -1,7 +1,7 @@
 import React from 'react';
 import c from 'classnames';
 
-import { PlayerStatus } from '@/player';
+import { PlayerStatus } from '@/player/constants';
 import msToTime from '@/player/helpers/msToTime';
 
 import styles from './Player.module.css';
@@ -27,7 +27,7 @@ export default function ProgressBar({ duration, progress, seek, status }) {
           )}
           style={{
             height: '100%',
-            width: `${widthPercent}%`
+            width: `${widthPercent}%`,
           }}
         />
       </div>
