@@ -39,9 +39,10 @@ class HowlerPlayer {
   src = null;
 
   sound = null;
-  progressTimer = new ProgressTimer();
+  progressTimer = null;
 
   constructor() {
+    this.progressTimer = new ProgressTimer();
     flyd.on(this.handleStatus, this.status);
   }
 
