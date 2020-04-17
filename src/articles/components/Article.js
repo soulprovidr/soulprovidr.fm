@@ -8,7 +8,8 @@ import c from 'classnames';
 
 // import Tracklist from '@/common/components/Tracklist';
 import Waveform from '@/soundcloud/components/Waveform';
-import { PlayerStatus, load, play, pause, stop } from '@/player';
+import { play, pause, stop } from '@/player/actions';
+import { PlayerStatus } from '@/player/constants';
 import msToTime from '@/player/helpers/msToTime';
 import { useTrack } from '@/soundcloud';
 
@@ -20,7 +21,7 @@ import styles from './Article.module.css';
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 function Article(props) {
-  const { data, load, play, pause, progress, src, status, stop } = props;
+  const { data, play, pause, progress, src, status, stop } = props;
 
   const article = get(data, 'contentfulArticle');
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
@@ -30,14 +31,14 @@ function Article(props) {
   const isTrackActive = track && src === track.stream_url;
   const isPlaying = isTrackActive && status === PLAYING;
 
-  const loadTrack = (meta) => {
-    load(track.stream_url, {
+  const curriedPlay = (meta) => {
+    play(track.stream_url, {
       artist: track.user.username,
       cover: article.heroImage.sizes.src,
       duration: track.duration,
       slug: article.slug,
       title: article.title,
-      ...meta
+      ...meta,
     });
   };
 
@@ -60,10 +61,10 @@ function Article(props) {
           break;
       }
     } else {
-      loadTrack();
+      curriedPlay();
     }
   };
-  const onSeek = (seekProgress) => play(track?.stream_url, seekProgress);
+  const onSeek = (progress) => curriedPlay({ progress });
 
   const renderAction = () => (
     <button
@@ -110,7 +111,7 @@ function Article(props) {
         <div
           className="pt-2 pb-4"
           dangerouslySetInnerHTML={{
-            __html: article.body.childMarkdownRemark.html
+            __html: article.body.childMarkdownRemark.html,
           }}
         />
         {article.soundCloudUrl && (
@@ -133,10 +134,10 @@ function Article(props) {
 const mapState = (state) => ({
   progress: state.player.progress,
   src: state.player.src,
-  status: state.player.status
+  status: state.player.status,
 });
 
-const mapDispatch = { load, play, pause, stop };
+const mapDispatch = { play, pause, stop };
 
 export default connect(mapState, mapDispatch)(Article);
 

@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import c from 'classnames';
 
-import { PlayerStatus } from '@/player';
+import { PlayerStatus } from '@/player/constants';
 
 import Spinner from '@/common/components/Spinner';
 import PlayIcon from '@/common/components/PlayIcon';

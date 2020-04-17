@@ -4,7 +4,8 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import { PlayerStatus, load, play, pause, stop } from '@/player';
+import { play, pause, stop } from '@/player/actions';
+import { PlayerStatus } from '@/player/constants';
 import { useTrack } from '@/soundcloud';
 
 import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
@@ -15,7 +16,7 @@ import PlayIcon from '@/common/components/PlayIcon';
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 const ArticleCard = (props) => {
-  const { article, load, play, pause, src, status, stop } = props;
+  const { article, play, pause, src, status, stop } = props;
 
   const linkRef = useRef(null);
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
@@ -47,7 +48,7 @@ const ArticleCard = (props) => {
           break;
       }
     } else {
-      load(track.stream_url, {
+      play(track.stream_url, {
         artist: track.user.username,
         cover: article.heroImage.sizes.src,
         duration: track.duration,
@@ -112,6 +113,6 @@ const mapState = (state) => ({
   status: state.player.status,
 });
 
-const mapDispatch = { load, play, pause, stop };
+const mapDispatch = { play, pause, stop };
 
 export default connect(mapState, mapDispatch)(ArticleCard);

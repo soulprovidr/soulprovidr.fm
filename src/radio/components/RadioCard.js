@@ -5,7 +5,8 @@ import get from 'lodash.get';
 
 import fetchJson from '@/common/util/fetchJson';
 import useInterval from '@/common/hooks/useInterval';
-import { PlayerStatus, load, play, pause, stop, updateMeta } from '@/player';
+import { play, pause, stop, updateMeta } from '@/player/actions';
+import { PlayerStatus } from '@/player/constants';
 
 import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
 import DefaultCover from '@/static/images/default.png';
@@ -23,7 +24,7 @@ const liveCategory = {
       <LiveIcon className={c('mr-2')} size={8} /> Live
     </span>
   ),
-  colour: 'red'
+  colour: 'red',
 };
 
 const STREAM_META_URL =
@@ -31,7 +32,7 @@ const STREAM_META_URL =
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
 const RadioCard = (props) => {
-  const { load, play, src, status, stop, updateMeta: updatePlayerMeta } = props;
+  const { play, src, status, stop, updateMeta: updatePlayerMeta } = props;
 
   const [meta, setMeta] = useState(null);
 
@@ -66,11 +67,11 @@ const RadioCard = (props) => {
           play();
       }
     } else {
-      load(STREAM_URL, {
+      play(STREAM_URL, {
         artist,
         cover,
         duration: 0,
-        title
+        title,
       });
     }
   };
@@ -99,12 +100,8 @@ const RadioCard = (props) => {
     const title = meta ? meta.title : 'Loading...';
     return (
       <>
-        <p className="d-none d-md-block h1 font-weight-bold">
-          {title}
-        </p>
-        <p className="d-block d-md-none h4 font-weight-bold">
-          {title}
-        </p>
+        <p className="d-none d-md-block h1 font-weight-bold">{title}</p>
+        <p className="d-block d-md-none h4 font-weight-bold">{title}</p>
       </>
     );
   };
@@ -136,9 +133,9 @@ const RadioCard = (props) => {
 
 const mapState = (state) => ({
   src: state.player.src,
-  status: state.player.status
+  status: state.player.status,
 });
 
-const mapDispatch = { load, play, pause, stop, updateMeta };
+const mapDispatch = { play, pause, stop, updateMeta };
 
 export default connect(mapState, mapDispatch)(RadioCard);
