@@ -34,8 +34,8 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
         path: `/${article.node.slug}/`,
         component: articleComponent,
         context: {
-          slug: article.node.slug
-        }
+          slug: article.node.slug,
+        },
       });
     });
 

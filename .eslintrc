@@ -4,7 +4,10 @@
     "SoundCloud": true,
     "Window": true
   },
-  "extends": "react-app",
+  "extends": [
+    "react-app",
+    "plugin:prettier/recommended"
+  ],
   "rules": {
     "react-hooks/exhaustive-deps": 0
   }
