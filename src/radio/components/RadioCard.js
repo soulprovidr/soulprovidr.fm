@@ -54,7 +54,7 @@ const RadioCard = (props) => {
   }, []);
   useInterval(pollFn, 5 * 1000);
 
-  const onClick = (e) => {
+  const onClick = () => {
     if (isStreamActive) {
       switch (status) {
         case BUFFERING:

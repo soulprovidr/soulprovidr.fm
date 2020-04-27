@@ -12,11 +12,9 @@ import ProgressBar from './ProgressBar';
 
 import styles from './Player.module.css';
 
-const { BUFFERING, PLAYING } = PlayerStatus;
+const { BUFFERING } = PlayerStatus;
 
-function Player(props) {
-  const { meta, pause, play, progress, src, status, stop } = props;
-
+function Player({ meta, pause, play, progress, status }) {
   const className = c(
     styles.player,
     { [styles.visible]: status >= BUFFERING },
@@ -42,7 +40,6 @@ function Player(props) {
 const mapState = (state) => ({
   meta: state.player.meta,
   progress: state.player.progress,
-  src: state.player.src,
   status: state.player.status,
 });
 

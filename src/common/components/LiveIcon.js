@@ -6,7 +6,7 @@ import styles from './LiveIcon.module.css';
 export default function LiveIcon({
   className = '',
   color = '#fff',
-  size = 25
+  size = 25,
 }) {
   return (
     <svg className={c(styles.liveIcon, className)} width={size} height={size}>

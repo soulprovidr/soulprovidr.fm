@@ -1,14 +1,32 @@
 {
   "globals": {
+    "__dirname": true,
     "__SOUNDCLOUD_CLIENT_ID__": true,
+    "caches": true,
+    "clearInterval": true,
+    "console": true,
+    "exports": true,
+    "fetch": true,
+    "module": true,
+    "process": true,
+    "require": true,
+    "setInterval": true,
     "SoundCloud": true,
-    "Window": true
+    "window": true
   },
   "extends": [
-    "react-app",
-    "plugin:prettier/recommended"
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier/react"
   ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
   "rules": {
-    "react-hooks/exhaustive-deps": 0
+    "react-hooks/exhaustive-deps": 0,
+    "react/prop-types": 0
   }
 }

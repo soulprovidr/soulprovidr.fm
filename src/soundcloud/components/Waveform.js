@@ -19,7 +19,7 @@ function Waveform({
   numSamples,
   onSeek,
   reflectionHeight,
-  waveformUrl
+  waveformUrl,
 }) {
   const waveformRef = useRef(null);
 
@@ -30,7 +30,7 @@ function Waveform({
   const sampleWidthPercent = 100 / numSamples;
   const percentProgress = (progress / duration) * 100;
   // How long does it take to play a sample (in seconds)?
-  const transitionDuration = Math.round(duration / numSamples / 1000);
+  // const transitionDuration = Math.round(duration / numSamples / 1000);
 
   // Chunk samples and average their amplitudes.
   const samples = useMemo(() => {
@@ -71,7 +71,7 @@ function Waveform({
           height: sampleHeight,
           marginRight: 1,
           // transition: `background ${transitionDuration}s linear`,
-          width: `calc(${sampleWidthPercent}% - 1px)`
+          width: `calc(${sampleWidthPercent}% - 1px)`,
         }}
       />
     );
@@ -115,7 +115,7 @@ Waveform.defaultProps = {
   numSamples: 150,
   onSeek: () => null,
   percentProgress: 25,
-  reflectionHeight: 50
+  reflectionHeight: 50,
 };
 
 export default Waveform;

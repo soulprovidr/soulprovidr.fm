@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Tracklist({ tracklist }) {
+export default function Tracklist() {
   return (
     <>
       <p className="h6 font-weight-bold text-uppercase pt-4 pb-2">Tracklist</p>

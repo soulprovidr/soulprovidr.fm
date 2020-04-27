@@ -1,4 +1,4 @@
-import { Howl, Howler } from 'howler';
+import { Howl } from 'howler';
 import flyd from 'flyd';
 import skip from 'flyd-skip';
 import {
@@ -19,12 +19,15 @@ const PLAY = play.toString();
 const SEEK = seek.toString();
 const STOP = stop.toString();
 
+const PROGRESS_INTERVAL = 100;
+
 class ProgressTimer {
-  static PROGRESS_INTERVAL = 100;
-  _interval = null;
+  constructor() {
+    this._interval = null;
+  }
 
   start(fn) {
-    this._interval = setInterval(fn, ProgressTimer.PROGRESS_INTERVAL);
+    this._interval = setInterval(fn, PROGRESS_INTERVAL);
   }
 
   stop() {
@@ -34,14 +37,12 @@ class ProgressTimer {
 }
 
 class HowlerPlayer {
-  progress = flyd.stream(0); // milliseconds
-  status = flyd.stream(UNSTARTED);
-  src = null;
-
-  sound = null;
-  progressTimer = null;
-
   constructor() {
+    this.progress = flyd.stream(0); // milliseconds
+    this.status = flyd.stream(UNSTARTED);
+    this.src = null;
+
+    this.sound = null;
     this.progressTimer = new ProgressTimer();
     flyd.on(this.handleStatus, this.status);
   }
@@ -135,7 +136,7 @@ class HowlerPlayer {
   };
 
   updateProgress = () => {
-    this.progress(this.progress() + ProgressTimer.PROGRESS_INTERVAL);
+    this.progress(this.progress() + PROGRESS_INTERVAL);
   };
 }
 
@@ -173,10 +174,11 @@ export default (store) => {
       case PAUSE:
         howlerPlayer.pause();
         break;
-      case SEEK:
+      case SEEK: {
         const { progress } = action.payload;
         howlerPlayer.seek(progress);
         break;
+      }
       case STOP:
         howlerPlayer.stop();
         break;

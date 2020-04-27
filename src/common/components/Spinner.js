@@ -14,7 +14,7 @@ function Spinner({ modifier, size }) {
 
 Spinner.defaultProps = {
   modifier: 'secondary',
-  size: 50
+  size: 50,
 };
 
 export default Spinner;

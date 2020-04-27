@@ -31,7 +31,7 @@ const GlobalStyle = createGlobalStyle`
 
 export default function Layout({ children }) {
   const {
-    site: { siteMetadata }
+    site: { siteMetadata },
   } = useStaticQuery(graphql`
     query {
       site {

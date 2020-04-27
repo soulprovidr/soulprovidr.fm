@@ -23,7 +23,7 @@ function Home({ data }) {
         breakpointCols={{
           default: 3,
           990: 2,
-          768: 1
+          768: 1,
         }}
         className="row py-5"
         columnClassName="col"

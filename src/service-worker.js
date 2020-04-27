@@ -3,8 +3,9 @@ const fetchAndCache = (e, cache) => {
     cache.put(e.request, response.clone());
     return response;
   });
-}
+};
 
+// eslint-disable-next-line
 self.addEventListener('fetch', function (e) {
   const streamRegex = /^.*soundcloud.com\/tracks\/\d*\/stream.*$/;
   if (!e.request.url.includes('soundcloud.com')) {
@@ -17,7 +18,7 @@ self.addEventListener('fetch', function (e) {
     caches.open('soundcloud').then(function (cache) {
       return cache.match(e.request).then(function (response) {
         return response || fetchAndCache(e, cache);
-      })
+      });
     })
-  )
+  );
 });

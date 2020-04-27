@@ -8,7 +8,7 @@ import styles from './Player.module.css';
 
 const { BUFFERING } = PlayerStatus;
 
-export default function ProgressBar({ duration, progress, seek, status }) {
+export default function ProgressBar({ duration, progress, status }) {
   const widthPercent = duration
     ? Math.min(100, (progress / duration) * 100)
     : status <= BUFFERING

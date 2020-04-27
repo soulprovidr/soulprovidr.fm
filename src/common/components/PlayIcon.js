@@ -26,7 +26,7 @@ PlayIcon.defaultProps = {
   className: '',
   color: '#000000',
   onClick: () => null,
-  size: 50
+  size: 50,
 };
 
 export default PlayIcon;

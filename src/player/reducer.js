@@ -1,8 +1,6 @@
 import {
-  pause,
   play,
   reset,
-  seek,
   updateMeta,
   updateProgress,
   updateStatus,
@@ -13,7 +11,6 @@ const { UNSTARTED } = PlayerStatus;
 
 const PLAY = play.toString();
 const RESET = reset.toString();
-const SEEK = seek.toString();
 const UPDATE_META = updateMeta.toString();
 const UPDATE_PROGRESS = updateProgress.toString();
 const UPDATE_STATUS = updateStatus.toString();

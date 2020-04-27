@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import c from 'classnames';
 
 import DefaultCover from '@/static/images/default.png';
@@ -16,7 +16,9 @@ export default function Meta({ meta }) {
         <p className={c(styles.metaTruncated, 'h6', 'font-weight-bold', 'm-0')}>
           {title}
         </p>
-        <p className={c(styles.metaTruncated, 'h6', 'm-0', 'text-muted')}>{artist}</p>
+        <p className={c(styles.metaTruncated, 'h6', 'm-0', 'text-muted')}>
+          {artist}
+        </p>
       </div>
     </div>
   );

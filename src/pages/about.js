@@ -22,7 +22,7 @@ function About(props) {
         <div
           className="pt-2 pb-3"
           dangerouslySetInnerHTML={{
-            __html: post.body.childMarkdownRemark.html
+            __html: post.body.childMarkdownRemark.html,
           }}
         />
       </div>

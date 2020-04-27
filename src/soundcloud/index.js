@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import qs from 'qs';
 
 const API_URL = 'https://api.soundcloud.com';
@@ -6,7 +6,7 @@ const API_URL = 'https://api.soundcloud.com';
 function getQueryString(params) {
   return qs.stringify({
     client_id: process.env.GATSBY_SOUNDCLOUD_CLIENT_ID,
-    ...params
+    ...params,
   });
 }
 
@@ -40,7 +40,7 @@ export function useTrack(soundCloudUrl) {
         const trackData = await resolve(soundCloudUrl);
         setData({
           ...trackData,
-          stream_url: getQualifiedStreamUrl(trackData.stream_url)
+          stream_url: getQualifiedStreamUrl(trackData.stream_url),
         });
       }
     }

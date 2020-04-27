@@ -16,32 +16,32 @@ import styles from './Header.module.css';
 const icons = [
   {
     href: 'https://instagram.com/soulprovidr',
-    src: InstagramIcon
+    src: InstagramIcon,
   },
   {
     href: 'https://reddit.com/u/soulprovidr',
-    src: RedditIcon
+    src: RedditIcon,
   },
   {
     href: 'https://open.spotify.com/user/soulprovidr',
-    src: SpotifyIcon
+    src: SpotifyIcon,
   },
   {
     href: 'https://github.com/soulprovidr',
-    src: GithubIcon
-  }
+    src: GithubIcon,
+  },
 ];
 
 const links = [
   {
     href: '/about',
-    text: 'About'
+    text: 'About',
   },
   {
     href: 'https://www.buymeacoffee.com/ZPCo2GTd1',
     text: 'Donate',
-    external: true
-  }
+    external: true,
+  },
 ];
 
 function DesktopHeader() {
@@ -96,9 +96,11 @@ function MobileHeader() {
   );
 }
 
-export default () => (
-  <>
-    <DesktopHeader />
-    <MobileHeader />
-  </>
-);
+export default function Header() {
+  return (
+    <>
+      <DesktopHeader />
+      <MobileHeader />
+    </>
+  );
+}

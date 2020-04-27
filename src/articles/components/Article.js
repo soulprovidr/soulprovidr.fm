@@ -29,7 +29,6 @@ function Article(props) {
 
   // Is the track associated with this card active?
   const isTrackActive = track && src === track.stream_url;
-  const isPlaying = isTrackActive && status === PLAYING;
 
   const curriedPlay = (meta) => {
     play(track.stream_url, {
@@ -42,7 +41,7 @@ function Article(props) {
     });
   };
 
-  const onButtonClick = (e) => {
+  const onButtonClick = () => {
     // Ignore clicks when track has not yet loaded.
     if (!track) {
       return false;
