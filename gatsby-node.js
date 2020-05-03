@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, boundActionCreators }) => {
   const result = await graphql(
     `
       {
-        allContentfulArticle {
+        allContentfulArticle(filter: { category: { key: { ne: "github" } } }) {
           edges {
             node {
               title
