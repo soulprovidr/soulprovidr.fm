@@ -5,8 +5,12 @@
     "start": "gatsby develop"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "@styled-system/should-forward-prop": "^5.1.5",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "emotion-theming": "^10.0.27",
     "flyd": "^0.2.8",
     "flyd-skip": "0.0.2",
     "gatsby": "^2.20.12",
@@ -36,7 +40,7 @@
     "redux-actions": "^2.6.5",
     "redux-devtools": "^3.5.0",
     "redux-thunk": "^2.3.0",
-    "styled-components": "^4.3.2",
+    "styled-system": "^5.1.5",
     "typescript": "^3.8.3",
     "whatwg-fetch": "^3.0.0"
   },

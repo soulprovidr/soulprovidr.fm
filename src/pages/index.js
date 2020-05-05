@@ -6,11 +6,12 @@ import Masonry from 'react-masonry-css';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import RadioCard from '@/radio/components/RadioCard';
+import { Container } from '@/ui';
 
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges');
   return (
-    <main className="container">
+    <Container as="main">
       <Helmet title="Home" />
       <section className="row pb-4">
         <div className="w-100">
@@ -23,7 +24,7 @@ function Home({ data }) {
         breakpointCols={{
           default: 3,
           990: 2,
-          768: 1,
+          768: 1
         }}
         className="row py-5"
         columnClassName="col"
@@ -36,7 +37,7 @@ function Home({ data }) {
           </div>
         ))}
       </Masonry>
-    </main>
+    </Container>
   );
 }
 

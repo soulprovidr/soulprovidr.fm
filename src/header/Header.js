@@ -9,6 +9,7 @@ import RedditIcon from '@/static/images/reddit.svg';
 import SpotifyIcon from '@/static/images/spotify.svg';
 
 import Logo from '@/common/components/Logo';
+import { Box, Container, Flex } from '@/ui';
 import Navigation from './Navigation';
 
 import styles from './Header.module.css';
@@ -16,61 +17,33 @@ import styles from './Header.module.css';
 const icons = [
   {
     href: 'https://instagram.com/soulprovidr',
-    src: InstagramIcon,
+    src: InstagramIcon
   },
   {
     href: 'https://reddit.com/u/soulprovidr',
-    src: RedditIcon,
+    src: RedditIcon
   },
   {
     href: 'https://open.spotify.com/user/soulprovidr',
-    src: SpotifyIcon,
+    src: SpotifyIcon
   },
   {
     href: 'https://github.com/soulprovidr',
-    src: GithubIcon,
-  },
+    src: GithubIcon
+  }
 ];
 
 const links = [
   {
-    href: '/about',
-    text: 'About',
-  },
-  {
-    href: 'https://www.buymeacoffee.com/ZPCo2GTd1',
-    text: 'Donate',
-    external: true,
-  },
+    href: '/subscribe',
+    text: 'Subscribe'
+  }
 ];
-
-function DesktopHeader() {
-  return (
-    <header
-      className={c(styles.header, 'container d-md-block d-none bg-white py-5')}
-    >
-      <div className="d-flex align-items-center justify-content-between py-2">
-        <div className="d-flex align-items-center">
-          <Link to="/">
-            <Logo className="d-inline-block align-middle mr-3" size={45} />
-          </Link>
-          <div>
-            <p className="h5 font-weight-bold m-0">
-              <Link to="/" className="text-dark">
-                SOUL PROVIDER
-              </Link>
-            </p>
-          </div>
-        </div>
-        <Navigation icons={icons} links={links} />
-      </div>
-    </header>
-  );
-}
 
 function MobileHeader() {
   return (
-    <header
+    <Box
+      as="header"
       className={c(
         styles.header,
         styles.mobile,
@@ -92,15 +65,39 @@ function MobileHeader() {
         </div>
         {/* <Navigation icons={icons} links={links} /> */}
       </div>
-    </header>
+    </Box>
   );
 }
 
 export default function Header() {
   return (
-    <>
-      <DesktopHeader />
-      <MobileHeader />
-    </>
+    <Box
+      as="header"
+      bg="white"
+      fontFamily="heading"
+      position={['fixed', 'relative']}
+      py={[2, 5]}
+      top={0}
+      right={0}
+      left={0}
+    >
+      <Container p={0}>
+        <Flex alignItems="center" justifyContent="space-between" px={2}>
+          <Flex alignItems="center">
+            <Link to="/">
+              <Logo className="d-inline-block align-middle mr-3" size={45} />
+            </Link>
+            <div>
+              <p className="h5 font-weight-bold m-0">
+                <Link to="/" className="text-dark">
+                  SOUL PROVIDER
+                </Link>
+              </p>
+            </div>
+          </Flex>
+          <Navigation icons={icons} links={links} />
+        </Flex>
+      </Container>
+    </Box>
   );
 }
