@@ -37,7 +37,7 @@ function Article(props) {
       duration: track.duration,
       slug: article.slug,
       title: article.title,
-      ...meta,
+      ...meta
     });
   };
 
@@ -110,7 +110,7 @@ function Article(props) {
         <div
           className="pt-2 pb-4"
           dangerouslySetInnerHTML={{
-            __html: article.body.childMarkdownRemark.html,
+            __html: article.body.childMarkdownRemark.html
           }}
         />
         {article.soundCloudUrl && (
@@ -133,7 +133,7 @@ function Article(props) {
 const mapState = (state) => ({
   progress: state.player.progress,
   src: state.player.src,
-  status: state.player.status,
+  status: state.player.status
 });
 
 const mapDispatch = { play, pause, stop };

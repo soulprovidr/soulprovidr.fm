@@ -8,11 +8,12 @@ import useInterval from '@/common/hooks/useInterval';
 import { play, pause, stop, updateMeta } from '@/player/actions';
 import { PlayerStatus } from '@/player/constants';
 
-import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
+import { Card, CardBadge } from '@/cards';
 import DefaultCover from '@/static/images/default.png';
 import LiveIcon from '@/common/components/LiveIcon';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
+import { Box, Flex, FlexColumn, Heading, Text } from '@/ui';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
@@ -24,14 +25,14 @@ const liveCategory = {
       <LiveIcon className={c('mr-2')} size={8} /> Live
     </span>
   ),
-  colour: 'red',
+  colour: 'red'
 };
 
 const STREAM_META_URL =
   'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
 const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
 
-const RadioCard = (props) => {
+const FeatureCard = (props) => {
   const { play, src, status, stop, updateMeta: updatePlayerMeta } = props;
 
   const [meta, setMeta] = useState(null);
@@ -71,44 +72,48 @@ const RadioCard = (props) => {
         artist,
         cover,
         duration: 0,
-        title,
+        title
       });
     }
   };
 
-  const renderArtist = () => {
-    const artist = meta ? meta.artist : null;
-    return (
-      <>
-        <p className="d-none d-md-block h4">{artist}</p>
-        <p className="d-block d-md-none h5">{artist}</p>
-      </>
-    );
-  };
+  // const renderOverlay = () => (
+  //   <CardOverlay>
+  //     {isStreamActive && [BUFFERING, PLAYING].includes(status) ? (
+  //       <PauseIcon className={cardStyles.control} color="#FFFFFF" size={60} />
+  //     ) : (
+  //       <PlayIcon className={cardStyles.control} color="#FFFFFF" size={60} />
+  //     )}
+  //   </CardOverlay>
+  // );
 
-  const renderOverlay = () => (
-    <CardOverlay>
-      {isStreamActive && [BUFFERING, PLAYING].includes(status) ? (
-        <PauseIcon className={cardStyles.control} color="#FFFFFF" size={60} />
-      ) : (
-        <PlayIcon className={cardStyles.control} color="#FFFFFF" size={60} />
-      )}
-    </CardOverlay>
+  return (
+    <Card>
+      <CardBadge bg={liveCategory.colour}>
+        <LiveIcon size={8} /> Live
+      </CardBadge>
+      <Flex>
+        <Box width={1 / 3.25}>
+          {/* <CardImage isPlaying={false}> */}
+          {/* {renderOverlay()} */}
+          <Box
+            as="img"
+            alt={meta ? `${meta.artist} - ${meta.title}` : 'Loading...'}
+            src={meta?.cover ?? DefaultCover}
+            width={1}
+          />
+          {/* </CardImage> */}
+        </Box>
+        <FlexColumn width={2.25 / 3.25} justifyContent="center" p={5}>
+          <Heading as="h1">{meta ? meta.title : 'Loading...'}</Heading>
+          <Text fontSize={4}>{artist}</Text>
+        </FlexColumn>
+      </Flex>
+    </Card>
   );
-
-  const renderTitle = () => {
-    const title = meta ? meta.title : 'Loading...';
-    return (
-      <>
-        <p className="d-none d-md-block h1 font-weight-bold">{title}</p>
-        <p className="d-block d-md-none h4 font-weight-bold">{title}</p>
-      </>
-    );
-  };
 
   return (
     <Card isActive={isStreamActive} isPlayable onClick={onClick}>
-      <CardBadge category={liveCategory} />
       <div className="row">
         <div className="col-md-4">
           <CardImage isPlaying={false}>
@@ -133,9 +138,9 @@ const RadioCard = (props) => {
 
 const mapState = (state) => ({
   src: state.player.src,
-  status: state.player.status,
+  status: state.player.status
 });
 
 const mapDispatch = { play, pause, stop, updateMeta };
 
-export default connect(mapState, mapDispatch)(RadioCard);
+export default connect(mapState, mapDispatch)(FeatureCard);

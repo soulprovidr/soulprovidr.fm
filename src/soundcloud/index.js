@@ -6,7 +6,7 @@ const API_URL = 'https://api.soundcloud.com';
 function getQueryString(params) {
   return qs.stringify({
     client_id: process.env.GATSBY_SOUNDCLOUD_CLIENT_ID,
-    ...params,
+    ...params
   });
 }
 
@@ -38,9 +38,13 @@ export function useTrack(soundCloudUrl) {
     async function resolveSoundCloudUrl() {
       if (soundCloudUrl) {
         const trackData = await resolve(soundCloudUrl);
+        if (!trackData) {
+          setData(null);
+          return;
+        }
         setData({
           ...trackData,
-          stream_url: getQualifiedStreamUrl(trackData.stream_url),
+          stream_url: getQualifiedStreamUrl(trackData.stream_url)
         });
       }
     }

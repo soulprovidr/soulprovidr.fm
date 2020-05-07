@@ -6,7 +6,7 @@ import Masonry from 'react-masonry-css';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import RadioCard from '@/radio/components/RadioCard';
-import { Container } from '@/ui';
+import { Box, Container } from '@/ui';
 
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges');

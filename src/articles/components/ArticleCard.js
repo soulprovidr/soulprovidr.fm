@@ -8,10 +8,11 @@ import { play, pause, stop } from '@/player/actions';
 import { PlayerStatus } from '@/player/constants';
 import { useTrack } from '@/soundcloud';
 
-import { Card, CardBadge, CardImage, CardOverlay, cardStyles } from '@/cards';
+import { Card, CardBadge } from '@/cards';
 
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
+import { Box, Container, Flex, Heading } from '@/ui';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
@@ -53,42 +54,43 @@ const ArticleCard = (props) => {
         cover: article.heroImage.sizes.src,
         duration: track.duration,
         slug: article.slug,
-        title: article.title,
+        title: article.title
       });
     }
   };
 
-  const renderOverlay = () => {
-    return (
-      track && (
-        <CardOverlay>
-          {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
-            <PauseIcon
-              className={cardStyles.control}
-              color="#FFFFFF"
-              size={60}
-            />
-          ) : (
-            <PlayIcon
-              className={cardStyles.control}
-              color="#FFFFFF"
-              size={60}
-            />
-          )}
-        </CardOverlay>
-      )
-    );
-  };
+  // const renderOverlay = () => {
+  //   return (
+  //     track && (
+  //       <CardOverlay>
+  //         {isTrackActive && [BUFFERING, PLAYING].includes(status) ? (
+  //           <PauseIcon
+  //             className={cardStyles.control}
+  //             color="#FFFFFF"
+  //             size={60}
+  //           />
+  //         ) : (
+  //           <PlayIcon
+  //             className={cardStyles.control}
+  //             color="#FFFFFF"
+  //             size={60}
+  //           />
+  //         )}
+  //       </CardOverlay>
+  //     )
+  //   );
+  // };
 
   return (
-    <Card isActive={isTrackActive} isPlayable={!!track} onClick={onClick}>
-      <CardBadge category={article.category} />
-      <CardImage>
-        <Img className="card-img-top" sizes={article.heroImage.sizes} />
-        {renderOverlay()}
-      </CardImage>
-      <div className="card-body">
-        <h5 className="card-title">
+    <Card>
+      <CardBadge bg={article.category.colour}>
+        {article.category.label}
+      </CardBadge>
+      <Box width={1}>
+        <Box as={Img} width={1} sizes={article.heroImage.sizes} />
+      </Box>
+      <Flex flexDirection="column" p={3}>
+        <Heading as="h5" my={2}>
           <Link
             className="text-dark font-weight-bold"
             ref={linkRef}
@@ -96,21 +98,47 @@ const ArticleCard = (props) => {
           >
             {article.title}
           </Link>
-        </h5>
+        </Heading>
         <div
-          className="card-text"
           dangerouslySetInnerHTML={{
-            __html: article.description.childMarkdownRemark.html,
+            __html: article.description.childMarkdownRemark.html
           }}
         />
-      </div>
+      </Flex>
     </Card>
   );
+
+  // return (
+  //   <Card isActive={isTrackActive} isPlayable={!!track} onClick={onClick}>
+  //     <CardBadge category={article.category} />
+  //     <CardImage>
+  //       <Img className="card-img-top" sizes={article.heroImage.sizes} />
+  //       {renderOverlay()}
+  //     </CardImage>
+  //     <div className="card-body">
+  //       <h5 className="card-title">
+  //         <Link
+  //           className="text-dark font-weight-bold"
+  //           ref={linkRef}
+  //           to={`/${article.slug}`}
+  //         >
+  //           {article.title}
+  //         </Link>
+  //       </h5>
+  //       <div
+  //         className="card-text"
+  //         dangerouslySetInnerHTML={{
+  //           __html: article.description.childMarkdownRemark.html,
+  //         }}
+  //       />
+  //     </div>
+  //   </Card>
+  // );
 };
 
 const mapState = (state) => ({
   src: state.player.src,
-  status: state.player.status,
+  status: state.player.status
 });
 
 const mapDispatch = { play, pause, stop };

@@ -7,6 +7,7 @@ import {
   flexbox,
   layout,
   position,
+  shadow,
   space,
   typography
 } from 'styled-system';
@@ -25,6 +26,7 @@ export default styled('div', { shouldForwardProp })(
     flexbox,
     layout,
     position,
+    shadow,
     space,
     typography
   )

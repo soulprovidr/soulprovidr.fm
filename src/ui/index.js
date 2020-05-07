@@ -2,9 +2,13 @@ import React from 'react';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
 
+import Badge from './badge/Badge';
 import Box from './layout/Box';
 import Container from './layout/Container';
 import Flex from './layout/Flex';
+import FlexColumn from './layout/FlexColumn';
+import Heading from './typography/Heading';
+import Text from './typography/Text';
 import theme from './theme';
 
 import './fonts/hk-grotesk/hk-grotesk.css';
@@ -12,7 +16,7 @@ import './fonts/hk-grotesk/hk-grotesk.css';
 const globalStyles = (theme) => css`
   html,
   body {
-    font-family: monospace;
+    font-family: ${theme.fonts.body};
   }
 
   h1,
@@ -39,4 +43,4 @@ export const ThemeProvider = ({ children }) => (
   </EmotionThemeProvider>
 );
 
-export { Box, Container, Flex };
+export { Badge, Box, Container, Flex, FlexColumn, Heading, Text };

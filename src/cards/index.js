@@ -1,53 +1,31 @@
 import React from 'react';
-import c from 'classnames';
+import css from '@styled-system/css';
 
-import styles from './Card.module.css';
+import { Badge, Box } from '@/ui';
 
-export { styles as cardStyles };
+export const Card = ({ children, ...props }) => (
+  <Box
+    border={0}
+    borderColor="border"
+    borderRadius={0}
+    // boxShadow={0}
+    position="relative"
+    css={css({
+      transition:
+        'transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+      '&:hover': {
+        boxShadow: 0,
+        transform: 'translate3d(0, -2px, 0)'
+      }
+    })}
+    {...props}
+  >
+    {children}
+  </Box>
+);
 
-export function Card({ children, onClick, isActive, isPlayable }) {
-  const className = c(
-    styles.card,
-    { [styles.playable]: isPlayable },
-    { [styles.active]: isActive }
-  );
-  return (
-    <div className={className} onClick={onClick}>
-      {children}
-    </div>
-  );
-}
-
-export function CardImage({ children }) {
-  return (
-    <div className={c('card-img-top', 'position-relative')}>{children}</div>
-  );
-}
-
-export function CardBadge({ category }) {
-  return (
-    <div
-      className={styles.badge}
-      style={{
-        background: category ? category.colour : 'transparent',
-      }}
-    >
-      {category ? category.label : ''}
-    </div>
-  );
-}
-
-export function CardOverlay({ children, onClick }) {
-  const className = c(
-    styles.overlay,
-    'position-absolute',
-    'd-flex',
-    'justify-content-center',
-    'align-items-center'
-  );
-  return (
-    <div className={className} onClick={onClick}>
-      {children}
-    </div>
-  );
-}
+export const CardBadge = ({ children, ...props }) => (
+  <Badge position="absolute" top={10} right={10} zIndex={1} {...props}>
+    {children}
+  </Badge>
+);
