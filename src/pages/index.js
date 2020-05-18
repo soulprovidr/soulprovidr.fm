@@ -3,38 +3,42 @@ import get from 'lodash/get';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
+import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import RadioCard from '@/radio/components/RadioCard';
 import { Container } from '@/ui';
 
+const masonryStyles = css`
+  .masonry-container {
+    display: flex;
+    margin-left: -30px;
+  }
+
+  .masonry-column {
+    padding-left: 30px;
+    background-clip: padding-box;
+  }
+`;
+
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges');
   return (
-    <Container as="main">
+    <Container as="main" px={[0, 4]}>
       <Helmet title="Home" />
-      <section className="row pb-4">
-        <div className="w-100">
-          <div className="px-3">
-            <RadioCard key="radio" />
-          </div>
-        </div>
-      </section>
+      <RadioCard mb={5} width={1} />
+      <Global styles={masonryStyles} />
       <Masonry
         breakpointCols={{
           default: 3,
           990: 2,
           768: 1
         }}
-        className="row py-5"
-        columnClassName="col"
+        className="masonry-container"
+        columnClassName="masonry-column"
       >
         {articles.map(({ node: article }) => (
-          <div key={article.slug}>
-            <div className="pb-5 w-100">
-              <ArticleCard article={article} />
-            </div>
-          </div>
+          <ArticleCard article={article} key={article.slug} mb={4} width={1} />
         ))}
       </Masonry>
     </Container>

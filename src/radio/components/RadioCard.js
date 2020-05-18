@@ -19,9 +19,7 @@ const LiveBadgeContent = (
   </>
 );
 
-const RadioCard = (props) => {
-  const { meta } = props;
-
+const RadioCard = ({ meta, ...props }) => {
   const isPlaying = useIsPlaying(RadioUrl);
 
   const artist = get(meta, 'artist', null);
@@ -55,10 +53,12 @@ const RadioCard = (props) => {
     <FeatureCard
       badgeColour="red"
       badgeContent={LiveBadgeContent}
+      border={[null, 0]}
+      borderColor={[null, 'border']}
       image={image}
-      imageAlt={imageAlt}
       onClick={onClick}
       overlayContent={overlayContent}
+      {...props}
     >
       <Heading as="h2">{title ?? 'Loading...'}</Heading>
       <Text fontSize={4}>{artist}</Text>

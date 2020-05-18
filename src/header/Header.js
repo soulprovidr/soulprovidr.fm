@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import c from 'classnames';
 
 // https://www.iconfinder.com/iconsets/picons-social
 import GithubIcon from '@/static/images/github.svg';
@@ -11,8 +10,6 @@ import SpotifyIcon from '@/static/images/spotify.svg';
 import Logo from '@/common/components/Logo';
 import { Box, Container, Flex } from '@/ui';
 import Navigation from './Navigation';
-
-import styles from './Header.module.css';
 
 const icons = [
   {
@@ -39,35 +36,6 @@ const links = [
     text: 'Subscribe'
   }
 ];
-
-function MobileHeader() {
-  return (
-    <Box
-      as="header"
-      className={c(
-        styles.header,
-        styles.mobile,
-        'd-sm-block d-md-none bg-white py-2 mb-4 position-fixed'
-      )}
-    >
-      <div className="d-flex align-items-center justify-content-between py-2 container">
-        <div className="d-flex align-items-center">
-          <Link to="/">
-            <Logo className="d-inline-block align-middle mr-3" size={30} />
-          </Link>
-          <div>
-            <p className="h5 font-weight-bold m-0">
-              <Link to="/" className="text-dark">
-                SOUL PROVIDER
-              </Link>
-            </p>
-          </div>
-        </div>
-        {/* <Navigation icons={icons} links={links} /> */}
-      </div>
-    </Box>
-  );
-}
 
 export default function Header() {
   return (

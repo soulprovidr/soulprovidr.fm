@@ -1,6 +1,5 @@
 import React from 'react';
 import { css } from '@emotion/core';
-import Img from 'gatsby-image';
 
 import { Badge, Box, Flex, FlexColumn } from '@/ui';
 import theme from '@/ui/theme';
@@ -98,14 +97,14 @@ export const FeatureCard = ({
   return (
     <Card onClick={onClick} {...props}>
       <CardBadge bg={badgeColour}>{badgeContent}</CardBadge>
-      <Flex>
-        <CardHeader width={1 / 3.25}>
+      <Flex flexDirection={['column', 'row']}>
+        <CardHeader width={[1, 1 / 3.17]}>
           {overlayContent && (
             <CardHeaderOverlay>{overlayContent}</CardHeaderOverlay>
           )}
           {image}
         </CardHeader>
-        <FlexColumn width={2.25 / 3.25} justifyContent="center" p={5}>
+        <FlexColumn width={[1, 2.17 / 3.17]} justifyContent="center" p={[3, 5]}>
           {children}
         </FlexColumn>
       </Flex>

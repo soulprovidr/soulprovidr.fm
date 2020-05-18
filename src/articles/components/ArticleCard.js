@@ -1,27 +1,22 @@
 import React, { useRef } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import { useClickAction, useIsPlaying } from '@/player/hooks';
-import { useTrack } from '@/soundcloud';
-
 import { ContentCard } from '@/cards';
-
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
+import { useClickAction, useIsPlaying } from '@/player/hooks';
+import { useTrack } from '@/soundcloud';
 import { Box, Heading } from '@/ui';
 
-const ArticleCard = (props) => {
-  const { article } = props;
-  console.log(article);
-
+const ArticleCard = ({ article, ...props }) => {
   const linkRef = useRef(null);
+
   const soundCloudUrl = get(article, 'soundCloudUrl', null);
   const track = useTrack(soundCloudUrl);
-  const isPlaying = useIsPlaying(track?.stream_url ?? null);
 
+  const isPlaying = useIsPlaying(track?.stream_url);
   const meta = track
     ? {
         artist: track.user.username,
@@ -31,15 +26,7 @@ const ArticleCard = (props) => {
         title: article.title
       }
     : null;
-
-  const onClick = useClickAction(track?.stream_url ?? null, meta);
-  const onClickHandler = (e) => {
-    // Ignore clicks on card title.
-    if (linkRef.current && e.target === linkRef.current) {
-      return false;
-    }
-    onClick();
-  };
+  const onClick = useClickAction(track?.stream_url, meta);
 
   const iconProps = { color: 'white', size: 60 };
   const overlayContent = isPlaying ? (
@@ -54,9 +41,18 @@ const ArticleCard = (props) => {
     <ContentCard
       badgeColour={article.category.colour}
       badgeContent={article.category.label}
+      border={[null, 0]}
+      borderColor={[null, 'border']}
       image={image}
-      onClick={onClickHandler}
+      onClick={(e) => {
+        // Ignore clicks on card title.
+        if (linkRef.current && e.target === linkRef.current) {
+          return false;
+        }
+        onClick();
+      }}
       overlayContent={overlayContent}
+      {...props}
     >
       <Heading as="h5" my={2}>
         <Link
@@ -76,9 +72,4 @@ const ArticleCard = (props) => {
   );
 };
 
-const mapState = (state) => ({
-  src: state.player.src,
-  status: state.player.status
-});
-
-export default connect(mapState)(ArticleCard);
+export default ArticleCard;
