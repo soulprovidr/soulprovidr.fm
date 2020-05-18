@@ -4,5 +4,5 @@ export const PlayerStatus = {
   PLAYING: 1,
   PAUSED: 2,
   ENDED: 3,
-  STOPPED: 4,
+  STOPPED: 4
 };

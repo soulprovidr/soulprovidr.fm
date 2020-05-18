@@ -1,14 +1,22 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import playerReducer from '@/player/reducer';
-import howlerMiddleware from '@/player/middleware/howler';
+import player from '@/player/reducer';
+import radio from '@/radio/reducer';
+
+import playerMiddleware from '@/player/middleware';
+import radioMiddleware from '@/radio/middleware';
 
 const reducer = combineReducers({
-  player: playerReducer,
+  player,
+  radio
 });
 
-const middleware = applyMiddleware(thunk, howlerMiddleware);
+const middleware = applyMiddleware(
+  thunk,
+  ...playerMiddleware,
+  ...radioMiddleware
+);
 
 let composeEnhancers = compose;
 if (typeof window !== 'undefined') {

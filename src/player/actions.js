@@ -1,20 +1,24 @@
-import { createAction, createActions } from 'redux-actions';
+import { createActions } from 'redux-actions';
 
-export const play = createAction('PLAY', null, (src, meta) => meta || null);
 export const {
+  play,
   pause,
   reset,
   seek,
   stop,
   updateMeta,
   updateProgress,
-  updateStatus,
+  updateStatus
 } = createActions(
+  {
+    PLAY: [(src) => src, (_, meta) => meta || null]
+  },
   'PAUSE',
   'RESET',
   'SEEK',
   'STOP',
   'UPDATE_META',
   'UPDATE_PROGRESS',
-  'UPDATE_STATUS'
+  'UPDATE_STATUS',
+  { prefix: 'player' }
 );

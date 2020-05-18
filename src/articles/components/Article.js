@@ -145,7 +145,7 @@ export const pageQuery = graphql`
     contentfulArticle(slug: { eq: $slug }) {
       title
       heroImage {
-        sizes(maxWidth: 1180, background: "rgb:000000") {
+        sizes(maxWidth: 1180) {
           ...GatsbyContentfulSizes_withWebp
         }
       }

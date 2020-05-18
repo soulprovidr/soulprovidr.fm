@@ -1,54 +1,43 @@
+import { handleActions } from 'redux-actions';
 import {
   play,
   reset,
   updateMeta,
   updateProgress,
-  updateStatus,
+  updateStatus
 } from './actions';
 import { PlayerStatus } from './constants';
 
 const { UNSTARTED } = PlayerStatus;
 
-const PLAY = play.toString();
-const RESET = reset.toString();
-const UPDATE_META = updateMeta.toString();
-const UPDATE_PROGRESS = updateProgress.toString();
-const UPDATE_STATUS = updateStatus.toString();
-
 const initialState = {
   meta: {},
   progress: null,
   status: UNSTARTED,
-  src: null,
+  src: null
 };
 
-function reducer(state = initialState, action) {
-  switch (action.type) {
-    case PLAY: {
+export default handleActions(
+  {
+    [play]: (state, action) => {
       if (action.payload) {
-        const { payload: src, meta } = action;
-        return { ...state, src, meta };
+        return { ...state, src: action.payload, meta: action.meta };
       }
       return state;
-    }
-    case RESET: {
-      return initialState;
-    }
-    case UPDATE_META: {
-      const { payload: meta } = action;
-      return { ...state, meta: { ...state.meta, ...meta } };
-    }
-    case UPDATE_PROGRESS: {
-      const { payload: progress } = action;
-      return { ...state, progress };
-    }
-    case UPDATE_STATUS: {
-      const { payload: status } = action;
-      return { ...state, status };
-    }
-    default:
-      return state;
+    },
+    [reset]: () => initialState,
+    [updateMeta]: (state, action) => ({
+      ...state,
+      meta: { ...state.meta, ...action.payload }
+    }),
+    [updateProgress]: (state, action) => ({
+      ...state,
+      progress: action.payload
+    }),
+    [updateStatus]: (state, action) => ({ ...state, status: action.payload })
+  },
+  initialState,
+  {
+    prefix: 'player'
   }
-}
-
-export default reducer;
+);

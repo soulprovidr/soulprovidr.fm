@@ -13,7 +13,7 @@ try {
 contentfulConfig = {
   spaceId: process.env.CONTENTFUL_SPACE_ID || contentfulConfig.spaceId,
   accessToken:
-    process.env.CONTENTFUL_DELIVERY_TOKEN || contentfulConfig.accessToken,
+    process.env.CONTENTFUL_DELIVERY_TOKEN || contentfulConfig.accessToken
 };
 
 const { spaceId, accessToken } = contentfulConfig;
@@ -27,28 +27,28 @@ if (!spaceId || !accessToken) {
 module.exports = {
   siteMetadata: {
     description: 'For those who like to groove.',
-    title: 'Soul Provider',
+    title: 'Soul Provider'
   },
   plugins: [
     'gatsby-transformer-remark',
     'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-contentful',
-      options: contentfulConfig,
+      options: contentfulConfig
     },
     {
       resolve: 'gatsby-plugin-alias-imports',
       options: {
         alias: {
-          '@': path.resolve(__dirname, 'src'),
-        },
-      },
+          '@': path.resolve(__dirname, 'src')
+        }
+      }
     },
     {
       resolve: 'gatsby-plugin-offline',
       options: {
-        appendScript: require.resolve('./src/service-worker.js'),
-      },
-    },
-  ],
+        appendScript: require.resolve('./src/service-worker.js')
+      }
+    }
+  ]
 };

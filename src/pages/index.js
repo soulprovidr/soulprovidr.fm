@@ -6,7 +6,7 @@ import Masonry from 'react-masonry-css';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import RadioCard from '@/radio/components/RadioCard';
-import { Box, Container } from '@/ui';
+import { Container } from '@/ui';
 
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges');
@@ -60,7 +60,7 @@ export const pageQuery = graphql`
             colour
           }
           heroImage {
-            sizes(maxWidth: 350, resizingBehavior: SCALE) {
+            sizes(maxWidth: 1180) {
               ...GatsbyContentfulSizes_withWebp
             }
           }

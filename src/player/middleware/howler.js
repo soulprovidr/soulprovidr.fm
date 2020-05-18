@@ -8,7 +8,7 @@ import {
   seek,
   stop,
   updateProgress,
-  updateStatus,
+  updateStatus
 } from '../actions';
 import { PlayerStatus } from '../constants';
 
@@ -93,7 +93,7 @@ class HowlerPlayer {
       onend: onstop,
       onpause,
       onplay,
-      onstop,
+      onstop
     });
 
     if (progress) {
