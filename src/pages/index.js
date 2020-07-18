@@ -7,9 +7,9 @@ import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import RadioCard from '@/radio/components/RadioCard';
-import { Container } from '@/ui';
+import { Container, Box } from '@/ui';
 
-const masonryStyles = css`
+const globalStyles = css`
   .masonry-container {
     display: flex;
     margin-left: -30px;
@@ -24,23 +24,28 @@ const masonryStyles = css`
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges');
   return (
-    <Container as="main" px={[0, 4]}>
+    <Container as="main" display={['block', 'flex']}>
       <Helmet title="Home" />
-      <RadioCard mb={5} width={1} />
-      <Global styles={masonryStyles} />
-      <Masonry
-        breakpointCols={{
-          default: 3,
-          990: 2,
-          768: 1
-        }}
-        className="masonry-container"
-        columnClassName="masonry-column"
-      >
-        {articles.map(({ node: article }) => (
-          <ArticleCard article={article} key={article.slug} mb={4} width={1} />
-        ))}
-      </Masonry>
+      <Global styles={globalStyles} />
+      <RadioCard width={[1, 1 / 2]} />
+      <Box width={[1, 1 / 2]}>
+        <Masonry
+          breakpointCols={{
+            default: 2
+          }}
+          className="masonry-container"
+          columnClassName="masonry-column"
+        >
+          {articles.map(({ node: article }) => (
+            <ArticleCard
+              article={article}
+              key={article.slug}
+              mb={4}
+              width={1}
+            />
+          ))}
+        </Masonry>
+      </Box>
     </Container>
   );
 }

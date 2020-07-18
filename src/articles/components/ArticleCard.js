@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import { ContentCard } from '@/cards';
+import { ContentCard } from '@/ui/cards';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 import { useClickAction, useIsPlaying } from '@/player/hooks';
@@ -35,14 +35,14 @@ const ArticleCard = ({ article, ...props }) => {
     <PlayIcon {...iconProps} />
   );
 
-  const image = <Box as={Img} width={1} sizes={article.heroImage.sizes} />;
+  const image = (
+    <Box as={Img} width={1} borderRadius={0} sizes={article.heroImage.sizes} />
+  );
 
   return (
     <ContentCard
       badgeColour={article.category.colour}
       badgeContent={article.category.label}
-      border={[null, 0]}
-      borderColor={[null, 'border']}
       image={image}
       onClick={(e) => {
         // Ignore clicks on card title.

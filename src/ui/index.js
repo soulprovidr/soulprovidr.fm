@@ -17,6 +17,7 @@ const globalStyles = (theme) => css`
   html,
   body {
     font-family: ${theme.fonts.body};
+    font-size: ${theme.fontSizes[11]};
   }
 
   h1,

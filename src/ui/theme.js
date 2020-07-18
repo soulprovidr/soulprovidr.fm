@@ -1,10 +1,7 @@
 export default {
-  borders: ['1px solid'],
-  colors: {
-    border: 'rgba(0, 0, 0, 0.125)'
-  },
+  borders: ['1px solid rgba(0, 0, 0, 0.125)'],
   fonts: {
-    body: 'sans-serif',
+    body: 'Helvetica Neue',
     heading: 'hk-grotesk'
   },
   fontSizes: [
@@ -18,7 +15,7 @@ export default {
     '2.441em',
     '3.052em'
   ],
-  radii: [4],
+  radii: [2],
   shadows: ['0 4px 4px rgba(197, 211, 219, 0.25)'],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512]
 };

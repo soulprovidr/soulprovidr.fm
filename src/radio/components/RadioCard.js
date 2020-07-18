@@ -2,13 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
 
-import { FeatureCard } from '@/cards';
+import { FeatureCard } from '@/ui/cards';
 import LiveIcon from '@/common/components/LiveIcon';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 import { useClickAction, useIsPlaying } from '@/player/hooks';
 import DefaultCover from '@/static/images/default.png';
-import { Box, Heading, Text } from '@/ui';
+import { Box, Flex, Heading, Text } from '@/ui';
 
 import { RadioUrl } from '../constants';
 import { getMeta } from '../selectors';
@@ -39,30 +39,40 @@ const RadioCard = ({ meta, ...props }) => {
   );
 
   const iconProps = { color: 'white', size: 60 };
-  const overlayContent = isPlaying ? (
-    <PauseIcon {...iconProps} />
-  ) : (
-    <PlayIcon {...iconProps} />
+  const overlayContent = (
+    <Flex>
+      {isPlaying ? <PauseIcon {...iconProps} /> : <PlayIcon {...iconProps} />}
+      <Box>
+        <Heading as="h2" color="white" mt={3}>
+          {title ?? 'Loading...'}
+        </Heading>
+        <Text fontSize={4} color="white">
+          {artist}
+        </Text>
+      </Box>
+    </Flex>
   );
 
   const image = (
-    <Box as="img" width={1} src={cover ?? DefaultCover} alt={imageAlt} />
+    <Box
+      as="img"
+      width={1}
+      borderRadius={0}
+      src={cover ?? DefaultCover}
+      alt={imageAlt}
+    />
   );
 
   return (
     <FeatureCard
       badgeColour="red"
       badgeContent={LiveBadgeContent}
-      border={[null, 0]}
-      borderColor={[null, 'border']}
       image={image}
       onClick={onClick}
       overlayContent={overlayContent}
+      mr={4}
       {...props}
-    >
-      <Heading as="h2">{title ?? 'Loading...'}</Heading>
-      <Text fontSize={4}>{artist}</Text>
-    </FeatureCard>
+    />
   );
 };
 

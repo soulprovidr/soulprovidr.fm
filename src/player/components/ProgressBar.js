@@ -27,7 +27,7 @@ export default function ProgressBar({ duration, progress, status }) {
           )}
           style={{
             height: '100%',
-            width: `${widthPercent}%`,
+            width: `${widthPercent}%`
           }}
         />
       </div>

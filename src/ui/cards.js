@@ -9,9 +9,6 @@ const transitionTimingFn = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 
 export const Card = (props) => (
   <Box
-    border={0}
-    borderColor="border"
-    borderRadius={0}
     position="relative"
     css={css`
       cursor: pointer;
@@ -19,7 +16,7 @@ export const Card = (props) => (
         box-shadow 200ms ${transitionTimingFn};
 
       &:hover {
-        box-shadow: ${boxShadow};
+        // box-shadow: ${boxShadow};
         transform: translate3d(0, -2px, 0);
 
         .cardHeaderOverlay {
@@ -36,8 +33,6 @@ export const CardBadge = (props) => (
 );
 
 export const CardHeader = (props) => <Box position="relative" {...props} />;
-
-export const CardHeaderImage = (props) => <Box as="img" width={1} {...props} />;
 
 export const CardHeaderOverlay = (props) => (
   <Flex
@@ -79,7 +74,7 @@ export const ContentCard = ({
       )}
       {image}
     </CardHeader>
-    <Flex flexDirection="column" p={3}>
+    <Flex flexDirection="column" py={2}>
       {children}
     </Flex>
   </Card>
@@ -97,16 +92,14 @@ export const FeatureCard = ({
   return (
     <Card onClick={onClick} {...props}>
       <CardBadge bg={badgeColour}>{badgeContent}</CardBadge>
-      <Flex flexDirection={['column', 'row']}>
-        <CardHeader width={[1, 1 / 3.17]}>
+      <Flex flexDirection={['column']}>
+        <CardHeader width={[1]}>
           {overlayContent && (
             <CardHeaderOverlay>{overlayContent}</CardHeaderOverlay>
           )}
           {image}
         </CardHeader>
-        <FlexColumn width={[1, 2.17 / 3.17]} justifyContent="center" p={[3, 5]}>
-          {children}
-        </FlexColumn>
+        <FlexColumn justifyContent="center">{children}</FlexColumn>
       </Flex>
     </Card>
   );

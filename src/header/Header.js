@@ -44,12 +44,12 @@ export default function Header() {
       bg="white"
       fontFamily="heading"
       position={['fixed', 'relative']}
-      py={[2, 5]}
+      py={4}
       top={0}
       right={0}
       left={0}
     >
-      <Container p={0}>
+      <Container>
         <Flex alignItems="center" justifyContent="space-between" px={2}>
           <Flex alignItems="center">
             <Link to="/">
