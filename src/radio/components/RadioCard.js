@@ -13,7 +13,15 @@ import { Box, Flex, Heading, Text } from '@/ui';
 import { RadioUrl } from '../constants';
 import { getMeta } from '../selectors';
 
-const LiveBadgeContent = (
+const styles = {
+  position: 'sticky',
+  top: 25,
+  mr: 4
+};
+
+const imageStyles = {};
+
+const LivebadgeText = (
   <>
     <LiveIcon size={8} /> Live
   </>
@@ -38,15 +46,22 @@ const RadioCard = ({ meta, ...props }) => {
     false
   );
 
-  const iconProps = { color: 'white', size: 60 };
+  const iconProps = { color: 'white', size: 40 };
+  const headingStyles = {
+    color: 'white',
+    mt: 3,
+    textShadow: '0 1px 0 black',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis'
+  };
   const overlayContent = (
-    <Flex>
+    <Flex alignItems="center" p={4}>
       {isPlaying ? <PauseIcon {...iconProps} /> : <PlayIcon {...iconProps} />}
-      <Box>
-        <Heading as="h2" color="white" mt={3}>
+      <Box ml={3} overflow="hidden">
+        <Heading as="h2" sx={headingStyles}>
           {title ?? 'Loading...'}
         </Heading>
-        <Text fontSize={4} color="white">
+        <Text fontSize={4} color="white" textShadow="0 1px 0 black">
           {artist}
         </Text>
       </Box>
@@ -66,11 +81,11 @@ const RadioCard = ({ meta, ...props }) => {
   return (
     <FeatureCard
       badgeColour="red"
-      badgeContent={LiveBadgeContent}
+      badgeText={LivebadgeText}
       image={image}
       onClick={onClick}
       overlayContent={overlayContent}
-      mr={4}
+      sx={styles}
       {...props}
     />
   );

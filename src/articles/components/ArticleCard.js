@@ -42,7 +42,7 @@ const ArticleCard = ({ article, ...props }) => {
   return (
     <ContentCard
       badgeColour={article.category.colour}
-      badgeContent={article.category.label}
+      badgeText={article.category.label}
       image={image}
       onClick={(e) => {
         // Ignore clicks on card title.

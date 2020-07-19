@@ -27,7 +27,9 @@ function Home({ data }) {
     <Container as="main" display={['block', 'flex']}>
       <Helmet title="Home" />
       <Global styles={globalStyles} />
-      <RadioCard width={[1, 1 / 2]} />
+      <Box width={[1, 1 / 2]}>
+        <RadioCard />
+      </Box>
       <Box width={[1, 1 / 2]}>
         <Masonry
           breakpointCols={{
@@ -37,12 +39,7 @@ function Home({ data }) {
           columnClassName="masonry-column"
         >
           {articles.map(({ node: article }) => (
-            <ArticleCard
-              article={article}
-              key={article.slug}
-              mb={4}
-              width={1}
-            />
+            <ArticleCard article={article} key={article.slug} sx={{ mb: 4 }} />
           ))}
         </Masonry>
       </Box>
