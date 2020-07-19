@@ -27,13 +27,14 @@ function Home({ data }) {
     <Container as="main" display={['block', 'flex']}>
       <Helmet title="Home" />
       <Global styles={globalStyles} />
-      <Box width={[1, 1 / 2]}>
+      <Box width={[1, 1 / 2]} mr={[0, 4]} mb={[5, 0]}>
         <RadioCard />
       </Box>
       <Box width={[1, 1 / 2]}>
         <Masonry
           breakpointCols={{
-            default: 2
+            default: 2,
+            768: 1
           }}
           className="masonry-container"
           columnClassName="masonry-column"

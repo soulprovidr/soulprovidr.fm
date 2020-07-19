@@ -2,18 +2,19 @@ import React from 'react';
 
 import Flex from '../layout/Flex';
 
-const Badge = ({ children, ...props }) => (
+const Badge = ({ children, sx = {}, ...props }) => (
   <Flex
-    alignItems="center"
-    bg="grey"
-    borderRadius={0}
-    color="white"
-    fontWeight={600}
-    fontSize={1}
-    px={2}
-    py={1}
-    css={{
-      textTransform: 'uppercase'
+    sx={{
+      alignItems: 'center',
+      bg: 'grey',
+      borderRadius: 0,
+      color: 'white',
+      fontWeight: 600,
+      fontSize: 1,
+      px: 2,
+      py: 1,
+      textTransform: 'uppercase',
+      ...sx
     }}
     {...props}
   >

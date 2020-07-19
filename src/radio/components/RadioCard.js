@@ -13,17 +13,10 @@ import { Box, Flex, Heading, Text } from '@/ui';
 import { RadioUrl } from '../constants';
 import { getMeta } from '../selectors';
 
-const styles = {
-  position: 'sticky',
-  top: 25,
-  mr: 4
-};
-
-const imageStyles = {};
-
 const LivebadgeText = (
   <>
-    <LiveIcon size={8} /> Live
+    <LiveIcon size={8} />
+    <Text ml={2}>Live</Text>
   </>
 );
 
@@ -47,7 +40,7 @@ const RadioCard = ({ meta, ...props }) => {
   );
 
   const iconProps = { color: 'white', size: 40 };
-  const headingStyles = {
+  const titleStyles = {
     color: 'white',
     mt: 3,
     textShadow: '0 1px 0 black',
@@ -58,7 +51,7 @@ const RadioCard = ({ meta, ...props }) => {
     <Flex alignItems="center" p={4}>
       {isPlaying ? <PauseIcon {...iconProps} /> : <PlayIcon {...iconProps} />}
       <Box ml={3} overflow="hidden">
-        <Heading as="h2" sx={headingStyles}>
+        <Heading as="h2" sx={titleStyles}>
           {title ?? 'Loading...'}
         </Heading>
         <Text fontSize={4} color="white" textShadow="0 1px 0 black">
@@ -68,16 +61,18 @@ const RadioCard = ({ meta, ...props }) => {
     </Flex>
   );
 
+  const imageStyles = {
+    borderRadius: 0,
+    width: '100%'
+  };
   const image = (
-    <Box
-      as="img"
-      width={1}
-      borderRadius={0}
-      src={cover ?? DefaultCover}
-      alt={imageAlt}
-    />
+    <Box as="img" src={cover ?? DefaultCover} alt={imageAlt} sx={imageStyles} />
   );
 
+  const cardStyles = {
+    position: 'sticky',
+    top: 25
+  };
   return (
     <FeatureCard
       badgeColour="red"
@@ -85,7 +80,7 @@ const RadioCard = ({ meta, ...props }) => {
       image={image}
       onClick={onClick}
       overlayContent={overlayContent}
-      sx={styles}
+      sx={cardStyles}
       {...props}
     />
   );
