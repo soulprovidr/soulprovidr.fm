@@ -32,6 +32,10 @@ const icons = [
 
 const links = [
   {
+    href: '',
+    text: 'Listen live'
+  },
+  {
     href: '/subscribe',
     text: 'Subscribe'
   }

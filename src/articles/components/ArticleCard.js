@@ -28,7 +28,7 @@ const ArticleCard = ({ article, ...props }) => {
     : null;
   const onClick = useClickAction(track?.stream_url, meta);
 
-  const iconProps = { color: 'white', size: 60 };
+  const iconProps = { color: 'white', size: 40 };
   const overlayContent = isPlaying ? (
     <PauseIcon {...iconProps} />
   ) : (

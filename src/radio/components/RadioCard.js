@@ -39,25 +39,24 @@ const RadioCard = ({ meta, ...props }) => {
     false
   );
 
-  const iconProps = { color: 'white', size: 40 };
+  const iconProps = { color: 'white', size: 80 };
+  const overlayStyles = {
+    transform: 'scale(0)',
+    transition: ' 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    '&:hover': {
+      transform: 'scale(1)'
+    }
+  };
   const titleStyles = {
-    color: 'white',
+    // color: 'white',
     mt: 3,
-    textShadow: '0 1px 0 black',
+    // textShadow: '0 1px 0 black',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis'
   };
   const overlayContent = (
-    <Flex alignItems="center" p={4}>
+    <Flex alignItems="center" justifyContent="center" sx={overlayStyles}>
       {isPlaying ? <PauseIcon {...iconProps} /> : <PlayIcon {...iconProps} />}
-      <Box ml={3} overflow="hidden">
-        <Heading as="h2" sx={titleStyles}>
-          {title ?? 'Loading...'}
-        </Heading>
-        <Text fontSize={4} color="white" textShadow="0 1px 0 black">
-          {artist}
-        </Text>
-      </Box>
     </Flex>
   );
 
@@ -82,7 +81,14 @@ const RadioCard = ({ meta, ...props }) => {
       overlayContent={overlayContent}
       sx={cardStyles}
       {...props}
-    />
+    >
+      <Box overflow="hidden">
+        <Heading as="h2" sx={titleStyles}>
+          {title ?? 'Loading...'}
+        </Heading>
+        <Text fontSize={4}>{artist}</Text>
+      </Box>
+    </FeatureCard>
   );
 };
 
