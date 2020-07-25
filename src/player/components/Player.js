@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
+import { useLocation } from '@reach/router';
 
 import { PlayerStatus } from '@/player/constants';
 import { useClickAction } from '@/player/hooks';
@@ -36,7 +37,8 @@ const containerStyles = {
 function Player({ meta, progress, src, status }) {
   const duration = get(meta, 'duration', 0);
   const onClickAction = useClickAction(src, meta);
-  const isVisible = status >= BUFFERING;
+  const location = useLocation();
+  const isVisible = status >= BUFFERING && location.pathname !== '/';
 
   return (
     <Box

@@ -7,6 +7,7 @@ import LiveIcon from '@/common/components/LiveIcon';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 import { useClickAction, useIsPlaying } from '@/player/hooks';
+import ProgressBar from '@/player/components/ProgressBar';
 import DefaultCover from '@/static/images/default.png';
 import { Box, Flex, Heading, Text } from '@/ui';
 
@@ -68,6 +69,12 @@ const RadioCard = ({ meta, ...props }) => {
     <Box as="img" src={cover ?? DefaultCover} alt={imageAlt} sx={imageStyles} />
   );
 
+  const controlIcon = isPlaying ? (
+    <PauseIcon color="black" size={35} />
+  ) : (
+    <PlayIcon color="black" size={35} />
+  );
+
   const cardStyles = {
     position: 'sticky',
     top: 25
@@ -82,12 +89,18 @@ const RadioCard = ({ meta, ...props }) => {
       sx={cardStyles}
       {...props}
     >
-      <Box overflow="hidden">
-        <Heading as="h2" sx={titleStyles}>
-          {title ?? 'Loading...'}
-        </Heading>
-        <Text fontSize={4}>{artist}</Text>
+      <Box mt={3}>
+        <ProgressBar duration={null} progress={null} status={null} />
       </Box>
+      <Flex alignItems="center" overflow="hidden">
+        {controlIcon}
+        <Box ml={4}>
+          <Heading as="h2" sx={titleStyles}>
+            {title ?? 'Loading...'}
+          </Heading>
+          <Text fontSize={4}>{artist}</Text>
+        </Box>
+      </Flex>
     </FeatureCard>
   );
 };
