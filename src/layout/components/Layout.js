@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 import Head from './Head';
 import Header from '@/header/Header';
-import Player from '@/player/components/Player';
+import StaticPlayer from '@/player/components/StaticPlayer';
 
 import { ThemeProvider, Box } from '@/ui';
 
@@ -18,7 +18,7 @@ const query = graphql`
   }
 `;
 
-export default function Layout({ children }) {
+export function Layout({ children }) {
   const {
     site: { siteMetadata }
   } = useStaticQuery(query);
@@ -29,7 +29,7 @@ export default function Layout({ children }) {
       <Header />
       <Box mt={[5, 0]} pt={[5, 0]}>
         {children}
-        <Player />
+        <StaticPlayer />
       </Box>
     </ThemeProvider>
   );

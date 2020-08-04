@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import Layout from '@/common/components/Layout';
+import { Layout } from '@/layout';
 import store from '@/store';
 
 import 'bootstrap/dist/css/bootstrap.css';

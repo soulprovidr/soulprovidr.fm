@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 import { useLocation } from '@reach/router';
 
@@ -14,41 +14,41 @@ import ProgressBar from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
 
-const playerStyles = {
-  position: 'fixed',
-  right: 0,
-  bottom: 0,
-  left: 0,
-  px: 4,
-  py: 2,
-  bg: 'white',
-  zIndex: 3,
-  transition: 'transform 150ms ease-out, opacity 150ms ease-out'
-};
+function StaticPlayer() {
+  const meta = useSelector(getMeta);
+  const progress = useSelector(getProgress);
+  const src = useSelector(getSrc);
+  const status = useSelector(getStatus);
 
-const containerStyles = {
-  flexDirection: ['row-reverse', 'row'],
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  mx: 'auto',
-  width: [1, null, 960, 1140]
-};
-
-function Player({ meta, progress, src, status }) {
-  const duration = get(meta, 'duration', 0);
   const onClickAction = useClickAction(src, meta);
   const location = useLocation();
+
+  const duration = get(meta, 'duration', 0);
   const isVisible = status >= BUFFERING && location.pathname !== '/';
 
   return (
     <Box
-      sx={playerStyles}
-      css={{
+      position="fixed"
+      right={0}
+      bottom={0}
+      left={0}
+      px={4}
+      py={2}
+      bg="white"
+      sx={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(100%)'
+        transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
+        transition: 'transform 150ms ease-out, opacity 150ms ease-out',
+        zIndex: 3
       }}
     >
-      <Flex sx={containerStyles}>
+      <Flex
+        alignItems="center"
+        flexDirection={['row-reverse', 'row']}
+        justifyContent="space-between"
+        mx="auto"
+        width={[1, null, 960, 1140]}
+      >
         <StatusIndicator
           color="black"
           onClick={onClickAction}
@@ -62,11 +62,4 @@ function Player({ meta, progress, src, status }) {
   );
 }
 
-const mapState = (state) => ({
-  meta: getMeta(state),
-  progress: getProgress(state),
-  src: getSrc(state),
-  status: getStatus(state)
-});
-
-export default connect(mapState)(Player);
+export default StaticPlayer;
