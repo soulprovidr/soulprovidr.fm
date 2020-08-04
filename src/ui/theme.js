@@ -1,5 +1,6 @@
+import './fonts/hk-grotesk/hk-grotesk.css';
+
 export default {
-  borders: ['1px solid rgba(0, 0, 0, 0.125)'],
   fonts: {
     body: 'Helvetica Neue',
     heading: 'hk-grotesk'

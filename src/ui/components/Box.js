@@ -16,7 +16,7 @@ import shouldForwardProp from '@styled-system/should-forward-prop';
 
 const sx = (props) => css(props.sx);
 
-export default styled('div', { shouldForwardProp })(
+export const Box = styled('div', { shouldForwardProp })(
   {
     boxSizing: 'border-box',
     margin: 0,

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Flex from '../layout/Flex';
+import { Flex } from './Flex';
 
-const Badge = ({ children, sx = {}, ...props }) => (
+export const Badge = ({ children, sx = {}, ...props }) => (
   <Flex
     sx={{
       alignItems: 'center',
@@ -21,5 +21,3 @@ const Badge = ({ children, sx = {}, ...props }) => (
     {children}
   </Flex>
 );
-
-export default Badge;

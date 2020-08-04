@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import get from 'lodash.get';
 
-import { FeatureCard } from '@/ui/cards';
+import { Card } from '@/ui';
 import LiveIcon from '@/common/components/LiveIcon';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
@@ -80,7 +80,7 @@ const RadioCard = ({ meta, ...props }) => {
     top: 25
   };
   return (
-    <FeatureCard
+    <Card
       badgeColour="red"
       badgeText={LivebadgeText}
       image={image}
@@ -101,7 +101,7 @@ const RadioCard = ({ meta, ...props }) => {
           <Text fontSize={4}>{artist}</Text>
         </Box>
       </Flex>
-    </FeatureCard>
+    </Card>
   );
 };
 

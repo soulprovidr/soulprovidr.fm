@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Badge, Box } from '@/ui';
+import { Badge } from './Badge';
+import { Box } from './Box';
 
 const transitionTimingFn = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 
@@ -38,7 +39,7 @@ const overlayStyles = {
   }
 };
 
-export const ContentCard = ({
+export const Card = ({
   badgeColour,
   badgeText,
   children,
@@ -54,30 +55,6 @@ export const ContentCard = ({
       <Badge bg={badgeColour} sx={badgeStyles}>
         {badgeText}
       </Badge>
-      <Box position="relative">
-        {overlayContent && <Box sx={overlayStyles}>{overlayContent}</Box>}
-        {image}
-      </Box>
-      <Box py={2}>{children}</Box>
-    </Box>
-  );
-};
-
-export const FeatureCard = ({
-  badgeColour,
-  badgeText,
-  children,
-  image,
-  onClick,
-  overlayContent,
-  sx = {},
-  ...props
-}) => {
-  const customBadgeStyles = { ...badgeStyles, bg: badgeColour };
-  const customCardStyles = { ...cardStyles, ...sx };
-  return (
-    <Box onClick={onClick} sx={customCardStyles} {...props}>
-      <Badge sx={customBadgeStyles}>{badgeText}</Badge>
       <Box position="relative">
         {overlayContent && <Box sx={overlayStyles}>{overlayContent}</Box>}
         {image}

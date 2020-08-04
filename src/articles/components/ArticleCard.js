@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import Img from 'gatsby-image';
 import get from 'lodash.get';
 
-import { ContentCard } from '@/ui/cards';
+import { Card } from '@/ui';
 import PauseIcon from '@/common/components/PauseIcon';
 import PlayIcon from '@/common/components/PlayIcon';
 import { useClickAction, useIsPlaying } from '@/player/hooks';
@@ -40,7 +40,7 @@ const ArticleCard = ({ article, ...props }) => {
   );
 
   return (
-    <ContentCard
+    <Card
       badgeColour={article.category.colour}
       badgeText={article.category.label}
       image={image}
@@ -68,7 +68,7 @@ const ArticleCard = ({ article, ...props }) => {
           __html: article.description.childMarkdownRemark.html
         }}
       />
-    </ContentCard>
+    </Card>
   );
 };
 
