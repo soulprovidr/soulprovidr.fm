@@ -1,12 +1,16 @@
 import React from 'react';
-import c from 'classnames';
 
 import { PlayerStatus } from '@/player/constants';
 import msToTime from '@/player/helpers/msToTime';
-
-import styles from './Player.module.css';
+import { Flex, Text } from '@/ui';
 
 const { BUFFERING } = PlayerStatus;
+
+const ProgressText = ({ children, ...props }) => (
+  <Text color="#6c757d" width="90px" fontSize={2} {...props}>
+    {children}
+  </Text>
+);
 
 export default function ProgressBar({ duration, progress, status }) {
   const widthPercent = duration
@@ -15,25 +19,23 @@ export default function ProgressBar({ duration, progress, status }) {
     ? 0
     : 100;
   return (
-    <div className={c('d-none d-md-flex', 'flex-grow-1', 'align-items-center')}>
-      <span className={c(styles.progressDuration, 'px-3', 'text-muted')}>
+    <Flex alignItems="center" flexGrow={1}>
+      <ProgressText mr={3} textAlign="left">
         {msToTime(progress)}
-      </span>
-      <div className={c(styles.progress)}>
-        <div
-          className={c(
-            styles.progressBar,
-            'progress-bar progress-bar-striped progress-bar-animated flex-grow-1'
-          )}
-          style={{
-            height: '100%',
-            width: `${widthPercent}%`
+      </ProgressText>
+      <Flex bg="#ddd" height="5px" width={1}>
+        <Flex
+          className="progress-bar progress-bar-striped progress-bar-animated"
+          height="100%"
+          width={`${widthPercent}%`}
+          sx={{
+            transitionDuration: '0.3s !important'
           }}
         />
-      </div>
-      <span className={c(styles.progressDuration, 'px-3', 'text-muted')}>
+      </Flex>
+      <ProgressText ml={3} textAlign="right">
         {msToTime(duration)}
-      </span>
-    </div>
+      </ProgressText>
+    </Flex>
   );
 }

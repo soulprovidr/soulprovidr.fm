@@ -6,7 +6,7 @@ import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
-import RadioCard from '@/radio/components/RadioCard';
+import PlayerCard from '@/player/components/PlayerCard';
 import { Container, Box } from '@/ui';
 
 const globalStyles = css`
@@ -21,16 +21,20 @@ const globalStyles = css`
   }
 `;
 
+// const radioArticle = {
+
+// };
+
 function Home({ data }) {
   const articles = get(data, 'allContentfulArticle.edges');
   return (
     <Container as="main" display={['block', 'flex']}>
       <Helmet title="Home" />
       <Global styles={globalStyles} />
-      <Box width={[1, 1 / 2]} mr={[0, 4]} mb={[5, 0]}>
-        <RadioCard />
+      <Box width={[1, 9 / 20]} mr={[0, 4]} mb={[5, 0]}>
+        <PlayerCard />
       </Box>
-      <Box width={[1, 1 / 2]}>
+      <Box width={[1, 11 / 20]}>
         <Masonry
           breakpointCols={{
             default: 2,

@@ -2,19 +2,42 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 import { useLocation } from '@reach/router';
+import c from 'classnames';
 
 import { PlayerStatus } from '@/player/constants';
 import { useClickAction } from '@/player/hooks';
 import { getMeta, getProgress, getSrc, getStatus } from '@/player/selectors';
+import DefaultCover from '@/static/images/default.png';
 import { Box, Flex } from '@/ui';
 
 import StatusIndicator from './StatusIndicator';
-import Meta from './Meta';
 import ProgressBar from './ProgressBar';
+
+import styles from './Player.module.css';
 
 const { BUFFERING } = PlayerStatus;
 
-function StaticPlayer() {
+function Meta({ meta }) {
+  const { artist, cover, title } = meta;
+  return (
+    <div className={c(styles.meta, 'd-flex')}>
+      <img
+        className={c(styles.metaCover, 'mr-2', 'mr-md-3')}
+        src={cover || DefaultCover}
+      />
+      <div className="d-flex flex-column justify-content-center overflow-hidden">
+        <p className={c(styles.metaTruncated, 'h6', 'font-weight-bold', 'm-0')}>
+          {title}
+        </p>
+        <p className={c(styles.metaTruncated, 'h6', 'm-0', 'text-muted')}>
+          {artist}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function GlobalPlayer() {
   const meta = useSelector(getMeta);
   const progress = useSelector(getProgress);
   const src = useSelector(getSrc);
@@ -61,5 +84,3 @@ function StaticPlayer() {
     </Box>
   );
 }
-
-export default StaticPlayer;

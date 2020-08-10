@@ -46,17 +46,22 @@ export const Card = ({
   image,
   onClick,
   overlayContent,
+  forceOverlay,
   sx = {},
   ...props
 }) => {
   const customCardStyles = { ...cardStyles, ...sx };
+  const customOverlayStyles = {
+    ...overlayStyles,
+    opacity: forceOverlay ? 1 : 0
+  };
   return (
     <Box onClick={onClick} sx={customCardStyles} {...props}>
       <Badge bg={badgeColour} sx={badgeStyles}>
         {badgeText}
       </Badge>
       <Box position="relative">
-        {overlayContent && <Box sx={overlayStyles}>{overlayContent}</Box>}
+        {overlayContent && <Box sx={customOverlayStyles}>{overlayContent}</Box>}
         {image}
       </Box>
       {children && <Box py={2}>{children}</Box>}

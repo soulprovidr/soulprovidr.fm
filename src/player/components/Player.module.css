@@ -21,24 +21,6 @@
   width: 20px;
 }
 
-/* Progress bar */
-
-.progress {
-  background: #ddd;
-  flex: 1;
-  height: 5px !important;
-  width: 100%;
-}
-
-.progressBar {
-  transition-duration: 0.3s !important;
-}
-
-.progressDuration {
-  font-size: 13px;
-  width: 90px;
-}
-
 /* Meta */
 
 .meta {

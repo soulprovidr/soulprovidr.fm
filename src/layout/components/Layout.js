@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 
 import Head from './Head';
 import Header from '@/header/Header';
-import StaticPlayer from '@/player/components/StaticPlayer';
+import { GlobalPlayer } from '@/player';
 
 import { ThemeProvider, Box } from '@/ui';
 
@@ -29,7 +29,7 @@ export function Layout({ children }) {
       <Header />
       <Box mt={[5, 0]} pt={[5, 0]}>
         {children}
-        <StaticPlayer />
+        <GlobalPlayer />
       </Box>
     </ThemeProvider>
   );
