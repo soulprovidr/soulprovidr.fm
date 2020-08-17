@@ -3,6 +3,7 @@ title: "The Mood® (vol. 4): Latino Heat"
 author: soulprovidr
 date: 2017-04-23
 category: mixtape
+image: ../images/the-mood-vol-4.jpg
 description: "When Soul Provider returned home from his recent trip to Mexico, he returned with more than just a slight tan and a penchant for mojitos."
 ---
 

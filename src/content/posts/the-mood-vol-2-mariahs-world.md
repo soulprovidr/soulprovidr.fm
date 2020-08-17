@@ -3,6 +3,7 @@ title: "The Mood® (vol. 2): Mariah's World"
 author: soulprovidr
 date: 2016-12-28
 category: mixtape
+image: ../images/the-mood-vol-2.jpg
 description: "The Mariah Carey essential mix."
 ---
 

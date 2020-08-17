@@ -27,7 +27,6 @@ const globalStyles = css`
 
 function Home({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
-  console.log(posts);
   return (
     <Container as="main" display={['block', 'flex']}>
       <Helmet title="Home" />
@@ -45,7 +44,11 @@ function Home({ data }) {
           columnClassName="masonry-column"
         >
           {posts.map(({ node: post }) => (
-            <ArticleCard post={post} key={post.name} sx={{ mb: 4 }} />
+            <ArticleCard
+              post={post}
+              key={post.frontmatter.title}
+              sx={{ mb: 4 }}
+            />
           ))}
         </Masonry>
       </Box>
@@ -71,12 +74,19 @@ export const pageQuery = graphql`
               id
               name
             }
-            date
-            description
             category {
               id
               label
               colour
+            }
+            date
+            description
+            image {
+              childImageSharp {
+                fluid(maxWidth: 768) {
+                  ...GatsbyImageSharpFluid_noBase64
+                }
+              }
             }
           }
         }

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Link } from 'gatsby';
-import Img from 'gatsby-image';
+import Image from 'gatsby-image';
 import get from 'lodash.get';
 
 import { Card } from '@/ui';
@@ -11,7 +11,6 @@ import { useTrack } from '@/soundcloud';
 import { Box, Heading } from '@/ui';
 
 const ArticleCard = ({ post, ...props }) => {
-  console.log(post);
   const linkRef = useRef(null);
 
   const soundCloudUrl = get(post, 'soundCloudUrl', null);
@@ -36,11 +35,9 @@ const ArticleCard = ({ post, ...props }) => {
     <PlayIcon {...iconProps} />
   );
 
-  // const image = (
-  //   <Box as={Img} width={1} borderRadius={0} sizes={post.heroImage.sizes} />
-  // );
-
-  const image = null;
+  const image = post.frontmatter.image && (
+    <Image fluid={post.frontmatter.image.childImageSharp.fluid} />
+  );
 
   return (
     <Card
