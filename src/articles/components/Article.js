@@ -139,22 +139,3 @@ const mapState = (state) => ({
 const mapDispatch = { play, pause, stop };
 
 export default connect(mapState, mapDispatch)(Article);
-
-export const pageQuery = graphql`
-  query ArticleBySlug($slug: String!) {
-    contentfulArticle(slug: { eq: $slug }) {
-      title
-      heroImage {
-        sizes(maxWidth: 1180) {
-          ...GatsbyContentfulSizes_withWebp
-        }
-      }
-      soundCloudUrl
-      body {
-        childMarkdownRemark {
-          html
-        }
-      }
-    }
-  }
-`;

@@ -22,7 +22,7 @@ function About(props) {
         <div
           className="pt-2 pb-3"
           dangerouslySetInnerHTML={{
-            __html: post.body.childMarkdownRemark.html,
+            __html: post.body.childMarkdownRemark.html
           }}
         />
       </div>
@@ -32,20 +32,6 @@ function About(props) {
 
 export default About;
 
-export const pageQuery = graphql`
-  query AboutPage {
-    contentfulPage(contentful_id: { eq: "149QFhRCtFVBlvQYxMslYz" }) {
-      title
-      heroImage {
-        sizes(maxWidth: 1180, background: "rgb:000000") {
-          ...GatsbyContentfulSizes_withWebp
-        }
-      }
-      body {
-        childMarkdownRemark {
-          html
-        }
-      }
-    }
-  }
-`;
+// export const pageQuery = graphql`
+//   query AboutPage {}
+// `;

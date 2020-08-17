@@ -26,7 +26,8 @@ const globalStyles = css`
 // };
 
 function Home({ data }) {
-  const articles = get(data, 'allContentfulArticle.edges');
+  const posts = get(data, 'allMarkdownRemark.edges');
+  console.log(posts);
   return (
     <Container as="main" display={['block', 'flex']}>
       <Helmet title="Home" />
@@ -43,8 +44,8 @@ function Home({ data }) {
           className="masonry-container"
           columnClassName="masonry-column"
         >
-          {articles.map(({ node: article }) => (
-            <ArticleCard article={article} key={article.slug} sx={{ mb: 4 }} />
+          {posts.map(({ node: post }) => (
+            <ArticleCard post={post} key={post.name} sx={{ mb: 4 }} />
           ))}
         </Masonry>
       </Box>
@@ -56,28 +57,26 @@ export default Home;
 
 export const pageQuery = graphql`
   query HomeQuery {
-    allContentfulArticle(
-      filter: { category: { key: { ne: "github" } } }
-      sort: { fields: [publishDate], order: DESC }
+    allMarkdownRemark(
+      sort: { fields: frontmatter___date, order: DESC }
+      limit: 6
     ) {
       edges {
         node {
-          title
-          slug
-          soundCloudUrl
-          category {
-            key
-            label
-            colour
-          }
-          heroImage {
-            sizes(maxWidth: 1180) {
-              ...GatsbyContentfulSizes_withWebp
+          id
+          html
+          frontmatter {
+            title
+            author {
+              id
+              name
             }
-          }
-          description {
-            childMarkdownRemark {
-              html
+            date
+            description
+            category {
+              id
+              label
+              colour
             }
           }
         }

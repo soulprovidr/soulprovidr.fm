@@ -1,38 +1,53 @@
 const path = require('path');
 
-exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions;
-  const result = await graphql(
-    `
-      {
-        allContentfulArticle(filter: { category: { key: { ne: "github" } } }) {
-          edges {
-            node {
-              title
-              slug
+const postsQuery = `
+  query AllPosts {
+    allMarkdownRemark(sort: {fields: frontmatter___date}) {
+      edges {
+        node {
+          id
+          html
+          frontmatter {
+            title
+            author {
+              id
+              name
+            }
+            date
+            category {
+              id
+              label
+              colour
             }
           }
         }
       }
-    `
-  );
+    }
+  }
+`;
+
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+  const result = await graphql(postsQuery);
 
   if (result.errors) {
     console.log(result.errors);
     throw result.errors;
   }
 
-  const articleComponent = path.resolve('./src/articles/components/Article.js');
-  const articles = result.data.allContentfulArticle.edges;
-  articles.forEach((article) => {
+  const postComponent = path.resolve('./src/articles/components/Article.js');
+  const posts = result.data.allMarkdownRemark.edges;
+  posts.forEach(({ node: post }) => {
     createPage({
-      path: `/${article.node.slug}/`,
-      component: articleComponent,
+      path: `/${post.name}/`,
+      component: postComponent,
       context: {
-        slug: article.node.slug,
-      },
+        slug: post.name
+      }
     });
   });
 
   return true;
 };
+
+exports.onCreateNode = ({ node, getNode, actions }) => {};

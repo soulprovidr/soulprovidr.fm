@@ -10,20 +10,21 @@ import { useClickAction, useIsPlaying } from '@/player/hooks';
 import { useTrack } from '@/soundcloud';
 import { Box, Heading } from '@/ui';
 
-const ArticleCard = ({ article, ...props }) => {
+const ArticleCard = ({ post, ...props }) => {
+  console.log(post);
   const linkRef = useRef(null);
 
-  const soundCloudUrl = get(article, 'soundCloudUrl', null);
+  const soundCloudUrl = get(post, 'soundCloudUrl', null);
   const track = useTrack(soundCloudUrl);
 
   const isPlaying = useIsPlaying(track?.stream_url);
   const meta = track
     ? {
         artist: track.user.username,
-        cover: article.heroImage.sizes.src,
+        cover: post.heroImage.sizes.src,
         duration: track.duration,
-        slug: article.slug,
-        title: article.title
+        slug: post.slug,
+        title: post.title
       }
     : null;
   const onClick = useClickAction(track?.stream_url, meta);
@@ -35,14 +36,16 @@ const ArticleCard = ({ article, ...props }) => {
     <PlayIcon {...iconProps} />
   );
 
-  const image = (
-    <Box as={Img} width={1} borderRadius={0} sizes={article.heroImage.sizes} />
-  );
+  // const image = (
+  //   <Box as={Img} width={1} borderRadius={0} sizes={post.heroImage.sizes} />
+  // );
+
+  const image = null;
 
   return (
     <Card
-      badgeColour={article.category.colour}
-      badgeText={article.category.label}
+      badgeColour={post.frontmatter.category.colour}
+      badgeText={post.frontmatter.category.label}
       image={image}
       onClick={(e) => {
         // Ignore clicks on card title.
@@ -58,14 +61,14 @@ const ArticleCard = ({ article, ...props }) => {
         <Link
           className="text-dark font-weight-bold"
           ref={linkRef}
-          to={`/${article.slug}`}
+          to={`/${post.name}`}
         >
-          {article.title}
+          {post.frontmatter.title}
         </Link>
       </Heading>
       <div
         dangerouslySetInnerHTML={{
-          __html: article.description.childMarkdownRemark.html
+          __html: post.frontmatter.description
         }}
       />
     </Card>
