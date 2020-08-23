@@ -2,13 +2,14 @@ import React from 'react';
 import Link from 'gatsby-link';
 
 // https://www.iconfinder.com/iconsets/picons-social
+import LiveIcon from '@/common/components/LiveIcon';
 import GithubIcon from '@/static/images/github.svg';
 import InstagramIcon from '@/static/images/instagram.svg';
 import RedditIcon from '@/static/images/reddit.svg';
 import SpotifyIcon from '@/static/images/spotify.svg';
 
 import Logo from '@/common/components/Logo';
-import { Box, Container, Flex } from '@/ui';
+import { Box, Container, Flex, Text } from '@/ui';
 import Navigation from './Navigation';
 
 const icons = [
@@ -32,12 +33,21 @@ const icons = [
 
 const links = [
   {
-    href: '',
-    text: 'Listen live'
+    href: '/',
+    text: (
+      <Flex alignItems="center">
+        <LiveIcon size={8} color="red" mr={2} />
+        <Text ml={2}>Live</Text>
+      </Flex>
+    )
   },
   {
-    href: '/subscribe',
-    text: 'Subscribe'
+    href: '/mixtapes',
+    text: 'Mixtapes'
+  },
+  {
+    href: '/about',
+    text: 'About'
   }
 ];
 
@@ -48,12 +58,12 @@ export default function Header() {
       bg="white"
       fontFamily="heading"
       position={['fixed', 'relative']}
-      py={4}
       top={0}
       right={0}
       left={0}
+      zIndex={2}
     >
-      <Container>
+      <Box borderBottom={['1px solid #eee']} px={5} py={[2, 4]}>
         <Flex alignItems="center" justifyContent="space-between" px={2}>
           <Flex alignItems="center">
             <Link to="/">
@@ -69,7 +79,7 @@ export default function Header() {
           </Flex>
           <Navigation icons={icons} links={links} />
         </Flex>
-      </Container>
+      </Box>
     </Box>
   );
 }

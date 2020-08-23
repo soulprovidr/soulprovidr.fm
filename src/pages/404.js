@@ -7,8 +7,8 @@ import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import SubscribeWidget from '@/common/components/SubscribeWidget';
-import PlayerCard from '@/player/components/PlayerCard';
-import { Container, Box, Heading } from '@/ui';
+import { Container, Box } from '@/ui';
+import { Heading, Flex, Text } from '../ui';
 
 const globalStyles = css`
   .masonry-container {
@@ -26,19 +26,30 @@ const globalStyles = css`
 
 // };
 
-function Home({ data }) {
+function PageNotFound({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Container as="main" display={['block']}>
-      <Helmet title="Home" />
+    <Container as="main">
       <Global styles={globalStyles} />
-      <Box width={[1, 1 / 2]} mx={[0, 'auto']} mb={[5, 0]}>
-        <PlayerCard />
-      </Box>
-      <SubscribeWidget />
-      <Box width={[1]} mt={5}>
-        <Heading as="h5" mb={4}>
-          LATEST CONTENT:
+      <Helmet title="Page not found" />
+      <Box width={[1]} my={5}>
+        <Heading as="h2" mb={3}>
+          404: PAGE NOT FOUND
+        </Heading>
+        <Box mb={5}>
+          <Text mb={4}>
+            Unfortunately, the page you requested could not be found.
+          </Text>
+          <Box textAlign="center">
+            <Box
+              as="img"
+              src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
+            />
+          </Box>
+        </Box>
+        <SubscribeWidget />
+        <Heading as="h5" my={4}>
+          OTHER STUFF YOU MIGHT LIKE:
         </Heading>
         <Masonry
           breakpointCols={{
@@ -61,13 +72,13 @@ function Home({ data }) {
   );
 }
 
-export default Home;
+export default PageNotFound;
 
 export const pageQuery = graphql`
-  query HomeQuery {
+  query PageNotFoundQuery {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 6
+      limit: 3
     ) {
       edges {
         node {

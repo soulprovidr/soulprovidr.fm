@@ -5,6 +5,7 @@ date: 2017-04-23
 category: mixtape
 image: ../images/the-mood-vol-5.jpg
 description: "Jeep®-worthy jams to bump in the whip."
+soundCloudUrl: https://soundcloud.com/soulprovidr/the-mood-vol-5-something-for-the-jeeps
 ---
 
 This episode sponsored by the all-new 2017 Jeep® Wrangler.

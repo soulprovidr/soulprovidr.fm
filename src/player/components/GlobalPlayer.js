@@ -58,6 +58,7 @@ export function GlobalPlayer() {
       px={4}
       py={2}
       bg="white"
+      borderTop="1px solid #eeee"
       sx={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(100%)',

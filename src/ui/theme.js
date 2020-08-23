@@ -16,7 +16,7 @@ export default {
     '2.441em',
     '3.052em'
   ],
-  radii: [2],
+  radii: [2, 4, 6, 8],
   shadows: ['0 4px 4px rgba(197, 211, 219, 0.25)'],
   space: [0, 4, 8, 16, 32, 64, 128, 256, 512]
 };

@@ -7,8 +7,9 @@ import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import SubscribeWidget from '@/common/components/SubscribeWidget';
-import PlayerCard from '@/player/components/PlayerCard';
-import { Container, Box, Heading } from '@/ui';
+import Logo from '@/common/components/Logo';
+import { Container, Box } from '@/ui';
+import { Heading, Flex, Text } from '../ui';
 
 const globalStyles = css`
   .masonry-container {
@@ -26,20 +27,17 @@ const globalStyles = css`
 
 // };
 
-function Home({ data }) {
+function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Container as="main" display={['block']}>
-      <Helmet title="Home" />
+    <Container as="main">
+      <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
-      <Box width={[1, 1 / 2]} mx={[0, 'auto']} mb={[5, 0]}>
-        <PlayerCard />
-      </Box>
-      <SubscribeWidget />
-      <Box width={[1]} mt={5}>
-        <Heading as="h5" mb={4}>
-          LATEST CONTENT:
+      <Box width={[1]} my={5}>
+        <Heading as="h2" mb={3}>
+          MIXTAPES
         </Heading>
+        <SubscribeWidget />
         <Masonry
           breakpointCols={{
             default: 3,
@@ -61,10 +59,10 @@ function Home({ data }) {
   );
 }
 
-export default Home;
+export default Mixtapes;
 
 export const pageQuery = graphql`
-  query HomeQuery {
+  query MixtapesQuery {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
       limit: 6

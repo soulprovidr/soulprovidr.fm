@@ -13,17 +13,17 @@ import { Box, Heading } from '@/ui';
 const ArticleCard = ({ post, ...props }) => {
   const linkRef = useRef(null);
 
-  const soundCloudUrl = get(post, 'soundCloudUrl', null);
+  const soundCloudUrl = get(post, 'frontmatter.soundCloudUrl', null);
+  console.log(soundCloudUrl);
   const track = useTrack(soundCloudUrl);
 
   const isPlaying = useIsPlaying(track?.stream_url);
   const meta = track
     ? {
         artist: track.user.username,
-        cover: post.heroImage.sizes.src,
+        cover: post.frontmatter.image.childImageSharp.fluid.src,
         duration: track.duration,
-        slug: post.slug,
-        title: post.title
+        title: post.frontmatter.title
       }
     : null;
   const onClick = useClickAction(track?.stream_url, meta);

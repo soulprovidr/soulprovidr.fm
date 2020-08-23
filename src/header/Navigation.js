@@ -6,7 +6,7 @@ import styles from './Header.module.css';
 
 export default function Navigation({ icons, links }) {
   return (
-    <nav>
+    <nav className="d-none d-md-block">
       <div className="d-flex align-items-center">
         {icons.map((icon, i) => (
           <a href={icon.href} key={i} rel="noopener noreferrer" target="_blank">

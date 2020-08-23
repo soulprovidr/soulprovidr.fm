@@ -61,7 +61,7 @@ const PlayerCard = (props) => {
   );
 
   const cardStyles = {
-    position: 'sticky',
+    // position: 'sticky',
     top: 25
   };
   return (
@@ -77,9 +77,6 @@ const PlayerCard = (props) => {
       sx={cardStyles}
       {...props}
     >
-      <Box mt={3}>
-        <ProgressBar duration={duration} progress={progress} status={status} />
-      </Box>
       <Box overflow="hidden" mt={3}>
         <Box>
           <Heading as="h4" sx={titleStyles}>
@@ -87,6 +84,9 @@ const PlayerCard = (props) => {
           </Heading>
           <Text fontSize={3}>{artist}</Text>
         </Box>
+      </Box>
+      <Box mt={3}>
+        <ProgressBar duration={duration} progress={progress} status={status} />
       </Box>
     </Card>
   );
