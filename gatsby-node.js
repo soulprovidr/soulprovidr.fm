@@ -36,16 +36,16 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   const postComponent = path.resolve('./src/articles/components/Article.js');
-  const posts = result.data.allMarkdownRemark.edges;
-  posts.forEach(({ node: post }) => {
-    createPage({
-      path: `/${post.name}/`,
-      component: postComponent,
-      context: {
-        slug: post.name
-      }
-    });
-  });
+  // const posts = result.data.allMarkdownRemark.edges;
+  // posts.forEach(({ node: post }) => {
+  //   createPage({
+  //     path: `/${post.name}/`,
+  //     component: postComponent,
+  //     context: {
+  //       slug: post.name
+  //     }
+  //   });
+  // });
 
   return true;
 };
