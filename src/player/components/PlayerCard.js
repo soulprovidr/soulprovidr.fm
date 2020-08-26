@@ -71,7 +71,9 @@ const PlayerCard = (props) => {
           <Heading as="h2" sx={titleStyles}>
             {title ?? 'Loading...'}
           </Heading>
-          <Text fontSize={5}>{artist}</Text>
+          <Text fontSize={5} m={0}>
+            {artist}
+          </Text>
         </Box>
       </Flex>
     </Flex>

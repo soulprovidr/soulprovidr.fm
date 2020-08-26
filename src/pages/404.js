@@ -27,16 +27,16 @@ function PageNotFound({ data }) {
   return (
     <Page title="Page not found">
       <Global styles={globalStyles} />
-      <Text mb={4}>
-        Unfortunately, the page you requested could not be found.
-      </Text>
-      <Box textAlign="center">
-        <Box
-          as="img"
-          src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
-        />
+      <Box pb={4}>
+        <Text>Unfortunately, the page you requested could not be found.</Text>
+        <Box textAlign="center" py={3}>
+          <Box
+            as="img"
+            src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
+          />
+        </Box>
       </Box>
-      <SubscribeWidget mt={5} />
+      <SubscribeWidget my={3} />
       <Heading as="h5" my={4}>
         OTHER STUFF YOU MIGHT LIKE:
       </Heading>

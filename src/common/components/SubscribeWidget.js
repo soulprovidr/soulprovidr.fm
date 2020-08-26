@@ -4,7 +4,6 @@ import Logo from '@/common/components/Logo';
 
 const SubscribeWidget = (props) => (
   <Flex
-    my={4}
     justifyContent="space-between"
     bg="white"
     border="1px solid #eee"
@@ -20,7 +19,9 @@ const SubscribeWidget = (props) => (
       <Logo className="d-inline-block align-middle mr-3" size={45} />
       <Box>
         <Heading as="h5">In the mood to groove?</Heading>
-        <Text>Get a free mixtape delivered to your inbox every month.</Text>
+        <Text m={0}>
+          Get a free mixtape delivered to your inbox every month.
+        </Text>
       </Box>
     </Flex>
     <Flex alignItems="center" justifyContent="center">

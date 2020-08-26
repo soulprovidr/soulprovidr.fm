@@ -8,8 +8,7 @@ import { Global, css } from '@emotion/core';
 import ArticleCard from '@/articles/components/ArticleCard';
 import SubscribeWidget from '@/common/components/SubscribeWidget';
 import { Page } from '@/layout';
-import { Container, Box } from '@/ui';
-import { Heading } from '../ui';
+import { Box } from '@/ui';
 
 const globalStyles = css`
   .masonry-container {
@@ -29,23 +28,25 @@ function Mixtapes({ data }) {
     <Page title="Mixtapes">
       <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
-      <SubscribeWidget />
-      <Masonry
-        breakpointCols={{
-          default: 3,
-          768: 1
-        }}
-        className="masonry-container"
-        columnClassName="masonry-column"
-      >
-        {posts.map(({ node: post }) => (
-          <ArticleCard
-            post={post}
-            key={post.frontmatter.title}
-            sx={{ mb: 4 }}
-          />
-        ))}
-      </Masonry>
+      <SubscribeWidget my={3} />
+      <Box pt={3}>
+        <Masonry
+          breakpointCols={{
+            default: 3,
+            768: 1
+          }}
+          className="masonry-container"
+          columnClassName="masonry-column"
+        >
+          {posts.map(({ node: post }) => (
+            <ArticleCard
+              post={post}
+              key={post.frontmatter.title}
+              sx={{ mb: 4 }}
+            />
+          ))}
+        </Masonry>
+      </Box>
     </Page>
   );
 }
