@@ -24,7 +24,7 @@ const globalStyles = css`
 `;
 
 const titleContent = (
-  <Flex as="h2" alignItems="center">
+  <Flex as="h2" alignItems="center" mb={4}>
     <LiveIcon size={12} color="red" />
     <Box as="span" ml={2}>
       LIVE
@@ -37,7 +37,7 @@ function Home({ data }) {
   return (
     <Page title="Live" titleContent={titleContent}>
       <Global styles={globalStyles} />
-      <Box my={4} mb={5}>
+      <Box mb={5}>
         <PlayerCard />
       </Box>
       <SubscribeWidget />
