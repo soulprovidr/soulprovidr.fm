@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Flex, Heading, Text } from '@/ui';
 import Logo from '@/common/components/Logo';
 
-const SubscribeWidget = () => (
+const SubscribeWidget = (props) => (
   <Flex
     my={4}
     justifyContent="space-between"
@@ -14,6 +14,7 @@ const SubscribeWidget = () => (
     position={['block', 'sticky']}
     top="-1px"
     zIndex="2"
+    {...props}
   >
     <Flex alignItems="center">
       <Logo className="d-inline-block align-middle mr-3" size={45} />

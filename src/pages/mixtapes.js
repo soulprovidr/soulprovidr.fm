@@ -7,9 +7,9 @@ import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
 import SubscribeWidget from '@/common/components/SubscribeWidget';
-import Logo from '@/common/components/Logo';
+import { Page } from '@/layout';
 import { Container, Box } from '@/ui';
-import { Heading, Flex, Text } from '../ui';
+import { Heading } from '../ui';
 
 const globalStyles = css`
   .masonry-container {
@@ -23,39 +23,30 @@ const globalStyles = css`
   }
 `;
 
-// const radioArticle = {
-
-// };
-
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Container as="main">
+    <Page title="Mixtapes">
       <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
-      <Box width={[1]} my={5}>
-        <Heading as="h2" mb={3}>
-          MIXTAPES
-        </Heading>
-        <SubscribeWidget />
-        <Masonry
-          breakpointCols={{
-            default: 3,
-            768: 1
-          }}
-          className="masonry-container"
-          columnClassName="masonry-column"
-        >
-          {posts.map(({ node: post }) => (
-            <ArticleCard
-              post={post}
-              key={post.frontmatter.title}
-              sx={{ mb: 4 }}
-            />
-          ))}
-        </Masonry>
-      </Box>
-    </Container>
+      <SubscribeWidget />
+      <Masonry
+        breakpointCols={{
+          default: 3,
+          768: 1
+        }}
+        className="masonry-container"
+        columnClassName="masonry-column"
+      >
+        {posts.map(({ node: post }) => (
+          <ArticleCard
+            post={post}
+            key={post.frontmatter.title}
+            sx={{ mb: 4 }}
+          />
+        ))}
+      </Masonry>
+    </Page>
   );
 }
 

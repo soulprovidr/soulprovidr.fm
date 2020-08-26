@@ -1,14 +1,15 @@
 import React from 'react';
 import get from 'lodash/get';
-import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
 import ArticleCard from '@/articles/components/ArticleCard';
+import LiveIcon from '@/common/components/LiveIcon';
 import SubscribeWidget from '@/common/components/SubscribeWidget';
+import { Page } from '@/layout';
 import PlayerCard from '@/player/components/PlayerCard';
-import { Container, Box, Heading } from '@/ui';
+import { Box, Heading, Flex } from '@/ui';
 
 const globalStyles = css`
   .masonry-container {
@@ -22,23 +23,27 @@ const globalStyles = css`
   }
 `;
 
-// const radioArticle = {
-
-// };
+const titleContent = (
+  <Flex as="h2" alignItems="center">
+    <LiveIcon size={12} color="red" />
+    <Box as="span" ml={2}>
+      LIVE
+    </Box>
+  </Flex>
+);
 
 function Home({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Container as="main" display={['block']}>
-      <Helmet title="Home" />
+    <Page title="Live" titleContent={titleContent}>
       <Global styles={globalStyles} />
-      <Box width={[1, 1 / 2]} mx={[0, 'auto']} mb={[5, 0]}>
+      <Box my={4} mb={5}>
         <PlayerCard />
       </Box>
       <SubscribeWidget />
-      <Box width={[1]} mt={5}>
+      <Box width={[1]}>
         <Heading as="h5" mb={4}>
-          LATEST CONTENT:
+          LATEST CONTENT
         </Heading>
         <Masonry
           breakpointCols={{
@@ -57,7 +62,7 @@ function Home({ data }) {
           ))}
         </Masonry>
       </Box>
-    </Container>
+    </Page>
   );
 }
 

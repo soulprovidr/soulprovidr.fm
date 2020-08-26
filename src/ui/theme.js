@@ -1,6 +1,9 @@
 import './fonts/hk-grotesk/hk-grotesk.css';
 
 export default {
+  colors: {
+    textDark: '#343a40'
+  },
   fonts: {
     body: 'Helvetica Neue',
     heading: 'hk-grotesk'
@@ -18,5 +21,5 @@ export default {
   ],
   radii: [2, 4, 6, 8],
   shadows: ['0 4px 4px rgba(197, 211, 219, 0.25)'],
-  space: [0, 4, 8, 16, 32, 64, 128, 256, 512]
+  space: [0, 4, 8, 16, 32, 48, 64, 128, 256, 512]
 };

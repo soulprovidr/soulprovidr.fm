@@ -47,7 +47,7 @@ export function GlobalPlayer() {
   const location = useLocation();
 
   const duration = get(meta, 'duration', 0);
-  const isVisible = status >= BUFFERING && location.pathname !== '/';
+  const isVisible = status >= BUFFERING;
 
   return (
     <Box

@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
 import Head from './Head';
-import Header from '@/header/Header';
+import Header from './Header';
 import { GlobalPlayer } from '@/player';
 
 import { ThemeProvider, Box } from '@/ui';
