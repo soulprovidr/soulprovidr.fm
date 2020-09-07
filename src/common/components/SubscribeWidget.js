@@ -1,8 +1,7 @@
 import React from 'react';
-import { Box, Flex, Heading, Text } from '@/ui';
-import Logo from '@/common/components/Logo';
+import { Box, Flex, Heading, Input, Logo, Text } from '@/ui';
 
-const SubscribeWidget = (props) => (
+const StyledSubscribeWidget = (props) => (
   <Flex
     justifyContent="space-between"
     bg="white"
@@ -14,9 +13,13 @@ const SubscribeWidget = (props) => (
     top="-1px"
     zIndex="2"
     {...props}
-  >
+  />
+);
+
+const SubscribeWidget = () => (
+  <StyledSubscribeWidget>
     <Flex alignItems="center">
-      <Logo className="d-inline-block align-middle mr-3" size={45} />
+      <Logo mr={3} />
       <Box>
         <Heading as="h5">In the mood to groove?</Heading>
         <Text m={0}>
@@ -25,19 +28,14 @@ const SubscribeWidget = (props) => (
       </Box>
     </Flex>
     <Flex alignItems="center" justifyContent="center">
-      <Box
-        as="input"
-        type="text"
-        placeholder="shola@soulprovidr.fm"
-        mr={2}
-        p={1}
-        px={2}
-      />
+      <Box mr={2}>
+        <Input placeholder="shola@soulprovidr.fm" />
+      </Box>
       <Box as="button" type="submit" className="btn btn-primary">
         Subscribe
       </Box>
     </Flex>
-  </Flex>
+  </StyledSubscribeWidget>
 );
 
 export default SubscribeWidget;
