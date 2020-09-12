@@ -5,10 +5,10 @@ import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
-import ArticleCard from '@/articles/components/ArticleCard';
-import SubscribeWidget from '@/common/components/SubscribeWidget';
-import { Page } from '@/layout';
-import { Box } from '@/ui';
+import ArticleCard from './common/ArticleCard';
+import SubscribeWidget from './common/SubscribeWidget';
+import { Page } from './templates';
+import { Box } from '@/theme';
 
 const globalStyles = css`
   .masonry-container {
@@ -25,29 +25,34 @@ const globalStyles = css`
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Mixtapes">
+    <Page.Container title="Mixtapes">
       <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
-      <SubscribeWidget my={3} />
-      <Box pt={3}>
-        <Masonry
-          breakpointCols={{
-            default: 3,
-            768: 1
-          }}
-          className="masonry-container"
-          columnClassName="masonry-column"
-        >
-          {posts.map(({ node: post }) => (
-            <ArticleCard
-              post={post}
-              key={post.frontmatter.title}
-              sx={{ mb: 4 }}
-            />
-          ))}
-        </Masonry>
-      </Box>
-    </Page>
+      <Page.Title>Mixtapes</Page.Title>
+      <Page.Content>
+        <Box pb={5}>
+          <SubscribeWidget />
+        </Box>
+        <Box>
+          <Masonry
+            breakpointCols={{
+              default: 3,
+              768: 1
+            }}
+            className="masonry-container"
+            columnClassName="masonry-column"
+          >
+            {posts.map(({ node: post }) => (
+              <ArticleCard
+                post={post}
+                key={post.frontmatter.title}
+                sx={{ mb: 4 }}
+              />
+            ))}
+          </Masonry>
+        </Box>
+      </Page.Content>
+    </Page.Container>
   );
 }
 
@@ -63,6 +68,9 @@ export const pageQuery = graphql`
         node {
           id
           html
+          fields {
+            slug
+          }
           frontmatter {
             title
             author {

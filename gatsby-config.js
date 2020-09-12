@@ -13,6 +13,15 @@ module.exports = {
 
     // General plugins.
     {
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: `${__dirname}/src/pages`,
+        ignore: ['!*.js']
+        // See pattern syntax recognized by micromatch
+        // https://www.npmjs.com/package/micromatch#matching-features
+      }
+    },
+    {
       resolve: 'gatsby-plugin-alias-imports',
       options: {
         alias: {

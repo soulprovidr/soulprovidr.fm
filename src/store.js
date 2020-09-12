@@ -1,11 +1,11 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
 
-import player from '@/player/reducer';
-import radio from '@/radio/reducer';
+import player from '@/modules/player/reducer';
+import radio from '@/modules/radio/reducer';
 
-import playerMiddleware from '@/player/middleware';
-import radioMiddleware from '@/radio/middleware';
+import playerMiddleware from '@/modules/player/middleware';
+import radioMiddleware from '@/modules/radio/middleware';
 
 const reducer = combineReducers({
   player,

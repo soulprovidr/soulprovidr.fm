@@ -1,6 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
+import Link from 'gatsby-link';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
@@ -22,20 +23,36 @@ const globalStyles = css`
   }
 `;
 
-function PageNotFound({ data }) {
+function FAQ({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="Page not found">
+    <Page.Container title="FAQ">
       <Global styles={globalStyles} />
-      <Page.Title>Page not found</Page.Title>
+      <Page.Title>FAQ</Page.Title>
       <Page.Content>
-        <Text>Unfortunately, the page you requested could not be found.</Text>
-        <Box textAlign="center" py={3}>
-          <Box
-            as="img"
-            src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
-          />
-        </Box>
+        <Text fontWeight="bold">What is Soul Provider?</Text>
+        <Text>
+          Soul Provider is an online radio station based in Winnipeg, Canada.
+        </Text>
+        <Text>
+          Its mission is simple: to heal the world through the power of funk,
+          soul, and software.
+        </Text>
+        <Text fontWeight="bold">What is The Mood®?</Text>
+        <Text>
+          <i>The Mood®</i> is a{' '}
+          <Link to="/mixtapes">monthly mixtape series</Link> designed to unlock
+          the power of the human mind. Thanks to our patented mixtape
+          technology,
+          <i>The Mood®</i> has been found to be up to 50% more effective than
+          the next leading brand.
+        </Text>
+        <Text fontWeight="bold">How can I get in touch?</Text>
+        <Text>
+          Soul Provider would love to hear from you. Feel free to get in touch
+          via email:{' '}
+          <a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a>
+        </Text>
       </Page.Content>
       <Page.Meta>
         <Box pb={5}>
@@ -65,10 +82,10 @@ function PageNotFound({ data }) {
   );
 }
 
-export default PageNotFound;
+export default FAQ;
 
 export const pageQuery = graphql`
-  query PageNotFoundQuery {
+  query FAQQuery {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
       limit: 3

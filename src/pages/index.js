@@ -4,12 +4,12 @@ import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
-import ArticleCard from '@/articles/components/ArticleCard';
-import LiveIcon from '@/common/components/LiveIcon';
-import SubscribeWidget from '@/common/components/SubscribeWidget';
-import { Page } from '@/layout';
-import PlayerCard from '@/player/components/PlayerCard';
-import { Box, Heading, Flex } from '@/ui';
+import ArticleCard from './common/ArticleCard';
+import LiveIcon from './common/LiveIcon';
+import SubscribeWidget from './common/SubscribeWidget';
+import { Page } from './templates';
+import PlayerCard from '@/modules/player/components/PlayerCard';
+import { Box, Heading, Flex } from '@/theme';
 
 const globalStyles = css`
   .masonry-container {
@@ -23,25 +23,30 @@ const globalStyles = css`
   }
 `;
 
-const titleContent = (
-  <Flex as="h2" alignItems="center">
-    <LiveIcon size={12} color="red" />
-    <Box as="span" ml={2}>
-      LIVE
-    </Box>
-  </Flex>
+const Title = () => (
+  <Page.Title>
+    <Flex alignItems="center">
+      <LiveIcon size={12} color="red" />
+      <Box as="span" ml={2}>
+        LIVE
+      </Box>
+    </Flex>
+  </Page.Title>
 );
 
 function Home({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Live" titleContent={titleContent}>
+    <Page.Container title="Live">
       <Global styles={globalStyles} />
-      <Box py={3}>
+      <Title />
+      <Page.Content>
         <PlayerCard />
-      </Box>
-      <SubscribeWidget my={3} />
-      <Box py={3}>
+      </Page.Content>
+      <Page.Meta>
+        <Box pb={5}>
+          <SubscribeWidget />
+        </Box>
         <Heading as="h5" pb={3}>
           LATEST CONTENT
         </Heading>
@@ -61,8 +66,8 @@ function Home({ data }) {
             />
           ))}
         </Masonry>
-      </Box>
-    </Page>
+      </Page.Meta>
+    </Page.Container>
   );
 }
 
@@ -78,6 +83,9 @@ export const pageQuery = graphql`
         node {
           id
           html
+          fields {
+            slug
+          }
           frontmatter {
             title
             author {
