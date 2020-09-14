@@ -1,11 +1,12 @@
 import './fonts/hk-grotesk/hk-grotesk.css';
+import './fonts/inter/inter.css';
 
 export default {
   colors: {
     textDark: '#343a40'
   },
   fonts: {
-    body: 'Helvetica Neue',
+    body: 'inter, Helvetica Neue',
     heading: 'hk-grotesk'
   },
   fontSizes: [
