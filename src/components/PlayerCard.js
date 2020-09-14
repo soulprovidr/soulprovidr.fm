@@ -4,13 +4,23 @@ import get from 'lodash.get';
 
 import DefaultCover from '@/static/images/default.png';
 import { RadioUrl, getMeta as getRadioMeta } from '@/modules/radio';
-import { Box, Card, Flex, Heading, Text } from '@/theme';
+import { Box, Flex, Heading, Text } from '@/theme';
 
-import { PlayerStatus } from '../constants';
-import { useClickAction } from '../hooks';
-import StatusIndicator from './StatusIndicator';
+import { PlayerStatus } from '@/modules/player/constants';
+import { useClickAction } from '@/modules/player/hooks';
+import StatusIndicator from '@/modules/player/components/StatusIndicator';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
+
+const StyledPlayerCard = (props) => (
+  <Flex
+    sx={{
+      cursor: 'pointer',
+      flexDirection: ['column', 'row']
+    }}
+    {...props}
+  />
+);
 
 const PlayerCard = (props) => {
   const meta = useSelector(getRadioMeta);
@@ -51,15 +61,15 @@ const PlayerCard = (props) => {
   );
 
   return (
-    <Flex onClick={onClick} sx={{ cursor: 'pointer' }}>
-      <Box width={1 / 3}>{image}</Box>
+    <StyledPlayerCard onClick={onClick}>
+      <Box width={[1, 1 / 3]}>{image}</Box>
       <Flex
         flexDirection="column"
         justifyContent="center"
         overflow="hidden"
-        ml={5}
+        ml={[0, 5]}
         mt={3}
-        width={2 / 3}
+        width={[1, 2 / 3]}
       >
         <Box>
           <Heading as="h2" sx={titleStyles}>
@@ -70,7 +80,7 @@ const PlayerCard = (props) => {
           </Text>
         </Box>
       </Flex>
-    </Flex>
+    </StyledPlayerCard>
   );
 };
 

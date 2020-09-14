@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
-import PlayerCard from '@/modules/player/components/PlayerCard';
+import PlayerCard from '@/components/PlayerCard';
 import { Page } from '@/templates';
 import { Box, Heading, Flex } from '@/theme';
 

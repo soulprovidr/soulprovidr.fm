@@ -4,6 +4,7 @@ import { Box, Flex, Heading, Input, Logo, Text } from '@/theme';
 const StyledSubscribeWidget = ({ children }) => (
   <Box pb={5} position={['block', 'sticky']} top="-1px" zIndex="2">
     <Flex
+      flexDirection={['column', 'row']}
       justifyContent="space-between"
       bg="white"
       border="1px solid #eee"
@@ -19,7 +20,7 @@ const StyledSubscribeWidget = ({ children }) => (
 const SubscribeWidget = () => (
   <StyledSubscribeWidget>
     <Flex alignItems="center">
-      <Logo mr={3} />
+      <Logo flexShrink={0} mr={3} />
       <Box>
         <Heading as="h5">In the mood to groove?</Heading>
         <Text m={0}>
@@ -27,7 +28,11 @@ const SubscribeWidget = () => (
         </Text>
       </Box>
     </Flex>
-    <Flex alignItems="center" justifyContent="center">
+    <Flex
+      pt={[3, 0]}
+      alignItems="center"
+      justifyContent={['flex-start', 'center']}
+    >
       <Box mr={2}>
         <Input placeholder="shola@soulprovidr.fm" />
       </Box>

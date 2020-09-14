@@ -27,7 +27,7 @@ export function Layout({ children }) {
     <ThemeProvider>
       <Head description={siteMetadata.description} title={siteMetadata.title} />
       <Header />
-      <Box mt={[5, 0]} pt={[5, 0]}>
+      <Box py={[5, 0]}>
         {children}
         <GlobalPlayer />
       </Box>
