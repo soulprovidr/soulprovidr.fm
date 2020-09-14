@@ -4,12 +4,13 @@ import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 
-import ArticleCard from './common/ArticleCard';
-import LiveIcon from './common/LiveIcon';
-import SubscribeWidget from './common/SubscribeWidget';
-import { Page } from './templates';
 import PlayerCard from '@/modules/player/components/PlayerCard';
+import { Page } from '@/templates';
 import { Box, Heading, Flex } from '@/theme';
+
+import ArticleCard from '@/components/ArticleCard';
+import LiveIcon from '@/components/LiveIcon';
+import SubscribeWidget from '@/components/SubscribeWidget';
 
 const globalStyles = css`
   .masonry-container {

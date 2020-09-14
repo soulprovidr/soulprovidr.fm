@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 
 import { PlayerStatus } from '@/modules/player/constants';
 
-import Spinner from '@/pages/common/Spinner';
-import PlayIcon from '@/pages/common/PlayIcon';
-import PauseIcon from '@/pages/common/PauseIcon';
+import Spinner from '@/components/Spinner';
+import PlayIcon from '@/components/PlayIcon';
+import PauseIcon from '@/components/PauseIcon';
 
 import { Box } from '@/theme';
 

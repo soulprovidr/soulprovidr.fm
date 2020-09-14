@@ -3,7 +3,7 @@ title: "The Mood® (vol. 6): Snowed In"
 author: soulprovidr
 date: 2019-10-09
 category: mixtape
-image: ../images/the-mood-vol-6.jpg
+image: ./the-mood-vol-6.jpg
 description: "Carefully formulated to fog up your windows."
 soundCloudUrl: https://soundcloud.com/soulprovidr/winter-essentials-2019
 ---

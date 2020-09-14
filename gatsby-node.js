@@ -1,9 +1,27 @@
 const path = require('path');
-const { createFilePath } = require(`gatsby-source-filesystem`);
 
-const postsQuery = `
-  query AllPosts {
-    allMarkdownRemark(sort: {fields: frontmatter___date}) {
+const categories = require('./data/entities/categories.json');
+
+const getPostSlugPrefix = (node) => {
+  switch (node.frontmatter.category) {
+    case 'mixtape':
+      return 'mixtapes/';
+    default:
+      return '';
+  }
+};
+
+const getPostSlug = (node) =>
+  `/${getPostSlugPrefix(node)}${
+    node.fileAbsolutePath.split('/').pop().split('.')[0]
+  }`;
+
+const createCategoryQuery = (category) => `
+  query {
+    allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { eq: "${category}" } } } }
+      sort: { fields: frontmatter___date }
+    ) {
       edges {
         node {
           id
@@ -32,33 +50,35 @@ const postsQuery = `
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
-  const result = await graphql(postsQuery);
+  for (let i = 0; i < categories.length; i++) {
+    const category = categories[i].id;
+    const query = createCategoryQuery(category);
+    const categoryResult = await graphql(query);
 
-  if (result.errors) {
-    console.log(result.errors);
-    throw result.errors;
-  }
+    if (categoryResult.errors) {
+      console.log(categoryResult.errors);
+      throw categoryResult.errors;
+    }
 
-  const postComponent = path.resolve('./src/pages/templates/Article.js');
-  const posts = result.data.allMarkdownRemark.edges;
-  posts.forEach(({ node: post }) => {
-    createPage({
-      path: `/${post.fields.slug}/`,
-      component: postComponent
+    const postTemplate = path.resolve('./src/templates/Article.js');
+    const posts = categoryResult.data.allMarkdownRemark.edges;
+    posts.forEach(({ node: post }) => {
+      createPage({
+        path: post.fields.slug,
+        component: postTemplate
+      });
     });
-  });
-
+  }
   return true;
 };
 
-exports.onCreateNode = ({ node, getNode, actions }) => {
+exports.onCreateNode = ({ node, actions }) => {
   const { createNodeField } = actions;
   if (node.internal.type === 'MarkdownRemark') {
-    const slug = createFilePath({ node, getNode, basePath: `pages` });
     createNodeField({
       node,
       name: 'slug',
-      value: slug
+      value: getPostSlug(node)
     });
   }
 };

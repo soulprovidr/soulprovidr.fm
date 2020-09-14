@@ -1,7 +1,7 @@
 import React from 'react';
 import c from 'classnames';
 
-import DefaultCover from '@/modules/static/images/default.png';
+import DefaultCover from '@/static/images/default.png';
 import styles from './Player.module.css';
 
 export default function Meta({ meta }) {

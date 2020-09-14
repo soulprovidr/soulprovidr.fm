@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
-import Favicon from '@/modules/static/images/favicon.png';
+import Favicon from '@/static/images/favicon.png';
 
 function Head({ description, lang, meta, title }) {
   return (

@@ -6,15 +6,15 @@ import { graphql } from 'gatsby';
 import Img from 'gatsby-image';
 import c from 'classnames';
 
-// import Tracklist from '@/pages/common/Tracklist';
+// import Tracklist from '@/components/Tracklist';
 import Waveform from '@/modules/soundcloud/components/Waveform';
 import { play, pause, stop } from '@/modules/player/actions';
 import { PlayerStatus } from '@/modules/player/constants';
 import msToTime from '@/modules/player/helpers/msToTime';
 import { useTrack } from '@/modules/soundcloud';
 
-import PauseIcon from '@/pages/common/PauseIcon';
-import PlayIcon from '@/pages/common/PlayIcon';
+import PauseIcon from '@/components/PauseIcon';
+import PlayIcon from '@/components/PlayIcon';
 
 import styles from './Article.module.css';
 

@@ -2,11 +2,11 @@ import React from 'react';
 import Link from 'gatsby-link';
 
 // https://www.iconfinder.com/iconsets/picons-social
-import LiveIcon from '@/pages/common/LiveIcon';
-import GithubIcon from '@/modules/static/images/github.svg';
-import InstagramIcon from '@/modules/static/images/instagram.svg';
-import RedditIcon from '@/modules/static/images/reddit.svg';
-import SpotifyIcon from '@/modules/static/images/spotify.svg';
+import LiveIcon from '@/components/LiveIcon';
+import GithubIcon from '@/static/images/github.svg';
+import InstagramIcon from '@/static/images/instagram.svg';
+import RedditIcon from '@/static/images/reddit.svg';
+import SpotifyIcon from '@/static/images/spotify.svg';
 
 import { Box, Flex, Logo, Text } from '@/theme';
 

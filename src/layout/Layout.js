@@ -1,11 +1,11 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 
+import { GlobalPlayer } from '@/modules/player';
+import { ThemeProvider, Box } from '@/theme';
+
 import Head from './Head';
 import Header from './Header';
-import { GlobalPlayer } from '@/modules/player';
-
-import { ThemeProvider, Box } from '@/theme';
 
 const query = graphql`
   query {

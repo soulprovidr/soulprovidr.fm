@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import DefaultCover from '@/modules/static/images/default.png';
+import DefaultCover from '@/static/images/default.png';
 import { RadioUrl, getMeta as getRadioMeta } from '@/modules/radio';
 import { Box, Card, Flex, Heading, Text } from '@/theme';
 

@@ -3,12 +3,11 @@ import { Link } from 'gatsby';
 import Image from 'gatsby-image';
 import get from 'lodash.get';
 
-import { Card } from '@/theme';
-import PauseIcon from '@/pages/common/PauseIcon';
-import PlayIcon from '@/pages/common/PlayIcon';
+import PauseIcon from '@/components/PauseIcon';
+import PlayIcon from '@/components/PlayIcon';
 import { useClickAction, useIsPlaying } from '@/modules/player/hooks';
 import { useTrack } from '@/modules/soundcloud';
-import { Box, Heading } from '@/theme';
+import { Card, Heading } from '@/theme';
 
 const ArticleCard = ({ post, ...props }) => {
   const linkRef = useRef(null);

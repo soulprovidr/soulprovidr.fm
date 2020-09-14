@@ -7,7 +7,7 @@ import c from 'classnames';
 import { PlayerStatus } from '@/modules/player/constants';
 import { useClickAction } from '@/modules/player/hooks';
 import { getMeta, getProgress, getSrc, getStatus } from '@/modules/player/selectors';
-import DefaultCover from '@/modules/static/images/default.png';
+import DefaultCover from '@/static/images/default.png';
 import { Box, Flex } from '@/theme';
 
 import StatusIndicator from './StatusIndicator';

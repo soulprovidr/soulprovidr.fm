@@ -43,21 +43,21 @@ module.exports = {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'entities',
-        path: path.join(__dirname, 'src', 'content', 'entities')
+        path: path.join(__dirname, 'data', 'entities')
       }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'images',
-        path: path.join(__dirname, 'src', 'content', 'images')
+        path: path.join(__dirname, 'data', 'images')
       }
     },
     {
       resolve: 'gatsby-source-filesystem',
       options: {
         name: 'posts',
-        path: path.join(__dirname, 'src', 'content', 'posts')
+        path: path.join(__dirname, 'data', 'posts')
       }
     }
   ],

@@ -2,7 +2,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import chunk from 'lodash.chunk';
 import c from 'classnames';
 
-import Spinner from '@/pages/common/Spinner';
+import Spinner from '@/components/Spinner';
 import average from '@/util/average';
 import useIsMouseOver from '@/hooks/useIsMouseOver';
 import { useWaveform } from '../';
