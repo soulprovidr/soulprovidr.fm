@@ -2,24 +2,18 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import LiveIcon from '@/pages/common/LiveIcon';
-import PauseIcon from '@/pages/common/PauseIcon';
-import PlayIcon from '@/pages/common/PlayIcon';
-import ProgressBar from '@/modules/player/components/ProgressBar';
 import DefaultCover from '@/modules/static/images/default.png';
 import { RadioUrl, getMeta as getRadioMeta } from '@/modules/radio';
 import { Box, Card, Flex, Heading, Text } from '@/theme';
 
 import { PlayerStatus } from '../constants';
 import { useClickAction } from '../hooks';
-import { getMeta, getProgress, getStatus } from '../selectors';
 import StatusIndicator from './StatusIndicator';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 const PlayerCard = (props) => {
   const meta = useSelector(getRadioMeta);
-  console.log(meta);
   // const progress = useSelector(getProgress);
   // const status = useSelector(getStatus);
 

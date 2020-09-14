@@ -14,7 +14,6 @@ const ArticleCard = ({ post, ...props }) => {
   const linkRef = useRef(null);
 
   const soundCloudUrl = get(post, 'frontmatter.soundCloudUrl', null);
-  console.log(soundCloudUrl);
   const track = useTrack(soundCloudUrl);
 
   const isPlaying = useIsPlaying(track?.stream_url);

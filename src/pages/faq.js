@@ -38,19 +38,19 @@ function FAQ({ data }) {
           Its mission is simple: to heal the world through the power of funk,
           soul, and software.
         </Text>
-        <Text fontWeight="bold">What is The Mood®?</Text>
+        <Text fontWeight="bold">What can The Mood® do for me?</Text>
         <Text>
-          <i>The Mood®</i> is a{' '}
-          <Link to="/mixtapes">monthly mixtape series</Link> designed to unlock
-          the power of the human mind. Thanks to our patented mixtape
-          technology,
-          <i>The Mood®</i> has been found to be up to 50% more effective than
-          the next leading brand.
+          <i>The Mood®</i> is a monthly mixtape series designed to unlock the
+          power of the human mind.
+        </Text>
+        <Text>
+          Feeling anxious? Depressed? Heartbroken? Thanks to{' '}
+          <Link to="/mixtapes">our patented mixtape technology</Link>,{' '}
+          <i>The Mood®</i> may be the right choice for you*.
         </Text>
         <Text fontWeight="bold">How can I get in touch?</Text>
+        <Text>Soul Provider would love to hear from you.</Text>
         <Text>
-          Soul Provider would love to hear from you. Feel free to get in touch
-          via email:{' '}
           <a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a>
         </Text>
       </Page.Content>
