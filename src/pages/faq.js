@@ -55,9 +55,7 @@ function FAQ({ data }) {
         </Text>
       </Page.Content>
       <Page.Meta>
-        <Box pb={5}>
-          <SubscribeWidget />
-        </Box>
+        <SubscribeWidget />
         <Heading as="h5" pb={4}>
           OTHER STUFF YOU MIGHT LIKE:
         </Heading>

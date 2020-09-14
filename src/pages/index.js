@@ -44,9 +44,7 @@ function Home({ data }) {
         <PlayerCard />
       </Page.Content>
       <Page.Meta>
-        <Box pb={5}>
-          <SubscribeWidget />
-        </Box>
+        <SubscribeWidget />
         <Heading as="h5" pb={3}>
           LATEST CONTENT
         </Heading>

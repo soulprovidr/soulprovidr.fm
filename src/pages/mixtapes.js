@@ -30,9 +30,7 @@ function Mixtapes({ data }) {
       <Global styles={globalStyles} />
       <Page.Title>Mixtapes</Page.Title>
       <Page.Content>
-        <Box pb={5}>
-          <SubscribeWidget />
-        </Box>
+        <SubscribeWidget />
         <Box>
           <Masonry
             breakpointCols={{
@@ -61,6 +59,7 @@ export default Mixtapes;
 export const pageQuery = graphql`
   query MixtapesQuery {
     allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { eq: "mixtape" } } } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 6
     ) {

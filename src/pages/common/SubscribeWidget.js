@@ -1,19 +1,19 @@
 import React from 'react';
 import { Box, Flex, Heading, Input, Logo, Text } from '@/theme';
 
-const StyledSubscribeWidget = (props) => (
-  <Flex
-    justifyContent="space-between"
-    bg="white"
-    border="1px solid #eee"
-    borderLeft="none"
-    borderRight="none"
-    p={3}
-    position={['block', 'sticky']}
-    top="-1px"
-    zIndex="2"
-    {...props}
-  />
+const StyledSubscribeWidget = ({ children }) => (
+  <Box pb={5} position={['block', 'sticky']} top="-1px" zIndex="2">
+    <Flex
+      justifyContent="space-between"
+      bg="white"
+      border="1px solid #eee"
+      borderLeft="none"
+      borderRight="none"
+      p={3}
+    >
+      {children}
+    </Flex>
+  </Box>
 );
 
 const SubscribeWidget = () => (
