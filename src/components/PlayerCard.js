@@ -54,7 +54,7 @@ const PlayerCard = (props) => {
   const imageStyles = {
     borderRadius: 0,
     width: '100%',
-    mr: 4
+    mr: [0, 4]
   };
   const image = (
     <Box as="img" src={cover ?? DefaultCover} alt={imageAlt} sx={imageStyles} />
