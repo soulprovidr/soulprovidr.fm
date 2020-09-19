@@ -3,11 +3,11 @@ import { Link } from 'gatsby';
 import Image from 'gatsby-image';
 import get from 'lodash.get';
 
-import PauseIcon from '@/components/PauseIcon';
-import PlayIcon from '@/components/PlayIcon';
-import { useClickAction, useIsPlaying } from '@/modules/player/hooks';
-import { useTrack } from '@/modules/soundcloud';
-import { Card, Heading } from '@/theme';
+import { useClickAction, useIsPlaying } from 'modules/player/hooks';
+import { useTrack } from 'modules/soundcloud';
+import { Card, Heading, Text } from 'theme';
+import PauseIcon from 'ui/components/PauseIcon';
+import PlayIcon from 'ui/components/PlayIcon';
 
 const ArticleCard = ({ post, ...props }) => {
   const linkRef = useRef(null);
@@ -52,12 +52,12 @@ const ArticleCard = ({ post, ...props }) => {
       overlayContent={overlayContent}
       {...props}
     >
-      <Link ref={linkRef} to={post.fields.slug}>
-        <Heading as="h5" my={2}>
+      <Heading as="h3" py={2}>
+        <Link ref={linkRef} to={post.fields.slug}>
           {post.frontmatter.title}
-        </Heading>
-      </Link>
-      <div
+        </Link>
+      </Heading>
+      <Text
         dangerouslySetInnerHTML={{
           __html: post.frontmatter.description
         }}

@@ -60,7 +60,7 @@ exports.createPages = async ({ graphql, actions }) => {
       throw categoryResult.errors;
     }
 
-    const postTemplate = path.resolve('./src/templates/Article.js');
+    const postTemplate = path.resolve('./src/ui/templates/Article.js');
     const posts = categoryResult.data.allMarkdownRemark.edges;
     posts.forEach(({ node: post }) => {
       createPage({

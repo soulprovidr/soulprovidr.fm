@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Heading, Input, Logo, Text } from '@/theme';
+import { Box, Flex, Heading, Input, Logo, Text } from 'theme';
 
 const StyledSubscribeWidget = ({ children }) => (
   <Box pb={5} position={['block', 'sticky']} top="-1px" zIndex="2">
@@ -22,8 +22,10 @@ const SubscribeWidget = () => (
     <Flex alignItems="center">
       <Logo flexShrink={0} mr={3} />
       <Box>
-        <Heading as="h5">In the mood to groove?</Heading>
-        <Text m={0}>
+        <Heading as="h3" p={0}>
+          In the mood to groove?
+        </Heading>
+        <Text p={0}>
           Get a free mixtape delivered to your inbox every month.
         </Text>
       </Box>

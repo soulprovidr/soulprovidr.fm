@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'gatsby-link';
+import { Box, Flex } from 'theme';
 
-import LiveIcon from '@/components/LiveIcon';
-import { Box, Flex } from '@/theme';
+import LiveIcon from '../components/LiveIcon';
 
 const links = [
   {

@@ -1,14 +1,14 @@
 import React from 'react';
 import get from 'lodash/get';
+import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
+import { Box } from 'theme';
 
-import { Page } from '@/templates';
-import { Box, Heading, Text } from '@/theme';
-
-import ArticleCard from '@/components/ArticleCard';
-import SubscribeWidget from '@/components/SubscribeWidget';
+import ArticleCard from '../components/ArticleCard';
+import SubscribeWidget from '../components/SubscribeWidget';
+import { Page } from '../templates';
 
 const globalStyles = css`
   .masonry-container {
@@ -22,56 +22,46 @@ const globalStyles = css`
   }
 `;
 
-function PageNotFound({ data }) {
+function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="Page not found">
+    <Page.Container title="Mixtapes">
+      <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
-      <Page.Title>Page not found</Page.Title>
+      <Page.Title>Mixtapes</Page.Title>
       <Page.Content>
-        <Text>Unfortunately, the page you requested could not be found.</Text>
-        <Box textAlign="center" py={3}>
-          <Box
-            as="img"
-            src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
-          />
+        <SubscribeWidget />
+        <Box>
+          <Masonry
+            breakpointCols={{
+              default: 3,
+              768: 1
+            }}
+            className="masonry-container"
+            columnClassName="masonry-column"
+          >
+            {posts.map(({ node: post }) => (
+              <ArticleCard
+                post={post}
+                key={post.frontmatter.title}
+                sx={{ mb: 4 }}
+              />
+            ))}
+          </Masonry>
         </Box>
       </Page.Content>
-      <Page.Meta>
-        <Box pb={5}>
-          <SubscribeWidget />
-        </Box>
-        <Heading as="h5" pb={4}>
-          OTHER STUFF YOU MIGHT LIKE:
-        </Heading>
-        <Masonry
-          breakpointCols={{
-            default: 3,
-            768: 1
-          }}
-          className="masonry-container"
-          columnClassName="masonry-column"
-        >
-          {posts.map(({ node: post }) => (
-            <ArticleCard
-              post={post}
-              key={post.frontmatter.title}
-              sx={{ mb: 4 }}
-            />
-          ))}
-        </Masonry>
-      </Page.Meta>
     </Page.Container>
   );
 }
 
-export default PageNotFound;
+export default Mixtapes;
 
 export const pageQuery = graphql`
-  query PageNotFoundQuery {
+  query MixtapesQuery {
     allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { eq: "mixtape" } } } }
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 3
+      limit: 6
     ) {
       edges {
         node {

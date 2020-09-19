@@ -1,6 +1,6 @@
 import React from 'react';
 
-import LogoImage from '@/static/images/logo.svg';
+import LogoImage from 'ui/static/images/logo.svg';
 import { Box } from './Box';
 
 export const Logo = ({ size = 45, ...props }) => (

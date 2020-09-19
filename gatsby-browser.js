@@ -1,10 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-
-import { Layout } from '@/layout';
 import store from '@/store';
-
-import 'bootstrap/dist/css/bootstrap.css';
+import { Layout } from 'ui/layout';
 
 export const registerServiceWorker = () => true;
 

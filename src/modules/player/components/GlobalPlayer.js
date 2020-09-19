@@ -1,19 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
-import { useLocation } from '@reach/router';
 import c from 'classnames';
 
-import { PlayerStatus } from '@/modules/player/constants';
-import { useClickAction } from '@/modules/player/hooks';
+import { PlayerStatus } from 'modules/player/constants';
+import { useClickAction } from 'modules/player/hooks';
 import {
   getMeta,
   getProgress,
   getSrc,
   getStatus
-} from '@/modules/player/selectors';
-import DefaultCover from '@/static/images/default.png';
-import { Box, Flex } from '@/theme';
+} from 'modules/player/selectors';
+import DefaultCover from 'ui/static/images/default.png';
+import { Box, Flex } from 'theme';
 
 import StatusIndicator from './StatusIndicator';
 import ProgressBar from './ProgressBar';

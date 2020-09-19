@@ -1,15 +1,15 @@
 import React from 'react';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
-import Link from 'gatsby-link';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
+import { Box, Heading, Flex } from 'theme';
 
-import { Page } from '@/templates';
-import { Heading, Text } from '@/theme';
-
-import ArticleCard from '@/components/ArticleCard';
-import SubscribeWidget from '@/components/SubscribeWidget';
+import RadioCard from '../components/RadioCard';
+import ArticleCard from '../components/ArticleCard';
+import LiveIcon from '../components/LiveIcon';
+import SubscribeWidget from '../components/SubscribeWidget';
+import { Page } from '../templates';
 
 const globalStyles = css`
   .masonry-container {
@@ -23,41 +23,30 @@ const globalStyles = css`
   }
 `;
 
-function FAQ({ data }) {
+const Title = () => (
+  <Page.Title>
+    <Flex alignItems="center">
+      <LiveIcon size={12} color="red" />
+      <Box as="span" ml={2}>
+        LIVE
+      </Box>
+    </Flex>
+  </Page.Title>
+);
+
+function Home({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="FAQ">
+    <Page.Container title="Live">
       <Global styles={globalStyles} />
-      <Page.Title>FAQ</Page.Title>
+      <Title />
       <Page.Content>
-        <Text fontWeight="bold">What is Soul Provider?</Text>
-        <Text>
-          Soul Provider is an online radio station based in Winnipeg, Canada.
-        </Text>
-        <Text>
-          Its mission is simple: to heal the world through the power of funk,
-          soul, and software.
-        </Text>
-        <Text fontWeight="bold">What can The Mood® do for me?</Text>
-        <Text>
-          <i>The Mood®</i> is a monthly mixtape series designed to unlock the
-          power of the human mind.
-        </Text>
-        <Text>
-          Feeling anxious? Depressed? Heartbroken? Thanks to{' '}
-          <Link to="/mixtapes">our patented mixtape technology</Link>,{' '}
-          <i>The Mood®</i> may be the right choice for you*.
-        </Text>
-        <Text fontWeight="bold">How can I get in touch?</Text>
-        <Text>Soul Provider would love to hear from you.</Text>
-        <Text>
-          <a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a>
-        </Text>
+        <RadioCard />
       </Page.Content>
       <Page.Meta>
         <SubscribeWidget />
-        <Heading as="h5" pb={4}>
-          OTHER STUFF YOU MIGHT LIKE:
+        <Heading as="h3" pb={3}>
+          LATEST CONTENT
         </Heading>
         <Masonry
           breakpointCols={{
@@ -80,13 +69,13 @@ function FAQ({ data }) {
   );
 }
 
-export default FAQ;
+export default Home;
 
 export const pageQuery = graphql`
-  query FAQQuery {
+  query HomeQuery {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 3
+      limit: 6
     ) {
       edges {
         node {

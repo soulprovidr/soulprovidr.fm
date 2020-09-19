@@ -2,17 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import DefaultCover from '@/static/images/default.png';
-import { RadioUrl, getMeta as getRadioMeta } from '@/modules/radio';
-import { Box, Flex, Heading, Text } from '@/theme';
+import DefaultCover from 'ui/static/images/default.png';
+import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
+import { Box, Flex, Heading, Text } from 'theme';
 
-import { PlayerStatus } from '@/modules/player/constants';
-import { useClickAction } from '@/modules/player/hooks';
-import StatusIndicator from '@/modules/player/components/StatusIndicator';
+import { PlayerStatus } from 'modules/player/constants';
+import { useClickAction } from 'modules/player/hooks';
+import StatusIndicator from 'modules/player/components/StatusIndicator';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
-const StyledPlayerCard = (props) => (
+const StyledRadioCard = (props) => (
   <Flex
     sx={{
       cursor: 'pointer',
@@ -22,7 +22,7 @@ const StyledPlayerCard = (props) => (
   />
 );
 
-const PlayerCard = (props) => {
+const RadioCard = (props) => {
   const meta = useSelector(getRadioMeta);
   // const progress = useSelector(getProgress);
   // const status = useSelector(getStatus);
@@ -61,7 +61,7 @@ const PlayerCard = (props) => {
   );
 
   return (
-    <StyledPlayerCard onClick={onClick}>
+    <StyledRadioCard onClick={onClick}>
       <Box width={[1, 1 / 3]}>{image}</Box>
       <Flex
         flexDirection="column"
@@ -72,7 +72,7 @@ const PlayerCard = (props) => {
         width={[1, 2 / 3]}
       >
         <Box>
-          <Heading as="h2" sx={titleStyles}>
+          <Heading as="h1" pb={1} sx={titleStyles}>
             {title ?? 'Loading...'}
           </Heading>
           <Text fontSize={5} m={0}>
@@ -80,8 +80,8 @@ const PlayerCard = (props) => {
           </Text>
         </Box>
       </Flex>
-    </StyledPlayerCard>
+    </StyledRadioCard>
   );
 };
 
-export default PlayerCard;
+export default RadioCard;

@@ -1,8 +1,8 @@
 import React from 'react';
+import { Flex, Text } from 'theme';
 
-import { PlayerStatus } from '@/modules/player/constants';
-import msToTime from '@/modules/player/helpers/msToTime';
-import { Flex, Text } from '@/theme';
+import { PlayerStatus } from '../constants';
+import msToTime from '../helpers/msToTime';
 
 const { BUFFERING } = PlayerStatus;
 

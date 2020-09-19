@@ -1,11 +1,11 @@
 import React from 'react';
+import { Box } from 'theme';
 
 // https://www.iconfinder.com/iconsets/picons-social
-import GithubIcon from '@/static/images/github.svg';
-import InstagramIcon from '@/static/images/instagram.svg';
-import RedditIcon from '@/static/images/reddit.svg';
-import SpotifyIcon from '@/static/images/spotify.svg';
-import { Box } from '@/theme';
+import GithubIcon from '../static/images/github.svg';
+import InstagramIcon from '../static/images/instagram.svg';
+import RedditIcon from '../static/images/reddit.svg';
+import SpotifyIcon from '../static/images/spotify.svg';
 
 const icons = [
   {

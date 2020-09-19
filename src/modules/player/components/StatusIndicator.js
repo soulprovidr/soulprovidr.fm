@@ -1,12 +1,10 @@
 import React, { useCallback } from 'react';
+import { Box } from 'theme';
+import Spinner from 'ui/components/Spinner';
+import PlayIcon from 'ui/components/PlayIcon';
+import PauseIcon from 'ui/components/PauseIcon';
 
-import { PlayerStatus } from '@/modules/player/constants';
-
-import Spinner from '@/components/Spinner';
-import PlayIcon from '@/components/PlayIcon';
-import PauseIcon from '@/components/PauseIcon';
-
-import { Box } from '@/theme';
+import { PlayerStatus } from '../constants';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 

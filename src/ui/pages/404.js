@@ -3,14 +3,11 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
+import { Box, Heading, Text } from 'theme';
 
-import PlayerCard from '@/components/PlayerCard';
-import { Page } from '@/templates';
-import { Box, Heading, Flex } from '@/theme';
-
-import ArticleCard from '@/components/ArticleCard';
-import LiveIcon from '@/components/LiveIcon';
-import SubscribeWidget from '@/components/SubscribeWidget';
+import ArticleCard from '../components/ArticleCard';
+import SubscribeWidget from '../components/SubscribeWidget';
+import { Page } from '../templates';
 
 const globalStyles = css`
   .masonry-container {
@@ -24,30 +21,27 @@ const globalStyles = css`
   }
 `;
 
-const Title = () => (
-  <Page.Title>
-    <Flex alignItems="center">
-      <LiveIcon size={12} color="red" />
-      <Box as="span" ml={2}>
-        LIVE
-      </Box>
-    </Flex>
-  </Page.Title>
-);
-
-function Home({ data }) {
+function PageNotFound({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="Live">
+    <Page.Container title="Page not found">
       <Global styles={globalStyles} />
-      <Title />
+      <Page.Title>Page not found</Page.Title>
       <Page.Content>
-        <PlayerCard />
+        <Text>Unfortunately, the page you requested could not be found.</Text>
+        <Box textAlign="center" py={3}>
+          <Box
+            as="img"
+            src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
+          />
+        </Box>
       </Page.Content>
       <Page.Meta>
-        <SubscribeWidget />
-        <Heading as="h5" pb={3}>
-          LATEST CONTENT
+        <Box pb={5}>
+          <SubscribeWidget />
+        </Box>
+        <Heading as="h3" pb={4}>
+          OTHER STUFF YOU MIGHT LIKE:
         </Heading>
         <Masonry
           breakpointCols={{
@@ -70,13 +64,13 @@ function Home({ data }) {
   );
 }
 
-export default Home;
+export default PageNotFound;
 
 export const pageQuery = graphql`
-  query HomeQuery {
+  query PageNotFoundQuery {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 6
+      limit: 3
     ) {
       edges {
         node {

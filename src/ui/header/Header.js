@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 
-import { Box, Flex, Logo, Text } from '@/theme';
+import { Box, Flex, Heading, Logo } from 'theme';
 
 import { Links } from './Links';
 import { Icons } from './Icons';
@@ -30,15 +30,15 @@ const Title = () => (
     <Link to="/">
       <Logo mr={3} />
     </Link>
-    <Text as="h5" m={0} fontWeight="bold">
+    <Heading as="h3" p={0} fontWeight="bold">
       <Box as={Link} to="/" color="textPrimary">
         SOUL PROVIDER
       </Box>
-    </Text>
+    </Heading>
   </Flex>
 );
 
-const Header = () => (
+export const Header = () => (
   <StyledHeader>
     <Box px={[2, 5]} py={[2, 4]}>
       <Flex alignItems="center" justifyContent="space-between" px={2}>
@@ -55,5 +55,3 @@ const Header = () => (
     </Box>
   </StyledHeader>
 );
-
-export default Header;

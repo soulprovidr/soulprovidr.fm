@@ -1,4 +1,4 @@
-import fetchJson from '@/util/fetchJson';
+import fetchJson from 'common/helpers/fetchJson';
 import { updateMeta } from '../actions';
 import { RadioMetaUrl } from '../constants';
 

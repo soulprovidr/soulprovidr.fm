@@ -2,9 +2,9 @@ import React, { useMemo, useRef, useState } from 'react';
 import chunk from 'lodash.chunk';
 import c from 'classnames';
 
-import Spinner from '@/components/Spinner';
-import average from '@/util/average';
-import useIsMouseOver from '@/hooks/useIsMouseOver';
+import Spinner from 'ui/components/Spinner';
+import average from 'common/helpers/average';
+import useIsMouseOver from 'common/hooks/useIsMouseOver';
 import { useWaveform } from '../';
 
 import styles from './Waveform.module.css';
@@ -19,7 +19,7 @@ function Waveform({
   numSamples,
   onSeek,
   reflectionHeight,
-  waveformUrl,
+  waveformUrl
 }) {
   const waveformRef = useRef(null);
 
@@ -71,7 +71,7 @@ function Waveform({
           height: sampleHeight,
           marginRight: 1,
           // transition: `background ${transitionDuration}s linear`,
-          width: `calc(${sampleWidthPercent}% - 1px)`,
+          width: `calc(${sampleWidthPercent}% - 1px)`
         }}
       />
     );
@@ -115,7 +115,7 @@ Waveform.defaultProps = {
   numSamples: 150,
   onSeek: () => null,
   percentProgress: 25,
-  reflectionHeight: 50,
+  reflectionHeight: 50
 };
 
 export default Waveform;

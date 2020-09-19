@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import { Box, Container, Heading } from '@/theme';
+import { Box, Container, Heading } from 'theme';
 
 const PageContainer = ({ children, title }) => (
   <Container as="main">
@@ -11,8 +11,8 @@ const PageContainer = ({ children, title }) => (
 );
 
 const PageTitle = ({ children }) => (
-  <Box pb={3}>
-    <Heading as="h2" sx={{ textTransform: 'uppercase' }}>
+  <Box>
+    <Heading as="h1" sx={{ textTransform: 'uppercase' }}>
       {children}
     </Heading>
   </Box>
