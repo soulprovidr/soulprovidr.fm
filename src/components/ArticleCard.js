@@ -52,15 +52,11 @@ const ArticleCard = ({ post, ...props }) => {
       overlayContent={overlayContent}
       {...props}
     >
-      <Heading as="h5" my={2}>
-        <Link
-          className="text-dark font-weight-bold"
-          ref={linkRef}
-          to={post.fields.slug}
-        >
+      <Link ref={linkRef} to={post.fields.slug}>
+        <Heading as="h5" my={2}>
           {post.frontmatter.title}
-        </Link>
-      </Heading>
+        </Heading>
+      </Link>
       <div
         dangerouslySetInnerHTML={{
           __html: post.frontmatter.description

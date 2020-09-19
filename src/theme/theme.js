@@ -2,8 +2,10 @@ import './fonts/hk-grotesk/hk-grotesk.css';
 import './fonts/inter/inter.css';
 
 export default {
+  borders: ['1px solid #eee'],
   colors: {
-    textDark: '#343a40'
+    bg: 'white',
+    textPrimary: '#343a40'
   },
   fonts: {
     body: 'inter, Helvetica Neue',

@@ -6,7 +6,12 @@ import c from 'classnames';
 
 import { PlayerStatus } from '@/modules/player/constants';
 import { useClickAction } from '@/modules/player/hooks';
-import { getMeta, getProgress, getSrc, getStatus } from '@/modules/player/selectors';
+import {
+  getMeta,
+  getProgress,
+  getSrc,
+  getStatus
+} from '@/modules/player/selectors';
 import DefaultCover from '@/static/images/default.png';
 import { Box, Flex } from '@/theme';
 
@@ -44,21 +49,20 @@ export function GlobalPlayer() {
   const status = useSelector(getStatus);
 
   const onClickAction = useClickAction(src, meta);
-  const location = useLocation();
 
   const duration = get(meta, 'duration', 0);
   const isVisible = status >= BUFFERING;
 
   return (
     <Box
+      bg="bg"
       position="fixed"
       right={0}
       bottom={0}
       left={0}
       px={4}
       py={2}
-      bg="white"
-      borderTop="1px solid #eeee"
+      borderTop={0}
       sx={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(100%)',

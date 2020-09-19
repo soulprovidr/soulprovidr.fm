@@ -17,6 +17,7 @@ const globalStyles = (theme) => css`
   h4,
   h5,
   h6 {
+    color: ${theme.colors.textPrimary};
     font-family: ${theme.fonts.heading};
     font-weight: bold;
   }

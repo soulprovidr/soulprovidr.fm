@@ -4,10 +4,10 @@ import { Box, Flex, Heading, Input, Logo, Text } from '@/theme';
 const StyledSubscribeWidget = ({ children }) => (
   <Box pb={5} position={['block', 'sticky']} top="-1px" zIndex="2">
     <Flex
+      bg="bg"
       flexDirection={['column', 'row']}
       justifyContent="space-between"
-      bg="white"
-      border="1px solid #eee"
+      border={0}
       borderLeft="none"
       borderRight="none"
       p={3}
