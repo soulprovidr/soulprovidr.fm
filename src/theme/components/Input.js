@@ -3,7 +3,8 @@ import css from '@styled-system/css';
 
 export const Input = styled('input')(
   css({
-    px: 2,
-    py: 2
+    fontSize: '1em',
+    px: 3,
+    py: [3, 2]
   })
 );

@@ -5,6 +5,10 @@ import { Global, css } from '@emotion/core';
 import theme from './theme';
 
 const globalStyles = (theme) => css`
+  * {
+    box-sizing: border-box;
+  }
+
   html,
   body {
     font-family: ${theme.fonts.body};

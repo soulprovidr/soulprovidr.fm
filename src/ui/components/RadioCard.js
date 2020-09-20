@@ -10,7 +10,7 @@ import {
   usePlayerStatus
 } from 'modules/player/hooks';
 import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
-import { Box, Card, Flex, Heading, Text } from 'theme';
+import { Card, Heading, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
 import PlayIcon from 'ui/components/PlayIcon';
 import DefaultCover from 'ui/static/images/default.png';
@@ -18,11 +18,12 @@ import useIsMouseOver from '../../common/hooks/useIsMouseOver';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
-const RadioCardContainer = React.forwardRef((props, ref) => (
-  <Card.Container ref={ref}>
-    <Flex flexDirection={['column', 'row']} {...props} />
-  </Card.Container>
-));
+const RadioCardContainer = styled(Card.Container)(
+  css({
+    display: 'flex',
+    flexDirection: ['column', 'row']
+  })
+);
 
 const RadioCardHeader = styled(Card.Header)(
   css({
@@ -31,15 +32,23 @@ const RadioCardHeader = styled(Card.Header)(
   })
 );
 
-const RadioCardContent = (props) => (
-  <Flex
-    flexDirection="column"
-    justifyContent="center"
-    overflow="hidden"
-    mt={3}
-    width={[1, 2 / 3]}
-    {...props}
-  />
+const RadioCardImage = styled('img')(
+  css({
+    borderRadius: 0,
+    verticalAlign: 'bottom',
+    width: '100%'
+  })
+);
+
+const RadioCardContent = styled('div')(
+  css({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    mt: 3,
+    width: ['100%', '66%']
+  })
 );
 
 const RadioCardTitle = styled(Heading)(
@@ -88,14 +97,7 @@ const RadioCard = () => {
   return (
     <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
-        <Box
-          as="img"
-          borderRadius={0}
-          verticalAlign="bottom"
-          width={1}
-          src={cover ?? DefaultCover}
-          alt={imageAlt}
-        />
+        <RadioCardImage src={cover ?? DefaultCover} alt={imageAlt} />
         <Card.Overlay force={!isPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
