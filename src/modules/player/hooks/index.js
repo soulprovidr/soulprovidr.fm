@@ -3,3 +3,4 @@ import useIsActive from './useIsActive';
 import useIsPlaying from './useIsPlaying';
 
 export { useClickAction, useIsActive, useIsPlaying };
+export * from './usePlayerStatus';

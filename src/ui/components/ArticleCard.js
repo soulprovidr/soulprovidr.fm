@@ -38,7 +38,7 @@ const ArticleCard = ({ post, ...props }) => {
   );
 
   return (
-    <Card
+    <Card.Container
       badgeColour={post.frontmatter.category.colour}
       badgeText={post.frontmatter.category.label}
       image={image}
@@ -62,7 +62,7 @@ const ArticleCard = ({ post, ...props }) => {
           __html: post.frontmatter.description
         }}
       />
-    </Card>
+    </Card.Container>
   );
 };
 

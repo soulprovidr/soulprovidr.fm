@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 import { PlayerStatus } from 'modules/player/constants';
-import { useClickAction } from 'modules/player/hooks';
+import {
+  useClickAction,
+  useIsPlaying,
+  usePlayerStatus
+} from 'modules/player/hooks';
 import StatusIndicator from 'modules/player/components/StatusIndicator';
 import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
-import { Box, Flex, Heading, Text } from 'theme';
+import { Box, Card, Flex, Heading, Text } from 'theme';
+import PauseIcon from 'ui/components/PauseIcon';
+import PlayIcon from 'ui/components/PlayIcon';
 import DefaultCover from 'ui/static/images/default.png';
+import useIsMouseOver from '../../common/hooks/useIsMouseOver';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
@@ -17,20 +24,21 @@ const transitionStyles = {
   }
 };
 
-const StyledRadioCard = (props) => (
+const StyledRadioCard = React.forwardRef((props, ref) => (
   <Flex
     flexDirection={['column', 'row']}
     sx={{
       cursor: 'pointer',
       ...transitionStyles
     }}
+    ref={ref}
     {...props}
   />
-);
+));
 
-const StyledRadioCardImage = (props) => (
+const StyledRadioCardImage = ({ alt, src, ...props }) => (
   <Box mr={[0, 5]} width={[1, 1 / 3]}>
-    <Box as="img" borderRadius={0} width={1} {...props} />
+    <Card.Image alt={alt} src={src} {...props} />
   </Box>
 );
 
@@ -55,7 +63,12 @@ const StyledRadioCardTitle = (props) => (
 );
 
 const RadioCard = () => {
+  const containerRef = useRef(null);
+
   const meta = useSelector(getRadioMeta);
+  const isMouseOver = useIsMouseOver(containerRef);
+  const isPlaying = useIsPlaying(RadioUrl);
+  const playerStatus = usePlayerStatus();
 
   const getMetaProperty = (property) => get(meta, property, null);
   const artist = getMetaProperty('artist');
@@ -74,9 +87,23 @@ const RadioCard = () => {
     false
   );
 
+  const renderOverlayContent = () => {
+    switch (playerStatus) {
+      case PLAYING:
+      case BUFFERING:
+        return <PauseIcon color="white" size="50" />;
+      default:
+        return <PlayIcon color="white" size="50" />;
+    }
+  };
+
   return (
-    <StyledRadioCard onClick={onClick}>
-      <StyledRadioCardImage src={cover ?? DefaultCover} alt={imageAlt} />
+    <StyledRadioCard onClick={onClick} ref={containerRef}>
+      <StyledRadioCardImage src={cover ?? DefaultCover} alt={imageAlt}>
+        <Card.Overlay force={!isPlaying || isMouseOver}>
+          {renderOverlayContent()}
+        </Card.Overlay>
+      </StyledRadioCardImage>
       <StyledRadioCardContent>
         <StyledRadioCardTitle>{title ?? 'Loading...'}</StyledRadioCardTitle>
         <Text fontSize={5}>{artist}</Text>

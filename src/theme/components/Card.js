@@ -21,50 +21,69 @@ const badgeStyles = {
   zIndex: 1
 };
 
-const overlayStyles = {
-  bg: 'rgba(0, 0, 0, 0.2)',
-  position: 'absolute',
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
-  zIndex: 1,
-  transition: `opacity 200ms ${transitionTimingFn}`,
-  opacity: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  '&:hover': {
-    opacity: 1
-  }
-};
+const CardOverlay = ({ force = false, ...props }) => (
+  <Box
+    sx={{
+      bg: 'rgba(0, 0, 0, 0.2)',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      zIndex: 1,
+      transition: `opacity 200ms ${transitionTimingFn}`,
+      opacity: force ? 1 : 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      '&:hover': {
+        opacity: 1
+      }
+    }}
+    {...props}
+  />
+);
 
-export const Card = ({
+const CardImage = ({ children, ...props }) => (
+  <Box position="relative">
+    <Box
+      as="img"
+      borderRadius={0}
+      verticalAlign="bottom"
+      width={1}
+      {...props}
+    />
+    {children}
+  </Box>
+);
+
+const CardContainer = ({
   badgeColour,
   badgeText,
   children,
   image,
   onClick,
   overlayContent,
-  forceOverlay,
   sx = {},
   ...props
 }) => {
   const customCardStyles = { ...cardStyles, ...sx };
-  const customOverlayStyles = {
-    ...overlayStyles,
-    opacity: forceOverlay ? 1 : 0
-  };
   return (
     <Box onClick={onClick} sx={customCardStyles} {...props}>
       <Badge bg={badgeColour} sx={badgeStyles}>
         {badgeText}
       </Badge>
       <Box position="relative">
-        {overlayContent && <Box sx={customOverlayStyles}>{overlayContent}</Box>}
+        {overlayContent && <CardOverlay>{overlayContent}</CardOverlay>}
         {image}
       </Box>
       {children && <Box py={2}>{children}</Box>}
     </Box>
   );
+};
+
+export const Card = {
+  Container: CardContainer,
+  Image: CardImage,
+  Overlay: CardOverlay
 };
