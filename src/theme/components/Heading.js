@@ -1,11 +1,15 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
+import { space } from 'styled-system';
 
-import { Text } from './Text';
-
-export const Heading = (props) => (
-  <Text as={props.as} lineHeight="1.25" pb={3} {...props} />
+export const Heading = styled('h1')(
+  ({ bg = 'transparent', color = 'textPrimary', lineHeight = '1.5' }) =>
+    css({
+      bg,
+      color,
+      lineHeight,
+      pb: 3,
+      m: 0
+    }),
+  space
 );
-
-Heading.defaultProps = {
-  as: 'h1'
-};

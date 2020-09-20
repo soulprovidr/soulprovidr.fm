@@ -42,13 +42,12 @@ const RadioCardContent = (props) => (
   />
 );
 
-const RadioCardTitle = (props) => (
-  <Heading
-    as="h1"
-    pb={1}
-    sx={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}
-    {...props}
-  />
+const RadioCardTitle = styled(Heading)(
+  css({
+    pb: 1,
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap'
+  })
 );
 
 const RadioCard = () => {

@@ -49,19 +49,6 @@ const CardOverlay = styled('div')(({ force = false }) =>
 
 const CardHeader = styled('div')({ position: 'relative' });
 
-const CardImage = ({ children, ...props }) => (
-  <CardHeader>
-    <Box
-      as="img"
-      borderRadius={0}
-      verticalAlign="bottom"
-      width={1}
-      {...props}
-    />
-    {children}
-  </CardHeader>
-);
-
 const CardOld = ({
   badgeColour,
   badgeText,
@@ -86,6 +73,5 @@ export const Card = {
   Old: CardOld,
   Container: CardContainer,
   Header: CardHeader,
-  Image: CardImage,
   Overlay: CardOverlay
 };

@@ -1,7 +1,9 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 
-import { Box } from './Box';
-
-export const Input = (props) => (
-  <Box as="input" type="text" py={1} px={2} {...props} />
+export const Input = styled('input')(
+  css({
+    px: 2,
+    py: 2
+  })
 );

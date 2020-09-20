@@ -1,17 +1,21 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
+import { flexbox, layout, space } from 'styled-system';
 
 import LogoImage from 'ui/static/images/logo.svg';
-import { Box } from './Box';
 
-export const Logo = ({ size = 45, ...props }) => (
-  <Box
-    as="img"
-    src={LogoImage}
-    borderRadius="50%"
-    display="inline-block"
-    verticalAlign="middle"
-    width={size}
-    height={size}
-    {...props}
-  />
+export const Logo = styled('div')(
+  ({ size = 45 }) =>
+    css({
+      backgroundImage: `url(${LogoImage})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      borderRadius: '50%',
+      height: size,
+      width: size,
+      verticalAlign: 'middle'
+    }),
+  flexbox,
+  layout,
+  space
 );
