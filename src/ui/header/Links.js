@@ -50,9 +50,12 @@ const StyledLink = ({ children, href }) => (
   </Box>
 );
 
-export const Links = () =>
-  links.map((link) => (
-    <StyledLink key={link.href} href={link.href}>
-      {link.children}
-    </StyledLink>
-  ));
+export const Links = (props) => (
+  <div {...props}>
+    {links.map((link) => (
+      <StyledLink key={link.href} href={link.href}>
+        {link.children}
+      </StyledLink>
+    ))}
+  </div>
+);

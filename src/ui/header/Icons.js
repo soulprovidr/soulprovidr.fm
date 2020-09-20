@@ -51,5 +51,10 @@ const Icon = ({ src, href }) => (
   </Box>
 );
 
-export const Icons = () =>
-  icons.map((icon) => <Icon key={icon.href} src={icon.src} href={icon.href} />);
+export const Icons = (props) => (
+  <div {...props}>
+    {icons.map((icon) => (
+      <Icon key={icon.href} src={icon.src} href={icon.href} />
+    ))}
+  </div>
+);
