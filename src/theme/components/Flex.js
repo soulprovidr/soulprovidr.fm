@@ -1,6 +1,6 @@
-import React from 'react';
+import styled from '@emotion/styled';
 import { Box } from './Box';
 
-export const Flex = React.forwardRef((props, ref) => (
-  <Box {...props} display="flex" ref={ref} />
-));
+export const Flex = styled(Box)({
+  display: 'flex'
+});

@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 import get from 'lodash.get';
 import { PlayerStatus } from 'modules/player/constants';
 import {
@@ -7,7 +9,6 @@ import {
   useIsPlaying,
   usePlayerStatus
 } from 'modules/player/hooks';
-import StatusIndicator from 'modules/player/components/StatusIndicator';
 import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
 import { Box, Card, Flex, Heading, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
@@ -17,32 +18,20 @@ import useIsMouseOver from '../../common/hooks/useIsMouseOver';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
-const transitionStyles = {
-  transition: 'transform 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-  '&:hover': {
-    transform: 'translate3d(0, -2px, 0)'
-  }
-};
-
-const StyledRadioCard = React.forwardRef((props, ref) => (
-  <Flex
-    flexDirection={['column', 'row']}
-    sx={{
-      cursor: 'pointer',
-      ...transitionStyles
-    }}
-    ref={ref}
-    {...props}
-  />
+const RadioCardContainer = React.forwardRef((props, ref) => (
+  <Card.Container ref={ref}>
+    <Flex flexDirection={['column', 'row']} {...props} />
+  </Card.Container>
 ));
 
-const StyledRadioCardImage = ({ alt, src, ...props }) => (
-  <Box mr={[0, 5]} width={[1, 1 / 3]}>
-    <Card.Image alt={alt} src={src} {...props} />
-  </Box>
+const RadioCardHeader = styled(Card.Header)(
+  css({
+    mr: [0, 5],
+    width: ['100%', '33%']
+  })
 );
 
-const StyledRadioCardContent = (props) => (
+const RadioCardContent = (props) => (
   <Flex
     flexDirection="column"
     justifyContent="center"
@@ -53,7 +42,7 @@ const StyledRadioCardContent = (props) => (
   />
 );
 
-const StyledRadioCardTitle = (props) => (
+const RadioCardTitle = (props) => (
   <Heading
     as="h1"
     pb={1}
@@ -98,17 +87,25 @@ const RadioCard = () => {
   };
 
   return (
-    <StyledRadioCard onClick={onClick} ref={containerRef}>
-      <StyledRadioCardImage src={cover ?? DefaultCover} alt={imageAlt}>
+    <RadioCardContainer onClick={onClick} ref={containerRef}>
+      <RadioCardHeader>
+        <Box
+          as="img"
+          borderRadius={0}
+          verticalAlign="bottom"
+          width={1}
+          src={cover ?? DefaultCover}
+          alt={imageAlt}
+        />
         <Card.Overlay force={!isPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
-      </StyledRadioCardImage>
-      <StyledRadioCardContent>
-        <StyledRadioCardTitle>{title ?? 'Loading...'}</StyledRadioCardTitle>
+      </RadioCardHeader>
+      <RadioCardContent>
+        <RadioCardTitle>{title ?? 'Loading...'}</RadioCardTitle>
         <Text fontSize={5}>{artist}</Text>
-      </StyledRadioCardContent>
-    </StyledRadioCard>
+      </RadioCardContent>
+    </RadioCardContainer>
   );
 };
 

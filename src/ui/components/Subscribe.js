@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Flex, Heading, Input, Logo, Text } from 'theme';
+import { Box, Button, Flex, Heading, Input, Logo, Text } from 'theme';
 
-const StyledSubscribeWidget = ({ children }) => (
+const SubscribeContainer = ({ children }) => (
   <Box pb={5} position={['block', 'sticky']} top="-1px" zIndex="2">
     <Flex
       bg="bg"
@@ -17,8 +17,8 @@ const StyledSubscribeWidget = ({ children }) => (
   </Box>
 );
 
-const SubscribeWidget = () => (
-  <StyledSubscribeWidget>
+const Subscribe = () => (
+  <SubscribeContainer>
     <Flex alignItems="center">
       <Logo flexShrink={0} mr={3} />
       <Box>
@@ -38,11 +38,9 @@ const SubscribeWidget = () => (
       <Box mr={2}>
         <Input placeholder="shola@soulprovidr.fm" />
       </Box>
-      <Box as="button" type="submit" className="btn btn-primary">
-        Subscribe
-      </Box>
+      <Button variant="primary">Subscribe</Button>
     </Flex>
-  </StyledSubscribeWidget>
+  </SubscribeContainer>
 );
 
-export default SubscribeWidget;
+export default Subscribe;

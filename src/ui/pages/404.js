@@ -6,7 +6,7 @@ import { Global, css } from '@emotion/core';
 import { Box, Heading, Text } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
-import SubscribeWidget from '../components/SubscribeWidget';
+import Subscribe from '../components/Subscribe';
 import { Page } from '../templates';
 
 const globalStyles = css`
@@ -38,7 +38,7 @@ function PageNotFound({ data }) {
       </Page.Content>
       <Page.Meta>
         <Box pb={5}>
-          <SubscribeWidget />
+          <Subscribe />
         </Box>
         <Heading as="h3" pb={4}>
           OTHER STUFF YOU MIGHT LIKE:

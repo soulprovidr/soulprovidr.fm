@@ -1,30 +1,18 @@
-import React from 'react';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 
-import { Flex } from './Flex';
-
-export const Badge = ({
-  bg = 'grey',
-  children,
-  color = 'white',
-  sx = {},
-  ...props
-}) => (
-  <Flex
-    sx={{
-      alignItems: 'center',
-      bg,
-      borderRadius: 0,
-      color,
-      fontFamily: 'heading',
-      fontSize: 1,
-      fontWeight: 'bold',
-      px: 2,
-      py: 1,
-      textTransform: 'uppercase',
-      ...sx
-    }}
-    {...props}
-  >
-    {children}
-  </Flex>
+export const Badge = styled('div')(({ bg = 'grey', color = 'white' }) =>
+  css({
+    alignItems: 'center',
+    bg,
+    display: 'flex',
+    borderRadius: 0,
+    color,
+    fontFamily: 'heading',
+    fontSize: 1,
+    fontWeight: 'bold',
+    px: 2,
+    py: 1,
+    textTransform: 'uppercase'
+  })
 );

@@ -7,7 +7,7 @@ import { Global, css } from '@emotion/core';
 import { Box } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
-import SubscribeWidget from '../components/SubscribeWidget';
+import Subscribe from '../components/Subscribe';
 import { Page } from '../templates';
 
 const globalStyles = css`
@@ -30,7 +30,7 @@ function Mixtapes({ data }) {
       <Global styles={globalStyles} />
       <Page.Title>Mixtapes</Page.Title>
       <Page.Content>
-        <SubscribeWidget />
+        <Subscribe />
         <Box>
           <Masonry
             breakpointCols={{

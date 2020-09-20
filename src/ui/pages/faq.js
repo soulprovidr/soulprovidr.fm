@@ -7,7 +7,7 @@ import { Global, css } from '@emotion/core';
 import { Heading, Text } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
-import SubscribeWidget from '../components/SubscribeWidget';
+import Subscribe from '../components/Subscribe';
 import { Page } from '../templates';
 
 const globalStyles = css`
@@ -53,7 +53,7 @@ function FAQ({ data }) {
         </Text>
       </Page.Content>
       <Page.Meta>
-        <SubscribeWidget />
+        <Subscribe />
         <Heading as="h3" pb={4}>
           OTHER STUFF YOU MIGHT LIKE:
         </Heading>

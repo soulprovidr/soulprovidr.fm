@@ -1,6 +1,10 @@
-import React from 'react';
-import { Box } from './Box';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 
-export const Container = (props) => (
-  <Box mx="auto" p={2} maxWidth={[540, 720, 960, 1140]} {...props} />
+export const Container = styled('div')(
+  css({
+    maxWidth: [540, 720, 960, 1140],
+    mx: 'auto',
+    p: 2
+  })
 );
