@@ -6,7 +6,7 @@ import { Button, Flex, Heading, Input, Logo, Text } from 'theme';
 const SubscribeContainer = styled('div')(
   css({
     pb: 5,
-    position: ['block', 'sticky'],
+    position: ['relative', 'sticky'],
     top: '-1px',
     zIndex: 2
   })
@@ -48,8 +48,8 @@ const SubscribeButton = styled(Button)(
   })
 );
 
-const Subscribe = () => (
-  <SubscribeContainer>
+const Subscribe = (props) => (
+  <SubscribeContainer {...props}>
     <SubscribeContent>
       <Flex alignItems="center">
         <Logo flexShrink={0} mr={3} />

@@ -2,14 +2,16 @@ import React from 'react';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
-import { Global, css } from '@emotion/core';
+import { Global, css as emotionCSS } from '@emotion/core';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 import { Box, Heading, Text } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
 import Subscribe from '../components/Subscribe';
 import { Page } from '../templates';
 
-const globalStyles = css`
+const globalStyles = emotionCSS`
   .masonry-container {
     display: flex;
     margin-left: -30px;
@@ -20,6 +22,12 @@ const globalStyles = css`
     background-clip: padding-box;
   }
 `;
+
+const StyledSubscribe = styled(Subscribe)(
+  css({
+    pb: 5
+  })
+);
 
 function PageNotFound({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
@@ -37,9 +45,7 @@ function PageNotFound({ data }) {
         </Box>
       </Page.Content>
       <Page.Meta>
-        <Box pb={5}>
-          <Subscribe />
-        </Box>
+        <StyledSubscribe />
         <Heading as="h3" pb={4}>
           OTHER STUFF YOU MIGHT LIKE:
         </Heading>
