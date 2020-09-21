@@ -34,7 +34,7 @@ const RadioCardHeader = styled(Card.Header)(
 
 const RadioCardImage = styled('img')(
   css({
-    borderRadius: 0,
+    borderRadius: 1,
     verticalAlign: 'bottom',
     width: '100%'
   })

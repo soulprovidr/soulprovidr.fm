@@ -3,7 +3,7 @@ import Link from 'gatsby-link';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
-import { Box, Heading, Logo } from 'theme';
+import { Flex, Heading, Logo } from 'theme';
 
 import { Links } from './Links';
 import { Icons } from './Icons';
@@ -11,7 +11,7 @@ import { Icons } from './Icons';
 const HeaderContainer = styled('header')(
   css({
     bg: 'bg',
-    borderBottom: '1px solid #eee',
+    borderBottom: 0,
     fontFamily: 'heading',
     position: ['fixed', 'relative'],
     top: 0,
@@ -29,11 +29,6 @@ const HeaderContainer = styled('header')(
   })
 );
 
-const HeaderTitle = styled('div')({
-  display: 'flex',
-  alignItems: 'center'
-});
-
 const HeaderNavigation = styled('div')(
   css({
     display: ['none', 'flex']
@@ -42,29 +37,26 @@ const HeaderNavigation = styled('div')(
 
 const HeaderIcons = styled(Icons)(
   css({
-    display: ['none', null, 'flex']
+    display: ['none', null, null, 'flex']
   })
 );
 
 const HeaderLinks = styled(Links)(
   css({
-    display: 'flex',
     ml: 4
   })
 );
 
 export const Header = () => (
   <HeaderContainer>
-    <HeaderTitle>
+    <Flex alignItems="center">
       <Link to="/">
         <Logo mr={3} />
       </Link>
-      <Heading as="h3" p={0} fontWeight="bold">
-        <Box as={Link} to="/" color="textPrimary">
-          SOUL PROVIDER
-        </Box>
+      <Heading as="h3" p={0}>
+        <Link to="/">SOUL PROVIDER</Link>
       </Heading>
-    </HeaderTitle>
+    </Flex>
     <HeaderNavigation>
       <HeaderIcons />
       <HeaderLinks />

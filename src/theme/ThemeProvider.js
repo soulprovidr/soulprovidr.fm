@@ -13,6 +13,7 @@ const globalStyles = (theme) => css`
   body {
     font-family: ${theme.fonts.body};
     font-size: ${theme.fontSizes[3]};
+    background: ${theme.colors.bg};
   }
 
   a,

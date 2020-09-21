@@ -1,4 +1,6 @@
 import React from 'react';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 import { Box } from 'theme';
 
 // https://www.iconfinder.com/iconsets/picons-social
@@ -26,35 +28,32 @@ const icons = [
   }
 ];
 
-const Icon = ({ src, href }) => (
-  <Box
-    as="a"
-    href={href}
-    rel="noopener noreferrer"
-    target="_blank"
-    sx={{
-      display: 'flex',
-      alignItems: 'center'
-    }}
-  >
-    <Box
-      as="img"
-      src={src}
-      sx={{
-        width: 20,
-        height: 20,
-        mr: 3,
-        transition: 'transform 100ms ease-in-out',
-        '&:hover': { transform: 'scale(1.1)' }
-      }}
-    />
-  </Box>
+const IconAnchor = styled('a')({
+  display: 'flex',
+  alignItems: 'center'
+});
+
+const Icon = styled('img')(
+  css({
+    width: 20,
+    height: 20,
+    mr: 3,
+    transition: 'transform 100ms ease-in-out',
+    '&:hover': { transform: 'scale(1.1)' }
+  })
 );
 
 export const Icons = (props) => (
   <div {...props}>
     {icons.map((icon) => (
-      <Icon key={icon.href} src={icon.src} href={icon.href} />
+      <IconAnchor
+        key={icon.href}
+        href={icon.href}
+        rel="noopen noreferrer"
+        target="_blank"
+      >
+        <Icon src={icon.src} />
+      </IconAnchor>
     ))}
   </div>
 );

@@ -24,7 +24,14 @@ const ArticleCard = ({ post, ...props }) => {
         title: post.frontmatter.title
       }
     : null;
-  const onClick = useClickAction(track?.stream_url, meta);
+  const clickAction = useClickAction(track?.stream_url, meta);
+  const onClick = (e) => {
+    // Ignore clicks on card title.
+    if (linkRef.current && e.target === linkRef.current) {
+      return false;
+    }
+    clickAction();
+  };
 
   const iconProps = { color: 'white', size: 40 };
   const overlayContent = isPlaying ? (
@@ -33,37 +40,40 @@ const ArticleCard = ({ post, ...props }) => {
     <PlayIcon {...iconProps} />
   );
 
-  const image = post.frontmatter.image && (
-    <Image fluid={post.frontmatter.image.childImageSharp.fluid} />
-  );
-
   return (
-    <Card.Old
-      badgeColour={post.frontmatter.category.colour}
-      badgeText={post.frontmatter.category.label}
-      image={image}
-      onClick={(e) => {
-        // Ignore clicks on card title.
-        if (linkRef.current && e.target === linkRef.current) {
-          return false;
-        }
-        onClick();
-      }}
-      overlayContent={overlayContent}
-      {...props}
-    >
-      <Heading as="h3" py={2}>
-        <Link ref={linkRef} to={post.fields.slug}>
-          {post.frontmatter.title}
-        </Link>
-      </Heading>
-      <Text
-        dangerouslySetInnerHTML={{
-          __html: post.frontmatter.description
-        }}
-      />
-    </Card.Old>
+    <Card.Container onClick={onClick}>
+      <Card.Header>
+        <Image fluid={post.frontmatter.image.childImageSharp.fluid} />
+      </Card.Header>
+    </Card.Container>
   );
+  // return (
+  //   <Card.Old
+  //     badgeColour={post.frontmatter.category.colour}
+  //     badgeText={post.frontmatter.category.label}
+  //     image={image}
+  //     onClick={(e) => {
+  //       // Ignore clicks on card title.
+  //       if (linkRef.current && e.target === linkRef.current) {
+  //         return false;
+  //       }
+  //       onClick();
+  //     }}
+  //     overlayContent={overlayContent}
+  //     {...props}
+  //   >
+  //     <Heading as="h3" py={2}>
+  //       <Link ref={linkRef} to={post.fields.slug}>
+  //         {post.frontmatter.title}
+  //       </Link>
+  //     </Heading>
+  //     <Text
+  //       dangerouslySetInnerHTML={{
+  //         __html: post.frontmatter.description
+  //       }}
+  //     />
+  //   </Card.Old>
+  // );
 };
 
 export default ArticleCard;
