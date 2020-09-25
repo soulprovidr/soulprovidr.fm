@@ -8,7 +8,7 @@ const SubscribeContainer = styled('div')(
     pb: 5,
     position: ['relative', 'sticky'],
     top: '-1px',
-    zIndex: 2
+    zIndex: [0, 2]
   })
 );
 

@@ -25,7 +25,7 @@ const globalStyles = css`
 function FAQ({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="FAQ">
+    <Page title="FAQ">
       <Global styles={globalStyles} />
       <Page.Title>FAQ</Page.Title>
       <Page.Content>
@@ -74,7 +74,7 @@ function FAQ({ data }) {
           ))}
         </Masonry>
       </Page.Meta>
-    </Page.Container>
+    </Page>
   );
 }
 

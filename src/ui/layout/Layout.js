@@ -26,10 +26,8 @@ export function Layout({ children }) {
     <ThemeProvider>
       <Head description={siteMetadata.description} title={siteMetadata.title} />
       <Header />
-      <Box py={[5, 0]}>
-        {children}
-        <GlobalPlayer />
-      </Box>
+      {children}
+      <GlobalPlayer />
     </ThemeProvider>
   );
 }

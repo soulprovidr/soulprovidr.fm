@@ -25,7 +25,7 @@ const globalStyles = css`
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="Mixtapes">
+    <Page title="Mixtapes">
       <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
       <Page.Title>Mixtapes</Page.Title>
@@ -50,7 +50,7 @@ function Mixtapes({ data }) {
           </Masonry>
         </Box>
       </Page.Content>
-    </Page.Container>
+    </Page>
   );
 }
 

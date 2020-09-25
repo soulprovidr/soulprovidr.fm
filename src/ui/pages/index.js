@@ -37,7 +37,7 @@ const Title = () => (
 function Home({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="Live">
+    <Page title="Live">
       <Global styles={globalStyles} />
       <Title />
       <Page.Content>
@@ -65,7 +65,7 @@ function Home({ data }) {
           ))}
         </Masonry>
       </Page.Meta>
-    </Page.Container>
+    </Page>
   );
 }
 

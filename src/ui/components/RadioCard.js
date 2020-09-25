@@ -51,11 +51,20 @@ const RadioCardContent = styled('div')(
   })
 );
 
-const RadioCardTitle = styled(Heading)(
+const RadioCardTitle = styled(Text)(
   css({
-    pb: 1,
+    fontSize: [5, 6],
+    fontWeight: 'bold',
+    lineHeight: 1.25,
+    py: 1,
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
+  })
+);
+
+const RadioCardArtist = styled(Text)(
+  css({
+    fontSize: 4
   })
 );
 
@@ -104,7 +113,7 @@ const RadioCard = () => {
       </RadioCardHeader>
       <RadioCardContent>
         <RadioCardTitle>{title ?? 'Loading...'}</RadioCardTitle>
-        <Text fontSize={5}>{artist}</Text>
+        <RadioCardArtist>{artist}</RadioCardArtist>
       </RadioCardContent>
     </RadioCardContainer>
   );

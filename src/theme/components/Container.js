@@ -5,6 +5,6 @@ export const Container = styled('div')(
   css({
     maxWidth: [540, 720, 960, 1140],
     mx: 'auto',
-    p: 2
+    px: [2, 4]
   })
 );

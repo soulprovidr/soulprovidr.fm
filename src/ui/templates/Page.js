@@ -1,34 +1,35 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 
-import { Box, Container, Heading } from 'theme';
+import { Container, Heading } from 'theme';
 
-const PageContainer = ({ children, title }) => (
-  <Container as="main">
-    <Helmet title={title} />
-    <Box py={5}>{children}</Box>
-  </Container>
+const PageContainer = styled('div')(css({ mt: [5, 0], py: 5 }));
+
+const PageTitle = styled(Heading)(css({ textTransform: 'uppercase' }));
+
+const PageContent = styled('div')(
+  css({
+    pb: 5,
+    pt: 3
+  })
 );
 
-const PageTitle = ({ children }) => (
-  <Box>
-    <Heading as="h1" sx={{ textTransform: 'uppercase' }}>
+const PageMeta = styled('div')(css({ py: 3 }));
+
+const Page = ({ children, title, ...props }) => (
+  <PageContainer {...props}>
+    <Container as="main">
+      <Helmet title={title} />
       {children}
-    </Heading>
-  </Box>
+    </Container>
+  </PageContainer>
 );
 
-const PageContent = ({ children }) => (
-  <Box pt={3} pb={5}>
-    {children}
-  </Box>
-);
+Page.Container = PageContainer;
+Page.Title = PageTitle;
+Page.Content = PageContent;
+Page.Meta = PageMeta;
 
-const PageMeta = ({ children }) => <Box py={3}>{children}</Box>;
-
-export const Page = {
-  Container: PageContainer,
-  Title: PageTitle,
-  Content: PageContent,
-  Meta: PageMeta
-};
+export { Page };
