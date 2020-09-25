@@ -6,7 +6,8 @@ export const Button = styled('button')(
   css({
     border: 'none',
     borderRadius: 1,
-    py: [3, 2],
+    height: 40,
+    fontSize: '1em',
     px: 3
   }),
   variant({

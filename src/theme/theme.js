@@ -1,5 +1,4 @@
 import './fonts/hk-grotesk/hk-grotesk.css';
-import './fonts/inter/inter.css';
 
 export default {
   borders: ['1px solid #eee'],
@@ -8,7 +7,7 @@ export default {
     textPrimary: '#343a40'
   },
   fonts: {
-    body: 'inter, Helvetica Neue',
+    body: 'Inter, Helvetica Neue',
     heading: 'hk-grotesk'
   },
   fontSizes: [

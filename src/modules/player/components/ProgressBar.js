@@ -12,14 +12,14 @@ const ProgressText = ({ children, ...props }) => (
   </Text>
 );
 
-export default function ProgressBar({ duration, progress, status }) {
+export default function ProgressBar({ duration, progress, status, ...props }) {
   const widthPercent = duration
     ? Math.min(100, (progress / duration) * 100)
     : status <= BUFFERING
     ? 0
     : 100;
   return (
-    <Flex alignItems="center" flexGrow={1}>
+    <Flex alignItems="center" flexGrow={1} {...props}>
       <ProgressText mr={3} textAlign="left">
         {msToTime(progress)}
       </ProgressText>

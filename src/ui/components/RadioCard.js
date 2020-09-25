@@ -10,7 +10,7 @@ import {
   usePlayerStatus
 } from 'modules/player/hooks';
 import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
-import { Card, Heading, Text } from 'theme';
+import { Card, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
 import PlayIcon from 'ui/components/PlayIcon';
 import DefaultCover from 'ui/static/images/default.png';
@@ -54,7 +54,7 @@ const RadioCardContent = styled('div')(
 const RadioCardTitle = styled(Text)(
   css({
     fontSize: [5, 6],
-    fontWeight: 'bold',
+    fontWeight: 600,
     lineHeight: 1.25,
     py: 1,
     textOverflow: 'ellipsis',
