@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
-import c from 'classnames';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
@@ -27,19 +26,19 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
     alignItems: 'center',
     flexDirection: ['row-reverse', 'row'],
     justifyContent: 'space-between',
-    height: 60,
+    height: [53, 60],
     position: 'fixed',
     right: 0,
-    bottom: 0,
+    bottom: [53, 0],
     left: 0,
     px: [0, 4],
     py: [0, 2],
-    pr: [3, null],
     borderTop: 0,
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
     transition: 'transform 150ms ease-out, opacity 150ms ease-out',
-    zIndex: 3
+    width: '100%',
+    zIndex: 2
   })
 );
 
@@ -53,7 +52,11 @@ const MetaContainer = styled('div')(
   css({
     display: 'flex',
     height: '100%',
-    minWidth: 300
+    minWidth: [null, 300],
+    position: ['absolute', 'relative'],
+    left: 0,
+    right: 0,
+    bottom: 0
   })
 );
 
@@ -76,13 +79,31 @@ const MetaTitle = styled(Text)(
   css({
     fontWeight: 'bold',
     lineHeight: 1,
-    p: 0
+    p: 0,
+    whiteSpace: 'nowrap'
   })
 );
 
 const MetaArtist = styled(Text)(
   css({
-    p: 0
+    p: 0,
+    whiteSpace: 'nowrap'
+  })
+);
+
+// TODO: Dark mode fix for gradient.
+const StatusIndicatorContainer = styled('div')(
+  css({
+    background: [
+      'linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
+      null
+    ],
+    height: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    px: 4,
+    zIndex: 1
   })
 );
 
@@ -100,12 +121,9 @@ export function GlobalPlayer() {
 
   return (
     <GlobalPlayerContainer isVisible={isVisible}>
-      <StatusIndicator
-        color="black"
-        onClick={onClickAction}
-        size={20}
-        status={status}
-      />
+      <StatusIndicatorContainer onClick={onClickAction}>
+        <StatusIndicator color="black" size={20} status={status} />
+      </StatusIndicatorContainer>
       <StyledProgressBar
         duration={duration}
         progress={progress}

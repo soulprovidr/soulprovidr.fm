@@ -31,7 +31,7 @@ const links = [
 const LinkContainer = styled('div')(
   css({
     display: 'inline-block',
-    pr: 4,
+    pr: [5, 4],
     '&:last-of-type': {
       pr: 0
     }

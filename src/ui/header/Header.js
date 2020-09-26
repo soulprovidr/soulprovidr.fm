@@ -11,7 +11,7 @@ import { Icons } from './Icons';
 const HeaderContainer = styled('header')(
   css({
     bg: 'bg',
-    borderBottom: 0,
+    borderBottom: [0, null],
     fontFamily: 'heading',
     position: ['fixed', 'relative'],
     top: 0,
@@ -20,9 +20,9 @@ const HeaderContainer = styled('header')(
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    px: [2, 5],
+    px: [3, 5],
     py: [2, 4],
-    zIndex: 2,
+    zIndex: 3,
     'a, a:active, a:visited': {
       color: 'textPrimary'
     }
@@ -31,7 +31,7 @@ const HeaderContainer = styled('header')(
 
 const HeaderNavigation = styled('div')(
   css({
-    display: ['none', 'flex']
+    display: 'flex'
   })
 );
 
@@ -43,7 +43,18 @@ const HeaderIcons = styled(Icons)(
 
 const HeaderLinks = styled(Links)(
   css({
-    ml: 4
+    bg: 'bg',
+    borderTop: [0, 'none'],
+    alignItems: 'center',
+    justifyContent: 'center',
+    ml: [0, 4],
+    height: [53, null],
+    position: ['fixed', 'relative'],
+    bottom: 0,
+    right: 0,
+    left: 0,
+    py: [3, 0],
+    zIndex: [3, null]
   })
 );
 
@@ -51,7 +62,7 @@ export const Header = () => (
   <HeaderContainer>
     <Flex alignItems="center">
       <Link to="/">
-        <Logo mr={3} />
+        <Logo mr={3} size={35} />
       </Link>
       <Heading as="h3" p={0}>
         <Link to="/">SOUL PROVIDER</Link>

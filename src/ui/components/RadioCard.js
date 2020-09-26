@@ -56,7 +56,8 @@ const RadioCardTitle = styled(Text)(
     fontSize: [5, 6],
     fontWeight: 600,
     lineHeight: 1.25,
-    py: 1,
+    pb: 0,
+    pt: 1,
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
   })
@@ -67,6 +68,10 @@ const RadioCardArtist = styled(Text)(
     fontSize: 4
   })
 );
+
+const OverlayPauseIcon = <PauseIcon color="white" size="50" />;
+
+const OverlayPlayIcon = <PlayIcon color="white" size="50" />;
 
 const RadioCard = () => {
   const containerRef = useRef(null);
@@ -97,9 +102,12 @@ const RadioCard = () => {
     switch (playerStatus) {
       case PLAYING:
       case BUFFERING:
-        return <PauseIcon color="white" size="50" />;
+        if (isPlaying) {
+          return OverlayPauseIcon;
+        }
+        return OverlayPlayIcon;
       default:
-        return <PlayIcon color="white" size="50" />;
+        return OverlayPlayIcon;
     }
   };
 

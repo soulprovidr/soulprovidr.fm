@@ -1,6 +1,5 @@
-import React, { useCallback } from 'react';
-import { Box } from 'theme';
-import Spinner from 'ui/components/Spinner';
+import React from 'react';
+import { Box, Spinner } from 'theme';
 import PlayIcon from 'ui/components/PlayIcon';
 import PauseIcon from 'ui/components/PauseIcon';
 
@@ -12,7 +11,8 @@ export default function StatusIndicator({
   color = 'white',
   onClick,
   size,
-  status
+  status,
+  ...props
 }) {
   const renderStatusIcon = () => {
     switch (status) {
@@ -30,6 +30,7 @@ export default function StatusIndicator({
         cursor: 'pointer',
         width: size
       }}
+      {...props}
     >
       {renderStatusIcon()}
     </Box>
