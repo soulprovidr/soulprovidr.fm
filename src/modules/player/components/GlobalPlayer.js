@@ -32,7 +32,8 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
     bottom: [53, 0],
     left: 0,
     px: [0, 4],
-    py: [0, 2],
+    pt: [0, 2],
+    pb: ['env(safe-area-inset-bottom)', 2],
     borderTop: 0,
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
@@ -95,7 +96,7 @@ const MetaArtist = styled(Text)(
 const StatusIndicatorContainer = styled('div')(
   css({
     background: [
-      'linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
+      'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
       null
     ],
     height: '100%',
@@ -121,7 +122,10 @@ export function GlobalPlayer() {
 
   return (
     <GlobalPlayerContainer isVisible={isVisible}>
-      <StatusIndicatorContainer onClick={onClickAction}>
+      <StatusIndicatorContainer
+        onClick={onClickAction}
+        onTouchEnd={onClickAction}
+      >
         <StatusIndicator color="black" size={20} status={status} />
       </StatusIndicatorContainer>
       <StyledProgressBar
