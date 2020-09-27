@@ -35,7 +35,7 @@ const CardOverlay = styled('div')(({ force = false }) =>
     right: 0,
     bottom: 0,
     left: 0,
-    zIndex: 1,
+    zIndex: 0,
     transition: `opacity 200ms ${transitionTimingFn}`,
     opacity: force ? 1 : 0,
     display: 'flex',

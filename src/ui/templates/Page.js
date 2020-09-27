@@ -12,7 +12,10 @@ const PageTitle = styled(Heading)(css({ textTransform: 'uppercase' }));
 const PageContent = styled('div')(
   css({
     pb: 5,
-    pt: 3
+    pt: 3,
+    'a, a:active, a:visited': {
+      color: 'accent'
+    }
   })
 );
 

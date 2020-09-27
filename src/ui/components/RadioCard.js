@@ -14,7 +14,7 @@ import { Card, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
 import PlayIcon from 'ui/components/PlayIcon';
 import DefaultCover from 'ui/static/images/default.png';
-import useIsMouseOver from '../../common/hooks/useIsMouseOver';
+import { useIsMouseOver } from '../../common/hooks/useIsMouseOver';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
@@ -78,7 +78,7 @@ const RadioCard = () => {
 
   const meta = useSelector(getRadioMeta);
   const isMouseOver = useIsMouseOver(containerRef);
-  const isPlaying = useIsPlaying(RadioUrl);
+  const isRadioPlaying = useIsPlaying(RadioUrl);
   const playerStatus = usePlayerStatus();
 
   const getMetaProperty = (property) => get(meta, property, null);
@@ -99,13 +99,13 @@ const RadioCard = () => {
   );
 
   const renderOverlayContent = () => {
+    if (!isRadioPlaying) {
+      return OverlayPlayIcon;
+    }
     switch (playerStatus) {
       case PLAYING:
       case BUFFERING:
-        if (isPlaying) {
-          return OverlayPauseIcon;
-        }
-        return OverlayPlayIcon;
+        return OverlayPauseIcon;
       default:
         return OverlayPlayIcon;
     }
@@ -115,7 +115,7 @@ const RadioCard = () => {
     <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
         <RadioCardImage src={cover ?? DefaultCover} alt={imageAlt} />
-        <Card.Overlay force={!isPlaying || isMouseOver}>
+        <Card.Overlay force={!isRadioPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
       </RadioCardHeader>

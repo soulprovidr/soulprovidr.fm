@@ -3,6 +3,7 @@ import './fonts/hk-grotesk/hk-grotesk.css';
 export default {
   borders: ['1px solid #eee'],
   colors: {
+    accent: '#308AEC',
     bg: 'white',
     textPrimary: '#343a40'
   },

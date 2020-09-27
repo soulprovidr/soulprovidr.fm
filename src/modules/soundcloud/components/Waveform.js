@@ -4,7 +4,7 @@ import c from 'classnames';
 
 import Spinner from 'ui/components/Spinner';
 import average from 'common/helpers/average';
-import useIsMouseOver from 'common/hooks/useIsMouseOver';
+import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
 import { useWaveform } from '../';
 
 import styles from './Waveform.module.css';

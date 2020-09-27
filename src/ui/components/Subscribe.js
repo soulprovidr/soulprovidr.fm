@@ -5,7 +5,7 @@ import { Button, Flex, Heading, Input, Logo, Text } from 'theme';
 
 const SubscribeContainer = styled('div')(
   css({
-    pb: 5,
+    mb: 5,
     position: ['relative', 'sticky'],
     top: '-1px',
     zIndex: [0, 2]
@@ -19,7 +19,7 @@ const SubscribeContent = styled('div')(
     borderLeft: 'none',
     borderRight: 'none',
     display: 'flex',
-    flexDirection: ['column', 'row'],
+    flexDirection: ['column', null, 'row'],
     justifyContent: 'space-between',
     p: 3
   })
@@ -27,24 +27,24 @@ const SubscribeContent = styled('div')(
 
 const SubscribeForm = styled('form')(
   css({
-    display: ['block', 'flex'],
+    display: ['block', null, 'flex'],
     alignItems: 'center',
-    justifyContent: ['flex-start', 'center'],
-    pt: [3, 0]
+    justifyContent: ['flex-start', 'flex-end'],
+    pt: [3, null, 0]
   })
 );
 
 const SubscribeInput = styled(Input)(
   css({
-    mr: [0, 2],
-    width: ['100%', '250px']
+    mr: [0, null, 2],
+    width: ['100%', null, '250px']
   })
 );
 
 const SubscribeButton = styled(Button)(
   css({
-    mt: [3, 0],
-    width: ['100%', null]
+    mt: [3, null, 0],
+    width: ['100%', null, '150px']
   })
 );
 

@@ -19,6 +19,8 @@ const query = graphql`
   }
 `;
 
+// Rendering navigation separately here on mobile due to Safari scrolling issue.
+// https://stackoverflow.com/a/59182323/1024766
 const StyledHeaderLinks = styled(HeaderLinks)(
   css({
     display: ['flex', 'none'],
