@@ -38,7 +38,8 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
     transition: 'transform 150ms ease-out, opacity 150ms ease-out',
     width: '100%',
-    zIndex: 2
+    zIndex: 2,
+    '-webkit-transform': 'translate3d(0,0,0)'
   })
 );
 
