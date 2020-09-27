@@ -31,7 +31,7 @@ const HeaderContainer = styled('header')(
 
 const HeaderNavigation = styled('div')(
   css({
-    display: 'flex'
+    display: ['none', 'flex']
   })
 );
 
@@ -41,7 +41,7 @@ const HeaderIcons = styled(Icons)(
   })
 );
 
-const HeaderLinks = styled(Links)(
+export const HeaderLinks = styled(Links)(
   css({
     bg: 'bg',
     borderTop: [0, 'none'],
