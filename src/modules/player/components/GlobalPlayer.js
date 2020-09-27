@@ -26,10 +26,10 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
     alignItems: 'center',
     flexDirection: ['row-reverse', 'row'],
     justifyContent: 'space-between',
-    height: [53, 60],
+    height: 53,
     position: 'fixed',
     right: 0,
-    bottom: [60, 0],
+    bottom: ['calc(60px + env(safe-area-inset-bottom))', 0],
     left: 0,
     px: [0, 4],
     py: [0, 2],
@@ -38,8 +38,7 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
     transition: 'transform 150ms ease-out, opacity 150ms ease-out',
     width: '100%',
-    zIndex: 2,
-    '-webkit-transform': 'translate3d(0,0,0)'
+    zIndex: 2
   })
 );
 
