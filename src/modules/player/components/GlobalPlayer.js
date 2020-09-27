@@ -29,11 +29,10 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
     height: [53, 60],
     position: 'fixed',
     right: 0,
-    bottom: [53, 0],
+    bottom: [60, 0],
     left: 0,
     px: [0, 4],
-    pt: [0, 2],
-    pb: ['env(safe-area-inset-bottom)', 2],
+    py: [0, 2],
     borderTop: 0,
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
@@ -96,7 +95,7 @@ const MetaArtist = styled(Text)(
 const StatusIndicatorContainer = styled('div')(
   css({
     background: [
-      'linear-gradient(90deg, transparent 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
+      'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
       null
     ],
     height: '100%',

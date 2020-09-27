@@ -48,12 +48,13 @@ const HeaderLinks = styled(Links)(
     alignItems: 'center',
     justifyContent: 'center',
     ml: [0, 4],
-    height: [53, null],
+    height: [60, null],
     position: ['fixed', 'relative'],
     bottom: 0,
     right: 0,
     left: 0,
-    py: [3, 0],
+    pt: [1, 0],
+    pb: ['env(safe-area-inset-bottom)', 0],
     zIndex: [3, null]
   })
 );
