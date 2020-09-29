@@ -44,6 +44,7 @@
     "redux-actions": "^2.6.5",
     "redux-devtools": "^3.6.1",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "styled-system": "^5.1.5",
     "typescript": "^3.9.7",
     "whatwg-fetch": "^3.4.0"

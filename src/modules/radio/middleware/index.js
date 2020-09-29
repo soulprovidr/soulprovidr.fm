@@ -1,3 +1,3 @@
-import fetchMetaMiddleware from './fetchMeta';
+import { setRadioMetaMiddleware } from './setRadioMeta';
 
-export default [fetchMetaMiddleware];
+export default [setRadioMetaMiddleware];

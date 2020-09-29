@@ -1,5 +1,5 @@
 import { createActions } from 'redux-actions';
 
-export const { updateMeta } = createActions('UPDATE_META', {
+export const { setMeta: setRadioMeta } = createActions('SET_META', {
   prefix: 'radio'
 });

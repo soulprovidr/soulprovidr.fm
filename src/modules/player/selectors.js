@@ -1,4 +1,13 @@
-export const getMeta = (state) => state.player.meta;
-export const getProgress = (state) => state.player.progress;
-export const getSrc = (state) => state.player.src;
-export const getStatus = (state) => state.player.status;
+import { createSelector } from 'reselect';
+
+export const selectPlayerMeta = (state) => state.player.meta;
+export const selectPlayerProgress = (state) => state.player.progress;
+export const selectPlayerSrc = (state) => state.player.src;
+export const selectPlayerStatus = (state) => state.player.status;
+
+export const selectIsPlaying = createSelector(
+  selectPlayerSrc,
+  (_, url) => url,
+  (playerSrc, url) =>
+    !!playerSrc && (playerSrc.includes(url) || playerSrc === url)
+);

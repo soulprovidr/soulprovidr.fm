@@ -6,10 +6,10 @@ import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
 import { useClickAction } from 'modules/player/hooks';
 import {
-  getMeta,
-  getProgress,
-  getSrc,
-  getStatus
+  selectPlayerMeta,
+  selectPlayerProgress,
+  selectPlayerSrc,
+  selectPlayerStatus
 } from 'modules/player/selectors';
 import { Text } from 'theme';
 import DefaultCover from 'ui/static/images/default.png';
@@ -108,10 +108,10 @@ const StatusIndicatorContainer = styled('div')(
 );
 
 export function GlobalPlayer() {
-  const meta = useSelector(getMeta);
-  const progress = useSelector(getProgress);
-  const src = useSelector(getSrc);
-  const status = useSelector(getStatus);
+  const meta = useSelector(selectPlayerMeta);
+  const progress = useSelector(selectPlayerProgress);
+  const src = useSelector(selectPlayerSrc);
+  const status = useSelector(selectPlayerStatus);
 
   const onClickAction = useClickAction(src, meta);
 

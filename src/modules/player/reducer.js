@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import {
   play,
   reset,
-  updateMeta,
+  setPlayerMeta,
   updateProgress,
   updateStatus
 } from './actions';
@@ -26,7 +26,7 @@ export default handleActions(
       return state;
     },
     [reset]: () => initialState,
-    [updateMeta]: (state, action) => ({
+    [setPlayerMeta]: (state, action) => ({
       ...state,
       meta: { ...state.meta, ...action.payload }
     }),

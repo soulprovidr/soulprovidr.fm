@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { updateMeta } from './actions';
+import { setRadioMeta } from './actions';
 
 const initialState = {
   meta: null
@@ -7,7 +7,7 @@ const initialState = {
 
 export default handleActions(
   {
-    [updateMeta]: (_, action) => ({ meta: action.payload })
+    [setRadioMeta]: (_, action) => ({ meta: action.payload })
   },
   initialState,
   { prefix: 'radio' }

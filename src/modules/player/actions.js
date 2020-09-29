@@ -5,8 +5,8 @@ export const {
   pause,
   reset,
   seek,
+  setMeta: setPlayerMeta,
   stop,
-  updateMeta,
   updateProgress,
   updateStatus
 } = createActions(
@@ -16,8 +16,8 @@ export const {
   'PAUSE',
   'RESET',
   'SEEK',
+  'SET_META',
   'STOP',
-  'UPDATE_META',
   'UPDATE_PROGRESS',
   'UPDATE_STATUS',
   { prefix: 'player' }

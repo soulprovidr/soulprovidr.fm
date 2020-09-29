@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
-import { getStatus } from '../selectors';
+import { selectPlayerStatus } from '../selectors';
 
 export const usePlayerStatus = () => {
-  return useSelector(getStatus);
+  return useSelector(selectPlayerStatus);
 };
