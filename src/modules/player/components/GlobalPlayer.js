@@ -44,7 +44,7 @@ const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
 
 const StyledProgressBar = styled(ProgressBar)(
   css({
-    display: ['none', 'block']
+    display: ['none', 'flex']
   })
 );
 

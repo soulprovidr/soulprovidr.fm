@@ -5,7 +5,8 @@ export default {
   colors: {
     accent: '#308AEC',
     bg: 'white',
-    textPrimary: '#343a40'
+    textPrimary: '#343a40',
+    textSecondary: '#6c757d'
   },
   fonts: {
     body: 'Inter, Helvetica Neue',
