@@ -55,7 +55,7 @@ export const HeaderLinks = styled(Links)(
     left: 0,
     pb: ['env(safe-area-inset-bottom)', 0],
     zIndex: [3, null],
-    '-webkit-transform': 'translate3d(0,0,0)'
+    WebkitTransform: 'translate3d(0,0,0)'
   })
 );
 
