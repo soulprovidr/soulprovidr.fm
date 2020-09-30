@@ -142,21 +142,21 @@ class HowlerPlayer {
 
 const howlerPlayer = new HowlerPlayer();
 
-export default (store) => {
+export const howlerMiddleware = ({ dispatch }) => {
   // Update module `progress` when player progress changes.
   const progress = skip(1, howlerPlayer.progress);
   flyd.on((progress) => {
-    store.dispatch(updateProgress(progress));
+    dispatch(updateProgress(progress));
   }, progress);
 
   const status = skip(1, howlerPlayer.status);
   flyd.on((status) => {
     if (status === UNSTARTED) {
       // Reset module state when sound is unloaded.
-      store.dispatch(reset());
+      dispatch(reset());
     } else {
       // Update module `status` when player status changes.
-      store.dispatch(updateStatus(status));
+      dispatch(updateStatus(status));
     }
   }, status);
 
