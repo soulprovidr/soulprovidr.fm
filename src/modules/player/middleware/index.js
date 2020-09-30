@@ -1,3 +1,4 @@
-import howlerMiddleware from './howler';
+import { howlerMiddleware } from './howler';
+import { mediaSessionMiddleware } from './mediaSession';
 
-export default [howlerMiddleware];
+export default [howlerMiddleware, mediaSessionMiddleware];
