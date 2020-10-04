@@ -13,16 +13,10 @@ export const setRadioMetaMiddleware = ({ dispatch, getState }) => {
     const meta = await fetchJson(RadioMetaUrl);
     // Update radio meta.
     dispatch(setRadioMeta(meta));
-    // Update player meta, if the radio stream is currently playing.
+    // If the radio stream is currently playing, update the player meta.
     if (selectIsPlaying(getState(), RadioUrl)) {
       // TODO: Convert to interface or document somewhere!
-      dispatch(
-        setPlayerMeta({
-          artist: meta.artist,
-          cover: meta.cover,
-          title: meta.title
-        })
-      );
+      dispatch(setPlayerMeta({ ...meta, duration: meta.duration * 1000 }));
     }
   };
 

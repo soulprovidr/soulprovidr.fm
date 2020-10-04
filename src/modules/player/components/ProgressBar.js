@@ -43,8 +43,8 @@ export default function ProgressBar({ duration, progress, status, ...props }) {
           height="100%"
           width={`${widthPercent}%`}
           sx={{
-            bg: 'black',
-            transitionDuration: '0.3s !important'
+            bg: 'accent',
+            transition: 'width 150ms linear'
           }}
         />
       </Flex>
