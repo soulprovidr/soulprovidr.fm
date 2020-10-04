@@ -19,7 +19,7 @@ import ProgressBar from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
 
-const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
+const GlobalPlayerContainer = styled('div')(({ isVisible = false }) =>
   css({
     bg: 'bg',
     display: 'flex',
