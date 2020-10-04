@@ -25,6 +25,9 @@ const HeaderContainer = styled('header')(
     zIndex: 3,
     'a, a:active, a:visited': {
       color: 'textPrimary'
+    },
+    'a:hover': {
+      textDecoration: 'none'
     }
   })
 );
