@@ -43,6 +43,7 @@ export default function ProgressBar({ duration, progress, status, ...props }) {
           height="100%"
           width={`${widthPercent}%`}
           sx={{
+            bg: 'black',
             transitionDuration: '0.3s !important'
           }}
         />

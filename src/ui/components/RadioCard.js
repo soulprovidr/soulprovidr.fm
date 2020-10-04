@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import get from 'lodash.get';
 import { PlayerStatus } from 'modules/player/constants';
 import {
   useClickAction,
@@ -78,28 +77,20 @@ const RadioCard = () => {
 
   const meta = useSelector(getRadioMeta);
   const isMouseOver = useIsMouseOver(containerRef);
-  const isRadioPlaying = useIsPlaying(RadioUrl);
+  const isPlaying = useIsPlaying(RadioUrl);
   const playerStatus = usePlayerStatus();
 
-  const getMetaProperty = (property) => get(meta, property, null);
-  const artist = getMetaProperty('artist');
-  const cover = getMetaProperty('cover');
-  const title = getMetaProperty('title');
-  const imageAlt = meta ? `${artist} - ${title}` : 'Loading...';
+  const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
   const onClick = useClickAction(
     RadioUrl,
-    {
-      artist,
-      cover,
-      title,
-      duration: 0
-    },
+    // Convert duration value to milliseconds.
+    { ...meta, duration: meta.duration * 1000 },
     false
   );
 
   const renderOverlayContent = () => {
-    if (!isRadioPlaying) {
+    if (!isPlaying) {
       return OverlayPlayIcon;
     }
     switch (playerStatus) {
@@ -114,14 +105,14 @@ const RadioCard = () => {
   return (
     <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
-        <RadioCardImage src={cover ?? DefaultCover} alt={imageAlt} />
-        <Card.Overlay force={!isRadioPlaying || isMouseOver}>
+        <RadioCardImage src={meta.cover ?? DefaultCover} alt={imageAlt} />
+        <Card.Overlay force={!isPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
       </RadioCardHeader>
       <RadioCardContent>
-        <RadioCardTitle>{title ?? 'Loading...'}</RadioCardTitle>
-        <RadioCardArtist>{artist}</RadioCardArtist>
+        <RadioCardTitle>{meta.title ?? 'Loading...'}</RadioCardTitle>
+        <RadioCardArtist>{meta.artist ?? null}</RadioCardArtist>
       </RadioCardContent>
     </RadioCardContainer>
   );

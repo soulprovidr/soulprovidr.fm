@@ -19,6 +19,6 @@ export default (src, meta, pauseEnabled = true) => {
         ? dispatch(pauseAction())
         : dispatch(play())
       : dispatch(play(src, meta));
-  }, [isActive, isPlaying, src, meta]);
+  }, [meta, isActive, isPlaying, src]);
   return clickAction;
 };

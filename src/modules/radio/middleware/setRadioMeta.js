@@ -20,7 +20,6 @@ export const setRadioMetaMiddleware = ({ dispatch, getState }) => {
         setPlayerMeta({
           artist: meta.artist,
           cover: meta.cover,
-          duration: 0,
           title: meta.title
         })
       );
