@@ -43,6 +43,9 @@ const StyledLink = styled(Link)({
   textTransform: 'uppercase',
   '&.active': {
     fontWeight: 700
+  },
+  '&:hover': {
+    textDecoration: 'none'
   }
 });
 
