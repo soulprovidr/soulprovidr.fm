@@ -19,7 +19,7 @@ import ProgressBar from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
 
-const GlobalPlayerContainer = styled('div')(({ isVisible }) =>
+const GlobalPlayerContainer = styled('div')(({ isVisible = false }) =>
   css({
     bg: 'bg',
     display: 'flex',
@@ -117,7 +117,7 @@ export function GlobalPlayer() {
 
   const { artist, cover, title } = meta;
   const duration = get(meta, 'duration', 0);
-  const isVisible = status >= BUFFERING;
+  const isVisible = status >= BUFFERING || false;
 
   return (
     <GlobalPlayerContainer isVisible={isVisible}>

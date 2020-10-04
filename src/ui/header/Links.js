@@ -28,6 +28,10 @@ const links = [
   }
 ];
 
+const StyledLinks = styled('nav')({
+  display: 'flex'
+});
+
 const LinkContainer = styled('div')(
   css({
     display: 'inline-block',
@@ -50,7 +54,7 @@ const StyledLink = styled(Link)({
 });
 
 export const Links = (props) => (
-  <Flex {...props}>
+  <StyledLinks {...props}>
     {links.map((link) => (
       <LinkContainer key={link.href}>
         <StyledLink activeClassName="active" to={link.href}>
@@ -58,5 +62,5 @@ export const Links = (props) => (
         </StyledLink>
       </LinkContainer>
     ))}
-  </Flex>
+  </StyledLinks>
 );
