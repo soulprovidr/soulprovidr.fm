@@ -40,7 +40,7 @@ export function Layout({ children }) {
       <Head description={siteMetadata.description} title={siteMetadata.title} />
       <Header />
       {children}
-      <GlobalPlayer />
+      {/* <GlobalPlayer /> */}
       <StyledHeaderLinks />
     </ThemeProvider>
   );
