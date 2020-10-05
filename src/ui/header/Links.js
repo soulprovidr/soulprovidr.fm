@@ -43,15 +43,23 @@ const LinkContainer = styled('div')(
 );
 
 const StyledLink = styled(Link)({
-  fontWeight: 600,
-  textTransform: 'uppercase'
+  fontWeight: 500,
+  textTransform: 'uppercase',
+  '&.active': {
+    fontWeight: 700
+  },
+  '&:hover': {
+    textDecoration: 'none'
+  }
 });
 
 export const Links = (props) => (
   <StyledLinks {...props}>
     {links.map((link) => (
       <LinkContainer key={link.href}>
-        <StyledLink to={link.href}>{link.children}</StyledLink>
+        <StyledLink activeClassName="active" to={link.href}>
+          {link.children}
+        </StyledLink>
       </LinkContainer>
     ))}
   </StyledLinks>
