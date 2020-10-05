@@ -57,7 +57,7 @@ export const Links = (props) => (
   <StyledLinks {...props}>
     {links.map((link) => (
       <LinkContainer key={link.href}>
-        <StyledLink activeClassName="active" partiallyActive to={link.href}>
+        <StyledLink activeClassName="active" to={link.href}>
           {link.children}
         </StyledLink>
       </LinkContainer>
