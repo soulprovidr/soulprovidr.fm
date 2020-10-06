@@ -4,8 +4,9 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
 import { Container, Heading } from 'theme';
+import { Layout } from '../layout';
 
-const PageContainer = styled('div')(css({ mt: [5, 0], py: 5 }));
+const PageContainer = styled('main')(css({ mt: [5, 0], py: 5 }));
 
 const PageTitle = styled(Heading)(css({ textTransform: 'uppercase' }));
 
@@ -22,12 +23,14 @@ const PageContent = styled('div')(
 const PageMeta = styled('div')(css({ py: 3 }));
 
 const Page = ({ children, title, ...props }) => (
-  <PageContainer {...props}>
-    <Container as="main">
-      <Helmet title={title} />
-      {children}
-    </Container>
-  </PageContainer>
+  <Layout>
+    <PageContainer {...props}>
+      <Container>
+        <Helmet title={title} />
+        {children}
+      </Container>
+    </PageContainer>
+  </Layout>
 );
 
 Page.Container = PageContainer;
