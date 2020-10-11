@@ -47,6 +47,10 @@ export const howlerMiddleware = ({ dispatch }) => {
     dispatch(reset());
   };
 
+  /**
+   * Start playing the media source specified in the action payload.
+   * @param {Object} action
+   */
   const play = (action) => {
     const { payload: src, meta } = action;
     const { callback = () => false, progress = 0 } = meta;

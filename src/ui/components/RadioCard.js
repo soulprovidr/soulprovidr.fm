@@ -110,14 +110,14 @@ const RadioCard = () => {
   return (
     <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
-        <RadioCardImage src={meta.cover ?? DefaultCover} alt={imageAlt} />
+        <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
         <Card.Overlay force={!isPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
       </RadioCardHeader>
       <RadioCardContent>
-        <RadioCardTitle>{meta.title ?? 'Loading...'}</RadioCardTitle>
-        <RadioCardArtist>{meta.artist ?? null}</RadioCardArtist>
+        <RadioCardTitle>{meta?.title ?? 'Loading...'}</RadioCardTitle>
+        <RadioCardArtist>{meta?.artist ?? null}</RadioCardArtist>
       </RadioCardContent>
     </RadioCardContainer>
   );
