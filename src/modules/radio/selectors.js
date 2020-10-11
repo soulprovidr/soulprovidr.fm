@@ -1,1 +1,1 @@
-export const getMeta = (state) => state.radio.meta;
+export const selectRadioMeta = (state) => state.radio.meta;

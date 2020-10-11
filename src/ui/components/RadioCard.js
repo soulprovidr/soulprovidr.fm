@@ -8,7 +8,7 @@ import {
   useIsPlaying,
   usePlayerStatus
 } from 'modules/player/hooks';
-import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
+import { RadioUrl, selectRadioMeta } from 'modules/radio';
 import { Card, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
 import PlayIcon from 'ui/components/PlayIcon';
@@ -75,7 +75,7 @@ const OverlayPlayIcon = <PlayIcon color="white" size="50" />;
 const RadioCard = () => {
   const containerRef = useRef(null);
 
-  const meta = useSelector(getRadioMeta);
+  const meta = useSelector(selectRadioMeta);
   const isMouseOver = useIsMouseOver(containerRef);
   const isPlaying = useIsPlaying(RadioUrl);
   const playerStatus = usePlayerStatus();
