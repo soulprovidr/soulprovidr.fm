@@ -1,3 +1,3 @@
 export const RadioUrl = 'https://www.radioking.com/play/soulprovidr';
 export const RadioMetaUrl =
-  'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
+  'https://api.radioking.io/widget/radio/soulprovidr/track/current';

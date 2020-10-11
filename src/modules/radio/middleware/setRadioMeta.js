@@ -20,11 +20,11 @@ export const setRadioMetaMiddleware = ({ dispatch, getState }) => {
     };
 
     // Don't update state if new data is the same as old data.
-    // Poll again in 10 seconds.
-    const currentRadioMetaId = currentRadioMeta?.id ?? null;
-    const nextRadioMetaId = nextRadioMeta?.id ?? null;
-    if (currentRadioMetaId === nextRadioMetaId) {
-      schedulePoll(10 * 1000);
+    // Poll again in 1 second.
+    const currentRadioMetaStartedAt = currentRadioMeta?.started_at ?? null;
+    const nextRadioMetaStartedAt = nextRadioMeta?.started_at ?? null;
+    if (currentRadioMetaStartedAt === nextRadioMetaStartedAt) {
+      schedulePoll(1000);
       return false;
     }
 
