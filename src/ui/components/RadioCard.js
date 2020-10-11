@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import parseISO from 'date-fns/parseISO';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { setProgress, PlayerStatus } from 'modules/player';
@@ -82,8 +83,11 @@ const RadioCard = () => {
   const isPlaying = useIsPlaying(RadioUrl);
   const playerStatus = usePlayerStatus();
 
-  const _setProgress = () =>
-    dispatch(setProgress(new Date() - new Date(meta.started_at)));
+  const _setProgress = () => {
+    const currentTime = new Date().valueOf();
+    const startedAt = parseISO(meta.started_at).valueOf();
+    dispatch(setProgress(currentTime - startedAt));
+  };
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
   const _onClick = useOnClick(RadioUrl, false);
