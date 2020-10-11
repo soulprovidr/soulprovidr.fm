@@ -38,7 +38,7 @@ export default handleActions(
     }),
     [updateProgress]: (state, { payload: progress }) => ({
       ...state,
-      progress: state.progress + progress
+      progress: Math.min(state.progress + progress, state.meta.duration)
     }),
     [updateStatus]: (state, action) => ({ ...state, status: action.payload })
   },
