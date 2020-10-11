@@ -1,15 +1,14 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import get from 'lodash.get';
-import { PlayerStatus } from 'modules/player/constants';
+import { setProgress, PlayerStatus } from 'modules/player';
 import {
-  useClickAction,
+  useOnClick,
   useIsPlaying,
   usePlayerStatus
 } from 'modules/player/hooks';
-import { RadioUrl, getMeta as getRadioMeta } from 'modules/radio';
+import { RadioUrl, selectRadioMeta } from 'modules/radio';
 import { Card, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
 import PlayIcon from 'ui/components/PlayIcon';
@@ -76,30 +75,27 @@ const OverlayPlayIcon = <PlayIcon color="white" size="50" />;
 const RadioCard = () => {
   const containerRef = useRef(null);
 
-  const meta = useSelector(getRadioMeta);
+  const dispatch = useDispatch();
+  const meta = useSelector(selectRadioMeta);
+
   const isMouseOver = useIsMouseOver(containerRef);
-  const isRadioPlaying = useIsPlaying(RadioUrl);
+  const isPlaying = useIsPlaying(RadioUrl);
   const playerStatus = usePlayerStatus();
 
-  const getMetaProperty = (property) => get(meta, property, null);
-  const artist = getMetaProperty('artist');
-  const cover = getMetaProperty('cover');
-  const title = getMetaProperty('title');
-  const imageAlt = meta ? `${artist} - ${title}` : 'Loading...';
+  const _setProgress = () =>
+    dispatch(setProgress(new Date() - new Date(meta.started_at)));
+  const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
-  const onClick = useClickAction(
-    RadioUrl,
-    {
-      artist,
-      cover,
-      title,
-      duration: 0
-    },
-    false
-  );
+  const _onClick = useOnClick(RadioUrl, false);
+  const onClick = () =>
+    _onClick({
+      ...meta,
+      callback: _setProgress,
+      duration: meta.duration * 1000
+    });
 
   const renderOverlayContent = () => {
-    if (!isRadioPlaying) {
+    if (!isPlaying) {
       return OverlayPlayIcon;
     }
     switch (playerStatus) {
@@ -114,14 +110,14 @@ const RadioCard = () => {
   return (
     <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
-        <RadioCardImage src={cover ?? DefaultCover} alt={imageAlt} />
-        <Card.Overlay force={!isRadioPlaying || isMouseOver}>
+        <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
+        <Card.Overlay force={!isPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
       </RadioCardHeader>
       <RadioCardContent>
-        <RadioCardTitle>{title ?? 'Loading...'}</RadioCardTitle>
-        <RadioCardArtist>{artist}</RadioCardArtist>
+        <RadioCardTitle>{meta?.title ?? 'Loading...'}</RadioCardTitle>
+        <RadioCardArtist>{meta?.artist ?? null}</RadioCardArtist>
       </RadioCardContent>
     </RadioCardContainer>
   );

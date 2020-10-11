@@ -3,15 +3,15 @@ import { useSelector } from 'react-redux';
 
 import { selectPlayerSrc } from '../selectors';
 
-export default (src) => {
-  const [isActive, setIsActive] = useState(false);
+export const useIsSelected = (src) => {
+  const [isSelected, setisSelected] = useState(false);
   const playerSrc = useSelector(selectPlayerSrc);
   useEffect(() => {
     if (playerSrc && src === playerSrc) {
-      setIsActive(true);
+      setisSelected(true);
     } else {
-      setIsActive(false);
+      setisSelected(false);
     }
   }, [playerSrc]);
-  return isActive;
+  return isSelected;
 };

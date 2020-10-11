@@ -3,17 +3,18 @@ import {
   play,
   reset,
   setPlayerMeta,
+  setProgress,
   updateProgress,
   updateStatus
 } from './actions';
 import { PlayerStatus } from './constants';
 
-const { UNSTARTED } = PlayerStatus;
+const { STOPPED } = PlayerStatus;
 
 const initialState = {
   meta: {},
-  progress: null,
-  status: UNSTARTED,
+  progress: 0,
+  status: STOPPED,
   src: null
 };
 
@@ -21,7 +22,8 @@ export default handleActions(
   {
     [play]: (state, action) => {
       if (action.payload) {
-        return { ...state, src: action.payload, meta: action.meta };
+        const { payload: src, meta } = action;
+        return { ...state, src, meta };
       }
       return state;
     },
@@ -30,9 +32,13 @@ export default handleActions(
       ...state,
       meta: { ...state.meta, ...action.payload }
     }),
-    [updateProgress]: (state, action) => ({
+    [setProgress]: (state, { payload: progress }) => ({
       ...state,
-      progress: action.payload
+      progress
+    }),
+    [updateProgress]: (state, { payload: progress }) => ({
+      ...state,
+      progress: state.progress + progress
     }),
     [updateStatus]: (state, action) => ({ ...state, status: action.payload })
   },

@@ -3,20 +3,20 @@ import { useSelector } from 'react-redux';
 
 import { PlayerStatus } from '../constants';
 import { selectPlayerStatus } from '../selectors';
-import useIsActive from './useIsActive';
+import { useIsSelected } from './useIsSelected';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 export default (src) => {
-  const isActive = useIsActive(src);
+  const isSelected = useIsSelected(src);
   const [isPlaying, setIsPlaying] = useState(false);
   const playerStatus = useSelector(selectPlayerStatus);
   useEffect(() => {
-    if (isActive && [BUFFERING, PLAYING].includes(playerStatus)) {
+    if (isSelected && [BUFFERING, PLAYING].includes(playerStatus)) {
       setIsPlaying(true);
     } else {
       setIsPlaying(false);
     }
-  }, [isActive, playerStatus]);
+  }, [isSelected, playerStatus]);
   return isPlaying;
 };
