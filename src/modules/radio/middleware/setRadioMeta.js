@@ -1,5 +1,5 @@
 import fetchJson from 'common/helpers/fetchJson';
-import { selectIsPlaying, setPlayerMeta } from 'modules/player';
+import { selectIsPlaying, setPlayerMeta, setProgress } from 'modules/player';
 import { setRadioMeta } from '../actions';
 import { RadioMetaUrl, RadioUrl } from '../constants';
 import { selectRadioMeta } from '../selectors';
@@ -33,13 +33,18 @@ export const setRadioMetaMiddleware = ({ dispatch, getState }) => {
     dispatch(setRadioMeta(nextRadioMeta));
 
     // If the radio stream is currently playing, update the player meta, too.
-    // TODO: Convert to interface or document somewhere!
     if (isRadioPlaying) {
       dispatch(
         setPlayerMeta({
           ...nextRadioMeta,
           duration: nextRadioMeta.duration * 1000
         })
+      );
+      // Set the player progress so it reflects the time the current track started.
+      dispatch(
+        setProgress(
+          Math.max(new Date(nextRadioMeta.started_at) - new Date(), 0)
+        )
       );
     }
 

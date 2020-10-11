@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { PlayerStatus } from 'modules/player/constants';
+import { setProgress, PlayerStatus } from 'modules/player';
 import {
-  useClickAction,
+  useOnClick,
   useIsPlaying,
   usePlayerStatus
 } from 'modules/player/hooks';
@@ -75,19 +75,24 @@ const OverlayPlayIcon = <PlayIcon color="white" size="50" />;
 const RadioCard = () => {
   const containerRef = useRef(null);
 
+  const dispatch = useDispatch();
   const meta = useSelector(selectRadioMeta);
+
   const isMouseOver = useIsMouseOver(containerRef);
   const isPlaying = useIsPlaying(RadioUrl);
   const playerStatus = usePlayerStatus();
 
+  const _setProgress = () =>
+    dispatch(setProgress(new Date() - new Date(meta.started_at)));
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
-  const onClick = useClickAction(
-    RadioUrl,
-    // Convert duration value to milliseconds.
-    { ...meta, duration: meta.duration * 1000 },
-    false
-  );
+  const _onClick = useOnClick(RadioUrl, false);
+  const onClick = () =>
+    _onClick({
+      ...meta,
+      callback: _setProgress,
+      duration: meta.duration * 1000
+    });
 
   const renderOverlayContent = () => {
     if (!isPlaying) {

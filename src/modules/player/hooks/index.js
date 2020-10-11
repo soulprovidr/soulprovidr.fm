@@ -1,6 +1,6 @@
-import useClickAction from './useClickAction';
-import useIsActive from './useIsActive';
 import useIsPlaying from './useIsPlaying';
 
-export { useClickAction, useIsActive, useIsPlaying };
+export { useIsPlaying };
+export * from './useIsSelected';
+export * from './useOnClick';
 export * from './usePlayerStatus';

@@ -1,8 +1,6 @@
 export const PlayerStatus = {
-  UNSTARTED: -1,
+  STOPPED: -1,
   BUFFERING: 0,
   PLAYING: 1,
-  PAUSED: 2,
-  ENDED: 3,
-  STOPPED: 4
+  PAUSED: 2
 };

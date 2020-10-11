@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
 import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
-import { useClickAction, useIsPlaying } from 'modules/player/hooks';
+import { useOnClick, useIsPlaying } from 'modules/player/hooks';
 import { useTrack } from 'modules/soundcloud';
 import { Badge, Card, Text } from 'theme';
 import PauseIcon from 'ui/components/PauseIcon';
@@ -68,13 +68,13 @@ const ArticleCard = ({ post, ...props }) => {
         title
       }
     : null;
-  const clickAction = useClickAction(track?.stream_url, meta);
+  const _onClick = useOnClick(track?.stream_url);
   const onClick = (e) => {
     // Ignore clicks on card title.
     if (linkRef.current && e.target === linkRef.current) {
       return false;
     }
-    clickAction();
+    _onClick(meta);
   };
 
   const iconProps = { color: 'white', size: 40 };

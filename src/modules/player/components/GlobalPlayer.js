@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
-import { useClickAction } from 'modules/player/hooks';
+import { useOnClick } from 'modules/player/hooks';
 import {
   selectPlayerMeta,
   selectPlayerProgress,
@@ -113,7 +113,7 @@ export function GlobalPlayer() {
   const src = useSelector(selectPlayerSrc);
   const status = useSelector(selectPlayerStatus);
 
-  const onClickAction = useClickAction(src, meta);
+  const onClickAction = useOnClick(src, meta);
 
   const { artist, cover, title } = meta;
   const duration = get(meta, 'duration', 0);
