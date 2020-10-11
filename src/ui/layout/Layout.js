@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { GlobalPlayer } from 'modules/player';
+import { Player } from 'ui/player';
 import { ThemeProvider } from 'theme';
 
 import { Header, HeaderLinks } from '../header';
@@ -40,7 +40,7 @@ export function Layout({ children }) {
       <Head description={siteMetadata.description} title={siteMetadata.title} />
       <Header />
       {children}
-      <GlobalPlayer />
+      <Player />
       <StyledHeaderLinks />
     </ThemeProvider>
   );
