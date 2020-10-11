@@ -28,8 +28,8 @@ const liveCategory = {
 };
 
 const STREAM_META_URL =
-  'https://www.radioking.com/widgets/api/v1/radio/210013/track/current';
-const STREAM_URL = 'https://www.radioking.com/play/soul-provider-fm';
+  'https://api.radioking.io/widget/radio/soulprovidr/track/current';
+const STREAM_URL = 'https://www.radioking.com/play/soulprovidr';
 
 const RadioCard = (props) => {
   const { play, src, status, stop, updateMeta: updatePlayerMeta } = props;
