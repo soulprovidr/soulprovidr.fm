@@ -19,7 +19,7 @@ import ProgressBar from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
 
-const GlobalPlayerContainer = styled('div')(({ isVisible = false }) =>
+const PlayerContainer = styled('div')(({ isVisible = false }) =>
   css({
     bg: 'bg',
     display: 'flex',
@@ -42,17 +42,12 @@ const GlobalPlayerContainer = styled('div')(({ isVisible = false }) =>
   })
 );
 
-const StyledProgressBar = styled(ProgressBar)(
-  css({
-    display: ['none', 'flex']
-  })
-);
-
 const MetaContainer = styled('div')(
   css({
     display: 'flex',
     height: '100%',
     minWidth: [null, 300],
+    ml: [0, 3],
     position: ['absolute', 'relative'],
     left: 0,
     right: 0,
@@ -71,14 +66,15 @@ const MetaContent = styled('div')(
   css({
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    pb: [1, 0]
   })
 );
 
 const MetaTitle = styled(Text)(
   css({
     fontWeight: 'bold',
-    lineHeight: 1,
+    lineHeight: 1.25,
     p: 0,
     whiteSpace: 'nowrap'
   })
@@ -87,6 +83,7 @@ const MetaTitle = styled(Text)(
 const MetaArtist = styled(Text)(
   css({
     p: 0,
+    fontSize: 2,
     whiteSpace: 'nowrap'
   })
 );
@@ -107,7 +104,7 @@ const StatusIndicatorContainer = styled('div')(
   })
 );
 
-export function GlobalPlayer() {
+export const Player = () => {
   const meta = useSelector(selectPlayerMeta);
   const progress = useSelector(selectPlayerProgress);
   const src = useSelector(selectPlayerSrc);
@@ -120,18 +117,14 @@ export function GlobalPlayer() {
   const isVisible = status >= BUFFERING || false;
 
   return (
-    <GlobalPlayerContainer isVisible={isVisible}>
+    <PlayerContainer isVisible={isVisible}>
       <StatusIndicatorContainer
         onClick={onClickAction}
         onTouchEnd={onClickAction}
       >
         <StatusIndicator color="black" size={20} status={status} />
       </StatusIndicatorContainer>
-      <StyledProgressBar
-        duration={duration}
-        progress={progress}
-        status={status}
-      />
+      <ProgressBar duration={duration} progress={progress} status={status} />
       <MetaContainer>
         <MetaImage src={cover || DefaultCover} />
         <MetaContent>
@@ -139,6 +132,6 @@ export function GlobalPlayer() {
           <MetaArtist>{artist}</MetaArtist>
         </MetaContent>
       </MetaContainer>
-    </GlobalPlayerContainer>
+    </PlayerContainer>
   );
-}
+};

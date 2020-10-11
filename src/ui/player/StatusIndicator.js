@@ -1,9 +1,8 @@
 import React from 'react';
 import { Box, Spinner } from 'theme';
+import { PlayerStatus } from 'modules/player';
 import PlayIcon from 'ui/components/PlayIcon';
 import PauseIcon from 'ui/components/PauseIcon';
-
-import { PlayerStatus } from '../constants';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 

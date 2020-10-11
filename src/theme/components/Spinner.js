@@ -16,7 +16,7 @@ const StyledSpinner = styled('div')(({ size = 45 }) =>
   css({
     animation: `${spin} .75s linear infinite`,
     border: '4px solid',
-    borderColor: 'textPrimary',
+    borderColor: 'textSecondary',
     borderRightColor: 'transparent',
     borderRadius: '50%',
     height: size,
