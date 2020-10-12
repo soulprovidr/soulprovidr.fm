@@ -1,4 +1,4 @@
-import { pause, play, updateStatus } from '../actions';
+import { pause, play, setPlayerMeta, updateStatus } from '../actions';
 import { PlayerStatus } from '../constants';
 
 const { PAUSED, PLAYING, STOPPED } = PlayerStatus;
@@ -51,6 +51,15 @@ export const mediaSessionMiddleware = ({ dispatch }) => (next) => (action) => {
           artwork: [{ src: meta.cover }]
         });
       }
+      break;
+    }
+    case setPlayerMeta.toString(): {
+      const { payload: meta } = action;
+      setMetadata({
+        title: meta?.title ?? 'For those who like to groove.',
+        artist: meta?.artist ?? 'Soul Provider',
+        artwork: [{ src: meta?.cover ?? null }]
+      });
       break;
     }
     case updateStatus.toString(): {
