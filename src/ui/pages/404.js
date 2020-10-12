@@ -32,7 +32,7 @@ const StyledSubscribe = styled(Subscribe)(
 function PageNotFound({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page.Container title="Page not found">
+    <Page title="Page not found">
       <Global styles={globalStyles} />
       <Page.Title>Page not found</Page.Title>
       <Page.Content>
@@ -66,7 +66,7 @@ function PageNotFound({ data }) {
           ))}
         </Masonry>
       </Page.Meta>
-    </Page.Container>
+    </Page>
   );
 }
 

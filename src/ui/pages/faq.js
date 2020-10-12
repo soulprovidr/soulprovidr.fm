@@ -63,14 +63,14 @@ function FAQ({ data }) {
             power of the human mind.
           </Text>
           <Text>
-            Feeling anxious? Depressed? Heartbroken?
+            Feeling lonely? Anxious? Depressed?
             <i>The Mood®</i> can help. Our{' '}
             <Link to="/mixtapes">patented mixtape technology</Link> has been
-            shown to reduce the symptoms of heartache by up to 57%.
+            shown to reduce the symptoms of heartache by up to 98%.
           </Text>
           <Text>
-            (That&apos;s more than twice the effectiveness of the next leading
-            mixtape.)
+            That&apos;s more than twice the effectiveness of the next leading
+            mixtape.
           </Text>
           <Heading as="h3">How can I get in touch?</Heading>
           <Text>Soul Provider would love to hear from you.</Text>
