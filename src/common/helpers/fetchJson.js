@@ -1,12 +1,12 @@
-import qs from 'qs';
+import superagent from 'superagent';
 
 export default async function fetchJson(url, params = {}) {
   try {
-    const queryString = qs.stringify(params);
-    const response = await fetch(`
-      ${url}${queryString && `?${queryString}`}
-    `);
-    return await response.json();
+    console.log(url);
+    const request = superagent.get(url).query(params);
+    const { body } = await request;
+    console.log(body);
+    return body;
   } catch (e) {
     return null;
   }

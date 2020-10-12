@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import superagent from 'superagent';
 import qs from 'qs';
 
 const API_URL = 'https://api.soundcloud.com';
@@ -17,8 +18,8 @@ function getQualifiedStreamUrl(streamUrl) {
 async function request(path, params = {}) {
   try {
     const queryString = getQueryString(params);
-    const response = await fetch(`${API_URL}${path}?${queryString}`);
-    return await response.json();
+    const { body } = await superagent.get(`${API_URL}${path}?${queryString}`);
+    return body;
   } catch (e) {
     return null;
   }
