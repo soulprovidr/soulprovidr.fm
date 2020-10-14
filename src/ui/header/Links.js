@@ -8,7 +8,7 @@ import LiveIcon from '../components/LiveIcon';
 
 const links = [
   {
-    href: '/',
+    to: '/',
     children: (
       <Flex alignItems="center">
         <LiveIcon size={8} color="red" />
@@ -19,11 +19,12 @@ const links = [
     )
   },
   {
-    href: '/mixtapes',
-    children: 'Mixtapes'
+    to: '/mixtapes',
+    children: 'Mixtapes',
+    partiallyActive: true
   },
   {
-    href: '/faq',
+    to: '/faq',
     children: 'FAQ'
   }
 ];
@@ -57,9 +58,7 @@ export const Links = (props) => (
   <StyledLinks {...props}>
     {links.map((link) => (
       <LinkContainer key={link.href}>
-        <StyledLink activeClassName="active" to={link.href}>
-          {link.children}
-        </StyledLink>
+        <StyledLink activeClassName="active" {...link} />
       </LinkContainer>
     ))}
   </StyledLinks>

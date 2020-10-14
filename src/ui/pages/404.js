@@ -9,7 +9,7 @@ import { Box, Heading, Text } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
 import Subscribe from '../components/Subscribe';
-import { Page } from '../templates';
+import { Page } from '../layout';
 
 const globalStyles = emotionCSS`
   .masonry-container {

@@ -6,7 +6,7 @@ import css from '@styled-system/css';
 import { Container, Heading } from 'theme';
 import { Layout } from '../layout';
 
-const PageContainer = styled('main')(css({ mt: [5, 0], py: 5 }));
+const PageContainer = styled(Container)(css({ mt: [5, 0], py: 5 }));
 
 const PageTitle = styled(Heading)(css({ textTransform: 'uppercase' }));
 
@@ -25,10 +25,8 @@ const PageMeta = styled('div')(css({ py: 3 }));
 const Page = ({ children, title, ...props }) => (
   <Layout>
     <PageContainer {...props}>
-      <Container>
-        <Helmet title={title} />
-        {children}
-      </Container>
+      <Helmet title={title} />
+      {children}
     </PageContainer>
   </Layout>
 );

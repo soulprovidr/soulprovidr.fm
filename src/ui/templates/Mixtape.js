@@ -1,10 +1,13 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import get from 'lodash.get';
+import { graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import Image from 'gatsby-image';
-import { Heading } from 'theme';
-import { Page } from './Page';
+import { Box, Button, Heading, Text } from 'theme';
+import { Page } from '../layout';
+import Tracklist from '../components/Tracklist';
 
 // import Tracklist from '../components/Tracklist';
 // import Waveform from 'modules/soundcloud/components/Waveform';
@@ -15,31 +18,99 @@ import { Page } from './Page';
 
 // const { BUFFERING, PLAYING } = PlayerStatus;
 
-const LandscapeImagePostContent = (props) => {
-  return <Page.Content></Page.Content>;
-};
+const MixtapeContainer = styled('div')(
+  css({
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: ['column', 'row']
+  })
+);
 
-const PortraitImagePostContent = (props) => {};
+const MixtapeImage = styled(Image)(
+  css({
+    flexGrow: 1,
+    height: 'auto'
+  })
+);
 
-export const Post = ({
-  children,
-  imageOrientation = 'landscape',
-  post,
-  ...props
-}) => {
-  const { frontmatter } = post;
-  const { title } = frontmatter;
-  const PostContent =
-    imageOrientation === 'landscape'
-      ? LandscapeImagePostContent
-      : PortraitImagePostContent;
+const MixtapeContent = styled(Box)(
+  css({
+    pl: [0, 4],
+    pt: [3, 0],
+    pb: 5
+  })
+);
+
+const MixtapeTitle = styled(Page.Title)(
+  css({
+    fontSize: [5, 6],
+    lineHeight: 1.25,
+    pb: 0,
+    textTransform: 'none'
+  })
+);
+
+const MixtapeText = styled(Text)(
+  css({
+    // borderBottom: '1px dotted #ddd',
+    pb: 2
+  })
+);
+
+const MixtapeTemplate = ({ data, ...props }) => {
+  const post = get(data, 'markdownRemark', null);
+  const { frontmatter, html } = post;
+  const { image, title } = frontmatter;
   return (
-    <Page.Container {...props}>
-      <Helmet title={title} />
-      <PostContent post={post}>{children}</PostContent>
-    </Page.Container>
+    <Page title={title} {...props}>
+      <MixtapeContainer>
+        <Box width={[1, 1 / 3]}>
+          <MixtapeImage fluid={image.childImageSharp.fluid} />
+        </Box>
+        <MixtapeContent width={[1, 2 / 3]}>
+          <MixtapeTitle>{title}</MixtapeTitle>
+          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+        </MixtapeContent>
+      </MixtapeContainer>
+    </Page>
   );
 };
+
+export default MixtapeTemplate;
+
+export const pageQuery = graphql`
+  query($slug: String!) {
+    markdownRemark(fields: { slug: { eq: $slug } }) {
+      id
+      html
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        author {
+          id
+          name
+        }
+        category {
+          id
+          label
+          colour
+        }
+        date
+        description
+        soundCloudUrl
+        image {
+          childImageSharp {
+            fluid(maxWidth: 768) {
+              ...GatsbyImageSharpFluid_noBase64
+            }
+          }
+        }
+      }
+    }
+  }
+`;
 
 // function Article(props) {
 //   const { data, play, pause, progress, src, status, stop } = props;
@@ -160,5 +231,3 @@ export const Post = ({
 // const mapDispatch = { play, pause, stop };
 
 // export default connect(mapState, mapDispatch)(Article);
-
-export default () => null;
