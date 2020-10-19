@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { PlayerStatus } from '../constants';
@@ -7,16 +7,14 @@ import { useIsSelected } from './useIsSelected';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
-export default (src) => {
+export const useIsPlaying = (src) => {
   const isSelected = useIsSelected(src);
-  const [isPlaying, setIsPlaying] = useState(false);
   const playerStatus = useSelector(selectPlayerStatus);
-  useEffect(() => {
+  return useMemo(() => {
     if (isSelected && [BUFFERING, PLAYING].includes(playerStatus)) {
-      setIsPlaying(true);
+      return true;
     } else {
-      setIsPlaying(false);
+      return false;
     }
   }, [isSelected, playerStatus]);
-  return isPlaying;
 };

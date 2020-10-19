@@ -12,11 +12,12 @@ const spin = keyframes`
   }
 `;
 
-const StyledSpinner = styled('div')(({ size = 45 }) =>
+const StyledSpinner = styled('div')(({ color = 'textSecondary', size = 45 }) =>
   css({
     animation: `${spin} .75s linear infinite`,
-    border: '4px solid',
-    borderColor: 'textSecondary',
+    borderSize: size < 45 ? '2px' : '4px',
+    borderStyle: 'solid',
+    borderColor: color,
     borderRightColor: 'transparent',
     borderRadius: '50%',
     height: size,
@@ -24,8 +25,4 @@ const StyledSpinner = styled('div')(({ size = 45 }) =>
   })
 );
 
-export const Spinner = (props) => (
-  <StyledSpinner role="status" {...props}>
-    {/* <span className="sr-only">Loading...</span> */}
-  </StyledSpinner>
-);
+export const Spinner = (props) => <StyledSpinner role="status" {...props} />;

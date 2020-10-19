@@ -5,9 +5,18 @@ import { graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import Image from 'gatsby-image';
-import { Box, Button, Heading, Text } from 'theme';
-import { Page } from '../layout';
+import {
+  msToTime,
+  useIsPlaying,
+  useMediaAction,
+  usePlayerProgress
+} from 'modules/player';
+import { useTrack } from 'modules/soundcloud';
+import { Box, Button, Flex, Heading, Spinner, Text } from 'theme';
+import { CoverImage } from '../components/CoverImage';
 import Tracklist from '../components/Tracklist';
+import { Page } from '../layout';
+import { PlayerIcon } from '../player';
 
 // import Tracklist from '../components/Tracklist';
 // import Waveform from 'modules/soundcloud/components/Waveform';
@@ -26,10 +35,29 @@ const MixtapeContainer = styled('div')(
   })
 );
 
-const MixtapeImage = styled(Image)(
+const MixtapeMeta = styled('div')(
   css({
-    flexGrow: 1,
-    height: 'auto'
+    position: 'relative',
+    width: ['100%', '40%']
+  })
+);
+
+const StyledButton = styled(Button)(
+  css({
+    cursor: 'pointer',
+    minWidth: 80
+    // mt: 3
+  })
+);
+
+const StyledPlayerIcon = styled(PlayerIcon)(
+  css({
+    height: 18,
+    mr: 1,
+    width: 15,
+    svg: {
+      verticalAlign: 'middle'
+    }
   })
 );
 
@@ -43,16 +71,17 @@ const MixtapeContent = styled(Box)(
 
 const MixtapeTitle = styled(Page.Title)(
   css({
+    borderBottom: '1px dotted #ddd',
     fontSize: [5, 6],
     lineHeight: 1.25,
-    pb: 0,
+    pb: 3,
     textTransform: 'none'
   })
 );
 
 const MixtapeText = styled(Text)(
   css({
-    // borderBottom: '1px dotted #ddd',
+    mb: 3,
     pb: 2
   })
 );
@@ -60,16 +89,53 @@ const MixtapeText = styled(Text)(
 const MixtapeTemplate = ({ data, ...props }) => {
   const post = get(data, 'markdownRemark', null);
   const { frontmatter, html } = post;
-  const { image, title } = frontmatter;
+  const { category, image, soundCloudUrl, title } = frontmatter;
+  const track = useTrack(soundCloudUrl);
+  const src = track?.stream_url ?? null;
+  const isPlaying = useIsPlaying(track?.stream_url);
+  const progress = usePlayerProgress();
+  const mediaAction = useMediaAction(src);
+  const onClick = () =>
+    track
+      ? mediaAction({
+          artist: track.user.username,
+          cover: image.childImageSharp.fluid.src,
+          duration: track.duration,
+          title
+        })
+      : null;
   return (
     <Page title={title} {...props}>
       <MixtapeContainer>
-        <Box width={[1, 1 / 3]}>
-          <MixtapeImage fluid={image.childImageSharp.fluid} />
-        </Box>
-        <MixtapeContent width={[1, 2 / 3]}>
+        <MixtapeMeta>
+          <CoverImage
+            category={category}
+            onClick={onClick}
+            image={image}
+            src={src}
+          />
+        </MixtapeMeta>
+        <MixtapeContent width={[1, 3 / 5]}>
           <MixtapeTitle>{title}</MixtapeTitle>
           <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          <Flex justifyContent="space-between" alignItems="center" pb={4}>
+            <StyledButton variant="primary" size="sm" onClick={onClick}>
+              {track ? (
+                <>
+                  <StyledPlayerIcon size={12} src={src} />
+                  {isPlaying ? 'Pause' : 'Listen'}
+                </>
+              ) : (
+                <Spinner color="white" size={12} />
+              )}
+            </StyledButton>
+            <Text color="textSecondary" pb={0}>
+              {msToTime(isPlaying ? progress : null)} /{' '}
+              {msToTime(track?.duration)}
+            </Text>
+          </Flex>
+          <Heading as="h2">Tracklist</Heading>
+          <Tracklist />
         </MixtapeContent>
       </MixtapeContainer>
     </Page>

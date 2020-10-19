@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
-import { useOnClick } from 'modules/player/hooks';
+import { useMediaAction } from 'modules/player/hooks';
 import {
   selectPlayerMeta,
   selectPlayerProgress,
@@ -14,7 +14,7 @@ import {
 import { Text } from 'theme';
 import DefaultCover from 'ui/static/images/default.png';
 
-import StatusIndicator from './StatusIndicator';
+import { PlayerIcon } from './PlayerIcon';
 import ProgressBar from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
@@ -89,7 +89,7 @@ const MetaArtist = styled(Text)(
 );
 
 // TODO: Dark mode fix for gradient.
-const StatusIndicatorContainer = styled('div')(
+const PlayerIconContainer = styled('div')(
   css({
     background: [
       'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
@@ -110,7 +110,7 @@ export const Player = () => {
   const src = useSelector(selectPlayerSrc);
   const status = useSelector(selectPlayerStatus);
 
-  const onClickAction = useOnClick(src, meta);
+  const onClickAction = useMediaAction(src, meta);
 
   const { artist, cover, title } = meta;
   const duration = get(meta, 'duration', 0);
@@ -118,12 +118,9 @@ export const Player = () => {
 
   return (
     <PlayerContainer isVisible={isVisible}>
-      <StatusIndicatorContainer
-        onClick={onClickAction}
-        onTouchEnd={onClickAction}
-      >
-        <StatusIndicator color="black" size={20} status={status} />
-      </StatusIndicatorContainer>
+      <PlayerIconContainer onClick={onClickAction} onTouchEnd={onClickAction}>
+        <PlayerIcon color="black" size={20} />
+      </PlayerIconContainer>
       <ProgressBar duration={duration} progress={progress} status={status} />
       <MetaContainer>
         <MetaImage src={cover || DefaultCover} />
