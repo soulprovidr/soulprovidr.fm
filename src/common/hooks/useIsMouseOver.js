@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export default function useIsMouseOver(componentRef) {
+export const useIsMouseOver = (componentRef) => {
   const [isMouseOver, setIsMouseOver] = useState(false);
   const onMouseOver = () => setIsMouseOver(true);
   const onMouseOut = () => setIsMouseOver(false);
@@ -16,4 +16,4 @@ export default function useIsMouseOver(componentRef) {
     }
   });
   return isMouseOver;
-}
+};
