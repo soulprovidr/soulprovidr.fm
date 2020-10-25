@@ -9,7 +9,7 @@ import RadioCard from '../components/RadioCard';
 import ArticleCard from '../components/ArticleCard';
 import LiveIcon from '../components/LiveIcon';
 import Subscribe from '../components/Subscribe';
-import { Page } from '../templates';
+import { Page } from '../layout';
 
 const globalStyles = css`
   .masonry-container {
@@ -28,7 +28,7 @@ const Title = () => (
     <Flex alignItems="center">
       <LiveIcon size={12} color="red" />
       <Box as="span" ml={2}>
-        LIVE
+        Live
       </Box>
     </Flex>
   </Page.Title>

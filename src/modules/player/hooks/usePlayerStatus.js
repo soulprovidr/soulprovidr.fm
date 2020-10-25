@@ -1,7 +1,9 @@
+import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectPlayerStatus } from '../selectors';
 
 export const usePlayerStatus = () => {
-  return useSelector(selectPlayerStatus);
+  const playerStatus = useSelector(selectPlayerStatus);
+  return useMemo(() => playerStatus, [playerStatus]);
 };

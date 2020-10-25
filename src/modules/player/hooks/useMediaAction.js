@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { pause, play, resume, stop } from '../actions';
 import { useIsSelected } from './useIsSelected';
-import useIsPlaying from './useIsPlaying';
+import { useIsPlaying } from './useIsPlaying';
 
 /**
  * Return an onClick handler for playing or pausing a media stream,
@@ -11,12 +11,12 @@ import useIsPlaying from './useIsPlaying';
  * @param {String} src
  * @param {Boolean} pauseEnabled
  */
-export const useOnClick = (src, pauseEnabled = true) => {
+export const useMediaAction = (src, pauseEnabled = true) => {
   const dispatch = useDispatch();
   const isSelected = useIsSelected(src);
   const isPlaying = useIsPlaying(src);
   const pauseAction = pauseEnabled ? pause : stop;
-  const onClick = useCallback(
+  return useCallback(
     (meta) => {
       if (!src) {
         return null;
@@ -29,5 +29,4 @@ export const useOnClick = (src, pauseEnabled = true) => {
     },
     [isSelected, isPlaying, src]
   );
-  return onClick;
 };

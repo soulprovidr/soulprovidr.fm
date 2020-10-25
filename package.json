@@ -20,7 +20,7 @@
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-offline": "^3.2.23",
     "gatsby-plugin-react-helmet": "^3.3.10",
-    "gatsby-plugin-sharp": "^2.6.27",
+    "gatsby-plugin-sharp": "^2.6.42",
     "gatsby-plugin-ts": "^2.7.1",
     "gatsby-source-contentful": "^2.3.37",
     "gatsby-source-filesystem": "^2.3.24",

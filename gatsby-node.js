@@ -16,30 +16,29 @@ const getPostSlug = (node) =>
     node.fileAbsolutePath.split('/').pop().split('.')[0]
   }`;
 
+const getPostTemplate = (categoryId) => {
+  switch (categoryId) {
+    case 'mixtape':
+      return path.resolve('./src/ui/templates/Mixtape.js');
+    default:
+      return null;
+  }
+};
+
 const createCategoryQuery = (category) => `
-  query {
+  query CategoryQuery {
     allMarkdownRemark(
       filter: { frontmatter: { category: { id: { eq: "${category}" } } } }
       sort: { fields: frontmatter___date }
     ) {
       edges {
         node {
-          id
-          html
           fields {
             slug
           }
           frontmatter {
-            title
-            author {
-              id
-              name
-            }
-            date
             category {
               id
-              label
-              colour
             }
           }
         }
@@ -60,12 +59,19 @@ exports.createPages = async ({ graphql, actions }) => {
       throw categoryResult.errors;
     }
 
-    const postTemplate = path.resolve('./src/ui/templates/Article.js');
     const posts = categoryResult.data.allMarkdownRemark.edges;
     posts.forEach(({ node: post }) => {
+      const {
+        frontmatter: {
+          category: { id: categoryId }
+        }
+      } = post;
+      const { slug } = post.fields;
+      const component = getPostTemplate(categoryId);
       createPage({
-        path: post.fields.slug,
-        component: postTemplate
+        path: slug,
+        component,
+        context: { slug }
       });
     });
   }

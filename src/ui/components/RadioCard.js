@@ -5,7 +5,7 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { setProgress, PlayerStatus } from 'modules/player';
 import {
-  useOnClick,
+  useMediaAction,
   useIsPlaying,
   usePlayerStatus
 } from 'modules/player/hooks';
@@ -90,9 +90,9 @@ const RadioCard = () => {
   };
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
-  const _onClick = useOnClick(RadioUrl, false);
+  const mediaAction = useMediaAction(RadioUrl, false);
   const onClick = () =>
-    _onClick({
+    mediaAction({
       ...meta,
       callback: _setProgress,
       duration: meta.duration * 1000

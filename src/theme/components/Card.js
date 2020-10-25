@@ -2,19 +2,7 @@ import React from 'react';
 import css from '@styled-system/css';
 import styled from '@emotion/styled';
 
-import { Badge } from './Badge';
-import { Box } from './Box';
-
 const transitionTimingFn = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
-
-const CardBadge = styled(Badge)(
-  css({
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    zIndex: 1
-  })
-);
 
 const CardContainer = styled('div')(
   css({
@@ -49,28 +37,7 @@ const CardOverlay = styled('div')(({ force = false }) =>
 
 const CardHeader = styled('div')({ position: 'relative' });
 
-const CardOld = ({
-  badgeColour,
-  badgeText,
-  children,
-  image,
-  onClick,
-  overlayContent
-}) => {
-  return (
-    <CardContainer onClick={onClick}>
-      <CardBadge bg={badgeColour}>{badgeText}</CardBadge>
-      <Box position="relative">
-        {overlayContent && <CardOverlay>{overlayContent}</CardOverlay>}
-        {image}
-      </Box>
-      {children && <Box py={2}>{children}</Box>}
-    </CardContainer>
-  );
-};
-
 export const Card = {
-  Old: CardOld,
   Container: CardContainer,
   Header: CardHeader,
   Overlay: CardOverlay
