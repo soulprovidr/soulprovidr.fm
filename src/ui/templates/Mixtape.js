@@ -19,7 +19,7 @@ import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
 // import Tracklist from '../components/Tracklist';
-// import Waveform from 'modules/soundcloud/components/Waveform';
+import Waveform from 'modules/soundcloud/components/Waveform';
 // import { play, pause, stop } from 'modules/player/actions';
 // import { PlayerStatus } from 'modules/player/constants';
 // import msToTime from 'modules/player/helpers/msToTime';
@@ -38,7 +38,9 @@ const MixtapeContainer = styled('div')(
 const MixtapeMeta = styled('div')(
   css({
     position: 'relative',
-    width: ['100%', '40%']
+    flexGrow: 1
+    // width: ['100%', '30%']
+    // width: '100%'
   })
 );
 
@@ -63,7 +65,7 @@ const StyledPlayerIcon = styled(PlayerIcon)(
 
 const MixtapeContent = styled(Box)(
   css({
-    pl: [0, 4],
+    pl: [0, 5],
     pt: [3, 0],
     pb: 5
   })
@@ -71,7 +73,6 @@ const MixtapeContent = styled(Box)(
 
 const MixtapeTitle = styled(Page.Title)(
   css({
-    borderBottom: '1px dotted #ddd',
     fontSize: [5, 6],
     lineHeight: 1.25,
     pb: 3,
@@ -118,6 +119,14 @@ const MixtapeTemplate = ({ data, ...props }) => {
         <MixtapeContent width={[1, 3 / 5]}>
           <MixtapeTitle>{title}</MixtapeTitle>
           <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          <Waveform
+            duration={track?.duration}
+            height={90}
+            numSamples={120}
+            // onSeek={onSeek}
+            progress={isPlaying ? progress : 0}
+            waveformUrl={track?.waveform_url}
+          />
           <Flex justifyContent="space-between" alignItems="center" pb={4}>
             <StyledButton variant="primary" size="sm" onClick={onClick}>
               {track ? (
@@ -134,8 +143,8 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </Flex>
-          <Heading as="h2">Tracklist</Heading>
-          <Tracklist />
+          {/* <Heading as="h2">Tracklist</Heading> */}
+          {/* <Tracklist /> */}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>
