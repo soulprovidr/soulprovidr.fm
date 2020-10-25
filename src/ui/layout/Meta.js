@@ -1,14 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
-import Favicon from '../static/images/favicon.png';
-
-export const Head = ({ description, lang, meta, title }) => (
+export const Meta = ({ description, title }) => (
   <Helmet
-    htmlAttributes={{ lang }}
-    defaultTitle={title}
-    titleTemplate={`%s | ${title}`}
+    title={title}
     meta={[
       {
         name: 'charset',
@@ -42,23 +37,6 @@ export const Head = ({ description, lang, meta, title }) => (
         name: 'twitter:description',
         content: description
       }
-    ].concat(meta)}
-  >
-    <link rel="icon" href={Favicon} type="image/png" />
-  </Helmet>
+    ]}
+  />
 );
-
-Head.defaultProps = {
-  lang: 'en',
-  meta: [],
-  description: ''
-};
-
-Head.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired
-};
-
-export default Head;

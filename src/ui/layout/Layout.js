@@ -2,11 +2,11 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
+import Helmet from 'react-helmet';
 import { Player } from 'ui/player';
 import { ThemeProvider } from 'theme';
 
 import { Header, HeaderLinks } from '../header';
-import { Head } from './Head';
 
 const query = graphql`
   query {
@@ -37,7 +37,12 @@ export function Layout({ children }) {
 
   return (
     <ThemeProvider>
-      <Head description={siteMetadata.description} title={siteMetadata.title} />
+      <Helmet
+        htmlAttributes={{ lang: 'en' }}
+        defaultTitle={siteMetadata.title}
+        description={siteMetadata.description}
+        titleTemplate={`%s | ${siteMetadata.title}`}
+      />
       <Header />
       {children}
       <Player />

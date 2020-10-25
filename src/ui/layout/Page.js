@@ -1,10 +1,9 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
 import { Container, Heading } from 'theme';
-import { Layout } from '../layout';
+import { Layout, Meta } from './';
 
 const PageContainer = styled(Container)(css({ mt: [5, 0], py: 5 }));
 
@@ -22,10 +21,10 @@ const PageContent = styled('div')(
 
 const PageMeta = styled('div')(css({ py: 3 }));
 
-const Page = ({ children, title, ...props }) => (
+const Page = ({ children, title, description, ...props }) => (
   <Layout>
     <PageContainer {...props}>
-      <Helmet title={title} />
+      <Meta title={title} description={description} />
       {children}
     </PageContainer>
   </Layout>

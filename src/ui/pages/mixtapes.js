@@ -1,6 +1,5 @@
 import React from 'react';
 import get from 'lodash/get';
-import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
@@ -26,7 +25,6 @@ function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
     <Page title="Mixtapes">
-      <Helmet title="Mixtapes" />
       <Global styles={globalStyles} />
       <Page.Title>Mixtapes</Page.Title>
       <Page.Content>

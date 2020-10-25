@@ -1,10 +1,8 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 import get from 'lodash.get';
 import { graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import Image from 'gatsby-image';
 import {
   msToTime,
   useIsPlaying,
@@ -14,7 +12,7 @@ import {
 import { Waveform, useTrack } from 'modules/soundcloud';
 import { Box, Button, Flex, Spinner, Text } from 'theme';
 import { CoverImage } from '../components/CoverImage';
-import { Page } from '../layout';
+import { Meta, Page } from '../layout';
 import { PlayerIcon } from '../player';
 
 const MixtapeContainer = styled('div')(
@@ -80,7 +78,7 @@ const StyledPlayerIcon = styled(PlayerIcon)(
 const MixtapeTemplate = ({ data, ...props }) => {
   const post = get(data, 'markdownRemark', null);
   const { frontmatter, html } = post;
-  const { category, image, soundCloudUrl, title } = frontmatter;
+  const { category, description, image, soundCloudUrl, title } = frontmatter;
   const track = useTrack(soundCloudUrl);
   const mediaSrc = track?.stream_url ?? null;
   const isPlaying = useIsPlaying(track?.stream_url);
@@ -96,7 +94,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
         })
       : null;
   return (
-    <Page title={title} {...props}>
+    <Page description={description} title={title} {...props}>
       <MixtapeContainer>
         <MixtapeMeta>
           <CoverImage
