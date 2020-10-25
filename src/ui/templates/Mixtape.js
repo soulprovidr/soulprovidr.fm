@@ -65,6 +65,7 @@ const StyledPlayerIcon = styled(PlayerIcon)(
 
 const MixtapeContent = styled(Box)(
   css({
+    mb: 3,
     pl: [0, 5],
     pt: [3, 0],
     pb: 5
@@ -73,9 +74,10 @@ const MixtapeContent = styled(Box)(
 
 const MixtapeTitle = styled(Page.Title)(
   css({
-    fontSize: [5, 6],
+    fontSize: 6,
     lineHeight: 1.25,
-    pb: 3,
+    pb: 1,
+    pt: [3, 0],
     textTransform: 'none'
   })
 );
@@ -111,6 +113,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
         <MixtapeMeta>
           <CoverImage
             category={category}
+            forceOverlay={false}
             onClick={onClick}
             image={image}
             src={src}
