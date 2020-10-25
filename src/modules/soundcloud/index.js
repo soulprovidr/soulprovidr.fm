@@ -69,3 +69,5 @@ export function useWaveform(waveformUrl) {
   }, [waveformUrl]);
   return waveform;
 }
+
+export * from './components/Waveform';

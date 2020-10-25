@@ -118,4 +118,4 @@ Waveform.defaultProps = {
   reflectionHeight: 50
 };
 
-export default Waveform;
+export { Waveform };
