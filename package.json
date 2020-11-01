@@ -2,7 +2,8 @@
   "name": "soulprovidr.fm",
   "scripts": {
     "build": "gatsby build",
-    "start": "gatsby develop"
+    "start": "gatsby develop",
+    "postinstall": "netlify-lambda install"
   },
   "dependencies": {
     "@emotion/core": "^10.0.34",
@@ -22,10 +23,7 @@
     "gatsby-plugin-offline": "^3.2.23",
     "gatsby-plugin-react-helmet": "^3.3.10",
     "gatsby-plugin-sharp": "^2.6.42",
-    "gatsby-plugin-ts": "^2.7.1",
-    "gatsby-source-contentful": "^2.3.37",
     "gatsby-source-filesystem": "^2.3.24",
-    "gatsby-source-gh-readme": "^1.0.10",
     "gatsby-transformer-json": "^2.4.11",
     "gatsby-transformer-remark": "^2.8.28",
     "gatsby-transformer-sharp": "^2.5.13",
@@ -34,12 +32,12 @@
     "jest-cli": "^25.5.4",
     "lodash.chunk": "^4.2.0",
     "lodash.get": "^4.4.2",
+    "netlify-lambda": "^2.0.1",
     "qs": "^6.9.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^5.2.1",
     "react-masonry-css": "^1.0.14",
-    "react-progressive-bg-image": "^3.0.0",
     "react-redux": "^7.2.1",
     "react-testing-library": "^8.0.1",
     "redux": "^4.0.5",
@@ -47,10 +45,7 @@
     "redux-devtools": "^3.6.1",
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
-    "styled-system": "^5.1.5",
-    "superagent": "^6.1.0",
-    "typescript": "^3.9.7",
-    "whatwg-fetch": "^3.4.0"
+    "styled-system": "^5.1.5"
   },
   "devDependencies": {
     "@emotion/babel-preset-css-prop": "^10.0.27",
