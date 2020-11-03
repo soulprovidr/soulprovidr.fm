@@ -1,12 +1,20 @@
 import './fonts/hk-grotesk/hk-grotesk.css';
 
 export default {
-  borders: ['1px solid #eee'],
+  borders: {
+    container: '1px solid #eee',
+    input: '2px solid #6c757d',
+    error: '2px solid #E54D42',
+    focus: '2px solid #308AEC'
+  },
   colors: {
     accent: '#308AEC',
     bg: 'white',
-    textPrimary: '#343a40',
-    textSecondary: '#6c757d'
+    text: {
+      primary: '#343a40',
+      secondary: '#6c757d'
+    },
+    error: 'red'
   },
   fonts: {
     body: 'Inter, Helvetica Neue',

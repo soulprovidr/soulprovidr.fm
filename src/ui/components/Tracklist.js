@@ -5,7 +5,7 @@ import css from '@styled-system/css';
 const StyledThead = styled('thead')(
   css({
     borderBottom: '1px solid #ddd',
-    color: 'textSecondary'
+    color: 'text.secondary'
   })
 );
 

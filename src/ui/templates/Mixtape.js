@@ -127,7 +127,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
                 <Spinner color="white" size={12} />
               )}
             </StyledButton>
-            <Text color="textSecondary" pb={0}>
+            <Text color="text.secondary" pb={0}>
               {msToTime(isPlaying ? progress : null)} /{' '}
               {msToTime(track?.duration)}
             </Text>

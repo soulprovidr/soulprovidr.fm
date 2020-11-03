@@ -1,12 +1,9 @@
-import superagent from 'superagent';
+import axios from 'axios';
 
 export default async function fetchJson(url, params = {}) {
   try {
-    console.log(url);
-    const request = superagent.get(url).query(params);
-    const { body } = await request;
-    console.log(body);
-    return body;
+    const { data } = await axios.get(url, { params });
+    return data;
   } catch (e) {
     return null;
   }

@@ -24,6 +24,7 @@ export const Button = styled('button')(
     css({
       border: 'none',
       borderRadius: 1,
+      cursor: 'pointer',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',

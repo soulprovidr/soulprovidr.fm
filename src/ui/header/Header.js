@@ -11,7 +11,7 @@ import { Icons } from './Icons';
 const HeaderContainer = styled('header')(
   css({
     bg: 'bg',
-    borderBottom: [0, null],
+    borderBottom: ['container', null],
     fontFamily: 'heading',
     position: ['fixed', 'relative'],
     top: 0,
@@ -24,7 +24,7 @@ const HeaderContainer = styled('header')(
     py: [2, 4],
     zIndex: 3,
     'a, a:active, a:visited': {
-      color: 'textPrimary'
+      color: 'text.primary'
     },
     'a:hover': {
       textDecoration: 'none'

@@ -12,7 +12,7 @@ exports.handler = async function (event) {
   } = event;
   if (!email.length) {
     return {
-      statusCode: 500,
+      statusCode: 400,
       body: JSON.stringify({ message: 'Invalid email.' })
     };
   }

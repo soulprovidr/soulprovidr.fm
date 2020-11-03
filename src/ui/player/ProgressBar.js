@@ -37,7 +37,7 @@ const ProgressContainer = styled('div')(
 
 const ProgressText = styled(Text)(({ orientation = 'left' }) =>
   css({
-    color: 'textSecondary',
+    color: 'text.secondary',
     display: ['none', 'block'],
     fontSize: 2,
     ml: orientation === 'left' ? 0 : 3,
