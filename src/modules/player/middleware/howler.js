@@ -28,16 +28,32 @@ export const howlerMiddleware = ({ dispatch }) => {
   let sound = null;
   let timer = null;
 
+  // Player status observable.
   const status = flyd.stream(STOPPED);
 
-  const stopTimer = () => clearInterval(timer);
-  const startTimer = () => {
-    timer = setInterval(() => {
-      dispatch(updateProgress(PROGRESS_INTERVAL));
-    }, PROGRESS_INTERVAL);
-  };
+  /**
+   * Create a new Howl instance for the specified audio src.
+   * @param {String} src Audio URL
+   * @param {Function} callback Function to run once the sound begins playing.
+   */
+  const createSound = (src, callback = () => false) =>
+    new Howl({
+      src,
+      format: 'mp3',
+      html5: true,
+      onpause: () => status(PAUSED),
+      onplay: () => {
+        callback();
+        status(PLAYING);
+      },
+      onstop: () => status(STOPPED),
+      onend: () => status(STOPPED)
+    });
 
-  const _reset = () => {
+  /**
+   * Stop publishing progress, destroy the current sound, and reset module state.
+   */
+  const resetSound = () => {
     stopTimer();
     if (sound) {
       sound.off();
@@ -45,6 +61,20 @@ export const howlerMiddleware = ({ dispatch }) => {
       sound = null;
     }
     dispatch(reset());
+  };
+
+  /**
+   * Stop updating the progress.
+   */
+  const stopTimer = () => clearInterval(timer);
+
+  /**
+   * Update progress every PROGRESS_INTERVAL milliseconds.
+   */
+  const startTimer = () => {
+    timer = setInterval(() => {
+      dispatch(updateProgress(PROGRESS_INTERVAL));
+    }, PROGRESS_INTERVAL);
   };
 
   /**
@@ -56,20 +86,8 @@ export const howlerMiddleware = ({ dispatch }) => {
     const { callback = () => false, progress = 0 } = meta;
 
     // Clear any previous sound/state/timers.
-    _reset();
-    sound = new Howl({
-      src,
-      format: 'mp3',
-      html5: true,
-      // Update `status` -- below we react to the update.
-      onpause: () => status(PAUSED),
-      onplay: () => {
-        callback();
-        status(PLAYING);
-      },
-      onstop: () => status(STOPPED),
-      onend: () => status(STOPPED)
-    });
+    resetSound();
+    sound = createSound(src, callback);
 
     // Do we need to seek?
     if (progress) {
@@ -79,8 +97,6 @@ export const howlerMiddleware = ({ dispatch }) => {
 
     // Set BUFFERING status while sound is loading.
     status(BUFFERING);
-
-    // Attempt to play the sound.
     sound?.play();
   };
 
@@ -91,7 +107,7 @@ export const howlerMiddleware = ({ dispatch }) => {
     switch (status) {
       // Reset module state when sound is unloaded.
       case STOPPED:
-        _reset();
+        resetSound();
         break;
       // Stop timer when stream is paused.
       case PAUSED:
