@@ -5,6 +5,7 @@ import player from 'modules/player/reducer';
 import radio from 'modules/radio/reducer';
 import { reducer as subscribe } from 'modules/subscribe';
 
+import { panelBearMiddleware } from 'modules/analytics';
 import playerMiddleware from 'modules/player/middleware';
 import radioMiddleware from 'modules/radio/middleware';
 
@@ -16,6 +17,7 @@ const reducer = combineReducers({
 
 const middleware = applyMiddleware(
   thunk,
+  panelBearMiddleware,
   ...playerMiddleware,
   ...radioMiddleware
 );
