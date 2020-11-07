@@ -5,6 +5,7 @@
     "caches": true,
     "clearInterval": true,
     "console": true,
+    "document": true,
     "exports": true,
     "fetch": true,
     "module": true,
