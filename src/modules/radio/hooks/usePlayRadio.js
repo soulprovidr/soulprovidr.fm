@@ -4,7 +4,7 @@ import { setProgress, useMediaAction } from 'modules/player';
 import { RadioUrl } from '../constants';
 import { selectRadioMeta } from '../selectors';
 
-export const useListenLive = () => {
+export const usePlayRadio = () => {
   const dispatch = useDispatch();
   const radioMeta = useSelector(selectRadioMeta);
   const mediaAction = useMediaAction(RadioUrl, false);

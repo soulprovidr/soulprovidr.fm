@@ -140,7 +140,7 @@ export const howlerMiddleware = ({ dispatch }) => {
         break;
       }
       case STOP:
-        sound?.stop();
+        resetSound();
         break;
       default:
         break;

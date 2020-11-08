@@ -29,6 +29,9 @@ export const Button = styled('button')(
       alignItems: 'center',
       justifyContent: 'center',
       lineHeight: 1,
+      '&:disabled': {
+        opacity: 0.4
+      },
       ...getStylesForSize(size)
     }),
   variant({

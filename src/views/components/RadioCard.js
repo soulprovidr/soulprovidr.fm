@@ -1,15 +1,14 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import parseISO from 'date-fns/parseISO';
+import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { setProgress, PlayerStatus } from 'modules/player';
+import { PlayerStatus } from 'modules/player';
+import { usePlayerStatus } from 'modules/player/hooks';
 import {
-  useMediaAction,
-  useIsPlaying,
-  usePlayerStatus
-} from 'modules/player/hooks';
-import { RadioUrl, selectRadioMeta } from 'modules/radio';
+  selectRadioMeta,
+  useIsRadioPlaying,
+  usePlayRadio
+} from 'modules/radio';
 import { Card, Text } from 'theme';
 import PauseIcon from 'views/components/PauseIcon';
 import PlayIcon from 'views/components/PlayIcon';
@@ -76,27 +75,14 @@ const OverlayPlayIcon = <PlayIcon color="white" size="50" />;
 const RadioCard = () => {
   const containerRef = useRef(null);
 
-  const dispatch = useDispatch();
   const meta = useSelector(selectRadioMeta);
 
   const isMouseOver = useIsMouseOver(containerRef);
-  const isPlaying = useIsPlaying(RadioUrl);
+  const isPlaying = useIsRadioPlaying();
   const playerStatus = usePlayerStatus();
+  const onClick = usePlayRadio();
 
-  const _setProgress = () => {
-    const currentTime = new Date().valueOf();
-    const startedAt = parseISO(meta.started_at).valueOf();
-    dispatch(setProgress(currentTime - startedAt));
-  };
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
-
-  const mediaAction = useMediaAction(RadioUrl, false);
-  const onClick = () =>
-    mediaAction({
-      ...meta,
-      callback: _setProgress,
-      duration: meta.duration * 1000
-    });
 
   const renderOverlayContent = () => {
     if (!isPlaying) {

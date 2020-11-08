@@ -1,7 +1,7 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
+import { useIsRadioPlaying, usePlayRadio } from 'modules/radio';
 import { Flex, Heading, Logo, Text } from 'theme';
 import PlayIcon from '../components/PlayIcon';
 import { CTAButton } from './CTAButton';
@@ -14,12 +14,8 @@ const StyledPlayIcon = styled(PlayIcon)(
 );
 
 export const ListenLiveCTA = () => {
-  const dispatch = useDispatch();
-
-  const onClick = async () => {
-    console.log('Listen Live');
-  };
-
+  const isPlaying = useIsRadioPlaying();
+  const listenLive = usePlayRadio();
   return (
     <>
       <Flex alignItems="center">
@@ -34,7 +30,7 @@ export const ListenLiveCTA = () => {
         </div>
       </Flex>
       <CTAFields>
-        <CTAButton onClick={onClick}>
+        <CTAButton onClick={listenLive} disabled={isPlaying}>
           <StyledPlayIcon color="white" size={13} /> Listen Live
         </CTAButton>
       </CTAFields>
