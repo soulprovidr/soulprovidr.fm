@@ -12,11 +12,11 @@ const spin = keyframes`
   }
 `;
 
-const StyledSpinner = styled('div')(({ color = 'textSecondary', size = 45 }) =>
+const StyledSpinner = styled('div')(({ color = 'text.secondary', size = 45 }) =>
   css({
     animation: `${spin} .75s linear infinite`,
-    borderSize: size < 45 ? '2px' : '4px',
     borderStyle: 'solid',
+    borderWidth: size < 45 ? '2px' : '4px',
     borderColor: color,
     borderRightColor: 'transparent',
     borderRadius: '50%',

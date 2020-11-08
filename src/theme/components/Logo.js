@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { flexbox, layout, space } from 'styled-system';
 
-import LogoImage from 'ui/static/images/logo.svg';
+import LogoImage from 'static/images/logo.svg';
 
 export const Logo = styled('div')(
   ({ size = 45 }) =>

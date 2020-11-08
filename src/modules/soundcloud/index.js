@@ -1,24 +1,27 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import qs from 'qs';
 
 const API_URL = 'https://api.soundcloud.com';
 
-function getQueryString(params) {
-  return qs.stringify({
+function getQueryParams(params) {
+  return {
     client_id: process.env.GATSBY_SOUNDCLOUD_CLIENT_ID,
     ...params
-  });
+  };
 }
 
 function getQualifiedStreamUrl(streamUrl) {
-  return streamUrl ? `${streamUrl}?${getQueryString()}` : null;
+  const queryString = qs.stringify(getQueryParams());
+  return streamUrl ? `${streamUrl}?${queryString}` : null;
 }
 
 async function request(path, params = {}) {
   try {
-    const queryString = getQueryString(params);
-    const response = await fetch(`${API_URL}${path}?${queryString}`);
-    return await response.json();
+    const { data } = await axios.get(`${API_URL}${path}`, {
+      params: getQueryParams(params)
+    });
+    return data;
   } catch (e) {
     return null;
   }

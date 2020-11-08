@@ -1,12 +1,9 @@
-import qs from 'qs';
+import axios from 'axios';
 
 export default async function fetchJson(url, params = {}) {
   try {
-    const queryString = qs.stringify(params);
-    const response = await fetch(`
-      ${url}${queryString && `?${queryString}`}
-    `);
-    return await response.json();
+    const { data } = await axios.get(url, { params });
+    return data;
   } catch (e) {
     return null;
   }

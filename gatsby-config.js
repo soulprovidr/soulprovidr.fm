@@ -15,7 +15,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-page-creator',
       options: {
-        path: `${__dirname}/src/ui/pages`,
+        path: `${__dirname}/src/views/pages`,
         ignore: ['!*.js']
         // See pattern syntax recognized by micromatch
         // https://www.npmjs.com/package/micromatch#matching-features
@@ -30,7 +30,7 @@ module.exports = {
           modules: path.resolve(__dirname, 'src', 'modules'),
           static: path.resolve(__dirname, 'src', 'static'),
           theme: path.resolve(__dirname, 'src', 'theme'),
-          ui: path.resolve(__dirname, 'src', 'ui')
+          views: path.resolve(__dirname, 'src', 'views')
         }
       }
     },

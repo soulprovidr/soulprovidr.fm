@@ -34,7 +34,7 @@ const globalStyles = (theme) => css`
   h4,
   h3,
   h6 {
-    color: ${theme.colors.textPrimary};
+    color: ${theme.colors.text.primary};
     font-family: ${theme.fonts.heading};
     font-weight: bold;
   }
@@ -57,7 +57,7 @@ const globalStyles = (theme) => css`
   h6 a,
   h6 a:active,
   h6 a:visited {
-    color: ${theme.colors.textPrimary};
+    color: ${theme.colors.text.primary};
   }
 
   button {
