@@ -8,8 +8,8 @@ import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
 import { useMediaAction, useIsPlaying } from 'modules/player/hooks';
 import { useTrack } from 'modules/soundcloud';
 import { Badge, Card, Text } from 'theme';
-import PauseIcon from 'ui/components/PauseIcon';
-import PlayIcon from 'ui/components/PlayIcon';
+import PauseIcon from 'views/components/PauseIcon';
+import PlayIcon from 'views/components/PlayIcon';
 
 const ArticleCardContainer = styled(Card.Container)(
   css({

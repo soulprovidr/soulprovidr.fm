@@ -3,8 +3,8 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { Box, Spinner } from 'theme';
 import { PlayerStatus, useIsSelected, usePlayerStatus } from 'modules/player';
-import PlayIcon from 'ui/components/PlayIcon';
-import PauseIcon from 'ui/components/PauseIcon';
+import PlayIcon from 'views/components/PlayIcon';
+import PauseIcon from 'views/components/PauseIcon';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 

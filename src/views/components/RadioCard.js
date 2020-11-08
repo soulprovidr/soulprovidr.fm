@@ -11,9 +11,9 @@ import {
 } from 'modules/player/hooks';
 import { RadioUrl, selectRadioMeta } from 'modules/radio';
 import { Card, Text } from 'theme';
-import PauseIcon from 'ui/components/PauseIcon';
-import PlayIcon from 'ui/components/PlayIcon';
-import DefaultCover from 'ui/static/images/default.png';
+import PauseIcon from 'views/components/PauseIcon';
+import PlayIcon from 'views/components/PlayIcon';
+import DefaultCover from 'static/images/default.png';
 import { useIsMouseOver } from '../../common/hooks/useIsMouseOver';
 
 const { BUFFERING, PLAYING } = PlayerStatus;

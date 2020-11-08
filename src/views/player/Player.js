@@ -12,7 +12,7 @@ import {
   selectPlayerStatus
 } from 'modules/player/selectors';
 import { Text } from 'theme';
-import DefaultCover from 'ui/static/images/default.png';
+import DefaultCover from 'static/images/default.png';
 
 import { PlayerIcon } from './PlayerIcon';
 import ProgressBar from './ProgressBar';

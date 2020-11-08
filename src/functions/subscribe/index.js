@@ -7,9 +7,8 @@ const server = process.env.MAILCHIMP_API_SERVER;
 mailchimp.setConfig({ apiKey, server });
 
 exports.handler = async function (event) {
-  const {
-    queryStringParameters: { email = '' }
-  } = event;
+  const { body } = event;
+  const { email } = JSON.parse(body);
   if (!email.length) {
     return {
       statusCode: 400,

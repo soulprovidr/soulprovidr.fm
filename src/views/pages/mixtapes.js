@@ -3,12 +3,10 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
-import { Box, Heading, Flex } from 'theme';
+import { Box } from 'theme';
 
-import RadioCard from '../components/RadioCard';
 import ArticleCard from '../components/ArticleCard';
-import LiveIcon from '../components/LiveIcon';
-import Subscribe from '../components/Subscribe';
+import { SubscribeBanner } from '../subscribe';
 import { Page } from '../layout';
 
 const globalStyles = css`
@@ -23,57 +21,43 @@ const globalStyles = css`
   }
 `;
 
-const Title = () => (
-  <Page.Title>
-    <Flex alignItems="center">
-      <LiveIcon size={12} color="red" />
-      <Box as="span" ml={2}>
-        Live
-      </Box>
-    </Flex>
-  </Page.Title>
-);
-
-function Home({ data }) {
+function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Live">
+    <Page title="Mixtapes">
       <Global styles={globalStyles} />
-      <Title />
+      <Page.Title>Mixtapes</Page.Title>
       <Page.Content>
-        <RadioCard />
+        <SubscribeBanner />
+        <Box>
+          <Masonry
+            breakpointCols={{
+              default: 3,
+              768: 1
+            }}
+            className="masonry-container"
+            columnClassName="masonry-column"
+          >
+            {posts.map(({ node: post }) => (
+              <ArticleCard
+                post={post}
+                key={post.frontmatter.title}
+                sx={{ mb: 4 }}
+              />
+            ))}
+          </Masonry>
+        </Box>
       </Page.Content>
-      <Page.Meta>
-        <Subscribe />
-        <Heading as="h3" pb={3}>
-          LATEST CONTENT
-        </Heading>
-        <Masonry
-          breakpointCols={{
-            default: 3,
-            768: 1
-          }}
-          className="masonry-container"
-          columnClassName="masonry-column"
-        >
-          {posts.map(({ node: post }) => (
-            <ArticleCard
-              post={post}
-              key={post.frontmatter.title}
-              sx={{ mb: 4 }}
-            />
-          ))}
-        </Masonry>
-      </Page.Meta>
     </Page>
   );
 }
 
-export default Home;
+export default Mixtapes;
 
 export const pageQuery = graphql`
-  query HomeQuery {
+  query MixtapesQuery {
     allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { eq: "mixtape" } } } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 6
     ) {

@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import Helmet from 'react-helmet';
-import { Player } from 'ui/player';
+import { Player } from 'views/player';
 import { ThemeProvider } from 'theme';
 
 import { Header, HeaderLinks } from '../header';

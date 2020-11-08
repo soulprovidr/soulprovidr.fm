@@ -4,10 +4,10 @@ import css from '@styled-system/css';
 import { Box } from 'theme';
 
 // https://www.iconfinder.com/iconsets/picons-social
-import GithubIcon from '../static/images/github.svg';
-import InstagramIcon from '../static/images/instagram.svg';
-import RedditIcon from '../static/images/reddit.svg';
-import SpotifyIcon from '../static/images/spotify.svg';
+import GithubIcon from 'static/images/github.svg';
+import InstagramIcon from 'static/images/instagram.svg';
+import RedditIcon from 'static/images/reddit.svg';
+import SpotifyIcon from 'static/images/spotify.svg';
 
 const icons = [
   {

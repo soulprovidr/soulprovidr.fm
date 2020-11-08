@@ -1,5 +1,7 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk from 'redux-thunk';
+import { persistReducer, persistStore } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 import player from 'modules/player/reducer';
 import radio from 'modules/radio/reducer';
@@ -9,10 +11,16 @@ import { panelBearMiddleware } from 'modules/analytics';
 import playerMiddleware from 'modules/player/middleware';
 import radioMiddleware from 'modules/radio/middleware';
 
+const subscribePersistConfig = {
+  key: 'subscribe',
+  storage,
+  whitelist: ['isSubscribed']
+};
+
 const reducer = combineReducers({
   player,
   radio,
-  subscribe
+  subscribe: persistReducer(subscribePersistConfig, subscribe)
 });
 
 const middleware = applyMiddleware(
@@ -30,5 +38,6 @@ if (typeof window !== 'undefined') {
 }
 
 const store = createStore(reducer, composeEnhancers(middleware));
+const persistor = persistStore(store);
 
-export default store;
+export { store, persistor };

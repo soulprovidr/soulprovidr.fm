@@ -19,7 +19,7 @@ const getPostSlug = (node) =>
 const getPostTemplate = (categoryId) => {
   switch (categoryId) {
     case 'mixtape':
-      return path.resolve('./src/ui/templates/Mixtape.js');
+      return path.resolve('./src/views/templates/Mixtape.js');
     default:
       return null;
   }
