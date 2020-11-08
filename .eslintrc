@@ -4,6 +4,7 @@
     "__SOUNDCLOUD_CLIENT_ID__": true,
     "caches": true,
     "clearInterval": true,
+    "clearTimeout": true,
     "console": true,
     "document": true,
     "exports": true,
@@ -12,6 +13,7 @@
     "process": true,
     "require": true,
     "setInterval": true,
+    "setTimeout": true,
     "SoundCloud": true,
     "window": true
   },

@@ -4,6 +4,9 @@ import { setProgress, useMediaAction } from 'modules/player';
 import { RadioUrl } from '../constants';
 import { selectRadioMeta } from '../selectors';
 
+/**
+ * Returns a function that starts or stops the radio stream.
+ */
 export const usePlayRadio = () => {
   const dispatch = useDispatch();
   const radioMeta = useSelector(selectRadioMeta);

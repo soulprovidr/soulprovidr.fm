@@ -6,7 +6,7 @@ import { Button } from 'theme';
 const StyledButton = styled(Button)(
   css({
     mt: [3, null, 0],
-    width: ['100%', null, '160px']
+    width: ['100%', null, '150px']
   })
 );
 
