@@ -2,8 +2,7 @@
   "name": "soulprovidr.fm",
   "scripts": {
     "build": "gatsby build",
-    "start": "gatsby develop",
-    "postinstall": "netlify-lambda install"
+    "start": "gatsby develop"
   },
   "dependencies": {
     "@emotion/core": "^10.0.34",
