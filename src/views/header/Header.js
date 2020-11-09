@@ -47,7 +47,7 @@ const HeaderIcons = styled(Icons)(
 export const HeaderLinks = styled(Links)(
   css({
     bg: 'bg',
-    borderTop: [0, 'none'],
+    borderTop: ['container', 'none'],
     alignItems: 'center',
     justifyContent: 'center',
     ml: [0, 4],
