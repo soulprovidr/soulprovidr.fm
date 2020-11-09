@@ -5,6 +5,7 @@ import css from '@styled-system/css';
 import Helmet from 'react-helmet';
 import { Player } from 'views/player';
 import { ThemeProvider } from 'theme';
+import Favicon from 'static/images/favicon.png';
 
 import { Header, HeaderLinks } from '../header';
 
@@ -42,7 +43,9 @@ export function Layout({ children }) {
         defaultTitle={siteMetadata.title}
         description={siteMetadata.description}
         titleTemplate={`%s | ${siteMetadata.title}`}
-      />
+      >
+        <link rel="icon" href={Favicon} type="image/png" />
+      </Helmet>
       <Header />
       {children}
       <Player />
