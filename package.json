@@ -3,7 +3,7 @@
   "scripts": {
     "build": "gatsby build",
     "start": "gatsby develop",
-    "preinstall": "netlify-lambda install"
+    "postinstall": "netlify-lambda install"
   },
   "dependencies": {
     "@emotion/core": "^10.0.34",
