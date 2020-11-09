@@ -8,7 +8,7 @@ import { Box, Heading, Flex } from 'theme';
 import RadioCard from '../components/RadioCard';
 import ArticleCard from '../components/ArticleCard';
 import LiveIcon from '../components/LiveIcon';
-import { SubscribeBanner } from '../subscribe';
+import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 
 const globalStyles = css`
@@ -44,7 +44,7 @@ function Home({ data }) {
         <RadioCard />
       </Page.Content>
       <Page.Meta>
-        <SubscribeBanner />
+        <CTABanner />
         <Heading as="h3" pb={3}>
           LATEST CONTENT
         </Heading>

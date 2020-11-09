@@ -6,7 +6,7 @@ import { selectIsSubscribed } from 'modules/subscribe/selectors';
 import { ListenLiveCTA } from './ListenLiveCTA';
 import { SubscribeCTA } from './SubscribeCTA';
 
-const SubscribeBannerContainer = styled('div')(
+const CTABannerContainer = styled('div')(
   css({
     mb: 5,
     position: ['relative', 'sticky'],
@@ -15,7 +15,7 @@ const SubscribeBannerContainer = styled('div')(
   })
 );
 
-const SubscribeBannerContent = styled('div')(
+const CTABannerContent = styled('div')(
   css({
     bg: 'bg',
     border: 'container',
@@ -28,7 +28,7 @@ const SubscribeBannerContent = styled('div')(
   })
 );
 
-export const SubscribeBanner = (props) => {
+export const CTABanner = (props) => {
   const isSubscribed = useSelector(selectIsSubscribed);
   const [showListenLive, setShowListenLive] = useState(isSubscribed);
 
@@ -41,10 +41,10 @@ export const SubscribeBanner = (props) => {
   }, [isSubscribed]);
 
   return (
-    <SubscribeBannerContainer {...props}>
-      <SubscribeBannerContent>
+    <CTABannerContainer {...props}>
+      <CTABannerContent>
         {showListenLive ? <ListenLiveCTA /> : <SubscribeCTA />}
-      </SubscribeBannerContent>
-    </SubscribeBannerContainer>
+      </CTABannerContent>
+    </CTABannerContainer>
   );
 };

@@ -9,7 +9,7 @@ import css from '@styled-system/css';
 import { Heading, Text } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
-import { SubscribeBanner } from '../subscribe';
+import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 
 const globalStyles = emotionCSS`
@@ -80,7 +80,7 @@ function FAQ({ data }) {
         </div>
       </StyledPageContent>
       <Page.Meta>
-        <SubscribeBanner />
+        <CTABanner />
         <Heading as="h3" pb={4}>
           OTHER STUFF YOU MIGHT LIKE:
         </Heading>
