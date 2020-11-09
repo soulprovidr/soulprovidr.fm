@@ -85,7 +85,7 @@ const ArticleCard = ({ post, ...props }) => {
   );
 
   return (
-    <ArticleCardContainer ref={cardRef} onClick={onClick} {...props}>
+    <ArticleCardContainer ref={cardRef} onPress={onClick} {...props}>
       <Card.Header>
         <StyledBadge bg={category.colour} colour="white">
           {category.label}
