@@ -75,7 +75,7 @@ const RadioCard = () => {
   };
 
   return (
-    <RadioCardContainer onTouchEnd={onClick} ref={containerRef}>
+    <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
         <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
         <Card.Overlay force={isPlaying || isMouseOver}>

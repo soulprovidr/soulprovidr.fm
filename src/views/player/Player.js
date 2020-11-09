@@ -118,7 +118,7 @@ export const Player = () => {
 
   return (
     <PlayerContainer isVisible={isVisible}>
-      <PlayerIconContainer onClick={onClickAction} onTouchEnd={onClickAction}>
+      <PlayerIconContainer onClick={onClickAction} onClick={onClickAction}>
         <PlayerIcon color="black" size={20} />
       </PlayerIconContainer>
       <ProgressBar duration={duration} progress={progress} status={status} />
