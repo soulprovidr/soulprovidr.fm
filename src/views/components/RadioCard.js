@@ -1,21 +1,12 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { PlayerStatus } from 'modules/player';
-import { usePlayerStatus } from 'modules/player/hooks';
-import {
-  selectRadioMeta,
-  useIsRadioPlaying,
-  usePlayRadio
-} from 'modules/radio';
+import { useIsRadioPlaying, usePlayRadio, useRadioMeta } from 'modules/radio';
 import { Card, Text } from 'theme';
 import PauseIcon from 'views/components/PauseIcon';
 import PlayIcon from 'views/components/PlayIcon';
 import DefaultCover from 'static/images/default.png';
 import { useIsMouseOver } from '../../common/hooks/useIsMouseOver';
-
-const { BUFFERING, PLAYING } = PlayerStatus;
 
 const RadioCardContainer = styled(Card.Container)(
   css({
@@ -68,40 +59,26 @@ const RadioCardArtist = styled(Text)(
   })
 );
 
-const OverlayPauseIcon = <PauseIcon color="white" size="50" />;
-
-const OverlayPlayIcon = <PlayIcon color="white" size="50" />;
-
 const RadioCard = () => {
   const containerRef = useRef(null);
 
-  const meta = useSelector(selectRadioMeta);
-
+  const meta = useRadioMeta();
   const isMouseOver = useIsMouseOver(containerRef);
   const isPlaying = useIsRadioPlaying();
-  const playerStatus = usePlayerStatus();
   const onClick = usePlayRadio();
 
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
   const renderOverlayContent = () => {
-    if (!isPlaying) {
-      return OverlayPlayIcon;
-    }
-    switch (playerStatus) {
-      case PLAYING:
-      case BUFFERING:
-        return OverlayPauseIcon;
-      default:
-        return OverlayPlayIcon;
-    }
+    const IconComponent = isPlaying ? PauseIcon : PlayIcon;
+    return <IconComponent color="white" size={50} />;
   };
 
   return (
     <RadioCardContainer onClick={onClick} ref={containerRef}>
       <RadioCardHeader>
         <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
-        <Card.Overlay force={!isPlaying || isMouseOver}>
+        <Card.Overlay force={isPlaying || isMouseOver}>
           {renderOverlayContent()}
         </Card.Overlay>
       </RadioCardHeader>

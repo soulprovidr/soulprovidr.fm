@@ -91,7 +91,9 @@ const ArticleCard = ({ post, ...props }) => {
           {category.label}
         </StyledBadge>
         <Image fluid={image.childImageSharp.fluid} />
-        <Card.Overlay force={isMouseOver}>{overlayContent}</Card.Overlay>
+        <Card.Overlay force={isPlaying || isMouseOver}>
+          {overlayContent}
+        </Card.Overlay>
       </Card.Header>
       <ArticleCardContent>
         <ArticleCardTitle>

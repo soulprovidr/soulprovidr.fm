@@ -6,13 +6,14 @@ import css from '@styled-system/css';
 import {
   msToTime,
   useIsPlaying,
+  useIsSelected,
   useMediaAction,
   usePlayerProgress
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
 import { Box, Button, Flex, Spinner, Text } from 'theme';
 import { CoverImage } from '../components/CoverImage';
-import { Meta, Page } from '../layout';
+import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
 const MixtapeContainer = styled('div')(
@@ -77,11 +78,15 @@ const StyledPlayerIcon = styled(PlayerIcon)(
 
 const MixtapeTemplate = ({ data, ...props }) => {
   const post = get(data, 'markdownRemark', null);
+
   const { frontmatter, html } = post;
   const { category, description, image, soundCloudUrl, title } = frontmatter;
+
   const track = useTrack(soundCloudUrl);
   const mediaSrc = track?.stream_url ?? null;
+
   const isPlaying = useIsPlaying(track?.stream_url);
+  const isSelected = useIsSelected(track?.stream_url);
   const progress = usePlayerProgress();
   const mediaAction = useMediaAction(mediaSrc);
   const onClick = () =>
@@ -99,7 +104,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
         <MixtapeMeta>
           <CoverImage
             category={category}
-            forceOverlay={false}
+            forceOverlay={isPlaying}
             onClick={onClick}
             image={image}
             mediaSrc={mediaSrc}
@@ -113,7 +118,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
             height={90}
             numSamples={120}
             // onSeek={onSeek}
-            progress={isPlaying ? progress : 0}
+            progress={isSelected ? progress : 0}
             waveformUrl={track?.waveform_url}
           />
           <Flex justifyContent="space-between" alignItems="center" pb={4}>
