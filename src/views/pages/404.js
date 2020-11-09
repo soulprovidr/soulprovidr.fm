@@ -8,7 +8,7 @@ import css from '@styled-system/css';
 import { Box, Heading, Text } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
-import { SubscribeBanner } from '../subscribe';
+import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 
 const globalStyles = emotionCSS`
@@ -23,7 +23,7 @@ const globalStyles = emotionCSS`
   }
 `;
 
-const StyledSubscribeBanner = styled(SubscribeBanner)(
+const StyledCTABanner = styled(CTABanner)(
   css({
     pb: 5
   })
@@ -45,7 +45,7 @@ function PageNotFound({ data }) {
         </Box>
       </Page.Content>
       <Page.Meta>
-        <StyledSubscribeBanner />
+        <StyledCTABanner />
         <Heading as="h3" pb={4}>
           OTHER STUFF YOU MIGHT LIKE:
         </Heading>

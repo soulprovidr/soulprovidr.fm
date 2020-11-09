@@ -1,6 +1,6 @@
 import flyd from 'flyd';
 import skip from 'flyd-skip';
-import { Howl } from 'howler';
+import Howler, { Howl } from 'howler';
 import {
   pause,
   play,

@@ -6,7 +6,7 @@ import { Global, css } from '@emotion/core';
 import { Box } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
-import { SubscribeBanner } from '../subscribe';
+import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 
 const globalStyles = css`
@@ -28,7 +28,7 @@ function Mixtapes({ data }) {
       <Global styles={globalStyles} />
       <Page.Title>Mixtapes</Page.Title>
       <Page.Content>
-        <SubscribeBanner />
+        <CTABanner />
         <Box>
           <Masonry
             breakpointCols={{

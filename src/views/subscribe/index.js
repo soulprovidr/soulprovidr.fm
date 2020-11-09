@@ -1,1 +1,1 @@
-export * from './SubscribeBanner';
+export * from './CTABanner';

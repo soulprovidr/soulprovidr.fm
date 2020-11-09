@@ -7,9 +7,8 @@ import {
   selectIsSubscribed,
   subscribe
 } from 'modules/subscribe';
-import { Flex, Heading, Input, Logo, Spinner, Text } from 'theme';
-import { CTAButton } from './CTAButton';
-import { CTAFields } from './CTAFields';
+import { Input, Spinner, Text } from 'theme';
+import { CTA } from './CTA';
 
 const SubscribeOverlay = styled('div')(
   css({
@@ -27,6 +26,15 @@ const SubscribeOverlay = styled('div')(
       fontSize: 5,
       pb: 0
     }
+  })
+);
+
+const SubscribeFields = styled('div')(
+  css({
+    display: ['block', null, 'flex'],
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    pt: [3, null, 0]
   })
 );
 
@@ -77,25 +85,19 @@ export const SubscribeCTA = () => {
   return (
     <>
       {renderOverlay()}
-      <Flex alignItems="center">
-        <Logo flexShrink={0} mr={3} />
-        <div>
-          <Heading as="h3" p={0}>
-            In the mood to groove?
-          </Heading>
-          <Text p={0}>
-            Get a free mixtape delivered to your inbox every month.
-          </Text>
-        </div>
-      </Flex>
-      <CTAFields>
-        <SubscribeInput
-          error={error}
-          placeholder="shola@soulprovidr.fm"
-          onChange={onChange}
-        />
-        <CTAButton onClick={onSubmit}>Subscribe</CTAButton>
-      </CTAFields>
+      <CTA
+        text="Get a free mixtape delivered to your inbox every month."
+        title="In the mood to groove?"
+      >
+        <SubscribeFields>
+          <SubscribeInput
+            error={error}
+            placeholder="shola@soulprovidr.fm"
+            onChange={onChange}
+          />
+          <CTA.Button onClick={onSubmit}>Subscribe</CTA.Button>
+        </SubscribeFields>
+      </CTA>
     </>
   );
 };
