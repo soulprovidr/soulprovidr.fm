@@ -33,7 +33,7 @@ const PlayerContainer = styled('div')(({ isVisible = false }) =>
     left: 0,
     px: [0, 4],
     py: [0, 2],
-    borderTop: 0,
+    borderTop: 'container',
     opacity: isVisible ? 1 : 0,
     transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
     transition: 'transform 150ms ease-out, opacity 150ms ease-out',
