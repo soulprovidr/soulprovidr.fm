@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PlayIcon({ color, onClick, size, ...props }) {
+export function PlayIcon({ color, onClick, size, ...props }) {
   return (
     <svg
       onClick={onClick}

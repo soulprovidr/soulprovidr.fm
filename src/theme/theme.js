@@ -8,8 +8,9 @@ export default {
     focus: '2px solid #308AEC'
   },
   colors: {
-    accent: '#308AEC',
+    accent: '#007bff',
     bg: 'white',
+    hover: '#f9f9f9',
     text: {
       primary: '#343a40',
       secondary: '#6c757d'

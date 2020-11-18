@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 
+export const selectPauseAction = (state) => state.player.pauseAction;
 export const selectPlayerMeta = (state) => state.player.meta;
 export const selectPlayerProgress = (state) => state.player.progress;
 export const selectPlayerSrc = (state) => state.player.src;

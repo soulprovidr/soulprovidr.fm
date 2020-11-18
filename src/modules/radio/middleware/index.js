@@ -1,3 +1,4 @@
-import { setRadioMetaMiddleware } from './setRadioMeta';
+import { setProgressMiddleware } from './setProgress';
+import { pollRadioMetaMiddleware } from './pollRadioMeta';
 
-export default [setRadioMetaMiddleware];
+export default [pollRadioMetaMiddleware, setProgressMiddleware];

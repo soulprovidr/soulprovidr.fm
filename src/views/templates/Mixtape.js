@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import get from 'lodash.get';
 import { graphql } from 'gatsby';
 import styled from '@emotion/styled';
@@ -6,13 +6,14 @@ import css from '@styled-system/css';
 import {
   msToTime,
   useIsPlaying,
-  useIsSelected,
-  useMediaAction,
+  useIsListening,
+  useListen,
   usePlayerProgress
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
-import { Box, Button, Flex, Spinner, Text } from 'theme';
+import { Box, Button, Spinner, Text } from 'theme';
 import { CoverImage } from '../components/CoverImage';
+import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
@@ -26,7 +27,9 @@ const MixtapeContainer = styled('div')(
 
 const MixtapeMeta = styled('div')(
   css({
-    position: 'relative',
+    alignSelf: [null, 'flex-start'],
+    position: ['relative'],
+    // top: [null, 50],
     flexGrow: 1
   })
 );
@@ -58,6 +61,15 @@ const MixtapeText = styled(Text)(
   })
 );
 
+const WaveformControls = styled('div')(
+  css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    pb: 4
+  })
+);
+
 const StyledButton = styled(Button)(
   css({
     cursor: 'pointer',
@@ -80,24 +92,39 @@ const MixtapeTemplate = ({ data, ...props }) => {
   const post = get(data, 'markdownRemark', null);
 
   const { frontmatter, html } = post;
-  const { category, description, image, soundCloudUrl, title } = frontmatter;
+  const {
+    category,
+    description,
+    image,
+    soundCloudUrl,
+    title,
+    tracklist = null
+  } = frontmatter;
 
   const track = useTrack(soundCloudUrl);
-  const mediaSrc = track?.stream_url ?? null;
+  const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
+  const src = track?.stream_url ?? null;
+  const meta = useMemo(
+    () =>
+      track
+        ? {
+            artist: track.user.username,
+            cover: image.childImageSharp.fluid.src,
+            duration: track.duration,
+            title
+          }
+        : null,
+    [track]
+  );
 
-  const isPlaying = useIsPlaying(track?.stream_url);
-  const isSelected = useIsSelected(track?.stream_url);
+  const isPlaying = useIsPlaying(src);
+  const isListening = useIsListening(src);
   const progress = usePlayerProgress();
-  const mediaAction = useMediaAction(mediaSrc);
-  const onClick = () =>
-    track
-      ? mediaAction({
-          artist: track.user.username,
-          cover: image.childImageSharp.fluid.src,
-          duration: track.duration,
-          title
-        })
-      : null;
+  const listenFunc = useListen(src, meta);
+
+  const onClick = () => listenFunc();
+  const onSeek = (progress) => listenFunc(progress);
+
   return (
     <Page description={description} title={title} {...props}>
       <MixtapeContainer>
@@ -107,7 +134,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
             forceOverlay={isPlaying}
             onClick={onClick}
             image={image}
-            mediaSrc={mediaSrc}
+            mediaSrc={src}
           />
         </MixtapeMeta>
         <MixtapeContent width={[1, 3 / 5]}>
@@ -117,15 +144,15 @@ const MixtapeTemplate = ({ data, ...props }) => {
             duration={track?.duration}
             height={90}
             numSamples={120}
-            // onSeek={onSeek}
-            progress={isSelected ? progress : 0}
+            onSeek={onSeek}
+            progress={isListening ? progress : 0}
             waveformUrl={track?.waveform_url}
           />
-          <Flex justifyContent="space-between" alignItems="center" pb={4}>
+          <WaveformControls>
             <StyledButton variant="primary" size="sm" onClick={onClick}>
               {track ? (
                 <>
-                  <StyledPlayerIcon size={12} src={mediaSrc} />
+                  <StyledPlayerIcon size={12} src={src} />
                   {isPlaying ? 'Pause' : 'Listen'}
                 </>
               ) : (
@@ -136,7 +163,15 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(isPlaying ? progress : null)} /{' '}
               {msToTime(track?.duration)}
             </Text>
-          </Flex>
+          </WaveformControls>
+          {tracklistJson && (
+            <Tracklist
+              isPlaying={isPlaying}
+              onSeek={onSeek}
+              progress={isListening ? progress : 0}
+              tracklist={tracklistJson}
+            />
+          )}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>
@@ -167,6 +202,13 @@ export const pageQuery = graphql`
         date
         description
         soundCloudUrl
+        tracklist {
+          childrenTracklistJson {
+            artist
+            start
+            title
+          }
+        }
         image {
           childImageSharp {
             fluid(maxWidth: 768) {

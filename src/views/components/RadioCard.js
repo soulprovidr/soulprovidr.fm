@@ -65,7 +65,7 @@ const RadioCard = () => {
   const meta = useRadioMeta();
   const isMouseOver = useIsMouseOver(containerRef);
   const isPlaying = useIsRadioPlaying();
-  const onClick = usePlayRadio();
+  const listenFn = usePlayRadio();
 
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
 
@@ -75,7 +75,7 @@ const RadioCard = () => {
   };
 
   return (
-    <RadioCardContainer onClick={onClick} ref={containerRef}>
+    <RadioCardContainer onClick={() => listenFn()} ref={containerRef}>
       <RadioCardHeader>
         <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
         <Card.Overlay force={isPlaying || isMouseOver}>

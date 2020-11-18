@@ -1,10 +1,9 @@
 import { createActions } from 'redux-actions';
 
 export const {
-  play,
   pause,
+  play,
   reset,
-  resume,
   seek,
   setMeta: setPlayerMeta,
   setProgress,
@@ -12,12 +11,9 @@ export const {
   updateProgress,
   updateStatus
 } = createActions(
-  {
-    PLAY: [(src) => src, (_, meta) => meta || null]
-  },
   'PAUSE',
+  'PLAY',
   'RESET',
-  'RESUME',
   'SEEK',
   'SET_META',
   'SET_PROGRESS',

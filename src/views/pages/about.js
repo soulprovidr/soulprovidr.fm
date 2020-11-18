@@ -43,9 +43,9 @@ const StyledPageImage = styled('img')(
 function FAQ({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="FAQ">
+    <Page title="About">
       <Global styles={globalStyles} />
-      <Page.Title>FAQ</Page.Title>
+      <Page.Title>About</Page.Title>
       <StyledPageContent>
         <StyledPageImage src="https://pbcdn1.podbean.com/imglogo/ep-logo/pbblog839690/ray_parker_jr.jpg" />
         <div>

@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { Link } from 'gatsby';
 import Image from 'gatsby-image';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
 import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
-import { useMediaAction, useIsPlaying } from 'modules/player/hooks';
+import { useListen, useIsPlaying } from 'modules/player/hooks';
 import { useTrack } from 'modules/soundcloud';
 import { Badge, Card, Text } from 'theme';
 import PauseIcon from 'views/components/PauseIcon';
@@ -60,21 +60,26 @@ const ArticleCard = ({ post, ...props }) => {
   const track = useTrack(soundCloudUrl);
   const isMouseOver = useIsMouseOver(cardRef);
   const isPlaying = useIsPlaying(track?.stream_url);
-  const meta = track
-    ? {
-        artist: track.user.username,
-        cover: image.childImageSharp.fluid.src,
-        duration: track.duration,
-        title
-      }
-    : null;
-  const mediaAction = useMediaAction(track?.stream_url);
+  const meta = useMemo(
+    () =>
+      track
+        ? {
+            artist: track.user.username,
+            cover: image.childImageSharp.fluid.src,
+            duration: track.duration,
+            title
+          }
+        : null,
+    [track]
+  );
+  const listenFn = useListen(track?.stream_url, meta);
   const onClick = (e) => {
     // Ignore clicks on card title.
     if (linkRef.current && e.target === linkRef.current) {
+      e.preventDefault();
       return false;
     }
-    mediaAction(meta);
+    listenFn();
   };
 
   const iconProps = { color: 'white', size: 40 };

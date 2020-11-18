@@ -24,8 +24,8 @@ const links = [
     partiallyActive: true
   },
   {
-    to: '/faq',
-    children: 'FAQ'
+    to: '/about',
+    children: 'About'
   }
 ];
 
@@ -57,7 +57,7 @@ const StyledLink = styled(Link)({
 export const Links = (props) => (
   <StyledLinks {...props}>
     {links.map((link) => (
-      <LinkContainer key={link.href}>
+      <LinkContainer key={link.to}>
         <StyledLink activeClassName="active" {...link} />
       </LinkContainer>
     ))}
