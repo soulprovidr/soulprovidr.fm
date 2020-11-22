@@ -1,7 +1,7 @@
 import parseISO from 'date-fns/parseISO';
 import fetchJson from 'common/helpers/fetchJson';
 import { batch } from 'react-redux';
-import { selectIsPlaying, setPlayerMeta, setProgress } from 'modules/player';
+import { selectIsListening, setPlayerMeta, setProgress } from 'modules/player';
 import { setRadioMeta } from '../actions';
 import { RadioMetaUrl, RadioUrl } from '../constants';
 import { selectRadioMeta } from '../selectors';
@@ -38,7 +38,7 @@ export const pollRadioMetaMiddleware = ({ dispatch, getState }) => {
 
     // Update radio meta.
     const currentTime = new Date().valueOf();
-    const isRadioPlaying = selectIsPlaying(getState(), RadioUrl);
+    const isRadioPlaying = selectIsListening(getState(), RadioUrl);
     actions.push(setRadioMeta(formatRadioMetaDuration(nextRadioMeta)));
 
     // If the radio stream is currently playing, update the player meta, too.

@@ -6,7 +6,7 @@ export const selectPlayerProgress = (state) => state.player.progress;
 export const selectPlayerSrc = (state) => state.player.src;
 export const selectPlayerStatus = (state) => state.player.status;
 
-export const selectIsPlaying = createSelector(
+export const selectIsListening = createSelector(
   selectPlayerSrc,
   (_, url) => url,
   (playerSrc, url) =>

@@ -1,6 +1,6 @@
 import parseISO from 'date-fns/parseISO';
 import {
-  selectIsPlaying,
+  selectIsListening,
   setProgress,
   updateStatus,
   PlayerStatus
@@ -21,7 +21,7 @@ export const setProgressMiddleware = ({ dispatch, getState }) => (next) => (
   const { type, payload: status } = action;
   if (updateStatus.toString() === type && status === PLAYING) {
     const state = getState();
-    const isRadioPlaying = selectIsPlaying(state, RadioUrl);
+    const isRadioPlaying = selectIsListening(state, RadioUrl);
     if (isRadioPlaying) {
       const radioMeta = selectRadioMeta(state);
       const currentTime = new Date().valueOf();

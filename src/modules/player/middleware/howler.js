@@ -1,6 +1,5 @@
 import flyd from 'flyd';
 import skip from 'flyd-skip';
-import isEqual from 'lodash.isequal';
 import { Howl } from 'howler';
 import {
   pause,
@@ -13,7 +12,7 @@ import {
 } from '../actions';
 import { PauseAction, PlayerStatus } from '../constants';
 import {
-  selectIsPlaying,
+  selectIsListening,
   selectPauseAction,
   selectPlayerSrc
 } from '../selectors';
@@ -118,10 +117,10 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
     }
 
     const state = getState();
-    const isPlaying = selectIsPlaying(state);
+    const isPlaying = selectIsListening(state);
     const currentSrc = selectPlayerSrc(state);
 
-    if (isEqual(currentSrc, src)) {
+    if (currentSrc === src) {
       // If sound is not playing, start playing (i.e. resume).
       return isPlaying ? false : sound?.play();
     }
