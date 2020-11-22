@@ -7,12 +7,14 @@ import {
   updateProgress,
   updateStatus
 } from './actions';
-import { PlayerStatus } from './constants';
+import { PauseAction, PlayerStatus } from './constants';
 
+const { PAUSE } = PauseAction;
 const { STOPPED } = PlayerStatus;
 
 const initialState = {
   meta: {},
+  pauseAction: PAUSE,
   progress: 0,
   status: STOPPED,
   src: null
@@ -21,11 +23,11 @@ const initialState = {
 export default handleActions(
   {
     [play]: (state, action) => {
-      if (action.payload) {
-        const { payload: src, meta } = action;
-        return { ...state, src, meta };
-      }
-      return state;
+      const { payload } = action;
+      return Object.keys(payload).reduce(
+        (acc, key) => ({ ...acc, [key]: payload[key] }),
+        { ...state }
+      );
     },
     [reset]: () => initialState,
     [setPlayerMeta]: (state, action) => ({
@@ -38,7 +40,7 @@ export default handleActions(
     }),
     [updateProgress]: (state, { payload: progress }) => ({
       ...state,
-      progress: Math.min(state.progress + progress, state.meta.duration)
+      progress: state.progress + progress
     }),
     [updateStatus]: (state, action) => ({ ...state, status: action.payload })
   },

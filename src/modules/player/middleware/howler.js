@@ -1,18 +1,21 @@
 import flyd from 'flyd';
 import skip from 'flyd-skip';
-import Howler, { Howl } from 'howler';
+import { Howl } from 'howler';
 import {
   pause,
   play,
   reset,
-  resume,
-  seek,
   setProgress,
   stop,
   updateProgress,
   updateStatus
 } from '../actions';
-import { PlayerStatus } from '../constants';
+import { PauseAction, PlayerStatus } from '../constants';
+import {
+  selectIsListening,
+  selectPauseAction,
+  selectPlayerSrc
+} from '../selectors';
 
 const { STOPPED, BUFFERING, PAUSED, PLAYING } = PlayerStatus;
 
@@ -20,11 +23,9 @@ const PROGRESS_INTERVAL = 100;
 
 const PAUSE = pause.toString();
 const PLAY = play.toString();
-const RESUME = resume.toString();
-const SEEK = seek.toString();
 const STOP = stop.toString();
 
-export const howlerMiddleware = ({ dispatch }) => {
+export const howlerMiddleware = ({ dispatch, getState }) => {
   let sound = null;
   let timer = null;
 
@@ -34,80 +35,115 @@ export const howlerMiddleware = ({ dispatch }) => {
   /**
    * Create a new Howl instance for the specified audio src.
    * @param {String} src Audio URL
-   * @param {Function} callback Function to run once the sound begins playing.
    */
-  const createSound = (src, callback = () => false) =>
+  const createSound = (src) =>
     new Howl({
       src,
       format: 'mp3',
       html5: true,
       onpause: () => status(PAUSED),
-      onplay: () => {
-        callback();
-        status(PLAYING);
-      },
+      onplay: () => status(PLAYING),
       onstop: () => status(STOPPED),
       onend: () => status(STOPPED)
     });
 
   /**
+   * Update progress every PROGRESS_INTERVAL milliseconds.
+   */
+  const startTimer = () => {
+    if (!timer) {
+      timer = setInterval(() => {
+        dispatch(updateProgress(PROGRESS_INTERVAL));
+      }, PROGRESS_INTERVAL);
+    }
+  };
+
+  /**
+   * Stop updating the progress.
+   */
+  const stopTimer = () => {
+    clearInterval(timer);
+    timer = null;
+  };
+
+  const handleSeek = (progress) => {
+    dispatch(setProgress(progress));
+    sound?.seek(progress / 1000);
+  };
+
+  /**
    * Stop publishing progress, destroy the current sound, and reset module state.
    */
-  const resetSound = () => {
+  const handleStop = () => {
     stopTimer();
     if (sound) {
-      sound.off();
-      sound.unload();
+      sound?.off();
+      sound?.unload();
       sound = null;
     }
     dispatch(reset());
   };
 
   /**
-   * Stop updating the progress.
+   * Pause or stop the currently-selected sound, depending on the pauseAction.
    */
-  const stopTimer = () => clearInterval(timer);
-
-  /**
-   * Update progress every PROGRESS_INTERVAL milliseconds.
-   */
-  const startTimer = () => {
-    timer = setInterval(() => {
-      dispatch(updateProgress(PROGRESS_INTERVAL));
-    }, PROGRESS_INTERVAL);
+  const handlePause = () => {
+    const pauseAction = selectPauseAction(getState());
+    switch (pauseAction) {
+      case PauseAction.STOP:
+        handleStop();
+        break;
+      default:
+        sound?.pause();
+        break;
+    }
   };
 
   /**
    * Start playing the media source specified in the action payload.
    * @param {Object} action
    */
-  const play = (action) => {
-    const { payload: src, meta } = action;
-    const { callback = () => false, progress = 0 } = meta;
+  const handlePlay = (action) => {
+    const {
+      payload: { src, progress = null }
+    } = action;
 
-    // Clear any previous sound/state/timers.
-    resetSound();
-    sound = createSound(src, callback);
-
-    // Do we need to seek?
-    if (progress) {
-      dispatch(setProgress(progress));
-      sound.seek(progress);
+    // Handle seek for current sound (`progress`, without any other parameters).
+    if (sound && !src && progress !== null) {
+      handleSeek(progress);
+      status(BUFFERING);
+      sound?.play();
+      return;
     }
+
+    const state = getState();
+    const isPlaying = selectIsListening(state);
+    const currentSrc = selectPlayerSrc(state);
+
+    if (currentSrc === src) {
+      // If sound is not playing, start playing (i.e. resume).
+      return isPlaying ? false : sound?.play();
+    }
+
+    // Clear any previous sound/state/timers and load a new one.
+    if (sound) handleStop();
+    sound = createSound(src);
 
     // Set BUFFERING status while sound is loading.
     status(BUFFERING);
     sound?.play();
+
+    // Do we need to seek?
+    if (progress !== null) handleSeek(progress);
   };
 
-  // Handle changes to Howler player status.
-  flyd.on((status) => {
+  const handleStatus = (status) => {
     // Update module `status` when player status changes.
     dispatch(updateStatus(status));
     switch (status) {
       // Reset module state when sound is unloaded.
       case STOPPED:
-        resetSound();
+        handleStop();
         break;
       // Stop timer when stream is paused.
       case PAUSED:
@@ -119,28 +155,23 @@ export const howlerMiddleware = ({ dispatch }) => {
       default:
         break;
     }
-  }, skip(1, status));
+  };
+
+  // React to Howler player status changes.
+  flyd.on(handleStatus, skip(1, status));
 
   // Handle user interactions with the player.
   return (next) => (action) => {
     switch (action.type) {
       // Load or resume audio when PLAY action is dispatched.
       case PLAY:
-        play(action);
+        handlePlay(action);
         break;
       case PAUSE:
-        sound?.pause();
+        handlePause();
         break;
-      case RESUME:
-        sound?.play();
-        break;
-      case SEEK: {
-        const { progress } = action.payload;
-        sound?.seek(progress);
-        break;
-      }
       case STOP:
-        resetSound();
+        handleStop();
         break;
       default:
         break;

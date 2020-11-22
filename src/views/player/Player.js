@@ -4,7 +4,7 @@ import get from 'lodash.get';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
-import { useMediaAction } from 'modules/player/hooks';
+import { useListen } from 'modules/player/hooks';
 import {
   selectPlayerMeta,
   selectPlayerProgress,
@@ -110,15 +110,17 @@ export const Player = () => {
   const src = useSelector(selectPlayerSrc);
   const status = useSelector(selectPlayerStatus);
 
-  const onClickAction = useMediaAction(src, meta);
+  const listenFn = useListen(src, meta);
 
   const { artist, cover, title } = meta;
   const duration = get(meta, 'duration', 0);
   const isVisible = status >= BUFFERING || false;
 
+  const onClick = () => listenFn();
+
   return (
     <PlayerContainer isVisible={isVisible}>
-      <PlayerIconContainer onClick={onClickAction} onTouchEnd={onClickAction}>
+      <PlayerIconContainer onClick={onClick} onTouchEnd={onClick}>
         <PlayerIcon color="black" size={20} />
       </PlayerIconContainer>
       <ProgressBar duration={duration} progress={progress} status={status} />

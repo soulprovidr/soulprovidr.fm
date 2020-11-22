@@ -2,7 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { Box, Spinner } from 'theme';
-import { PlayerStatus, useIsSelected, usePlayerStatus } from 'modules/player';
+import { PlayerStatus, useIsListening, usePlayerStatus } from 'modules/player';
 import PlayIcon from 'views/components/PlayIcon';
 import PauseIcon from 'views/components/PauseIcon';
 
@@ -24,7 +24,7 @@ export function PlayerIcon({
   src = null,
   ...props
 }) {
-  const isSelected = useIsSelected(src);
+  const isSelected = useIsListening(src);
   const playerStatus = usePlayerStatus();
   const renderIcon = () => {
     if (isSelected || !src) {

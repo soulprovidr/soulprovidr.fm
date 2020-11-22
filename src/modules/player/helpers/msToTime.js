@@ -1,6 +1,6 @@
 // https://stackoverflow.com/a/9763769
 export const msToTime = (ms) => {
-  if (!ms) {
+  if (ms === null) {
     return '--:--:--';
   }
   // Pad to 2 or 3 digits, default is 2

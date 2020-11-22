@@ -4,3 +4,9 @@ export const PlayerStatus = {
   PLAYING: 1,
   PAUSED: 2
 };
+
+// Determines what the pause button should do.
+export const PauseAction = {
+  PAUSE: 'pause',
+  STOP: 'stop'
+};

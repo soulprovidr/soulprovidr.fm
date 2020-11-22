@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 
 import { PlayerStatus } from '../constants';
 import { selectPlayerStatus } from '../selectors';
-import { useIsSelected } from './useIsSelected';
+import { useIsListening } from './useIsListening';
 
 const { BUFFERING, PLAYING } = PlayerStatus;
 
 export const useIsPlaying = (src) => {
-  const isSelected = useIsSelected(src);
+  const isSelected = useIsListening(src);
   const playerStatus = useSelector(selectPlayerStatus);
   return useMemo(() => {
     if (isSelected && [BUFFERING, PLAYING].includes(playerStatus)) {
