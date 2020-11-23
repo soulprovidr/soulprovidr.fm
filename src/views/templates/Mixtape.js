@@ -28,8 +28,8 @@ const MixtapeContainer = styled('div')(
 const MixtapeMeta = styled('div')(
   css({
     alignSelf: [null, 'flex-start'],
+    mr: [0, 4],
     position: ['relative'],
-    // top: [null, 50],
     flexGrow: 1
   })
 );
@@ -37,7 +37,7 @@ const MixtapeMeta = styled('div')(
 const MixtapeContent = styled(Box)(
   css({
     mb: 3,
-    pl: [0, 5],
+    // pl: [0, 5],
     pt: [3, 0],
     pb: 5,
     width: ['100%', '60%']

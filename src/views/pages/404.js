@@ -41,6 +41,7 @@ function PageNotFound({ data }) {
           <Box
             as="img"
             src="https://media3.giphy.com/media/10YK5Hh53nC3dK/giphy-downsized-large.gif"
+            maxWidth="100%"
           />
         </Box>
       </Page.Content>

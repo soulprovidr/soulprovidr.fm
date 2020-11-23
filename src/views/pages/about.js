@@ -6,8 +6,8 @@ import Masonry from 'react-masonry-css';
 import { Global, css as emotionCSS } from '@emotion/core';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { Heading, Text } from 'theme';
-
+import { Box, Flex, Heading, Text } from 'theme';
+import LogoImage from 'static/images/logo.svg';
 import ArticleCard from '../components/ArticleCard';
 import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
@@ -33,10 +33,11 @@ const StyledPageContent = styled(Page.Content)(
 
 const StyledPageImage = styled('img')(
   css({
-    pb: [4, 0],
-    pr: [0, 4],
+    borderRadius: '50%',
+    mb: [4, 0],
+    mr: [0, 5],
     height: 'auto',
-    width: ['100%', '33%']
+    width: ['100%', '40%']
   })
 );
 
@@ -45,10 +46,10 @@ function FAQ({ data }) {
   return (
     <Page title="About">
       <Global styles={globalStyles} />
-      <Page.Title>About</Page.Title>
       <StyledPageContent>
-        <StyledPageImage src="https://pbcdn1.podbean.com/imglogo/ep-logo/pbblog839690/ray_parker_jr.jpg" />
+        <StyledPageImage src={LogoImage} />
         <div>
+          <Page.Title>About</Page.Title>
           <Heading as="h3">What is Soul Provider?</Heading>
           <Text>
             Soul Provider is an online radio station based in Winnipeg, Canada.
@@ -59,24 +60,41 @@ function FAQ({ data }) {
           </Text>
           <Heading as="h3">What can The Mood® do for me?</Heading>
           <Text>
-            <i>The Mood®</i> is a monthly mixtape series designed to unlock the
-            power of the human mind.
-          </Text>
-          <Text>
             Feeling lonely? Anxious? Depressed?
-            <i>The Mood®</i> can help. Our{' '}
-            <Link to="/mixtapes">patented mixtape technology</Link> has been
-            shown to reduce the symptoms of heartache by up to 98%.
+            <i>The Mood®</i> can help. Our patented{' '}
+            <Link to="/mixtapes">mixtape technology</Link> has been shown to
+            reduce the symptoms of heartache by up to 98%.
           </Text>
           <Text>
             That&apos;s more than twice the effectiveness of the next leading
             mixtape.
           </Text>
           <Heading as="h3">How can I get in touch?</Heading>
-          <Text>Soul Provider would love to hear from you.</Text>
           <Text>
-            <a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a>
+            Whether you're interested in collaborating, or just want to share
+            some music you like, Soul Provider would love to hear from you.
           </Text>
+          <Flex
+            justifyContent="space-between"
+            flexDirection={['column', 'row']}
+          >
+            <Box width={1 / 2}>
+              <Heading as="h4">By email:</Heading>
+              <Text>
+                <a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a>
+              </Text>
+            </Box>
+            <Box width={1 / 2}>
+              <Heading as="h4">By standard mail:</Heading>
+              <Text>
+                101-15 Bridgeland Drive South
+                <br />
+                Winnipeg, Canada
+                <br />
+                R3Y 0E7
+              </Text>
+            </Box>
+          </Flex>
         </div>
       </StyledPageContent>
       <Page.Meta>
