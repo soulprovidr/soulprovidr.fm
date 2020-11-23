@@ -78,13 +78,13 @@ function FAQ({ data }) {
             justifyContent="space-between"
             flexDirection={['column', 'row']}
           >
-            <Box width={1 / 2}>
+            <Box width={[1, 1 / 2]}>
               <Heading as="h4">By email:</Heading>
               <Text>
                 <a href="mailto:shola@soulprovidr.fm">shola@soulprovidr.fm</a>
               </Text>
             </Box>
-            <Box width={1 / 2}>
+            <Box width={[1, 1 / 2]}>
               <Heading as="h4">By standard mail:</Heading>
               <Text>
                 101-15 Bridgeland Drive South
