@@ -31,7 +31,10 @@ export const pollRadioMetaMiddleware = ({ dispatch, getState }) => {
     // Poll again in 1 second.
     const currentRadioMetaStartedAt = currentRadioMeta?.started_at ?? null;
     const nextRadioMetaStartedAt = nextRadioMeta?.started_at ?? null;
-    if (currentRadioMetaStartedAt === nextRadioMetaStartedAt) {
+    if (
+      !nextRadioMeta ||
+      currentRadioMetaStartedAt === nextRadioMetaStartedAt
+    ) {
       schedulePoll(1000);
       return false;
     }
