@@ -1,7 +1,7 @@
 import React, { useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { Marquee } from '@/packages/marquee';
+import { MarqueeContainer as Marquee } from '@/packages/marquee';
 import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
 import { useIsRadioPlaying, usePlayRadio, useRadioMeta } from 'modules/radio';
 import { Card, Text } from 'theme';

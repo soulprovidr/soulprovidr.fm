@@ -10,7 +10,7 @@ function generateIdentifier() {
  * @param {Object} params { duration, gradientColor, gradientWidth }
  * @returns {Function} Cleanup function. Use this to remove marquee styles and elements.
  */
-export function Marquee($node, params) {
+export const Marquee = ($node, params) => {
   // Validate $node parameter.
   if (
     !$node ||
@@ -35,9 +35,7 @@ export function Marquee($node, params) {
   if (childScrollWidth > containerWidth) {
     createAnimation(childScrollWidth - containerWidth);
     // Return a cleanup function.
-    return () => {
-      cleanup();
-    };
+    return cleanup;
   } else {
     return () => false;
   }
@@ -76,14 +74,14 @@ export function Marquee($node, params) {
           }
         }
       `;
-    document.body.appendChild(_stylesheet);
+    document.head.appendChild(_stylesheet);
     $node.classList.add(_nodeClassName);
     _$childNode.style.animation = `${_keyframesName} ${duration}s linear 3s infinite alternate`;
   }
 
   function cleanup() {
     $node.classList.remove(_nodeClassName);
-    document.body.removeChild(_stylesheet);
+    document.head.removeChild(_stylesheet);
     _stylesheet = null;
   }
-}
+};

@@ -1,16 +1,13 @@
 import { useLayoutEffect } from 'react';
 
-import { Marquee } from './marquee';
+import { Marquee } from './Marquee';
 
 export const useMarquee = (ref, params) => {
   useLayoutEffect(() => {
     const $node = ref.current;
     if ($node && $node instanceof HTMLElement && $node.children.length === 1) {
       try {
-        const cleanup = new Marquee($node, params);
-        return () => {
-          cleanup();
-        };
+        return new Marquee($node, params);
       } catch (e) {
         console.error(e);
       }

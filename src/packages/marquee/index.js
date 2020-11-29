@@ -1,1 +1,1 @@
-export * from './Marquee';
+export * from './MarqueeContainer';
