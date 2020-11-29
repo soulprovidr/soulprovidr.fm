@@ -23,9 +23,6 @@ export const MarqueeContainer = ({
     gradientSize
   });
 
-  // Create marquee using current ref.
-  useMarquee(ref, params);
-
   useEffect(() => {
     const nextParams = { duration, gradientColor, gradientSize };
     if (!isEqual(params, nextParams)) {
@@ -34,7 +31,7 @@ export const MarqueeContainer = ({
   }, [duration, gradientColor, gradientSize]);
 
   // Re-create Marquee when children or params change.
-  return useMemo(
+  const memoizedComponent = useMemo(
     () => (
       <StyledMarquee ref={ref} key={Date.now()} {...props}>
         {children}
@@ -42,4 +39,9 @@ export const MarqueeContainer = ({
     ),
     [children, params]
   );
+
+  // Create marquee using current ref.
+  useMarquee(ref, params);
+
+  return memoizedComponent;
 };
