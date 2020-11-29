@@ -53,7 +53,7 @@ export const Marquee = ($node, params) => {
         .${_nodeClassName} {
           position: relative;
         }
-        .${_nodeClassName}:after {
+        .${_nodeClassName}::after {
           position: absolute;
           top: 0; right: 0; bottom: 0;
           width: ${gradientWidth}px;
