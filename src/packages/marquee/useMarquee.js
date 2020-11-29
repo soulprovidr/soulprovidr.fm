@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react';
 
-import { Marquee } from './Marquee';
+import { Marquee } from './marquee';
 
 export const useMarquee = (ref, params) => {
   useLayoutEffect(() => {
