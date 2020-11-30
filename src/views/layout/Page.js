@@ -5,14 +5,16 @@ import css from '@styled-system/css';
 import { Container, Heading } from 'theme';
 import { Layout, Meta } from './';
 
-const PageContainer = styled(Container)(css({ mt: [5, 0], py: 5 }));
+const PageContainer = styled(Container)(
+  css({ pb: ['61px', 5], pt: ['53px', 5] })
+);
 
 const PageTitle = styled(Heading)(css({ textTransform: 'uppercase' }));
 
 const PageContent = styled('div')(
   css({
-    pb: 5,
-    pt: 3,
+    pb: [2, 5],
+    pt: [2, 3],
     'a, a:active, a:visited': {
       color: 'accent'
     }

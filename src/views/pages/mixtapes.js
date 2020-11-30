@@ -1,15 +1,17 @@
 import React from 'react';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
+import styled from '@emotion/styled';
+import css from '@styled-system/css';
 import Masonry from 'react-masonry-css';
-import { Global, css } from '@emotion/core';
+import { Global, css as emotionCss } from '@emotion/core';
 import { Box } from 'theme';
 
 import ArticleCard from '../components/ArticleCard';
 import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 
-const globalStyles = css`
+const globalStyles = emotionCss`
   .masonry-container {
     display: flex;
     margin-left: -30px;
@@ -21,14 +23,26 @@ const globalStyles = css`
   }
 `;
 
+const StyledTitle = styled(Page.Title)(
+  css({
+    display: ['none', 'block']
+  })
+);
+
+const StyledCTABanner = styled(CTABanner)(
+  css({
+    display: ['none', 'block']
+  })
+);
+
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
     <Page title="Mixtapes">
       <Global styles={globalStyles} />
-      <Page.Title>Mixtapes</Page.Title>
+      <StyledTitle>Mixtapes</StyledTitle>
       <Page.Content>
-        <CTABanner />
+        <StyledCTABanner />
         <Box>
           <Masonry
             breakpointCols={{

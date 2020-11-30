@@ -1,5 +1,7 @@
 import './fonts/hk-grotesk/hk-grotesk.css';
 
+import { Breakpoints } from './constants';
+
 export default {
   borders: {
     container: '1px solid #eee',
@@ -7,6 +9,7 @@ export default {
     error: '2px solid #E54D42',
     focus: '2px solid #308AEC'
   },
+  breakpoints: Breakpoints,
   colors: {
     accent: '#007bff',
     bg: 'white',

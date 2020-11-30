@@ -15,7 +15,7 @@ import { Text } from 'theme';
 import DefaultCover from 'static/images/default.png';
 
 import { PlayerIcon } from './PlayerIcon';
-import ProgressBar from './ProgressBar';
+import { ProgressBar } from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
 

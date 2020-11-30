@@ -11,7 +11,7 @@ import {
   usePlayerProgress
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
-import { Box, Button, Spinner, Text } from 'theme';
+import { Box, Breakpoints, Button, Spinner, Text, usePageWidth } from 'theme';
 import { CoverImage } from '../components/CoverImage';
 // import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
@@ -102,6 +102,8 @@ const MixtapeTemplate = ({ data, ...props }) => {
   } = frontmatter;
 
   const track = useTrack(soundCloudUrl);
+  const pageWidth = usePageWidth();
+
   // const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
   const src = track?.stream_url ?? null;
   const meta = useMemo(
@@ -131,7 +133,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
         <MixtapeMeta>
           <CoverImage
             category={category}
-            forceOverlay={isPlaying}
+            forceOverlay={isPlaying || pageWidth <= Breakpoints.SM}
             onClick={onClick}
             image={image}
             mediaSrc={src}

@@ -4,7 +4,7 @@ import css from '@styled-system/css';
 import { Text } from 'theme';
 import { PlayerStatus } from 'modules/player';
 
-const { BUFFERING } = PlayerStatus;
+const { BUFFERING, UNSTARTED } = PlayerStatus;
 
 // https://stackoverflow.com/a/9763769
 const msToTime = (ms) => {
@@ -64,7 +64,12 @@ const StyledProgressBar = styled('div')(
   })
 );
 
-export default function ProgressBar({ duration, progress, status, ...props }) {
+export function ProgressBar({
+  duration = null,
+  progress = 0,
+  status = UNSTARTED,
+  ...props
+}) {
   const widthPercent = duration
     ? Math.min(100, (progress / duration) * 100)
     : status <= BUFFERING
