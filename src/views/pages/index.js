@@ -39,7 +39,7 @@ const Title = (props) => (
 const StyledPage = styled(Page)(
   css({
     // body has 8px padding right now :(
-    height: ['calc(100vh - 16px);', 'auto'],
+    height: ['calc(100vh - 16px - env(safe-area-inset-bottom))', 'auto'],
     display: ['flex', 'block'],
     alignItems: 'center',
     justifyContent: 'center'
