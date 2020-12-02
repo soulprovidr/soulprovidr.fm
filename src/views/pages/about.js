@@ -58,7 +58,9 @@ function FAQ({ data }) {
             Its mission is simple: to heal the world through the power of funk,
             soul, and software.
           </Text>
-          <Heading as="h3">What can The Mood® do for me?</Heading>
+          <Heading as="h3" pt={2}>
+            What can The Mood® do for me?
+          </Heading>
           <Text>
             Feeling lonely? Anxious? Depressed?
             <i>The Mood®</i> can help. Our patented{' '}
@@ -69,7 +71,9 @@ function FAQ({ data }) {
             That&apos;s more than twice the effectiveness of the next leading
             mixtape.
           </Text>
-          <Heading as="h3">How can I get in touch?</Heading>
+          <Heading as="h3" pt={2}>
+            How can I get in touch?
+          </Heading>
           <Text>
             Whether you're interested in collaborating, or just want to share
             some music you like, Soul Provider would love to hear from you.
