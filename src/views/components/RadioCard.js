@@ -4,7 +4,7 @@ import css from '@styled-system/css';
 import { MarqueeContainer as Marquee } from '@/packages/marquee';
 import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
 import { useIsRadioPlaying, usePlayRadio, useRadioMeta } from 'modules/radio';
-import { Card, Text } from 'theme';
+import { Breakpoints, Card, Text, usePageWidth } from 'theme';
 import PauseIcon from 'views/components/PauseIcon';
 import PlayIcon from 'views/components/PlayIcon';
 import DefaultCover from 'static/images/default.png';
@@ -65,6 +65,7 @@ const RadioCard = () => {
   const isMouseOver = useIsMouseOver(containerRef);
   const isPlaying = useIsRadioPlaying();
   const listenFn = usePlayRadio();
+  const pageWidth = usePageWidth();
 
   const overlay = useMemo(() => {
     const IconComponent = isPlaying ? PauseIcon : PlayIcon;
@@ -77,7 +78,14 @@ const RadioCard = () => {
         {meta?.title ?? 'Loading...'}
       </RadioCardTitle>
     ),
-    [meta]
+    [meta?.title]
+  );
+
+  const artist = useMemo(
+    () => (
+      <RadioCardArtist key={meta?.artist}>{meta?.artist ?? ''}</RadioCardArtist>
+    ),
+    [meta?.artist]
   );
 
   const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
@@ -85,11 +93,15 @@ const RadioCard = () => {
     <RadioCardContainer onClick={() => listenFn()} ref={containerRef}>
       <RadioCardHeader>
         <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
-        <Card.Overlay force={isPlaying || isMouseOver}>{overlay}</Card.Overlay>
+        <Card.Overlay
+          force={isPlaying || isMouseOver || pageWidth <= Breakpoints.SM}
+        >
+          {overlay}
+        </Card.Overlay>
       </RadioCardHeader>
       <RadioCardContent>
         <Marquee>{title}</Marquee>
-        <RadioCardArtist>{meta?.artist ?? null}</RadioCardArtist>
+        <Marquee>{artist}</Marquee>
       </RadioCardContent>
     </RadioCardContainer>
   );
