@@ -87,11 +87,11 @@ function FAQ({ data }) {
             <Box width={[1, 1 / 2]}>
               <Heading as="h4">By standard mail:</Heading>
               <Text>
-                101-15 Bridgeland Drive South
+                PO Box 73016 Bridgwater PO
                 <br />
                 Winnipeg, Canada
                 <br />
-                R3Y 0E7
+                R3Y 0Y0
               </Text>
             </Box>
           </Flex>
