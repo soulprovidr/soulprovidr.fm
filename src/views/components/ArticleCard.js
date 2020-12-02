@@ -7,7 +7,7 @@ import css from '@styled-system/css';
 import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
 import { useListen, useIsPlaying } from 'modules/player/hooks';
 import { useTrack } from 'modules/soundcloud';
-import { Badge, Card, Text } from 'theme';
+import { Badge, Breakpoints, Card, Text, usePageWidth } from 'theme';
 import PauseIcon from 'views/components/PauseIcon';
 import PlayIcon from 'views/components/PlayIcon';
 
@@ -60,6 +60,8 @@ const ArticleCard = ({ post, ...props }) => {
   const track = useTrack(soundCloudUrl);
   const isMouseOver = useIsMouseOver(cardRef);
   const isPlaying = useIsPlaying(track?.stream_url);
+  const pageWidth = usePageWidth();
+
   const meta = useMemo(
     () =>
       track
@@ -96,7 +98,9 @@ const ArticleCard = ({ post, ...props }) => {
           {category.label}
         </StyledBadge>
         <Image fluid={image.childImageSharp.fluid} />
-        <Card.Overlay force={isPlaying || isMouseOver}>
+        <Card.Overlay
+          force={isPlaying || isMouseOver || pageWidth <= Breakpoints.SM}
+        >
           {overlayContent}
         </Card.Overlay>
       </Card.Header>
