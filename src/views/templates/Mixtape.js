@@ -173,14 +173,14 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </WaveformControls>
-          {tracklistJson && !isSmallScreen && (
+          {/* {tracklistJson && !isSmallScreen && (
             <Tracklist
               isPlaying={isPlaying}
               onSeek={onSeek}
               progress={isListening ? progress : 0}
               tracklist={tracklistJson}
             />
-          )}
+          )} */}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>

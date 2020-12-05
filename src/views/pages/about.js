@@ -46,7 +46,6 @@ function FAQ({ data }) {
   return (
     <Page title="About">
       <Global styles={globalStyles} />
-      <Page.Title>About</Page.Title>
       <StyledPageContent>
         <StyledPageImage src={LogoImage} />
         <div>
