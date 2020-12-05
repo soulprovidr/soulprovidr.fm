@@ -12,7 +12,7 @@ import {
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
 import { MarqueeContainer as Marquee } from '@/packages/marquee';
-import { Box, Button, Spinner, Text } from 'theme';
+import { Box, Breakpoints, Button, Spinner, Text, usePageWidth } from 'theme';
 import { CoverImage } from '../components/CoverImage';
 import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
@@ -122,6 +122,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
   const isListening = useIsListening(src);
   const progress = usePlayerProgress();
   const listenFunc = useListen(src, meta);
+  const pageWidth = usePageWidth();
 
   const onClick = () => listenFunc();
   const onSeek = (progress) => listenFunc(progress);
@@ -131,13 +132,15 @@ const MixtapeTemplate = ({ data, ...props }) => {
     []
   );
 
+  const isSmallScreen = pageWidth <= Breakpoints.SM;
+
   return (
     <Page description={description} title={title} {...props}>
       <MixtapeContainer>
         <MixtapeMeta>
           <CoverImage
             category={category}
-            forceOverlay={isPlaying}
+            forceOverlay={isPlaying || isSmallScreen}
             onClick={onClick}
             image={image}
             mediaSrc={src}
@@ -170,7 +173,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </WaveformControls>
-          {tracklistJson && (
+          {tracklistJson && !isSmallScreen && (
             <Tracklist
               isPlaying={isPlaying}
               onSeek={onSeek}
