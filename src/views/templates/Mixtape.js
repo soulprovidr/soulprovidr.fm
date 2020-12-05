@@ -11,6 +11,7 @@ import {
   usePlayerProgress
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
+import { MarqueeContainer as Marquee } from '@/packages/marquee';
 import { Box, Button, Spinner, Text } from 'theme';
 import { CoverImage } from '../components/CoverImage';
 import { Tracklist } from '../components/Tracklist';
@@ -46,7 +47,7 @@ const MixtapeContent = styled(Box)(
 
 const MixtapeTitle = styled(Page.Title)(
   css({
-    fontSize: 6,
+    fontSize: [5, 6],
     lineHeight: 1.25,
     pb: 1,
     pt: [3, 0],
@@ -125,6 +126,11 @@ const MixtapeTemplate = ({ data, ...props }) => {
   const onClick = () => listenFunc();
   const onSeek = (progress) => listenFunc(progress);
 
+  const memoizedTitle = useMemo(
+    () => <MixtapeTitle key={title}>{title}</MixtapeTitle>,
+    []
+  );
+
   return (
     <Page description={description} title={title} {...props}>
       <MixtapeContainer>
@@ -138,7 +144,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
           />
         </MixtapeMeta>
         <MixtapeContent width={[1, 3 / 5]}>
-          <MixtapeTitle>{title}</MixtapeTitle>
+          <Marquee>{memoizedTitle}</Marquee>
           <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
           <Waveform
             duration={track?.duration}

@@ -28,7 +28,7 @@ const ArticleCardTitle = styled(Text)(
     fontSize: [4, 3],
     fontWeight: 600,
     lineHeight: 1.25,
-    pb: 1,
+    pb: [2, 1],
     'a, a:active, a:visited': {
       color: 'text.primary'
     }
