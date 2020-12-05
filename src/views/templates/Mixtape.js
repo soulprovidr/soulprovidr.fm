@@ -11,9 +11,10 @@ import {
   usePlayerProgress
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
-import { Box, Button, Spinner, Text } from 'theme';
+import { MarqueeContainer as Marquee } from '@/packages/marquee';
+import { Box, Breakpoints, Button, Spinner, Text, usePageWidth } from 'theme';
 import { CoverImage } from '../components/CoverImage';
-// import { Tracklist } from '../components/Tracklist';
+import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
@@ -46,7 +47,7 @@ const MixtapeContent = styled(Box)(
 
 const MixtapeTitle = styled(Page.Title)(
   css({
-    fontSize: 6,
+    fontSize: [5, 6],
     lineHeight: 1.25,
     pb: 1,
     pt: [3, 0],
@@ -102,7 +103,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
   } = frontmatter;
 
   const track = useTrack(soundCloudUrl);
-  // const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
+  const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
   const src = track?.stream_url ?? null;
   const meta = useMemo(
     () =>
@@ -121,9 +122,17 @@ const MixtapeTemplate = ({ data, ...props }) => {
   const isListening = useIsListening(src);
   const progress = usePlayerProgress();
   const listenFunc = useListen(src, meta);
+  const pageWidth = usePageWidth();
 
   const onClick = () => listenFunc();
   const onSeek = (progress) => listenFunc(progress);
+
+  const memoizedTitle = useMemo(
+    () => <MixtapeTitle key={title}>{title}</MixtapeTitle>,
+    []
+  );
+
+  const isSmallScreen = pageWidth <= Breakpoints.SM;
 
   return (
     <Page description={description} title={title} {...props}>
@@ -131,14 +140,14 @@ const MixtapeTemplate = ({ data, ...props }) => {
         <MixtapeMeta>
           <CoverImage
             category={category}
-            forceOverlay={isPlaying}
+            forceOverlay={isPlaying || isSmallScreen}
             onClick={onClick}
             image={image}
             mediaSrc={src}
           />
         </MixtapeMeta>
         <MixtapeContent width={[1, 3 / 5]}>
-          <MixtapeTitle>{title}</MixtapeTitle>
+          <Marquee>{memoizedTitle}</Marquee>
           <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
           <Waveform
             duration={track?.duration}
@@ -164,7 +173,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </WaveformControls>
-          {/* {tracklistJson && (
+          {/* {tracklistJson && !isSmallScreen && (
             <Tracklist
               isPlaying={isPlaying}
               onSeek={onSeek}

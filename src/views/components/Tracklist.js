@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { Text } from 'theme';
+
+const StyledTableWrapper = styled.div`
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+`;
 
 const StyledTable = styled('table')(
   css({
@@ -114,7 +120,7 @@ export function Tracklist({
       ));
   };
   return (
-    <div {...props}>
+    <StyledTableWrapper {...props}>
       <StyledTable>
         <StyledThead>
           <tr>
@@ -125,6 +131,6 @@ export function Tracklist({
         </StyledThead>
         <tbody>{renderTableRows()}</tbody>
       </StyledTable>
-    </div>
+    </StyledTableWrapper>
   );
 }
