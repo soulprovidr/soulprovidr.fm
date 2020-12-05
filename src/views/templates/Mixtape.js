@@ -13,7 +13,7 @@ import {
 import { Waveform, useTrack } from 'modules/soundcloud';
 import { Box, Button, Spinner, Text } from 'theme';
 import { CoverImage } from '../components/CoverImage';
-// import { Tracklist } from '../components/Tracklist';
+import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
@@ -28,8 +28,8 @@ const MixtapeContainer = styled('div')(
 const MixtapeMeta = styled('div')(
   css({
     alignSelf: [null, 'flex-start'],
+    mr: [0, 4],
     position: ['relative'],
-    // top: [null, 50],
     flexGrow: 1
   })
 );
@@ -37,7 +37,7 @@ const MixtapeMeta = styled('div')(
 const MixtapeContent = styled(Box)(
   css({
     mb: 3,
-    pl: [0, 5],
+    // pl: [0, 5],
     pt: [3, 0],
     pb: 5,
     width: ['100%', '60%']
@@ -102,7 +102,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
   } = frontmatter;
 
   const track = useTrack(soundCloudUrl);
-  // const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
+  const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
   const src = track?.stream_url ?? null;
   const meta = useMemo(
     () =>
@@ -164,14 +164,14 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(track?.duration)}
             </Text>
           </WaveformControls>
-          {/* {tracklistJson && (
+          {tracklistJson && (
             <Tracklist
               isPlaying={isPlaying}
               onSeek={onSeek}
               progress={isListening ? progress : 0}
               tracklist={tracklistJson}
             />
-          )} */}
+          )}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>

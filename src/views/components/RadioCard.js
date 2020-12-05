@@ -1,12 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
+import { MarqueeContainer as Marquee } from '@/packages/marquee';
+import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
 import { useIsRadioPlaying, usePlayRadio, useRadioMeta } from 'modules/radio';
-import { Card, Text } from 'theme';
+import { Breakpoints, Card, Text, usePageWidth } from 'theme';
 import PauseIcon from 'views/components/PauseIcon';
 import PlayIcon from 'views/components/PlayIcon';
 import DefaultCover from 'static/images/default.png';
-import { useIsMouseOver } from '../../common/hooks/useIsMouseOver';
 
 const RadioCardContainer = styled(Card.Container)(
   css({
@@ -47,9 +48,7 @@ const RadioCardTitle = styled(Text)(
     fontWeight: 600,
     lineHeight: 1.25,
     pb: 0,
-    pt: 1,
-    textOverflow: 'ellipsis',
-    whiteSpace: 'nowrap'
+    pt: 1
   })
 );
 
@@ -66,25 +65,43 @@ const RadioCard = () => {
   const isMouseOver = useIsMouseOver(containerRef);
   const isPlaying = useIsRadioPlaying();
   const listenFn = usePlayRadio();
+  const pageWidth = usePageWidth();
 
-  const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
-
-  const renderOverlayContent = () => {
+  const overlay = useMemo(() => {
     const IconComponent = isPlaying ? PauseIcon : PlayIcon;
     return <IconComponent color="white" size={50} />;
-  };
+  }, [isPlaying]);
 
+  const title = useMemo(
+    () => (
+      <RadioCardTitle key={meta?.title}>
+        {meta?.title ?? 'Loading...'}
+      </RadioCardTitle>
+    ),
+    [meta?.title]
+  );
+
+  const artist = useMemo(
+    () => (
+      <RadioCardArtist key={meta?.artist}>{meta?.artist ?? ''}</RadioCardArtist>
+    ),
+    [meta?.artist]
+  );
+
+  const imageAlt = meta ? `${meta.artist} - ${meta.title}` : 'Loading...';
   return (
     <RadioCardContainer onClick={() => listenFn()} ref={containerRef}>
       <RadioCardHeader>
         <RadioCardImage src={meta?.cover ?? DefaultCover} alt={imageAlt} />
-        <Card.Overlay force={isPlaying || isMouseOver}>
-          {renderOverlayContent()}
+        <Card.Overlay
+          force={isPlaying || isMouseOver || pageWidth <= Breakpoints.SM}
+        >
+          {overlay}
         </Card.Overlay>
       </RadioCardHeader>
       <RadioCardContent>
-        <RadioCardTitle>{meta?.title ?? 'Loading...'}</RadioCardTitle>
-        <RadioCardArtist>{meta?.artist ?? null}</RadioCardArtist>
+        <Marquee>{title}</Marquee>
+        <Marquee>{artist}</Marquee>
       </RadioCardContent>
     </RadioCardContainer>
   );

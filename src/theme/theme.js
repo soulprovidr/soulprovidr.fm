@@ -3,7 +3,7 @@ import './fonts/hk-grotesk/hk-grotesk.css';
 export default {
   borders: {
     container: '1px solid #eee',
-    input: '2px solid #6c757d',
+    input: '2px solid #aaa',
     error: '2px solid #E54D42',
     focus: '2px solid #308AEC'
   },
