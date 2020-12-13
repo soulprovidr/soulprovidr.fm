@@ -3,6 +3,7 @@ import get from 'lodash.get';
 import { graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
+import { formatDistanceToNowStrict } from 'date-fns';
 import {
   msToTime,
   useIsPlaying,
@@ -12,7 +13,15 @@ import {
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
 import { MarqueeContainer as Marquee } from '@/packages/marquee';
-import { Box, Breakpoints, Button, Spinner, Text, usePageWidth } from 'theme';
+import {
+  Box,
+  Breakpoints,
+  Button,
+  Logo,
+  Spinner,
+  Text,
+  usePageWidth
+} from 'theme';
 import { CoverImage } from '../components/CoverImage';
 import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
@@ -21,45 +30,68 @@ import { PlayerIcon } from '../player';
 const MixtapeContainer = styled('div')(
   css({
     display: 'flex',
+    alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: ['column', 'row']
+    flexDirection: ['column']
   })
 );
 
-const MixtapeMeta = styled('div')(
-  css({
-    alignSelf: [null, 'flex-start'],
-    mr: [0, 4],
-    position: ['relative'],
-    flexGrow: 1
-  })
-);
+const MixtapeTitle = styled.div`
+  ${css({
+    borderBottom: 'container',
+    pt: 4,
+    pb: 3,
+    mb: 4
+  })}
+`;
 
-const MixtapeContent = styled(Box)(
-  css({
+const MixtapeImage = styled.div`
+  position: relative;
+  flex-grow: 1;
+  width: 60%;
+`;
+
+const MixtapeContent = styled(Box)`
+  ${css({
     mb: 3,
-    // pl: [0, 5],
-    pt: [3, 0],
     pb: 5,
     width: ['100%', '60%']
-  })
-);
+  })}
+`;
 
-const MixtapeTitle = styled(Page.Title)(
+const StyledPageTitle = styled(Page.Title)(
   css({
     fontSize: [5, 6],
     lineHeight: 1.25,
-    pb: 1,
-    pt: [3, 0],
+    pb: 2,
     textTransform: 'none'
   })
 );
 
+const StyledLogo = styled(Logo)`
+  display: inline-block;
+  margin-right: 7px;
+  vertical-align: middle;
+`;
+
+const StyledMarquee = styled(Marquee)`
+  ${css({ pb: 0 })}
+`;
+
 const MixtapeText = styled(Text)(
   css({
     mb: 3,
-    pb: 2
-  })
+    pb: 2,
+    // pt: 2,
+    'a, a:active, a:visited': {
+      color: 'accent'
+    }
+  }),
+  {
+    p: {
+      textAlign: 'justify'
+    }
+  }
 );
 
 const WaveformControls = styled('div')(
@@ -67,7 +99,8 @@ const WaveformControls = styled('div')(
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    pb: 4
+    paddingBottom: '26px',
+    borderBottom: 'container'
   })
 );
 
@@ -95,6 +128,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
   const { frontmatter, html } = post;
   const {
     category,
+    date,
     description,
     image,
     soundCloudUrl,
@@ -127,8 +161,15 @@ const MixtapeTemplate = ({ data, ...props }) => {
   const onClick = () => listenFunc();
   const onSeek = (progress) => listenFunc(progress);
 
+  const memoizedDate = useMemo(
+    () => formatDistanceToNowStrict(new Date(date)),
+    []
+  );
+  const memoizedDuration = useMemo(() => msToTime(track?.duration), [
+    track?.duration
+  ]);
   const memoizedTitle = useMemo(
-    () => <MixtapeTitle key={title}>{title}</MixtapeTitle>,
+    () => <StyledPageTitle key={title}>{title}</StyledPageTitle>,
     []
   );
 
@@ -137,7 +178,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
   return (
     <Page description={description} title={title} {...props}>
       <MixtapeContainer>
-        <MixtapeMeta>
+        <MixtapeImage>
           <CoverImage
             category={category}
             forceOverlay={isPlaying || isSmallScreen}
@@ -145,10 +186,24 @@ const MixtapeTemplate = ({ data, ...props }) => {
             image={image}
             mediaSrc={src}
           />
-        </MixtapeMeta>
+        </MixtapeImage>
         <MixtapeContent width={[1, 3 / 5]}>
-          <Marquee>{memoizedTitle}</Marquee>
-          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          <MixtapeTitle>
+            <StyledMarquee>{memoizedTitle}</StyledMarquee>
+            <Text color="text.secondary" fontSize={4} p={0}>
+              {description}
+            </Text>
+            <Text fontSize={2} pt="24px">
+              <StyledLogo size={25} />
+              Soul Provider ·{' '}
+              <Text as="span" color="text.secondary">
+                {memoizedDate} ago
+              </Text>
+            </Text>
+          </MixtapeTitle>
+          {!!html.length && (
+            <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          )}
           <Waveform
             duration={track?.duration}
             height={90}
@@ -169,18 +224,20 @@ const MixtapeTemplate = ({ data, ...props }) => {
               )}
             </StyledButton>
             <Text color="text.secondary" pb={0}>
-              {msToTime(isPlaying ? progress : null)} /{' '}
-              {msToTime(track?.duration)}
+              {msToTime(isPlaying ? progress : null)} / {memoizedDuration}
             </Text>
           </WaveformControls>
-          {/* {tracklistJson && !isSmallScreen && (
-            <Tracklist
-              isPlaying={isPlaying}
-              onSeek={onSeek}
-              progress={isListening ? progress : 0}
-              tracklist={tracklistJson}
-            />
-          )} */}
+          {tracklistJson && !isSmallScreen && (
+            <>
+              {/* <Heading as="h3">Tracklist</Heading> */}
+              <Tracklist
+                isPlaying={isPlaying}
+                onSeek={onSeek}
+                progress={isListening ? progress : 0}
+                tracklist={tracklistJson}
+              />
+            </>
+          )}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>
@@ -199,10 +256,6 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
-        author {
-          id
-          name
-        }
         category {
           id
           label
