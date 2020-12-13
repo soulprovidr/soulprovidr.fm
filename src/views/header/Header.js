@@ -8,7 +8,7 @@ import { Flex, Heading, Logo } from 'theme';
 import { Links } from './Links';
 import { Icons } from './Icons';
 
-const HeaderContainer = styled('header')(
+const StyledHeader = styled('header')(
   css({
     bg: 'bg',
     borderBottom: ['container', null],
@@ -63,7 +63,7 @@ export const HeaderLinks = styled(Links)(
 );
 
 export const Header = () => (
-  <HeaderContainer>
+  <StyledHeader>
     <Flex alignItems="center">
       <Link to="/">
         <Logo mr={3} size={35} />
@@ -76,5 +76,5 @@ export const Header = () => (
       <HeaderIcons />
       <HeaderLinks />
     </HeaderNavigation>
-  </HeaderContainer>
+  </StyledHeader>
 );

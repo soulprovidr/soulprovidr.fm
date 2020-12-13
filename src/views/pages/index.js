@@ -75,7 +75,7 @@ export const pageQuery = graphql`
   query HomeQuery {
     allMarkdownRemark(
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 6
+      limit: 3
     ) {
       edges {
         node {
