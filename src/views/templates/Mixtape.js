@@ -48,7 +48,7 @@ const MixtapeTitle = styled.div`
 const MixtapeImage = styled.div`
   position: relative;
   flex-grow: 1;
-  width: 60%;
+  ${css({ width: ['100%', '60%'] })}
 `;
 
 const MixtapeContent = styled(Box)`
