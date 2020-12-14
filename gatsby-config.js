@@ -28,7 +28,7 @@ module.exports = {
           '@': path.resolve(__dirname, 'src'),
           common: path.resolve(__dirname, 'src', 'common'),
           modules: path.resolve(__dirname, 'src', 'modules'),
-          static: path.resolve(__dirname, 'src', 'static'),
+          static: path.resolve(__dirname, 'static'),
           theme: path.resolve(__dirname, 'src', 'theme'),
           views: path.resolve(__dirname, 'src', 'views')
         }
