@@ -3,5 +3,10 @@
     "id": "mixtape",
     "label": "Mixtape",
     "colour": "#ca5489"
+  },
+  {
+    "id": "page",
+    "label": "Page",
+    "colour": "#dddddd"
   }
 ]

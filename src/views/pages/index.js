@@ -74,6 +74,7 @@ export default Home;
 export const pageQuery = graphql`
   query HomeQuery {
     allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { ne: "page" } } } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 3
     ) {

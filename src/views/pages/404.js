@@ -76,6 +76,7 @@ export default PageNotFound;
 export const pageQuery = graphql`
   query PageNotFoundQuery {
     allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { ne: "page" } } } }
       sort: { fields: frontmatter___date, order: DESC }
       limit: 3
     ) {
