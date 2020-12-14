@@ -23,7 +23,7 @@ import {
   usePageWidth
 } from 'theme';
 import { CoverImage } from '../components/CoverImage';
-import { Tracklist } from '../components/Tracklist';
+// import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
@@ -132,12 +132,12 @@ const MixtapeTemplate = ({ data, ...props }) => {
     description,
     image,
     soundCloudUrl,
-    title,
-    tracklist = null
+    title
+    // tracklist = null
   } = frontmatter;
 
   const track = useTrack(soundCloudUrl);
-  const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
+  // const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
   const src = track?.stream_url ?? null;
   const meta = useMemo(
     () =>
@@ -227,9 +227,8 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(isPlaying ? progress : null)} / {memoizedDuration}
             </Text>
           </WaveformControls>
-          {tracklistJson && !isSmallScreen && (
+          {/* {tracklistJson && !isSmallScreen && (
             <>
-              {/* <Heading as="h3">Tracklist</Heading> */}
               <Tracklist
                 isPlaying={isPlaying}
                 onSeek={onSeek}
@@ -237,7 +236,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
                 tracklist={tracklistJson}
               />
             </>
-          )}
+          )} */}
         </MixtapeContent>
       </MixtapeContainer>
     </Page>
