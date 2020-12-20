@@ -3,26 +3,17 @@ import get from 'lodash.get';
 import { graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { Text } from 'theme';
+import { Box, Text } from 'theme';
 import { Page } from '../layout';
 
 const GenericPageTitleContainer = styled.div`
+  width: 100%;
   ${css({
     borderBottom: 'container',
     display: 'flex',
-    pb: 3,
-    mb: 4
+    pb: 3
   })}
 `;
-
-const StyledPageTitle = styled(Page.Title)(
-  css({
-    fontSize: [5, 6],
-    lineHeight: 1.25,
-    pb: 2,
-    textTransform: 'none'
-  })
-);
 
 const MixtapeText = styled(Text)(
   css({
@@ -50,7 +41,7 @@ const GenericPageTemplate = ({ data, ...props }) => {
 
   return (
     <Page description={description} title={title} {...props}>
-      <Page.Content width={[1, 3 / 5]}>
+      <Box width={[1, 3 / 5]}>
         <GenericPageTitleContainer>
           <div>
             <Page.Title>{title}</Page.Title>
@@ -59,10 +50,12 @@ const GenericPageTemplate = ({ data, ...props }) => {
             </Text>
           </div>
         </GenericPageTitleContainer>
-        {!!html.length && (
-          <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
-        )}
-      </Page.Content>
+        <Page.Content>
+          {!!html.length && (
+            <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+          )}
+        </Page.Content>
+      </Box>
     </Page>
   );
 };
