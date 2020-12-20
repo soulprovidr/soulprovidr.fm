@@ -53,7 +53,7 @@ const GenericPageTemplate = ({ data, ...props }) => {
       <Page.Content width={[1, 3 / 5]}>
         <GenericPageTitleContainer>
           <div>
-            <StyledPageTitle>{title}</StyledPageTitle>
+            <Page.Title>{title}</Page.Title>
             <Text color="text.secondary" fontSize={4} p={0}>
               {description}
             </Text>
