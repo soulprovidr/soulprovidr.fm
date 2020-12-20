@@ -2,30 +2,7 @@ const path = require('path');
 
 const categories = require('./data/entities/categories.json');
 
-const getPostSlugPrefix = (node) => {
-  switch (node.frontmatter.category) {
-    case 'mixtape':
-      return 'mixtapes/';
-    default:
-      return '';
-  }
-};
-
-const getPostSlug = (node) =>
-  `/${getPostSlugPrefix(node)}${
-    node.fileAbsolutePath.split('/').pop().split('.')[0]
-  }`;
-
-const getPostTemplate = (categoryId) => {
-  switch (categoryId) {
-    case 'mixtape':
-      return path.resolve('./src/views/templates/Mixtape.js');
-    default:
-      return null;
-  }
-};
-
-const createCategoryQuery = (category) => `
+const createCategoryPostsQuery = (category) => `
   query CategoryQuery {
     allMarkdownRemark(
       filter: { frontmatter: { category: { id: { eq: "${category}" } } } }
@@ -47,19 +24,43 @@ const createCategoryQuery = (category) => `
   }
 `;
 
+const getPostSlugPrefix = (node) => {
+  switch (node.frontmatter.category) {
+    case 'mixtape':
+      return 'mixtapes/';
+    default:
+      return '';
+  }
+};
+
+const getPostSlug = (node) =>
+  `/${getPostSlugPrefix(node)}${
+    node.fileAbsolutePath.split('/').pop().split('.')[0]
+  }`;
+
+const getPostTemplate = (categoryId) => {
+  switch (categoryId) {
+    case 'mixtape':
+      return path.resolve('./src/views/templates/Mixtape.js');
+    case 'page':
+      return path.resolve('./src/views/templates/GenericPage.js');
+    default:
+      return null;
+  }
+};
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
   for (let i = 0; i < categories.length; i++) {
-    const category = categories[i].id;
-    const query = createCategoryQuery(category);
-    const categoryResult = await graphql(query);
-
-    if (categoryResult.errors) {
-      console.log(categoryResult.errors);
-      throw categoryResult.errors;
+    const categoryId = categories[i].id;
+    const categoryPostsQuery = createCategoryPostsQuery(categoryId);
+    const categoryPostsResults = await graphql(categoryPostsQuery);
+    if (categoryPostsResults.errors) {
+      console.log(categoryPostsResults.errors);
+      throw categoryPostsResults.errors;
     }
 
-    const posts = categoryResult.data.allMarkdownRemark.edges;
+    const posts = categoryPostsResults.data.allMarkdownRemark.edges;
     posts.forEach(({ node: post }) => {
       const {
         frontmatter: {
@@ -67,6 +68,7 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       } = post;
       const { slug } = post.fields;
+      console.log(slug);
       const component = getPostTemplate(categoryId);
       createPage({
         path: slug,

@@ -22,7 +22,7 @@ const CTABannerContent = styled('div')(
     borderLeft: 'none',
     borderRight: 'none',
     display: 'flex',
-    flexDirection: ['column', null, 'row'],
+    flexDirection: ['column', 'column', 'row'],
     justifyContent: 'space-between',
     p: 3
   })

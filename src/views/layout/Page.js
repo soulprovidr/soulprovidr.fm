@@ -2,20 +2,26 @@ import React from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
-import { Container, Heading } from 'theme';
+import { Box, Container, Heading } from 'theme';
 import { Layout, Meta } from './';
 
-const PageContainer = styled(Container)(css({ mt: [5, 0], py: 5 }));
+const PageContainer = styled(Container)(
+  css({
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    my: [5, 0],
+    px: 3,
+    py: 5
+  })
+);
 
 const PageTitle = styled(Heading)(css({ textTransform: 'uppercase' }));
 
-const PageContent = styled('div')(
+const PageContent = styled(Box)(
   css({
     pb: 5,
-    pt: 3,
-    'a, a:active, a:visited': {
-      color: 'accent'
-    }
+    pt: 3
   })
 );
 
