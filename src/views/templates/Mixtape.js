@@ -23,39 +23,21 @@ import {
   usePageWidth
 } from 'theme';
 import { CoverImage } from '../components/CoverImage';
-// import { Tracklist } from '../components/Tracklist';
+import { Tracklist } from '../components/Tracklist';
 import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 
-const MixtapeContainer = styled('div')(
-  css({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: ['column']
-  })
-);
+const MixtapeImageContainer = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
-const MixtapeTitle = styled.div`
+const MixtapeTitleContainer = styled.div`
   ${css({
     borderBottom: 'container',
     pt: 4,
     pb: 3,
     mb: 4
-  })}
-`;
-
-const MixtapeImage = styled.div`
-  position: relative;
-  flex-grow: 1;
-  width: 60%;
-`;
-
-const MixtapeContent = styled(Box)`
-  ${css({
-    mb: 3,
-    pb: 5,
-    width: ['100%', '60%']
   })}
 `;
 
@@ -78,11 +60,10 @@ const StyledMarquee = styled(Marquee)`
   ${css({ pb: 0 })}
 `;
 
-const MixtapeText = styled(Text)(
+const StyledText = styled(Text)(
   css({
     mb: 3,
     pb: 2,
-    // pt: 2,
     'a, a:active, a:visited': {
       color: 'accent'
     }
@@ -99,8 +80,7 @@ const WaveformControls = styled('div')(
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingBottom: '26px',
-    borderBottom: 'container'
+    paddingBottom: '26px'
   })
 );
 
@@ -132,12 +112,12 @@ const MixtapeTemplate = ({ data, ...props }) => {
     description,
     image,
     soundCloudUrl,
-    title
-    // tracklist = null
+    title,
+    tracklist = null
   } = frontmatter;
 
   const track = useTrack(soundCloudUrl);
-  // const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
+  const tracklistJson = get(tracklist, 'childrenTracklistJson', null);
   const src = track?.stream_url ?? null;
   const meta = useMemo(
     () =>
@@ -177,8 +157,8 @@ const MixtapeTemplate = ({ data, ...props }) => {
 
   return (
     <Page description={description} title={title} {...props}>
-      <MixtapeContainer>
-        <MixtapeImage>
+      <Box width={[1, 1, 3 / 5]}>
+        <MixtapeImageContainer>
           <CoverImage
             category={category}
             forceOverlay={isPlaying || isSmallScreen}
@@ -186,9 +166,9 @@ const MixtapeTemplate = ({ data, ...props }) => {
             image={image}
             mediaSrc={src}
           />
-        </MixtapeImage>
-        <MixtapeContent width={[1, 3 / 5]}>
-          <MixtapeTitle>
+        </MixtapeImageContainer>
+        <Page.Content>
+          <MixtapeTitleContainer>
             <StyledMarquee>{memoizedTitle}</StyledMarquee>
             <Text color="text.secondary" fontSize={4} p={0}>
               {description}
@@ -200,9 +180,9 @@ const MixtapeTemplate = ({ data, ...props }) => {
                 {memoizedDate} ago
               </Text>
             </Text>
-          </MixtapeTitle>
+          </MixtapeTitleContainer>
           {!!html.length && (
-            <MixtapeText as="div" dangerouslySetInnerHTML={{ __html: html }} />
+            <StyledText as="div" dangerouslySetInnerHTML={{ __html: html }} />
           )}
           <Waveform
             duration={track?.duration}
@@ -227,7 +207,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
               {msToTime(isPlaying ? progress : null)} / {memoizedDuration}
             </Text>
           </WaveformControls>
-          {/* {tracklistJson && !isSmallScreen && (
+          {tracklistJson && !isSmallScreen && (
             <>
               <Tracklist
                 isPlaying={isPlaying}
@@ -236,9 +216,9 @@ const MixtapeTemplate = ({ data, ...props }) => {
                 tracklist={tracklistJson}
               />
             </>
-          )} */}
-        </MixtapeContent>
-      </MixtapeContainer>
+          )}
+        </Page.Content>
+      </Box>
     </Page>
   );
 };

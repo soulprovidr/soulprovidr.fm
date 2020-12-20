@@ -38,12 +38,15 @@ const SubscribeFields = styled('div')(
   })
 );
 
-const SubscribeInput = styled(Input)(
-  css({
+const SubscribeInput = styled(Input)`
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  ${css({
     mr: [0, null, 2],
     width: ['100%', null, '250px']
-  })
-);
+  })}
+`;
 
 export const SubscribeCTA = () => {
   const dispatch = useDispatch();
