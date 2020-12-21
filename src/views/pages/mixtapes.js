@@ -66,7 +66,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(
       filter: { frontmatter: { category: { id: { eq: "mixtape" } } } }
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 6
+      limit: 10
     ) {
       edges {
         node {
