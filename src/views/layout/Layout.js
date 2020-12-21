@@ -6,6 +6,7 @@ import Helmet from 'react-helmet';
 import { Player } from 'views/player';
 import { ThemeProvider } from 'theme';
 import Favicon from 'static/images/favicon.png';
+import LogoImage from 'static/images/logo.png';
 
 import { Header, HeaderLinks } from '../header';
 
@@ -45,6 +46,11 @@ export function Layout({ children }) {
         titleTemplate={`%s | ${siteMetadata.title}`}
       >
         <link rel="icon" href={Favicon} type="image/png" />
+        <meta property="og:url" content="https://soulprovidr.fm" />
+        <meta property="og:image" content={LogoImage} />
+        <meta property="og:title" content={siteMetadata.title} />
+        <meta property="og:description" content={siteMetadata.description} />
+        <meta property="og:type" content="website" />
       </Helmet>
       <Header />
       {children}

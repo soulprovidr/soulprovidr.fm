@@ -30,7 +30,7 @@ const PageMeta = styled('div')(css({ py: 3 }));
 const Page = ({ children, title, description, ...props }) => (
   <Layout>
     <PageContainer {...props}>
-      <Meta title={title} description={description} />
+      {/* <Meta title={title} description={description} /> */}
       {children}
     </PageContainer>
   </Layout>
