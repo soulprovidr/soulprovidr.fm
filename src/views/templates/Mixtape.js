@@ -173,7 +173,7 @@ const MixtapeTemplate = ({ data, ...props }) => {
             <Text color="text.secondary" fontSize={4} p={0}>
               {description}
             </Text>
-            <Text fontSize={2} pt="24px">
+            <Text as="div" fontSize={2} pt="24px">
               <StyledLogo size={25} />
               Soul Provider ·{' '}
               <Text as="span" color="text.secondary">
