@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   siteMetadata: {
     description: 'For those who like to groove.',
+    siteUrl: 'https://soulprovidr.fm',
     title: 'Soul Provider'
   },
   plugins: [

@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
 import { Box, Container, Heading } from 'theme';
-import { Layout, Meta } from './';
+import { Layout, SEO } from './';
 
 const PageContainer = styled(Container)(
   css({
@@ -27,10 +27,24 @@ const PageContent = styled(Box)(
 
 const PageMeta = styled('div')(css({ py: 3 }));
 
-const Page = ({ children, title, description, ...props }) => (
+const Page = ({
+  children,
+  title = null,
+  description = null,
+  image = null,
+  slug = '',
+  type = null,
+  ...props
+}) => (
   <Layout>
     <PageContainer {...props}>
-      <Meta title={title} description={description} />
+      <SEO
+        title={title}
+        description={description}
+        image={image}
+        slug={slug}
+        type={type}
+      />
       {children}
     </PageContainer>
   </Layout>

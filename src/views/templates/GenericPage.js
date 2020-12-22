@@ -33,14 +33,19 @@ const MixtapeText = styled(Text)(
   }
 );
 
-const GenericPageTemplate = ({ data, ...props }) => {
+const GenericPageTemplate = ({ data }) => {
   const post = get(data, 'markdownRemark', null);
 
-  const { frontmatter, html } = post;
+  const { fields, frontmatter, html } = post;
   const { description, title } = frontmatter;
 
   return (
-    <Page description={description} title={title} {...props}>
+    <Page
+      description={description}
+      title={title}
+      slug={fields.slug}
+      type="article"
+    >
       <Box width={[1, 3 / 5]}>
         <GenericPageTitleContainer>
           <div>

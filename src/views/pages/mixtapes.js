@@ -4,8 +4,6 @@ import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import { Box } from 'theme';
-
 import ArticleCard from '../components/ArticleCard';
 import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
@@ -33,7 +31,7 @@ const StyledPageContent = styled(Page.Content)`
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Mixtapes">
+    <Page title="Mixtapes" slug="/mixtapes">
       <Global styles={globalStyles} />
       <StyledPageTitle>Mixtapes</StyledPageTitle>
       <StyledPageContent>
