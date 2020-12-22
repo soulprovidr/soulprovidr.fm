@@ -25,8 +25,9 @@ export const SEO = ({
   const {
     site: { siteMetadata }
   } = useStaticQuery(query);
+  const pageTitle = `${title} | ${siteMetadata.title}`;
   return (
-    <Helmet title={title || siteMetadata.title}>
+    <Helmet title={title}>
       <meta
         property="description"
         content={description || siteMetadata.description}
@@ -36,14 +37,14 @@ export const SEO = ({
         property="og:image"
         content={`${siteMetadata.siteUrl}${image || LogoImage}`}
       />
-      <meta property="og:title" content={title || siteMetadata.title} />
+      <meta property="og:title" content={pageTitle} />
       <meta
         property="og:description"
         content={description || siteMetadata.description}
       />
       {type && <meta property="og:type" content={type} />}
       <meta property="twitter:card" content="summary" />
-      <meta property="twitter:title" content={title || siteMetadata.title} />
+      <meta property="twitter:title" content={pageTitle} />
       <meta
         property="twitter:description"
         content={description || siteMetadata.description}
