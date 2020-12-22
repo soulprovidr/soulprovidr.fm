@@ -27,10 +27,17 @@ const PageContent = styled(Box)(
 
 const PageMeta = styled('div')(css({ py: 3 }));
 
-const Page = ({ children, title = null, description = null, ...props }) => (
+const Page = ({
+  children,
+  title = null,
+  description = null,
+  image = null,
+  slug = '',
+  ...props
+}) => (
   <Layout>
     <PageContainer {...props}>
-      <SEO title={title} description={description} />
+      <SEO title={title} description={description} image={image} slug={slug} />
       {children}
     </PageContainer>
   </Layout>

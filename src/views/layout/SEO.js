@@ -9,6 +9,7 @@ const query = graphql`
       siteMetadata {
         title
         description
+        siteUrl
       }
     }
   }
@@ -17,20 +18,25 @@ const query = graphql`
 export const SEO = ({
   description = null,
   image = null,
+  slug = '',
   title = null,
   type = 'website'
 }) => {
   const {
     site: { siteMetadata }
   } = useStaticQuery(query);
+  console.log(image);
   return (
-    <Helmet title={title}>
+    <Helmet title={title || siteMetadata.title}>
       <meta
         property="description"
         content={description || siteMetadata.description}
       />
-      <meta property="og:url" content="https://soulprovidr.fm" />
-      <meta property="og:image" content={image || LogoImage} />
+      <meta property="og:url" content={`${siteMetadata.siteUrl}${slug}`} />
+      <meta
+        property="og:image"
+        content={`${siteMetadata.siteUrl}${image || LogoImage}`}
+      />
       <meta property="og:title" content={title || siteMetadata.title} />
       <meta
         property="og:description"

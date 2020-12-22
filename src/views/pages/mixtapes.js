@@ -31,7 +31,7 @@ const StyledPageContent = styled(Page.Content)`
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Mixtapes">
+    <Page title="Mixtapes" slug="/mixtapes">
       <Global styles={globalStyles} />
       <StyledPageTitle>Mixtapes</StyledPageTitle>
       <StyledPageContent>
