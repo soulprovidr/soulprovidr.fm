@@ -43,6 +43,7 @@ export function Layout({ children }) {
         defaultTitle={siteMetadata.title}
         description={siteMetadata.description}
         titleTemplate={`%s | ${siteMetadata.title}`}
+        defer={false}
       >
         <link rel="icon" href={Favicon} type="image/png" />
       </Helmet>
