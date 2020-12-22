@@ -33,11 +33,18 @@ const Page = ({
   description = null,
   image = null,
   slug = '',
+  type = null,
   ...props
 }) => (
   <Layout>
     <PageContainer {...props}>
-      <SEO title={title} description={description} image={image} slug={slug} />
+      <SEO
+        title={title}
+        description={description}
+        image={image}
+        slug={slug}
+        type={type}
+      />
       {children}
     </PageContainer>
   </Layout>

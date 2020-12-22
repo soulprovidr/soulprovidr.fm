@@ -161,6 +161,7 @@ const MixtapeTemplate = ({ data }) => {
       title={title}
       image={imageSrc}
       slug={fields.slug}
+      type="article"
     >
       <Box width={[1, 1, 3 / 5]}>
         <MixtapeImageContainer>

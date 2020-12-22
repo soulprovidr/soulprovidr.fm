@@ -40,7 +40,12 @@ const GenericPageTemplate = ({ data }) => {
   const { description, title } = frontmatter;
 
   return (
-    <Page description={description} title={title} slug={fields.slug}>
+    <Page
+      description={description}
+      title={title}
+      slug={fields.slug}
+      type="article"
+    >
       <Box width={[1, 3 / 5]}>
         <GenericPageTitleContainer>
           <div>
