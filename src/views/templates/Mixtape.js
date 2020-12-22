@@ -102,7 +102,7 @@ const StyledPlayerIcon = styled(PlayerIcon)(
   })
 );
 
-const MixtapeTemplate = ({ data, ...props }) => {
+const MixtapeTemplate = ({ data }) => {
   const post = get(data, 'markdownRemark', null);
 
   const { frontmatter, html } = post;
@@ -155,8 +155,9 @@ const MixtapeTemplate = ({ data, ...props }) => {
 
   const isSmallScreen = pageWidth <= Breakpoints.SM;
 
+  const imageSrc = get(image, 'childImageSharp.fluid.src', null);
   return (
-    <Page description={description} title={title} {...props}>
+    <Page description={description} title={title} image={imageSrc}>
       <Box width={[1, 1, 3 / 5]}>
         <MixtapeImageContainer>
           <CoverImage
