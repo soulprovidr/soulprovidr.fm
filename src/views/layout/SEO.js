@@ -20,12 +20,11 @@ export const SEO = ({
   image = null,
   slug = '',
   title = null,
-  type = 'website'
+  type = null
 }) => {
   const {
     site: { siteMetadata }
   } = useStaticQuery(query);
-  console.log(image);
   return (
     <Helmet title={title || siteMetadata.title}>
       <meta
@@ -42,7 +41,7 @@ export const SEO = ({
         property="og:description"
         content={description || siteMetadata.description}
       />
-      <meta property="og:type" content={type} />
+      {type && <meta property="og:type" content={type} />}
       <meta property="twitter:card" content="summary" />
       <meta property="twitter:title" content={title || siteMetadata.title} />
       <meta
