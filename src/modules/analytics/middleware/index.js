@@ -1,1 +1,3 @@
-export * from './panelBear';
+import { panelBearMiddleware } from './panelBear';
+
+export default [panelBearMiddleware];

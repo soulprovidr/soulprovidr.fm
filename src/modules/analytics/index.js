@@ -1,1 +1,3 @@
-export * from './middleware';
+import middleware from './middleware';
+
+export { middleware };

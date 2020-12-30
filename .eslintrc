@@ -11,6 +11,7 @@
     "fetch": true,
     "module": true,
     "process": true,
+    "Promise": true,
     "require": true,
     "setInterval": true,
     "setTimeout": true,

@@ -3,11 +3,15 @@ import thunk from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import { middleware as analyticsMiddleware } from 'modules/analytics';
+import {
+  middleware as chromecastMiddleware,
+  reducer as chromecast
+} from 'modules/chromecast';
 import player from 'modules/player/reducer';
 import radio from 'modules/radio/reducer';
 import { reducer as subscribe } from 'modules/subscribe';
 
-import { panelBearMiddleware } from 'modules/analytics';
 import playerMiddleware from 'modules/player/middleware';
 import radioMiddleware from 'modules/radio/middleware';
 
@@ -18,6 +22,7 @@ const subscribePersistConfig = {
 };
 
 const reducer = combineReducers({
+  chromecast,
   player,
   radio,
   subscribe: persistReducer(subscribePersistConfig, subscribe)
@@ -25,7 +30,8 @@ const reducer = combineReducers({
 
 const middleware = applyMiddleware(
   thunk,
-  panelBearMiddleware,
+  ...analyticsMiddleware,
+  ...chromecastMiddleware,
   ...playerMiddleware,
   ...radioMiddleware
 );
