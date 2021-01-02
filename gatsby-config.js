@@ -1,54 +1,61 @@
 const path = require('path');
 
-let contentfulConfig;
-
-try {
-  // Load the Contentful config from the .contentful.json
-  contentfulConfig = require('./.contentful');
-} catch (_) {
-  // Do nothing.
-}
-
-// Overwrite the Contentful config with environment variables if they exist
-contentfulConfig = {
-  spaceId: process.env.CONTENTFUL_SPACE_ID || contentfulConfig.spaceId,
-  accessToken:
-    process.env.CONTENTFUL_DELIVERY_TOKEN || contentfulConfig.accessToken,
-};
-
-const { spaceId, accessToken } = contentfulConfig;
-
-if (!spaceId || !accessToken) {
-  throw new Error(
-    'Contentful spaceId and the delivery token need to be provided.'
-  );
-}
-
 module.exports = {
   siteMetadata: {
     description: 'For those who like to groove.',
-    title: 'Soul Provider',
+    siteUrl: 'https://soulprovidr.fm',
+    title: 'Soul Provider'
   },
   plugins: [
+    // Transformer plugins.
+    'gatsby-transformer-json',
     'gatsby-transformer-remark',
-    'gatsby-plugin-react-helmet',
+    'gatsby-transformer-sharp',
+
+    // General plugins.
     {
-      resolve: 'gatsby-source-contentful',
-      options: contentfulConfig,
+      resolve: 'gatsby-plugin-page-creator',
+      options: {
+        path: `${__dirname}/src/views/pages`,
+        ignore: ['!*.js']
+        // See pattern syntax recognized by micromatch
+        // https://www.npmjs.com/package/micromatch#matching-features
+      }
     },
     {
       resolve: 'gatsby-plugin-alias-imports',
       options: {
         alias: {
           '@': path.resolve(__dirname, 'src'),
-        },
-      },
+          common: path.resolve(__dirname, 'src', 'common'),
+          modules: path.resolve(__dirname, 'src', 'modules'),
+          static: path.resolve(__dirname, 'static'),
+          theme: path.resolve(__dirname, 'src', 'theme'),
+          views: path.resolve(__dirname, 'src', 'views')
+        }
+      }
+    },
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-sharp',
+
+    // Source plugins.
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        name: 'entities',
+        path: path.join(__dirname, 'data', 'entities')
+      }
     },
     {
-      resolve: 'gatsby-plugin-offline',
+      resolve: 'gatsby-source-filesystem',
       options: {
-        appendScript: require.resolve('./src/service-worker.js'),
-      },
-    },
+        name: 'posts',
+        path: path.join(__dirname, 'data', 'posts')
+      }
+    }
   ],
+  mapping: {
+    'MarkdownRemark.frontmatter.author': 'AuthorsJson',
+    'MarkdownRemark.frontmatter.category': 'CategoriesJson'
+  }
 };

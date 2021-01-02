@@ -4,13 +4,16 @@
     "__SOUNDCLOUD_CLIENT_ID__": true,
     "caches": true,
     "clearInterval": true,
+    "clearTimeout": true,
     "console": true,
+    "document": true,
     "exports": true,
     "fetch": true,
     "module": true,
     "process": true,
     "require": true,
     "setInterval": true,
+    "setTimeout": true,
     "SoundCloud": true,
     "window": true
   },
@@ -27,6 +30,7 @@
   },
   "rules": {
     "react-hooks/exhaustive-deps": 0,
+    "react/display-name": 0,
     "react/prop-types": 0
   }
 }
