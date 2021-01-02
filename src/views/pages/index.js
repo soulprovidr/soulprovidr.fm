@@ -3,6 +3,7 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
+import styled from '@emotion/styled';
 import { Box, Heading, Flex } from 'theme';
 
 import RadioCard from '../components/RadioCard';
@@ -23,15 +24,23 @@ const globalStyles = css`
   }
 `;
 
+const StyledPageTitle = styled(Page.Title)`
+  width: 100%;
+`;
+
+const StyledPageContent = styled(Page.Content)`
+  width: 100%;
+`;
+
 const Title = () => (
-  <Page.Title>
+  <StyledPageTitle>
     <Flex alignItems="center">
       <LiveIcon size={12} color="red" />
       <Box as="span" ml={2}>
         Live
       </Box>
     </Flex>
-  </Page.Title>
+  </StyledPageTitle>
 );
 
 function Home({ data }) {
@@ -40,12 +49,12 @@ function Home({ data }) {
     <Page title="Live">
       <Global styles={globalStyles} />
       <Title />
-      <Page.Content>
+      <StyledPageContent>
         <RadioCard />
-      </Page.Content>
+      </StyledPageContent>
       <Page.Meta>
         <CTABanner />
-        <Heading as="h3" pb={3}>
+        <Heading as="h3" pb="24px">
           LATEST CONTENT
         </Heading>
         <Masonry
@@ -74,8 +83,9 @@ export default Home;
 export const pageQuery = graphql`
   query HomeQuery {
     allMarkdownRemark(
+      filter: { frontmatter: { category: { id: { ne: "page" } } } }
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 6
+      limit: 3
     ) {
       edges {
         node {

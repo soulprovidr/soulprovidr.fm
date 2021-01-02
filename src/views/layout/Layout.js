@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { Player } from 'views/player';
 import { ThemeProvider } from 'theme';
 import Favicon from 'static/images/favicon.png';
@@ -43,6 +43,7 @@ export function Layout({ children }) {
         defaultTitle={siteMetadata.title}
         description={siteMetadata.description}
         titleTemplate={`%s | ${siteMetadata.title}`}
+        defer={false}
       >
         <link rel="icon" href={Favicon} type="image/png" />
       </Helmet>

@@ -61,7 +61,7 @@ export const CoverImage = ({
       )}
       {imageFluid ? <Image fluid={imageFluid} /> : null}
       <Overlay force={forceOverlay} onClick={onClick}>
-        <PlayerIcon color="white" size={45} src={mediaSrc} />
+        <PlayerIcon color="white" size={65} src={mediaSrc} />
       </Overlay>
     </StyledCoverImage>
   );

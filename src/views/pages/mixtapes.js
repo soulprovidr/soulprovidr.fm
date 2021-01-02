@@ -3,8 +3,7 @@ import get from 'lodash/get';
 import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
-import { Box } from 'theme';
-
+import styled from '@emotion/styled';
 import ArticleCard from '../components/ArticleCard';
 import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
@@ -21,33 +20,39 @@ const globalStyles = css`
   }
 `;
 
+const StyledPageTitle = styled(Page.Title)`
+  width: 100%;
+`;
+
+const StyledPageContent = styled(Page.Content)`
+  width: 100%;
+`;
+
 function Mixtapes({ data }) {
   const posts = get(data, 'allMarkdownRemark.edges');
   return (
-    <Page title="Mixtapes">
+    <Page title="Mixtapes" slug="/mixtapes">
       <Global styles={globalStyles} />
-      <Page.Title>Mixtapes</Page.Title>
-      <Page.Content>
+      <StyledPageTitle>Mixtapes</StyledPageTitle>
+      <StyledPageContent>
         <CTABanner />
-        <Box>
-          <Masonry
-            breakpointCols={{
-              default: 3,
-              768: 1
-            }}
-            className="masonry-container"
-            columnClassName="masonry-column"
-          >
-            {posts.map(({ node: post }) => (
-              <ArticleCard
-                post={post}
-                key={post.frontmatter.title}
-                sx={{ mb: 4 }}
-              />
-            ))}
-          </Masonry>
-        </Box>
-      </Page.Content>
+        <Masonry
+          breakpointCols={{
+            default: 3,
+            768: 1
+          }}
+          className="masonry-container"
+          columnClassName="masonry-column"
+        >
+          {posts.map(({ node: post }) => (
+            <ArticleCard
+              post={post}
+              key={post.frontmatter.title}
+              sx={{ mb: 4 }}
+            />
+          ))}
+        </Masonry>
+      </StyledPageContent>
     </Page>
   );
 }
@@ -59,7 +64,7 @@ export const pageQuery = graphql`
     allMarkdownRemark(
       filter: { frontmatter: { category: { id: { eq: "mixtape" } } } }
       sort: { fields: frontmatter___date, order: DESC }
-      limit: 6
+      limit: 10
     ) {
       edges {
         node {

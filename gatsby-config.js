@@ -3,6 +3,7 @@ const path = require('path');
 module.exports = {
   siteMetadata: {
     description: 'For those who like to groove.',
+    siteUrl: 'https://soulprovidr.fm',
     title: 'Soul Provider'
   },
   plugins: [
@@ -28,16 +29,10 @@ module.exports = {
           '@': path.resolve(__dirname, 'src'),
           common: path.resolve(__dirname, 'src', 'common'),
           modules: path.resolve(__dirname, 'src', 'modules'),
-          static: path.resolve(__dirname, 'src', 'static'),
+          static: path.resolve(__dirname, 'static'),
           theme: path.resolve(__dirname, 'src', 'theme'),
           views: path.resolve(__dirname, 'src', 'views')
         }
-      }
-    },
-    {
-      resolve: 'gatsby-plugin-offline',
-      options: {
-        appendScript: require.resolve('./src/service-worker.js')
       }
     },
     'gatsby-plugin-react-helmet',
@@ -49,13 +44,6 @@ module.exports = {
       options: {
         name: 'entities',
         path: path.join(__dirname, 'data', 'entities')
-      }
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: path.join(__dirname, 'data', 'images')
       }
     },
     {
