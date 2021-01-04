@@ -3,8 +3,8 @@ import chunk from 'lodash.chunk';
 import c from 'classnames';
 
 import { Spinner } from 'theme';
-import average from 'common/helpers/average';
-import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
+import average from 'modules/common/helpers/average';
+import { useIsMouseOver } from 'modules/common/hooks/useIsMouseOver';
 import { useWaveform } from '../';
 
 import styles from './Waveform.module.css';

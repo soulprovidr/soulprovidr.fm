@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { Box, Flex } from 'theme';
 
-import LiveIcon from '../components/LiveIcon';
+import LiveIcon from '../LiveIcon';
 
 const links = [
   {

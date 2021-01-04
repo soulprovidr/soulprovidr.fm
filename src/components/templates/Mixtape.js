@@ -12,7 +12,7 @@ import {
   usePlayerProgress
 } from 'modules/player';
 import { Waveform, useTrack } from 'modules/soundcloud';
-import { MarqueeContainer as Marquee } from '@/packages/marquee';
+import { MarqueeContainer as Marquee } from 'modules/common/marquee';
 import {
   Box,
   Breakpoints,
@@ -22,8 +22,8 @@ import {
   Text,
   usePageWidth
 } from 'theme';
-import { CoverImage } from '../components/CoverImage';
-import { Tracklist } from '../components/Tracklist';
+import { CoverImage } from '../CoverImage';
+import { Tracklist } from '../Tracklist';
 import { Page } from '../layout';
 import { PlayerIcon } from '../player';
 

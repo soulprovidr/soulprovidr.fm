@@ -1,12 +1,12 @@
 import React, { useMemo, useRef } from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { MarqueeContainer as Marquee } from '@/packages/marquee';
-import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
+import { MarqueeContainer as Marquee } from 'modules/common/marquee';
+import { useIsMouseOver } from 'modules/common/hooks/useIsMouseOver';
 import { useIsRadioPlaying, usePlayRadio, useRadioMeta } from 'modules/radio';
 import { Breakpoints, Card, Text, usePageWidth } from 'theme';
-import PauseIcon from 'views/components/PauseIcon';
-import PlayIcon from 'views/components/PlayIcon';
+import PauseIcon from 'components/PauseIcon';
+import PlayIcon from 'components/PlayIcon';
 import DefaultCover from 'static/images/default.png';
 
 const RadioCardContainer = styled(Card.Container)(

@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import Masonry from 'react-masonry-css';
 import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
-import ArticleCard from '../components/ArticleCard';
+import ArticleCard from '../ArticleCard';
 import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 

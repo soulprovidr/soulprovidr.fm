@@ -4,12 +4,12 @@ import Image from 'gatsby-image';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
-import { useIsMouseOver } from 'common/hooks/useIsMouseOver';
+import { useIsMouseOver } from 'modules/common/hooks/useIsMouseOver';
 import { useListen, useIsPlaying } from 'modules/player/hooks';
 import { useTrack } from 'modules/soundcloud';
 import { Badge, Breakpoints, Card, Text, usePageWidth } from 'theme';
-import PauseIcon from 'views/components/PauseIcon';
-import PlayIcon from 'views/components/PlayIcon';
+import PauseIcon from 'components/PauseIcon';
+import PlayIcon from 'components/PlayIcon';
 
 const ArticleCardContainer = styled(Card.Container)(
   css({

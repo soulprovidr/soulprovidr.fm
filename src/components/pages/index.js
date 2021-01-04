@@ -6,9 +6,9 @@ import { Global, css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { Box, Heading, Flex } from 'theme';
 
-import RadioCard from '../components/RadioCard';
-import ArticleCard from '../components/ArticleCard';
-import LiveIcon from '../components/LiveIcon';
+import RadioCard from '../RadioCard';
+import ArticleCard from '../ArticleCard';
+import LiveIcon from '../LiveIcon';
 import { CTABanner } from '../subscribe';
 import { Page } from '../layout';
 
