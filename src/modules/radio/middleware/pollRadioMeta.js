@@ -1,5 +1,5 @@
 import parseISO from 'date-fns/parseISO';
-import fetchJson from 'common/helpers/fetchJson';
+import fetchJson from 'modules/common/helpers/fetchJson';
 import { batch } from 'react-redux';
 import { selectIsListening, setPlayerMeta, setProgress } from 'modules/player';
 import { setRadioMeta } from '../actions';

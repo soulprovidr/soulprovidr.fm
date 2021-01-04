@@ -5,7 +5,7 @@ import get from 'lodash.get';
 import Image from 'gatsby-image';
 import { Badge } from 'theme';
 
-import { PlayerIcon } from '../player';
+import { PlayerIcon } from './player';
 
 const transitionTimingFn = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 
