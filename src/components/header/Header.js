@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'gatsby-link';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
-import { Flex, Heading, Logo } from 'theme';
+import {
+  Flex,
+  Heading,
+  Logo,
+  useIsDarkModeEnabled,
+  useToggleDarkMode
+} from 'theme';
 
 import { Links } from './Links';
 import { Icons } from './Icons';
@@ -31,6 +37,10 @@ const StyledHeader = styled('header')(
     }
   })
 );
+
+const StyledLogo = styled(Logo)`
+  cursor: pointer;
+`;
 
 const HeaderNavigation = styled('div')(
   css({
@@ -62,19 +72,26 @@ export const HeaderLinks = styled(Links)(
   })
 );
 
-export const Header = () => (
-  <StyledHeader>
-    <Flex alignItems="center">
-      <Link to="/">
-        <Logo mr={3} size={35} />
-      </Link>
-      <Heading as="h3" p={0}>
-        <Link to="/">SOUL PROVIDER</Link>
-      </Heading>
-    </Flex>
-    <HeaderNavigation>
-      <HeaderIcons />
-      <HeaderLinks />
-    </HeaderNavigation>
-  </StyledHeader>
-);
+export const Header = () => {
+  const isDarkModeEnabled = useIsDarkModeEnabled();
+  const onLogoClick = useToggleDarkMode();
+  return (
+    <StyledHeader>
+      <Flex alignItems="center">
+        <StyledLogo
+          mr={3}
+          size={35}
+          dark={isDarkModeEnabled}
+          onClick={onLogoClick}
+        />
+        <Heading as="h3" p={0}>
+          <Link to="/">SOUL PROVIDER</Link>
+        </Heading>
+      </Flex>
+      <HeaderNavigation>
+        <HeaderIcons />
+        <HeaderLinks />
+      </HeaderNavigation>
+    </StyledHeader>
+  );
+};

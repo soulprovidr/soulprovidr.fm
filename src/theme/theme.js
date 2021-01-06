@@ -1,6 +1,6 @@
 import './fonts/hk-grotesk/hk-grotesk.css';
 
-export default {
+export const defaultTheme = {
   borders: {
     container: '1px solid #eee',
     input: '2px solid #aaa',
@@ -35,4 +35,16 @@ export default {
   radii: [2, 4, 6, 8],
   shadows: ['0 4px 4px rgba(197, 211, 219, 0.25)'],
   space: [0, 4, 8, 16, 32, 48, 64, 128, 256, 512]
+};
+
+export const darkTheme = {
+  ...defaultTheme,
+  colors: {
+    ...defaultTheme.colors,
+    bg: '#343a40',
+    text: {
+      ...defaultTheme.colors.text,
+      primary: 'white'
+    }
+  }
 };

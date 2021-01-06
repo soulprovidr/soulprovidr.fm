@@ -3,11 +3,12 @@ import css from '@styled-system/css';
 import { flexbox, layout, space } from 'styled-system';
 
 import LogoImage from 'static/images/logo.svg';
+import LogoDarkImage from 'static/images/logo-dark.svg';
 
 export const Logo = styled('div')(
-  ({ size = 45 }) =>
+  ({ dark = false, size = 45 }) =>
     css({
-      backgroundImage: `url(${LogoImage})`,
+      backgroundImage: `url(${dark ? LogoDarkImage : LogoImage})`,
       backgroundRepeat: 'no-repeat',
       backgroundSize: 'contain',
       borderRadius: '50%',

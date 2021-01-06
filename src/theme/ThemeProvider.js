@@ -1,8 +1,9 @@
 import React from 'react';
 import { ThemeProvider as EmotionThemeProvider } from 'emotion-theming';
 import { Global, css } from '@emotion/core';
+import { useIsDarkModeEnabled } from './hooks';
 
-import theme from './theme';
+import { defaultTheme, darkTheme } from './theme';
 
 const globalStyles = (theme) => css`
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -68,9 +69,12 @@ const globalStyles = (theme) => css`
   }
 `;
 
-export const ThemeProvider = ({ children }) => (
-  <EmotionThemeProvider theme={theme}>
-    <Global styles={globalStyles} />
-    {children}
-  </EmotionThemeProvider>
-);
+export const ThemeProvider = ({ children }) => {
+  const isDarkModeEnabled = useIsDarkModeEnabled();
+  return (
+    <EmotionThemeProvider theme={isDarkModeEnabled ? darkTheme : defaultTheme}>
+      <Global styles={globalStyles} />
+      {children}
+    </EmotionThemeProvider>
+  );
+};

@@ -9,8 +9,8 @@ export * from './components/Input';
 export * from './components/Logo';
 export * from './components/Spinner';
 export * from './components/Text';
+export * from './ThemeProvider';
 
 export * from './constants';
 export * from './hooks';
-
-export * from './ThemeProvider';
+export * from './slice';
