@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { flexbox, layout, space } from 'styled-system';
@@ -5,7 +6,7 @@ import { flexbox, layout, space } from 'styled-system';
 import LogoImage from 'static/images/logo.svg';
 import LogoDarkImage from 'static/images/logo-dark.svg';
 
-export const Logo = styled('div')(
+const LogoWrapper = styled('div')(
   ({ dark = false, size = 45 }) =>
     css({
       backgroundImage: `url(${dark ? LogoDarkImage : LogoImage})`,
@@ -18,5 +19,18 @@ export const Logo = styled('div')(
     }),
   flexbox,
   layout,
-  space
+  space,
+  `
+    svg {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  `
+);
+
+export const Logo = ({ dark = false, size = 45, ...props }) => (
+  <LogoWrapper size={size} {...props}>
+    {dark ? <LogoDarkImage /> : <LogoImage />}
+  </LogoWrapper>
 );

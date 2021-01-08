@@ -7,7 +7,7 @@ function generateIdentifier() {
  * If the provided node has hidden overflow content, scroll the hidden content into view.
  * If the provided node's content fits without overflow, don't do anything.
  * @param {HTMLElement} $node Marquee container element.
- * @param {Object} params { duration, gradientColor, gradientWidth }
+ * @param {Object} params { duration, gradientWidth }
  * @returns {Function} Cleanup function. Use this to remove marquee styles and elements.
  */
 export const Marquee = ($node, params) => {
@@ -21,15 +21,13 @@ export const Marquee = ($node, params) => {
   }
 
   // Plugin parameters.
-  const { duration = 20, gradientColor = 'white', gradientWidth = 30 } =
-    params || {};
+  const { duration = 20, offset = 30 } = params || {};
 
   const _$childNode = $node.children[0];
   let _keyframesName = null;
-  let _nodeClassName = null;
   let _stylesheet = null;
 
-  const containerWidth = $node.clientWidth;
+  const containerWidth = $node.clientWidth - offset;
   const childScrollWidth = _$childNode.scrollWidth;
   // If child content extends beyond container, we need to add marquee styles.
   if (childScrollWidth > containerWidth) {
@@ -47,27 +45,15 @@ export const Marquee = ($node, params) => {
    */
   function createAnimation(scrollDistance) {
     _keyframesName = generateIdentifier();
-    _nodeClassName = generateIdentifier();
     _stylesheet = document.createElement('style');
     _stylesheet.textContent = `
-        .${_nodeClassName} {
-          position: relative;
-        }
-        .${_nodeClassName}::after {
-          position: absolute;
-          top: 0; right: 0; bottom: 0;
-          width: ${gradientWidth}px;
-          transition: background 200ms ease-in-out;
-          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, ${gradientColor} 20%, ${gradientColor} 100%);
-          content: ' ';
-        }
         @keyframes ${_keyframesName} {
           10% {
             transform: translateX(0);
           }
           40%,
           60% {
-            transform: translateX(-${scrollDistance + gradientWidth}px);
+            transform: translateX(-${scrollDistance}px);
           }
           90%{
             transform: translateX(0);
@@ -75,12 +61,10 @@ export const Marquee = ($node, params) => {
         }
       `;
     document.head.appendChild(_stylesheet);
-    $node.classList.add(_nodeClassName);
     _$childNode.style.animation = `${_keyframesName} ${duration}s linear 3s infinite alternate`;
   }
 
   function cleanup() {
-    $node.classList.remove(_nodeClassName);
     document.head.removeChild(_stylesheet);
     _stylesheet = null;
   }

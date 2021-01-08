@@ -12,19 +12,19 @@ import SpotifyIcon from 'static/images/spotify.svg';
 const icons = [
   {
     href: 'https://instagram.com/soulprovidr',
-    src: InstagramIcon
+    component: InstagramIcon
   },
   {
     href: 'https://reddit.com/u/soulprovidr',
-    src: RedditIcon
+    component: RedditIcon
   },
   {
     href: 'https://open.spotify.com/user/soulprovidr',
-    src: SpotifyIcon
+    component: SpotifyIcon
   },
   {
     href: 'https://github.com/soulprovidr',
-    src: GithubIcon
+    component: GithubIcon
   }
 ];
 
@@ -33,13 +33,19 @@ const IconAnchor = styled('a')({
   alignItems: 'center'
 });
 
-const Icon = styled('img')(
+const IconWrapper = styled('div')(
   css({
+    mr: 3,
     width: 20,
     height: 20,
-    mr: 3,
-    transition: 'transform 100ms ease-in-out',
-    '&:hover': { transform: 'scale(1.1)' }
+    display: 'flex',
+    alignItems: 'center',
+    svg: {
+      width: '100%',
+      fill: 'text.primary',
+      transition: 'transform 100ms ease-in-out',
+      '&:hover': { transform: 'scale(1.1)' }
+    }
   })
 );
 
@@ -52,7 +58,9 @@ export const Icons = (props) => (
         rel="noopen noreferrer"
         target="_blank"
       >
-        <Icon src={icon.src} />
+        <IconWrapper>
+          <icon.component />
+        </IconWrapper>
       </IconAnchor>
     ))}
   </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'gatsby-link';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';

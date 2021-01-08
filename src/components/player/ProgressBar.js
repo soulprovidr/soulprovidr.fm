@@ -29,7 +29,7 @@ const ProgressContainer = styled('div')(
     flexGrow: 1,
     position: ['absolute', 'initial'],
     bottom: 0,
-    left: 52,
+    left: 53,
     right: 0,
     zIndex: 1
   })

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
+import { themeGet } from '@styled-system/theme-get';
 import { PlayerStatus } from 'modules/player/constants';
 import { useListen } from 'modules/player/hooks';
 import {
@@ -89,20 +90,22 @@ const MetaArtist = styled(Text)(
 );
 
 // TODO: Dark mode fix for gradient.
-const PlayerIconContainer = styled('div')(
-  css({
-    background: [
-      'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
-      null
-    ],
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    px: 4,
-    zIndex: 1
-  })
-);
+const PlayerIconContainer = styled.div`
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    ${themeGet('colors.bg')} 20%,
+    ${themeGet('colors.bg')} 100%
+  );
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  ${css({
+    px: 4
+  })}
+`;
 
 export const Player = () => {
   const meta = useSelector(selectPlayerMeta);

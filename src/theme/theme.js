@@ -9,7 +9,7 @@ export const defaultTheme = {
   },
   colors: {
     accent: '#007bff',
-    bg: 'white',
+    bg: '#fff',
     hover: '#f9f9f9',
     text: {
       primary: '#343a40',
@@ -39,9 +39,14 @@ export const defaultTheme = {
 
 export const darkTheme = {
   ...defaultTheme,
+  borders: {
+    ...defaultTheme.borders,
+    container: '1px solid #515151'
+  },
   colors: {
     ...defaultTheme.colors,
-    bg: '#343a40',
+    bg: '#222',
+    hover: '#444',
     text: {
       ...defaultTheme.colors.text,
       primary: 'white'

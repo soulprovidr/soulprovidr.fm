@@ -36,8 +36,8 @@ const StyledTr = styled('tr')(({ highlight }) =>
 
 const StyledThead = styled('thead')(
   css({
-    borderBottom: '1px solid #ddd',
-    borderTop: '1px solid #ddd',
+    borderBottom: 'container',
+    borderTop: 'container',
     color: 'text.secondary'
   })
 );
