@@ -50,7 +50,7 @@ const ProgressText = styled(Text)(({ orientation = 'left' }) =>
 
 const ProgressBarContainer = styled('div')(
   css({
-    bg: ['bg', '#ddd'],
+    bg: ['--color-bg', '#ddd'],
     height: [2, 5],
     width: '100%'
   })

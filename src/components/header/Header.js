@@ -16,7 +16,7 @@ import { Icons } from './Icons';
 
 const StyledHeader = styled('header')(
   css({
-    bg: 'bg',
+    bg: '--color-bg',
     borderBottom: ['container', null],
     fontFamily: 'heading',
     position: ['fixed', 'relative'],
@@ -30,7 +30,7 @@ const StyledHeader = styled('header')(
     py: [2, 4],
     zIndex: 3,
     'a, a:active, a:visited': {
-      color: 'text.primary'
+      color: 'var(--color-text-primary)'
     },
     'a:hover': {
       textDecoration: 'none'
@@ -56,7 +56,7 @@ const HeaderIcons = styled(Icons)(
 
 export const HeaderLinks = styled(Links)(
   css({
-    bg: 'bg',
+    bg: '--color-bg',
     borderTop: ['container', 'none'],
     alignItems: 'center',
     justifyContent: 'center',

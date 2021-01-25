@@ -26,7 +26,7 @@ const StyledHeaderLinks = styled(HeaderLinks)(
   css({
     display: ['flex', 'none'],
     'a, a:active, a:visited': {
-      color: 'text.primary'
+      color: 'var(--color-text-primary)'
     }
   })
 );

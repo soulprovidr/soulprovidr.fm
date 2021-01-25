@@ -17,7 +17,7 @@ const CTABannerContainer = styled('div')(
 
 const CTABannerContent = styled('div')(
   css({
-    bg: 'bg',
+    bg: '--color-bg',
     border: 'container',
     borderLeft: 'none',
     borderRight: 'none',

@@ -30,7 +30,7 @@ const ArticleCardTitle = styled(Text)(
     lineHeight: 1.25,
     pb: [2, 1],
     'a, a:active, a:visited': {
-      color: 'text.primary'
+      color: 'var(--color-text-primary)'
     }
   })
 );

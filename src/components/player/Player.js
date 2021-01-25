@@ -22,7 +22,7 @@ const { BUFFERING } = PlayerStatus;
 
 const PlayerContainer = styled('div')(({ isVisible = false }) =>
   css({
-    bg: 'bg',
+    bg: '--color-bg',
     display: 'flex',
     alignItems: 'center',
     flexDirection: ['row-reverse', 'row'],

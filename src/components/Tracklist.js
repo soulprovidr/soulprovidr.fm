@@ -12,7 +12,7 @@ const StyledTableWrapper = styled.div`
 const StyledTable = styled('table')(
   css({
     borderCollapse: 'collapse',
-    color: 'text.primary',
+    color: 'var(--color-text-primary)',
     fontSize: 3,
     width: '100%'
   })
@@ -22,10 +22,10 @@ const StyledTr = styled('tr')(({ highlight }) =>
   css({
     bg: highlight ? 'accent' : 'initial',
     borderBottom: 'container',
-    color: highlight ? 'white' : 'text.primary',
+    color: highlight ? 'white' : 'var(--color-text-primary)',
     '&:hover': {
       bg: highlight ? 'accent' : 'hover',
-      color: highlight ? 'white' : 'text.primary',
+      color: highlight ? 'white' : 'var(--color-text-primary)',
       cursor: 'pointer'
     },
     '&:last-of-type': {

@@ -11,7 +11,7 @@ export const globalStyles = (theme) => css`
   body {
     font-family: ${theme.fonts.body};
     font-size: ${theme.fontSizes[3]};
-    background: ${theme.colors.bg};
+    background: var(--color-bg);
     margin: 0;
   }
 
@@ -31,7 +31,7 @@ export const globalStyles = (theme) => css`
   h4,
   h3,
   h6 {
-    color: ${theme.colors.text.primary};
+    color: var(--color-text-primary);
     font-family: ${theme.fonts.heading};
     font-weight: bold;
   }
@@ -54,7 +54,7 @@ export const globalStyles = (theme) => css`
   h6 a,
   h6 a:active,
   h6 a:visited {
-    color: ${theme.colors.text.primary};
+    color: var(--color-text-primary);
   }
 
   button {

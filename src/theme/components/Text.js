@@ -5,7 +5,7 @@ import css from '@styled-system/css';
 export const Text = styled('p')(
   ({
     bg = 'transparent',
-    color = 'text.primary',
+    color = 'var(--color-text-primary)',
     fontSize = '1em',
     lineHeight = '1.5'
   }) =>

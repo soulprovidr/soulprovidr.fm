@@ -42,7 +42,7 @@ const IconWrapper = styled('div')(
     alignItems: 'center',
     svg: {
       width: '100%',
-      fill: 'text.primary',
+      fill: 'var(--color-text-primary)',
       transition: 'transform 100ms ease-in-out',
       '&:hover': { transform: 'scale(1.1)' }
     }
