@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import player from 'modules/player/reducer';
+import { reducer as player } from 'modules/player';
 import radio from 'modules/radio/reducer';
 import { reducer as subscribe } from 'modules/subscribe';
 

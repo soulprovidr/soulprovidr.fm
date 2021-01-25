@@ -9,7 +9,7 @@ import {
   stop,
   updateProgress,
   updateStatus
-} from '../actions';
+} from '../slice';
 import { PauseAction, PlayerStatus } from '../constants';
 import {
   selectIsListening,
@@ -20,10 +20,6 @@ import {
 const { STOPPED, BUFFERING, PAUSED, PLAYING } = PlayerStatus;
 
 const PROGRESS_INTERVAL = 100;
-
-const PAUSE = pause.toString();
-const PLAY = play.toString();
-const STOP = stop.toString();
 
 export const howlerMiddleware = ({ dispatch, getState }) => {
   let sound = null;
@@ -162,19 +158,14 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
 
   // Handle user interactions with the player.
   return (next) => (action) => {
-    switch (action.type) {
-      // Load or resume audio when PLAY action is dispatched.
-      case PLAY:
-        handlePlay(action);
-        break;
-      case PAUSE:
-        handlePause();
-        break;
-      case STOP:
-        handleStop();
-        break;
-      default:
-        break;
+    if (play.match(action)) {
+      handlePlay(action);
+    }
+    if (pause.match(action)) {
+      handlePause();
+    }
+    if (stop.match(action)) {
+      handleStop();
     }
     next(action);
   };

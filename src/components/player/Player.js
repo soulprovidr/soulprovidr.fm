@@ -15,7 +15,8 @@ import { Text } from 'theme';
 import DefaultCover from 'static/images/default.png';
 
 import { PlayerIcon } from './PlayerIcon';
-import ProgressBar from './ProgressBar';
+import { PlayerProgress } from './PlayerProgress';
+import { VolumeControl } from './VolumeControl';
 
 const { BUFFERING } = PlayerStatus;
 
@@ -104,6 +105,10 @@ const PlayerIconContainer = styled('div')(
   })
 );
 
+const StyledVolumeControl = styled(VolumeControl)`
+  ${css({ mx: 3 })}
+`;
+
 export const Player = () => {
   const meta = useSelector(selectPlayerMeta);
   const progress = useSelector(selectPlayerProgress);
@@ -123,7 +128,8 @@ export const Player = () => {
       <PlayerIconContainer onClick={onClick} onTouchEnd={onClick}>
         <PlayerIcon color="black" size={20} />
       </PlayerIconContainer>
-      <ProgressBar duration={duration} progress={progress} status={status} />
+      <PlayerProgress duration={duration} progress={progress} status={status} />
+      <StyledVolumeControl />
       <MetaContainer>
         <MetaImage src={cover || DefaultCover} />
         <MetaContent>

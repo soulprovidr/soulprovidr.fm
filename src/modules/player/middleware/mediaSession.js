@@ -1,4 +1,4 @@
-import { pause, play, setPlayerMeta, updateStatus } from '../actions';
+import { pause, play, setPlayerMeta, updateStatus } from '../slice';
 import { PlayerStatus } from '../constants';
 
 const { PAUSED, PLAYING, STOPPED } = PlayerStatus;
@@ -39,34 +39,29 @@ const setMetadata = (metadata) => {
  * Update the Media Session API when player state changes.
  */
 export const mediaSessionMiddleware = ({ dispatch }) => (next) => (action) => {
-  switch (action.type) {
-    case play.toString(): {
-      const { meta = null } = action;
-      if (meta) {
-        setActionHandler('play', () => dispatch(play()));
-        setActionHandler('pause', () => dispatch(pause()));
-        setMetadata({
-          title: meta.title,
-          artist: meta.artist,
-          artwork: [{ src: meta.cover }]
-        });
-      }
-      break;
-    }
-    case setPlayerMeta.toString(): {
-      const { payload: meta } = action;
+  next(action);
+  if (play.match(action)) {
+    const { meta = null } = action;
+    if (meta) {
+      setActionHandler('play', () => dispatch(play()));
+      setActionHandler('pause', () => dispatch(pause()));
       setMetadata({
-        title: meta?.title ?? 'For those who like to groove.',
-        artist: meta?.artist ?? 'Soul Provider',
-        artwork: [{ src: meta?.cover ?? null }]
+        title: meta.title,
+        artist: meta.artist,
+        artwork: [{ src: meta.cover }]
       });
-      break;
-    }
-    case updateStatus.toString(): {
-      const { payload: newStatus } = action;
-      handleUpdateStatus(newStatus);
-      break;
     }
   }
-  next(action);
+  if (setPlayerMeta.match(action)) {
+    const { payload: meta } = action;
+    setMetadata({
+      title: meta?.title ?? 'For those who like to groove.',
+      artist: meta?.artist ?? 'Soul Provider',
+      artwork: [{ src: meta?.cover ?? null }]
+    });
+  }
+  if (updateStatus.match(action)) {
+    const { payload: newStatus } = action;
+    handleUpdateStatus(newStatus);
+  }
 };

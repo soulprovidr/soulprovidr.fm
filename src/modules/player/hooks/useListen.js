@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { pause, play, stop } from '../actions';
+import { pause, play, stop } from '../slice';
 import { PauseAction } from '../constants';
 import { useIsListening } from './useIsListening';
 import { useIsPlaying } from './useIsPlaying';
