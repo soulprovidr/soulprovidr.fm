@@ -35,7 +35,7 @@ const StyledProgressBar = styled(ProgressBar)`
 
 export const VolumeControl = ({
   isMuted,
-  onClick,
+  onProgressChange,
   onMute,
   volume,
   ...props
@@ -46,7 +46,11 @@ export const VolumeControl = ({
       src={isMuted ? MutedIcon : VolumeIcon}
       style={{ opacity: isMuted ? 0.5 : 1 }}
     />
-    <StyledProgressBar maxValue={1} onClick={onClick} value={volume} />
+    <StyledProgressBar
+      maxValue={1}
+      onProgressChange={onProgressChange}
+      value={volume}
+    />
   </VolumeContainer>
 );
 
@@ -56,7 +60,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  onClick: setVolume,
+  onProgressChange: setVolume,
   onMute: mute
 };
 
