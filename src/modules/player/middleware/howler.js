@@ -31,13 +31,15 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
 
   /**
    * Create a new Howl instance for the specified audio src.
-   * @param {String} src Audio URL
+   * @param {String} params.src Audio URL
+   * @param {Number} params.volume Initial volume
    */
-  function createSound(src) {
+  function createSound({ src, volume }) {
     return new Howl({
       src,
       format: 'mp3',
       html5: true,
+      volume,
       onpause: () => status(PAUSED),
       onplay: () => status(PLAYING),
       onstop: () => status(STOPPED),
@@ -90,9 +92,8 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
    */
   function handlePlay(action) {
     const {
-      payload: { src, progress = null }
+      payload: { src, progress = null, volume }
     } = action;
-
     // Handle seek for current sound (`progress`, without any other parameters).
     if (sound && !src && progress !== null) {
       handleSeek(progress);
@@ -115,10 +116,11 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
 
     // Clear any previous sound/state/timers and load a new one.
     if (sound) handleStop();
-    sound = createSound(src);
+    sound = createSound({ src, volume });
 
     // Set BUFFERING status while sound is loading.
     status(BUFFERING);
+    sound?.mute(false);
     sound?.play();
 
     // Do we need to seek?
@@ -133,7 +135,7 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
   function handleSetVolume(action) {
     const isMuted = selectIsMuted(getState());
     const { payload: volume } = action;
-    sound?.volume(volume / 100);
+    sound?.volume(volume);
     if (isMuted) {
       sound?.mute(false);
     }

@@ -11,7 +11,7 @@ const initialState = {
   progress: 0,
   status: STOPPED,
   src: null,
-  volume: 100
+  volume: 1
 };
 
 const { actions, reducer } = createSlice({

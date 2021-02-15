@@ -5,6 +5,7 @@ import { pause, play, stop } from '../slice';
 import { PauseAction } from '../constants';
 import { useIsListening } from './useIsListening';
 import { useIsPlaying } from './useIsPlaying';
+import { usePlayerVolume } from './usePlayerVolume';
 
 const { PAUSE, STOP } = PauseAction;
 
@@ -18,11 +19,12 @@ export const useListen = (src, meta, pauseAction = PAUSE) => {
   const dispatch = useDispatch();
   const isListening = useIsListening(src);
   const isPlaying = useIsPlaying(src);
+  const volume = usePlayerVolume();
   return useCallback(
     // Return a 'listen' function that accepts a progress parameter (for seeking).
     (progress = null) => {
       if (!src) return () => false;
-      const payload = { src, meta, pauseAction };
+      const payload = { src, meta, pauseAction, volume };
       // Handle case where src is not already selected.
       if (!isListening) {
         if (progress !== null) {
@@ -46,6 +48,6 @@ export const useListen = (src, meta, pauseAction = PAUSE) => {
       // Otherwise, play the audio.
       return dispatch(play(payload));
     },
-    [isListening, isPlaying, meta, src]
+    [isListening, isPlaying, meta, src, volume]
   );
 };

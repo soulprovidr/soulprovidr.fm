@@ -46,7 +46,7 @@ export const VolumeControl = ({
       src={isMuted ? MutedIcon : VolumeIcon}
       style={{ opacity: isMuted ? 0.5 : 1 }}
     />
-    <StyledProgressBar max={100} onClick={onClick} width={85} value={volume} />
+    <StyledProgressBar maxValue={1} onClick={onClick} value={volume} />
   </VolumeContainer>
 );
 

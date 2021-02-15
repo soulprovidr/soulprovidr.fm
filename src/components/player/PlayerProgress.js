@@ -51,16 +51,16 @@ const PlayerProgressText = styled(Text)(({ orientation = 'left' }) =>
 
 export function PlayerProgress({ duration, progress, status, ...props }) {
   const progressValue = duration
-    ? Math.min(100, (progress / duration) * 100)
+    ? Math.min(1, progress / duration)
     : status <= BUFFERING
     ? 0
-    : 100;
+    : 1;
   return (
     <PlayerProgressContainer {...props}>
       <PlayerProgressText orientation="left">
         {msToTime(progress)}
       </PlayerProgressText>
-      <ProgressBar max={100} value={progressValue} />
+      <ProgressBar maxValue={1} value={progressValue} />
       <PlayerProgressText orientation="right">
         {msToTime(duration)}
       </PlayerProgressText>

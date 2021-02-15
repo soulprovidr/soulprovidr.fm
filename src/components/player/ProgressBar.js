@@ -24,17 +24,18 @@ const ProgressBar = styled('div')`
   ${css({ bg: 'accent' })}
 `;
 
-export default ({ maxValue = 100, onClick = null, value = 0, ...props }) => (
+export default ({ maxValue = 1, onClick = null, value = 1, ...props }) => (
   <ProgressBarContainer {...props}>
     <ProgressBarWrapper
-      onClickCapture={
+      onClick={
         // Pass progress value corresponding to click position.
         (e) => {
           if (onClick) {
             const { target } = e;
             const { left, width } = target.getBoundingClientRect();
-            const progressValue = ((e.pageX - left) / width) * 100;
-            const roundedProgressValue = Math.round(progressValue / 10) * 10;
+            const progressValue = ((e.pageX - left) / width) * 10;
+            const roundedProgressValue = Math.round(progressValue) / 10;
+            console.log(roundedProgressValue);
             onClick(roundedProgressValue);
           }
         }
