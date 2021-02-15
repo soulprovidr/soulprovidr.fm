@@ -27,6 +27,7 @@ const Icon = styled('img')`
     transform: scale(1.1);
   }
   ${css({ mr: 3 })}
+  user-select: none;
 `;
 
 const StyledProgressBar = styled(ProgressBar)`
