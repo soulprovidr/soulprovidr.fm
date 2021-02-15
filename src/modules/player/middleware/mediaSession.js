@@ -1,7 +1,12 @@
-import { pause, play, setPlayerMeta, updateStatus } from '../actions';
+import { batch } from 'react-redux';
+import { pause, play, setPlayerMeta, setStatus } from '../slice';
 import { PlayerStatus } from '../constants';
 
 const { PAUSED, PLAYING, STOPPED } = PlayerStatus;
+
+const PLAYBACK_STATE_PAUSED = 'paused';
+const PLAYBACK_STATE_PLAYING = 'playing';
+const PLAYBACK_STATE_STOPPED = 'stopped';
 
 const updatePlaybackState = (playbackState) => {
   if (window && 'mediaSession' in window.navigator) {
@@ -9,16 +14,16 @@ const updatePlaybackState = (playbackState) => {
   }
 };
 
-const handleUpdateStatus = (newStatus) => {
+const handleSetStatus = (newStatus) => {
   switch (newStatus) {
     case PAUSED:
-      updatePlaybackState('paused');
+      updatePlaybackState(PLAYBACK_STATE_PAUSED);
       break;
     case PLAYING:
-      updatePlaybackState('playing');
+      updatePlaybackState(PLAYBACK_STATE_PLAYING);
       break;
     case STOPPED:
-      updatePlaybackState('none');
+      updatePlaybackState(PLAYBACK_STATE_STOPPED);
       break;
   }
 };
@@ -39,10 +44,11 @@ const setMetadata = (metadata) => {
  * Update the Media Session API when player state changes.
  */
 export const mediaSessionMiddleware = ({ dispatch }) => (next) => (action) => {
-  switch (action.type) {
-    case play.toString(): {
-      const { meta = null } = action;
-      if (meta) {
+  next(action);
+  if (play.match(action)) {
+    const { meta = null } = action;
+    if (meta) {
+      batch(() => {
         setActionHandler('play', () => dispatch(play()));
         setActionHandler('pause', () => dispatch(pause()));
         setMetadata({
@@ -50,23 +56,19 @@ export const mediaSessionMiddleware = ({ dispatch }) => (next) => (action) => {
           artist: meta.artist,
           artwork: [{ src: meta.cover }]
         });
-      }
-      break;
-    }
-    case setPlayerMeta.toString(): {
-      const { payload: meta } = action;
-      setMetadata({
-        title: meta?.title ?? 'For those who like to groove.',
-        artist: meta?.artist ?? 'Soul Provider',
-        artwork: [{ src: meta?.cover ?? null }]
       });
-      break;
-    }
-    case updateStatus.toString(): {
-      const { payload: newStatus } = action;
-      handleUpdateStatus(newStatus);
-      break;
     }
   }
-  next(action);
+  if (setPlayerMeta.match(action)) {
+    const { payload: meta } = action;
+    setMetadata({
+      title: meta?.title ?? 'For those who like to groove.',
+      artist: meta?.artist ?? 'Soul Provider',
+      artwork: [{ src: meta?.cover ?? null }]
+    });
+  }
+  if (setStatus.match(action)) {
+    const { payload: newStatus } = action;
+    handleSetStatus(newStatus);
+  }
 };

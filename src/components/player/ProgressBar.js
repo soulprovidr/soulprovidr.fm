@@ -1,82 +1,121 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { keyframes } from '@emotion/core';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { Text } from 'theme';
-import { PlayerStatus } from 'modules/player';
+import { useIsMouseOver } from 'modules/common/hooks';
 
-const { BUFFERING } = PlayerStatus;
+const ProgressBarContainer = styled('div')`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  ${css({ py: 3 })}
+`;
 
-// https://stackoverflow.com/a/9763769
-const msToTime = (ms) => {
-  // Pad to 2 or 3 digits, default is 2
-  if (!ms) {
-    return '--:--:--';
+const ProgressBarWrapper = styled('div')`
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  ${css({
+    bg: ['bg', '#ddd'],
+    height: [2, 5]
+  })}
+`;
+
+const ProgressBar = styled('div')`
+  height: 100%;
+  pointer-events: none;
+  ${css({ bg: 'accent' })}
+`;
+
+const scaleIn = keyframes`
+  from {
+    transform: scale(0);
   }
-  const pad = (n, z = 2) => ('00' + n).slice(-z);
+  to {
+    transform: scale(1);
+  }
+`;
+
+const ProgressHandle = styled.div`
+  ${css({ bg: 'accent' })}
+  border-radius: 50%;
+  margin-left: -6px;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+  position: absolute;
+  animation: ${scaleIn} 100ms ease-in-out;
+  animation-fill-mode: backwards;
+`;
+
+export default ({
+  maxValue = 1,
+  onProgressChange = () => null,
+  value = 1,
+  ...props
+}) => {
+  const containerRef = useRef(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const isMouseOver = useIsMouseOver(containerRef);
+  const progressWidth = `${(value / maxValue) * 100}%`;
+
+  /**
+   * Update progress value based on mouse position.
+   * @param {SyntheticEvent} e
+   */
+  const handleProgressChange = (e) => {
+    if (containerRef.current && onProgressChange) {
+      const { left, width } = containerRef.current.getBoundingClientRect();
+      let progressValue = (e.pageX - left) / width;
+      if (progressValue > maxValue) {
+        progressValue = maxValue;
+      } else if (progressValue < 0) {
+        progressValue = 0;
+      }
+      onProgressChange(progressValue);
+    }
+  };
+
+  const onMouseMove = (e) => {
+    if (isMouseDown) handleProgressChange(e);
+  };
+
+  const onMouseDown = (e) => {
+    setIsMouseDown(true);
+    handleProgressChange(e);
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMouseMove);
+  };
+
+  const onMouseUp = (e) => {
+    setIsMouseDown(false);
+    handleProgressChange(e);
+    document.removeEventListener('mouseup', onMouseUp);
+    document.removeEventListener('mousemove', onMouseMove);
+  };
+
+  useEffect(() => {
+    containerRef.current.addEventListener('mousedown', onMouseDown);
+  }, [containerRef.current]);
+
   return (
-    pad((ms / 3.6e6) | 0) +
-    ':' +
-    pad(((ms % 3.6e6) / 6e4) | 0) +
-    ':' +
-    pad(((ms % 6e4) / 1000) | 0)
+    <ProgressBarContainer
+      {...props}
+      onMouseDown={onMouseDown}
+      ref={containerRef}
+    >
+      <ProgressBarWrapper>
+        <ProgressBar
+          style={{
+            width: progressWidth
+          }}
+        />
+        {(isMouseOver || isMouseDown) && (
+          <ProgressHandle style={{ left: progressWidth }} />
+        )}
+      </ProgressBarWrapper>
+    </ProgressBarContainer>
   );
 };
-
-const ProgressContainer = styled('div')(
-  css({
-    display: 'flex',
-    alignItems: 'center',
-    flexGrow: 1,
-    position: ['absolute', 'initial'],
-    bottom: 0,
-    left: 52,
-    right: 0,
-    zIndex: 1
-  })
-);
-
-const ProgressText = styled(Text)(({ orientation = 'left' }) =>
-  css({
-    color: 'text.secondary',
-    display: ['none', 'block'],
-    fontSize: 2,
-    ml: orientation === 'left' ? 0 : 3,
-    mr: orientation === 'right' ? 0 : 3,
-    p: 0,
-    textAlign: 'center',
-    width: 90
-  })
-);
-
-const ProgressBarContainer = styled('div')(
-  css({
-    bg: ['bg', '#ddd'],
-    height: [2, 5],
-    width: '100%'
-  })
-);
-
-const StyledProgressBar = styled('div')(
-  css({
-    bg: 'accent',
-    height: '100%',
-    transition: 'width 150ms linear'
-  })
-);
-
-export default function ProgressBar({ duration, progress, status, ...props }) {
-  const widthPercent = duration
-    ? Math.min(100, (progress / duration) * 100)
-    : status <= BUFFERING
-    ? 0
-    : 100;
-  return (
-    <ProgressContainer {...props}>
-      <ProgressText orientation="left">{msToTime(progress)}</ProgressText>
-      <ProgressBarContainer>
-        <StyledProgressBar style={{ width: `${widthPercent}%` }} />
-      </ProgressBarContainer>
-      <ProgressText orientation="right">{msToTime(duration)}</ProgressText>
-    </ProgressContainer>
-  );
-}

@@ -10,3 +10,5 @@ export const PauseAction = {
   PAUSE: 'pause',
   STOP: 'stop'
 };
+
+export const PROGRESS_INTERVAL = 100;
