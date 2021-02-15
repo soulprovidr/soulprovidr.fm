@@ -24,27 +24,29 @@ const ProgressBar = styled('div')`
   ${css({ bg: 'accent' })}
 `;
 
-export default ({ maxValue = 1, onClick = null, value = 1, ...props }) => (
-  <ProgressBarContainer {...props}>
-    <ProgressBarWrapper
-      onClick={
-        // Pass progress value corresponding to click position.
-        (e) => {
-          if (onClick) {
-            const { target } = e;
-            const { left, width } = target.getBoundingClientRect();
-            const progressValue = ((e.pageX - left) / width) * 10;
-            const roundedProgressValue = Math.round(progressValue) / 10;
-            onClick(roundedProgressValue);
+export default ({ maxValue = 1, onClick = null, value = 1, ...props }) => {
+  return (
+    <ProgressBarContainer {...props}>
+      <ProgressBarWrapper
+        onClick={
+          // Pass progress value corresponding to click position.
+          (e) => {
+            if (onClick) {
+              const { target } = e;
+              const { left, width } = target.getBoundingClientRect();
+              const progressValue = ((e.pageX - left) / width) * 10;
+              const roundedProgressValue = Math.round(progressValue) / 10;
+              onClick(roundedProgressValue);
+            }
           }
         }
-      }
-    >
-      <ProgressBar
-        style={{
-          width: `${(value / maxValue) * 100}%`
-        }}
-      />
-    </ProgressBarWrapper>
-  </ProgressBarContainer>
-);
+      >
+        <ProgressBar
+          style={{
+            width: `${(value / maxValue) * 100}%`
+          }}
+        />
+      </ProgressBarWrapper>
+    </ProgressBarContainer>
+  );
+};

@@ -46,7 +46,7 @@ const { actions, reducer } = createSlice({
       state.status = status;
     },
     setVolume: (state, { payload: volume }) => {
-      state.volume = volume;
+      state.volume = volume <= 1 ? volume : 1;
       state.previousVolume = 0;
     }
   }
