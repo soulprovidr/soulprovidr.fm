@@ -1,13 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import get from 'lodash.get';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
 import { useListen } from 'modules/player/hooks';
 import {
   selectPlayerMeta,
-  selectPlayerProgress,
   selectPlayerSrc,
   selectPlayerStatus
 } from 'modules/player/selectors';
@@ -111,14 +109,12 @@ const StyledVolumeControl = styled(VolumeControl)`
 
 export const Player = () => {
   const meta = useSelector(selectPlayerMeta);
-  const progress = useSelector(selectPlayerProgress);
   const src = useSelector(selectPlayerSrc);
   const status = useSelector(selectPlayerStatus);
 
   const listenFn = useListen(src, meta);
 
   const { artist, cover, title } = meta;
-  const duration = get(meta, 'duration', 0);
   const isVisible = status >= BUFFERING || false;
 
   const onClick = () => listenFn();
@@ -128,7 +124,7 @@ export const Player = () => {
       <PlayerIconContainer onClick={onClick} onTouchEnd={onClick}>
         <PlayerIcon color="black" size={20} />
       </PlayerIconContainer>
-      <PlayerProgress duration={duration} progress={progress} status={status} />
+      <PlayerProgress />
       <StyledVolumeControl />
       <MetaContainer>
         <MetaImage src={cover || DefaultCover} />
