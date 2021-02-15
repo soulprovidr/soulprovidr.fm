@@ -35,7 +35,6 @@ export default ({ maxValue = 1, onClick = null, value = 1, ...props }) => (
             const { left, width } = target.getBoundingClientRect();
             const progressValue = ((e.pageX - left) / width) * 10;
             const roundedProgressValue = Math.round(progressValue) / 10;
-            console.log(roundedProgressValue);
             onClick(roundedProgressValue);
           }
         }

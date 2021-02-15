@@ -4,6 +4,11 @@ import css from '@styled-system/css';
 import { Text } from 'theme';
 import { PlayerStatus } from 'modules/player';
 import ProgressBar from './ProgressBar';
+import {
+  usePlayerMeta,
+  usePlayerProgress,
+  usePlayerStatus
+} from '@/modules/player';
 
 const { BUFFERING } = PlayerStatus;
 
@@ -23,42 +28,44 @@ const msToTime = (ms) => {
   );
 };
 
-const PlayerProgressContainer = styled('div')(
-  css({
-    display: 'flex',
-    alignItems: 'center',
-    flexGrow: 1,
-    position: ['absolute', 'initial'],
-    bottom: 0,
-    left: 52,
-    right: 0,
-    zIndex: 1
-  })
-);
+const PlayerProgressContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  bottom: 0;
+  left: 52px;
+  right: 0;
+  z-index: 1;
+  ${css({ position: ['absolute', 'initial'] })}
+`;
 
-const PlayerProgressText = styled(Text)(({ orientation = 'left' }) =>
-  css({
-    color: 'text.secondary',
-    display: ['none', 'block'],
-    fontSize: 2,
-    ml: orientation === 'left' ? 0 : 3,
-    mr: orientation === 'right' ? 0 : 3,
-    p: 0,
-    textAlign: 'center',
-    width: 90
-  })
-);
+const PlayerProgressText = styled(Text)`
+  text-align: center;
+  width: 90px;
+  ${({ orientation = 'left' }) =>
+    css({
+      color: 'text.secondary',
+      display: ['none', 'block'],
+      fontSize: 2,
+      ml: orientation === 'left' ? 0 : 3,
+      mr: orientation === 'right' ? 0 : 3,
+      p: 0
+    })}
+`;
 
-export function PlayerProgress({ duration, progress, status, ...props }) {
+export function PlayerProgress({ ...props }) {
+  const { duration = 0 } = usePlayerMeta();
+  const playerProgress = usePlayerProgress();
+  const playerStatus = usePlayerStatus();
   const progressValue = duration
-    ? Math.min(1, progress / duration)
-    : status <= BUFFERING
+    ? Math.min(1, playerProgress / duration)
+    : playerStatus <= BUFFERING
     ? 0
     : 1;
   return (
     <PlayerProgressContainer {...props}>
       <PlayerProgressText orientation="left">
-        {msToTime(progress)}
+        {msToTime(playerProgress)}
       </PlayerProgressText>
       <ProgressBar maxValue={1} value={progressValue} />
       <PlayerProgressText orientation="right">
