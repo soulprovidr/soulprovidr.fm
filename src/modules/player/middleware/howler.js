@@ -2,24 +2,25 @@ import flyd from 'flyd';
 import skip from 'flyd-skip';
 import { Howl } from 'howler';
 import {
+  incrementProgress,
   pause,
   play,
   reset,
   setProgress,
   stop,
-  updateProgress,
-  updateStatus
+  setStatus,
+  mute,
+  setVolume
 } from '../slice';
-import { PauseAction, PlayerStatus } from '../constants';
+import { PauseAction, PlayerStatus, PROGRESS_INTERVAL } from '../constants';
 import {
   selectIsListening,
+  selectIsMuted,
   selectPauseAction,
   selectPlayerSrc
 } from '../selectors';
 
 const { STOPPED, BUFFERING, PAUSED, PLAYING } = PlayerStatus;
-
-const PROGRESS_INTERVAL = 100;
 
 export const howlerMiddleware = ({ dispatch, getState }) => {
   let sound = null;
@@ -32,8 +33,8 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
    * Create a new Howl instance for the specified audio src.
    * @param {String} src Audio URL
    */
-  const createSound = (src) =>
-    new Howl({
+  function createSound(src) {
+    return new Howl({
       src,
       format: 'mp3',
       html5: true,
@@ -42,48 +43,36 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
       onstop: () => status(STOPPED),
       onend: () => status(STOPPED)
     });
+  }
 
   /**
    * Update progress every PROGRESS_INTERVAL milliseconds.
    */
-  const startTimer = () => {
+  function startTimer() {
     if (!timer) {
       timer = setInterval(() => {
-        dispatch(updateProgress(PROGRESS_INTERVAL));
+        dispatch(incrementProgress(PROGRESS_INTERVAL));
       }, PROGRESS_INTERVAL);
     }
-  };
+  }
 
   /**
    * Stop updating the progress.
    */
-  const stopTimer = () => {
+  function stopTimer() {
     clearInterval(timer);
     timer = null;
-  };
+  }
 
-  const handleSeek = (progress) => {
-    dispatch(setProgress(progress));
-    sound?.seek(progress / 1000);
-  };
-
-  /**
-   * Stop publishing progress, destroy the current sound, and reset module state.
-   */
-  const handleStop = () => {
-    stopTimer();
-    if (sound) {
-      sound?.off();
-      sound?.unload();
-      sound = null;
-    }
-    dispatch(reset());
-  };
+  function handleMute() {
+    const isMuted = selectIsMuted(getState());
+    sound?.mute(!isMuted);
+  }
 
   /**
    * Pause or stop the currently-selected sound, depending on the pauseAction.
    */
-  const handlePause = () => {
+  function handlePause() {
     const pauseAction = selectPauseAction(getState());
     switch (pauseAction) {
       case PauseAction.STOP:
@@ -93,13 +82,13 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
         sound?.pause();
         break;
     }
-  };
+  }
 
   /**
    * Start playing the media source specified in the action payload.
    * @param {Object} action
    */
-  const handlePlay = (action) => {
+  function handlePlay(action) {
     const {
       payload: { src, progress = null }
     } = action;
@@ -118,7 +107,10 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
 
     if (currentSrc === src) {
       // If sound is not playing, start playing (i.e. resume).
-      return isPlaying ? false : sound?.play();
+      if (!isPlaying) {
+        sound?.play();
+      }
+      return;
     }
 
     // Clear any previous sound/state/timers and load a new one.
@@ -131,11 +123,35 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
 
     // Do we need to seek?
     if (progress !== null) handleSeek(progress);
-  };
+  }
 
-  const handleStatus = (status) => {
+  function handleSeek(progress) {
+    dispatch(setProgress(progress));
+    sound?.seek(progress / 1000);
+  }
+
+  function handleSetVolume(action) {
+    const isMuted = selectIsMuted(getState());
+    const { payload: volume } = action;
+    sound?.volume(volume / 100);
+    if (isMuted) {
+      sound?.mute(false);
+    }
+  }
+
+  function handleStop() {
+    stopTimer();
+    if (sound) {
+      sound?.off();
+      sound?.unload();
+      sound = null;
+    }
+    dispatch(reset());
+  }
+
+  function handleStatus(status) {
     // Update module `status` when player status changes.
-    dispatch(updateStatus(status));
+    dispatch(setStatus(status));
     switch (status) {
       // Reset module state when sound is unloaded.
       case STOPPED:
@@ -151,18 +167,24 @@ export const howlerMiddleware = ({ dispatch, getState }) => {
       default:
         break;
     }
-  };
+  }
 
   // React to Howler player status changes.
   flyd.on(handleStatus, skip(1, status));
 
   // Handle user interactions with the player.
   return (next) => (action) => {
+    if (mute.match(action)) {
+      handleMute();
+    }
     if (play.match(action)) {
       handlePlay(action);
     }
     if (pause.match(action)) {
       handlePause();
+    }
+    if (setVolume.match(action)) {
+      handleSetVolume(action);
     }
     if (stop.match(action)) {
       handleStop();

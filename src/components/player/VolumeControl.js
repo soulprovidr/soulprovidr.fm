@@ -1,35 +1,63 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
-import { ProgressBar } from './ProgressBar';
+import {
+  mute,
+  selectIsMuted,
+  selectPlayerVolume,
+  setVolume
+} from 'modules/player';
+import ProgressBar from './ProgressBar';
+import MutedIcon from 'static/images/mute.svg';
 import VolumeIcon from 'static/images/volume.svg';
 
-const VolumeContainer = styled('div')(
-  css({
-    display: ['none', 'flex'],
-    alignItems: 'center'
-  })
-);
+const VolumeContainer = styled('div')`
+  align-items: center;
+  ${css({ display: ['none', 'flex'] })}
+`;
 
-const Icon = styled('img')(
-  css({
-    cursor: 'pointer',
-    width: 20,
-    height: 20,
-    mr: 3,
-    transition: 'transform 100ms ease-in-out',
-    '&:hover': { transform: 'scale(1.1)' }
-  })
-);
+const Icon = styled('img')`
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: 'transform 100ms ease-in-out';
+  &:hover {
+    transform: scale(1.1);
+  }
+  ${css({ mr: 3 })}
+`;
 
 const StyledProgressBar = styled(ProgressBar)`
   width: 85px;
 `;
 
-export const VolumeControl = ({ ...props }) => (
+export const VolumeControl = ({
+  isMuted,
+  onClick,
+  onMute,
+  volume,
+  ...props
+}) => (
   <VolumeContainer {...props}>
-    <Icon src={VolumeIcon} />
-    <StyledProgressBar widthPercent={100} />
+    <Icon
+      onClick={() => onMute()}
+      src={isMuted ? MutedIcon : VolumeIcon}
+      style={{ opacity: isMuted ? 0.5 : 1 }}
+    />
+    <StyledProgressBar max={100} onClick={onClick} width={85} value={volume} />
   </VolumeContainer>
 );
+
+const mapStateToProps = (state) => ({
+  isMuted: selectIsMuted(state),
+  volume: selectPlayerVolume(state)
+});
+
+const mapDispatchToProps = {
+  onClick: setVolume,
+  onMute: mute
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(VolumeControl);

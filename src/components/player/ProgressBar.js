@@ -2,35 +2,49 @@ import React from 'react';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 
-const ProgressBarContainer = styled('div')(
-  css({
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%'
-  })
-);
+const ProgressBarContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  width: 100%;
+`;
 
-const ProgressBarWrapper = styled('div')(
-  css({
+const ProgressBarWrapper = styled('div')`
+  cursor: pointer;
+  width: 100%;
+  ${css({
     bg: ['bg', '#ddd'],
-    cursor: 'pointer',
-    height: [2, 5],
-    width: '100%'
-  })
-);
+    height: [2, 5]
+  })}
+`;
 
-const StyledProgressBar = styled('div')(
-  css({
-    bg: 'accent',
-    height: '100%',
-    transition: 'width 150ms linear'
-  })
-);
+const ProgressBar = styled('div')`
+  height: 100%;
+  pointer-events: none;
+  transition: width 150ms linear;
+  ${css({ bg: 'accent' })}
+`;
 
-export const ProgressBar = ({ widthPercent, ...props }) => (
+export default ({ maxValue = 100, onClick = null, value = 0, ...props }) => (
   <ProgressBarContainer {...props}>
-    <ProgressBarWrapper>
-      <StyledProgressBar style={{ width: `${widthPercent}%` }} />
+    <ProgressBarWrapper
+      onClickCapture={
+        // Pass progress value corresponding to click position.
+        (e) => {
+          if (onClick) {
+            const { target } = e;
+            const { left, width } = target.getBoundingClientRect();
+            const progressValue = ((e.pageX - left) / width) * 100;
+            const roundedProgressValue = Math.round(progressValue / 10) * 10;
+            onClick(roundedProgressValue);
+          }
+        }
+      }
+    >
+      <ProgressBar
+        style={{
+          width: `${(value / maxValue) * 100}%`
+        }}
+      />
     </ProgressBarWrapper>
   </ProgressBarContainer>
 );

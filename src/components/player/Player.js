@@ -16,7 +16,7 @@ import DefaultCover from 'static/images/default.png';
 
 import { PlayerIcon } from './PlayerIcon';
 import { PlayerProgress } from './PlayerProgress';
-import { VolumeControl } from './VolumeControl';
+import VolumeControl from './VolumeControl';
 
 const { BUFFERING } = PlayerStatus;
 

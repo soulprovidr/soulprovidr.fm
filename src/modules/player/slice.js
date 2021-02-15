@@ -7,7 +7,7 @@ const { STOPPED } = PlayerStatus;
 const initialState = {
   meta: {},
   pauseAction: PAUSE,
-  prevVolume: null,
+  previousVolume: 0,
   progress: 0,
   status: STOPPED,
   src: null,
@@ -18,33 +18,36 @@ const { actions, reducer } = createSlice({
   name: 'player',
   initialState,
   reducers: {
+    incrementProgress: (state, { payload: progress }) => {
+      state.progress += progress;
+    },
     play: (state, { payload }) => {
       Object.keys(payload).forEach((key) => {
         state[key] = payload[key];
       });
     },
     reset: () => initialState,
-    setPlayerMeta: (state, action) => ({
-      ...state,
-      meta: { ...state.meta, ...action.payload }
-    }),
+    setPlayerMeta: (state, action) => {
+      state.meta = { ...state.meta, ...action.payload };
+    },
     setProgress: (state, { payload: progress }) => {
       state.progress = progress;
     },
-    toggleMute: (state) => {
-      if (!state.prevVolume) {
-        state.prevVolume = state.volume;
+    mute: (state) => {
+      if (!state.previousVolume) {
+        state.previousVolume = state.volume;
         state.volume = 0;
       } else {
-        state.volume = state.prevVolume;
-        state.prevVolume = 0;
+        state.volume = state.previousVolume;
+        state.previousVolume = 0;
       }
     },
-    updateProgress: (state, { payload: progress }) => {
-      state.progress += progress;
-    },
-    updateStatus: (state, { payload: status }) => {
+    setStatus: (state, { payload: status }) => {
       state.status = status;
+    },
+    setVolume: (state, { payload: volume }) => {
+      state.volume = volume;
+      state.previousVolume = 0;
     }
   }
 });
@@ -53,13 +56,14 @@ export const pause = createAction('player/pause');
 export const stop = createAction('player/stop');
 
 export const {
+  incrementProgress,
   play,
   reset,
   setPlayerMeta,
   setProgress,
-  toggleMute,
-  updateProgress,
-  updateStatus
+  setStatus,
+  setVolume,
+  mute
 } = actions;
 
 export { reducer };

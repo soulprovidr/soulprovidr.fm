@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { Text } from 'theme';
 import { PlayerStatus } from 'modules/player';
-import { ProgressBar } from './ProgressBar';
+import ProgressBar from './ProgressBar';
 
 const { BUFFERING } = PlayerStatus;
 
@@ -50,7 +50,7 @@ const PlayerProgressText = styled(Text)(({ orientation = 'left' }) =>
 );
 
 export function PlayerProgress({ duration, progress, status, ...props }) {
-  const widthPercent = duration
+  const progressValue = duration
     ? Math.min(100, (progress / duration) * 100)
     : status <= BUFFERING
     ? 0
@@ -60,7 +60,7 @@ export function PlayerProgress({ duration, progress, status, ...props }) {
       <PlayerProgressText orientation="left">
         {msToTime(progress)}
       </PlayerProgressText>
-      <ProgressBar widthPercent={widthPercent} />
+      <ProgressBar max={100} value={progressValue} />
       <PlayerProgressText orientation="right">
         {msToTime(duration)}
       </PlayerProgressText>

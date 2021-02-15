@@ -5,6 +5,7 @@ export const selectPlayerMeta = (state) => state.player.meta;
 export const selectPlayerProgress = (state) => state.player.progress;
 export const selectPlayerSrc = (state) => state.player.src;
 export const selectPlayerStatus = (state) => state.player.status;
+export const selectPlayerVolume = (state) => state.player.volume;
 
 export const selectIsListening = createSelector(
   selectPlayerSrc,
@@ -12,3 +13,5 @@ export const selectIsListening = createSelector(
   (playerSrc, url) =>
     !!playerSrc && (playerSrc.includes(url) || playerSrc === url)
 );
+
+export const selectIsMuted = (state) => state.player.volume === 0;

@@ -2,7 +2,7 @@ import parseISO from 'date-fns/parseISO';
 import {
   selectIsListening,
   setProgress,
-  updateStatus,
+  setStatus,
   PlayerStatus
 } from 'modules/player';
 import { RadioUrl } from '../constants';
@@ -18,8 +18,8 @@ export const setProgressMiddleware = ({ dispatch, getState }) => (next) => (
 ) => {
   next(action);
 
-  const { type, payload: status } = action;
-  if (updateStatus.toString() === type && status === PLAYING) {
+  const { payload: status } = action;
+  if (setStatus.match(action) && status === PLAYING) {
     const state = getState();
     const isRadioPlaying = selectIsListening(state, RadioUrl);
     if (isRadioPlaying) {
