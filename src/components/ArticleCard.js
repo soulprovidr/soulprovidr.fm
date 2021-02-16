@@ -48,7 +48,8 @@ const ArticleCard = ({ post, ...props }) => {
   const cardRef = useRef(null);
   const linkRef = useRef(null);
 
-  const { frontmatter } = post;
+  const { fields, frontmatter } = post;
+  const { slug: href } = fields;
   const {
     category,
     description,
@@ -69,6 +70,7 @@ const ArticleCard = ({ post, ...props }) => {
             artist: track.user.username,
             cover: image.childImageSharp.fluid.src,
             duration: track.duration,
+            href,
             title
           }
         : null,

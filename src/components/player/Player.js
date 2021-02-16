@@ -1,123 +1,69 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
 import { PlayerStatus } from 'modules/player/constants';
 import { useListen } from 'modules/player/hooks';
-import {
-  selectPlayerMeta,
-  selectPlayerSrc,
-  selectPlayerStatus
-} from 'modules/player/selectors';
-import { Text } from 'theme';
-import DefaultCover from 'static/images/default.png';
+import { usePlayerMeta, usePlayerSrc, usePlayerStatus } from 'modules/player';
 
-import { PlayerIcon } from './PlayerIcon';
-import { PlayerProgress } from './PlayerProgress';
+import PlayerIcon from './PlayerIcon';
+import PlayerMeta from './PlayerMeta';
+import PlayerProgress from './PlayerProgress';
 import VolumeControl from './VolumeControl';
 
 const { BUFFERING } = PlayerStatus;
 
-const PlayerContainer = styled('div')(({ isVisible = false }) =>
-  css({
-    bg: 'bg',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: ['row-reverse', 'row'],
-    justifyContent: 'space-between',
-    height: 53,
-    position: 'fixed',
-    right: 0,
-    bottom: ['calc(60px + env(safe-area-inset-bottom))', 0],
-    left: 0,
-    px: [0, 4],
-    py: [0, 2],
-    borderTop: 'container',
-    opacity: isVisible ? 1 : 0,
-    transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
-    transition: 'transform 150ms ease-out, opacity 150ms ease-out',
-    width: '100%',
-    zIndex: 2
-  })
-);
-
-const MetaContainer = styled('div')(
-  css({
-    display: 'flex',
-    height: '100%',
-    minWidth: [null, 300],
-    ml: [0, 3],
-    position: ['absolute', 'relative'],
-    left: 0,
-    right: 0,
-    bottom: 0
-  })
-);
-
-const MetaImage = styled('img')(
-  css({
-    height: '100%',
-    mr: [2, 3]
-  })
-);
-
-const MetaContent = styled('div')(
-  css({
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    pb: [1, 0]
-  })
-);
-
-const MetaTitle = styled(Text)(
-  css({
-    fontWeight: 'bold',
-    lineHeight: 1.25,
-    p: 0,
-    whiteSpace: 'nowrap'
-  })
-);
-
-const MetaArtist = styled(Text)(
-  css({
-    p: 0,
-    fontSize: 2,
-    whiteSpace: 'nowrap'
-  })
-);
+const PlayerContainer = styled('div')`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 53px;
+  position: fixed;
+  right: 0;
+  left: 0;
+  transition: transform 150ms ease-out, opacity 150ms ease-out;
+  width: 100%;
+  z-index: 2;
+  ${({ isVisible = false }) =>
+    css({
+      bg: 'bg',
+      flexDirection: ['row-reverse', 'row'],
+      bottom: ['calc(60px + env(safe-area-inset-bottom))', 0],
+      px: [0, 4],
+      py: [0, 2],
+      borderTop: 'container',
+      opacity: isVisible ? 1 : 0,
+      transform: isVisible ? 'translateY(0)' : 'translateY(100%)'
+    })}
+`;
 
 // TODO: Dark mode fix for gradient.
-const PlayerIconContainer = styled('div')(
-  css({
+const PlayerIconContainer = styled('div')`
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  ${css({
     background: [
       'linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%)',
       null
     ],
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    px: 4,
-    zIndex: 1
-  })
-);
+    px: 4
+  })}
+`;
 
 const StyledVolumeControl = styled(VolumeControl)`
   ${css({ mx: 3 })}
 `;
 
 export const Player = () => {
-  const meta = useSelector(selectPlayerMeta);
-  const src = useSelector(selectPlayerSrc);
-  const status = useSelector(selectPlayerStatus);
+  const meta = usePlayerMeta();
+  const src = usePlayerSrc();
+  const status = usePlayerStatus();
 
-  const listenFn = useListen(src, meta);
-
-  const { artist, cover, title } = meta;
   const isVisible = status >= BUFFERING || false;
-
-  const onClick = () => listenFn();
+  const listen = useListen(src, meta);
+  const onClick = () => listen();
 
   return (
     <PlayerContainer isVisible={isVisible}>
@@ -126,13 +72,7 @@ export const Player = () => {
       </PlayerIconContainer>
       <PlayerProgress />
       <StyledVolumeControl />
-      <MetaContainer>
-        <MetaImage src={cover || DefaultCover} />
-        <MetaContent>
-          <MetaTitle>{title}</MetaTitle>
-          <MetaArtist>{artist}</MetaArtist>
-        </MetaContent>
-      </MetaContainer>
+      <PlayerMeta />
     </PlayerContainer>
   );
 };

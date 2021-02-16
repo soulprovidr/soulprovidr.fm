@@ -25,7 +25,7 @@ import {
 import { CoverImage } from '../CoverImage';
 import { Tracklist } from '../Tracklist';
 import { Page } from '../layout';
-import { PlayerIcon } from '../player';
+import PlayerIcon from '../player/PlayerIcon';
 
 const MixtapeImageContainer = styled.div`
   position: relative;
@@ -106,6 +106,7 @@ const MixtapeTemplate = ({ data }) => {
   const post = get(data, 'markdownRemark', null);
 
   const { fields, frontmatter, html } = post;
+  const { slug: href } = fields;
   const {
     category,
     date,
@@ -126,6 +127,7 @@ const MixtapeTemplate = ({ data }) => {
             artist: track.user.username,
             cover: image.childImageSharp.fluid.src,
             duration: track.duration,
+            href,
             title
           }
         : null,
@@ -160,7 +162,7 @@ const MixtapeTemplate = ({ data }) => {
       description={description}
       title={title}
       image={imageSrc}
-      slug={fields.slug}
+      slug={href}
       type="article"
     >
       <Box width={[1, 1, 3 / 5]}>
