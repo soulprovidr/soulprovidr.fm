@@ -68,7 +68,6 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       } = post;
       const { slug } = post.fields;
-      console.log(slug);
       const component = getPostTemplate(categoryId);
       createPage({
         path: slug,

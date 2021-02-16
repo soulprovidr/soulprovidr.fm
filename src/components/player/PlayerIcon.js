@@ -17,13 +17,7 @@ const StyledPlayerIcon = styled(Box)(
   })
 );
 
-export function PlayerIcon({
-  color = 'white',
-  onClick,
-  size,
-  src = null,
-  ...props
-}) {
+function PlayerIcon({ color = 'white', onClick, size, src = null, ...props }) {
   const isSelected = useIsListening(src);
   const playerStatus = usePlayerStatus();
   const renderIcon = () => {
@@ -39,3 +33,5 @@ export function PlayerIcon({
   };
   return <StyledPlayerIcon {...props}>{renderIcon()}</StyledPlayerIcon>;
 }
+
+export default PlayerIcon;

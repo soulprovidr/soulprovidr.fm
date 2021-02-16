@@ -1,12 +1,12 @@
-import { useSelector } from 'react-redux';
 import { useListen, PauseAction } from 'modules/player';
 import { RadioUrl } from '../constants';
-import { selectRadioMeta } from '../selectors';
+import { useRadioMeta } from './useRadioMeta';
 
 /**
  * Returns a function that starts or stops the radio stream.
  */
 export const usePlayRadio = () => {
-  const meta = useSelector(selectRadioMeta);
-  return useListen(RadioUrl, meta, PauseAction.STOP);
+  const radioMeta = useRadioMeta();
+  const radioMetaWithHref = { ...radioMeta, href: '/' };
+  return useListen(RadioUrl, radioMetaWithHref, PauseAction.STOP);
 };

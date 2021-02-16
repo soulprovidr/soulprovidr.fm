@@ -53,7 +53,7 @@ const PlayerProgressText = styled(Text)`
     })}
 `;
 
-export function PlayerProgress({ ...props }) {
+function PlayerProgress({ ...props }) {
   const { duration = 0 } = usePlayerMeta();
   const playerProgress = usePlayerProgress();
   const playerStatus = usePlayerStatus();
@@ -74,3 +74,5 @@ export function PlayerProgress({ ...props }) {
     </PlayerProgressContainer>
   );
 }
+
+export default PlayerProgress;
