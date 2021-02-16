@@ -9,24 +9,26 @@ const ProgressBarContainer = styled('div')`
   display: flex;
   align-items: center;
   width: 100%;
-  ${css({ py: 3 })}
+  ${css({ py: [0, 3] })}
 `;
 
 const ProgressBarWrapper = styled('div')`
-  display: flex;
-  align-items: center;
   position: relative;
   width: 100%;
   ${css({
     bg: ['bg', '#ddd'],
-    height: [2, 5]
+    height: [2, 5],
+    display: ['block', 'flex'],
+    alignItems: 'center'
   })}
 `;
 
 const ProgressBar = styled('div')`
   height: 100%;
   pointer-events: none;
-  ${css({ bg: 'accent' })}
+  ${css({
+    bg: 'accent'
+  })}
 `;
 
 const scaleIn = keyframes`
@@ -39,7 +41,7 @@ const scaleIn = keyframes`
 `;
 
 const ProgressHandle = styled.div`
-  ${css({ bg: 'accent' })}
+  ${css({ bg: 'accent', display: ['none', 'block'] })}
   border-radius: 50%;
   margin-left: -6px;
   width: 12px;
