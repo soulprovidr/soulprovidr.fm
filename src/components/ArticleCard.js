@@ -99,7 +99,9 @@ const ArticleCard = ({ post, ...props }) => {
         <StyledBadge bg={category.colour} colour="white">
           {category.label}
         </StyledBadge>
-        <Image fluid={{ ...image.childImageSharp.fluid, aspectRatio: 1 }} />
+        {image && (
+          <Image fluid={{ ...image.childImageSharp.fluid, aspectRatio: 1 }} />
+        )}
         <Card.Overlay
           force={isPlaying || isMouseOver || pageWidth <= Breakpoints.SM}
         >

@@ -28,6 +28,8 @@ const getPostSlugPrefix = (node) => {
   switch (node.frontmatter.category) {
     case 'mixtape':
       return 'mixtapes/';
+    case 'blog':
+      return 'posts/';
     default:
       return '';
   }
@@ -40,12 +42,12 @@ const getPostSlug = (node) =>
 
 const getPostTemplate = (categoryId) => {
   switch (categoryId) {
+    case 'blog':
+      return path.resolve('./src/components/templates/Post.js');
     case 'mixtape':
       return path.resolve('./src/components/templates/Mixtape.js');
-    case 'page':
-      return path.resolve('./src/components/templates/GenericPage.js');
     default:
-      return null;
+      return path.resolve('./src/components/templates/GenericPage.js');
   }
 };
 

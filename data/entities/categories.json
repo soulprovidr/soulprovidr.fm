@@ -8,5 +8,10 @@
     "id": "page",
     "label": "Page",
     "colour": "#dddddd"
+  },
+  {
+    "id": "blog",
+    "label": "Blog",
+    "colour": "rgb(222, 150, 70)"
   }
 ]
