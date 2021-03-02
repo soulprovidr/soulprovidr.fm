@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import get from 'lodash.get';
 import { graphql } from 'gatsby';
 import Image from 'gatsby-image';
+import { formatDistanceToNowStrict } from 'date-fns';
 import styled from '@emotion/styled';
 import css from '@styled-system/css';
-import { Box, Text } from 'theme';
+import { Box, Logo, Text } from 'theme';
 import { Page } from '../layout';
 
 const PostTitleContainer = styled.div`
@@ -32,19 +33,28 @@ const PostContent = styled(Text)(
   {
     img: {
       margin: '0 auto'
-    },
-    p: {
-      textAlign: 'justify'
     }
   }
 );
+
+const StyledLogo = styled(Logo)`
+  display: inline-block;
+  margin-right: 7px;
+  vertical-align: middle;
+`;
 
 const GenericPageTemplate = ({ data }) => {
   const post = get(data, 'markdownRemark', null);
 
   const { fields, frontmatter, html } = post;
-  const { description, image, title } = frontmatter;
+  const { date, description, image, title } = frontmatter;
   const imageFluid = get(image, 'childImageSharp.fluid', null);
+
+  const memoizedDate = useMemo(
+    () => formatDistanceToNowStrict(new Date(date)),
+    []
+  );
+
   return (
     <Page
       description={description}
@@ -59,6 +69,13 @@ const GenericPageTemplate = ({ data }) => {
             <PostTitle>{title}</PostTitle>
             <Text color="text.secondary" fontSize={4} p={0}>
               {description}
+            </Text>
+            <Text as="div" fontSize={2} pt="24px">
+              <StyledLogo size={25} />
+              Soul Provider ·{' '}
+              <Text as="span" color="text.secondary">
+                {memoizedDate} ago
+              </Text>
             </Text>
           </div>
         </PostTitleContainer>
@@ -83,6 +100,7 @@ export const pageQuery = graphql`
         slug
       }
       frontmatter {
+        date
         title
         description
         image {

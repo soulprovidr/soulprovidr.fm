@@ -67,12 +67,7 @@ const StyledText = styled(Text)(
     'a, a:active, a:visited': {
       color: 'accent'
     }
-  }),
-  {
-    p: {
-      textAlign: 'justify'
-    }
-  }
+  })
 );
 
 const WaveformControls = styled('div')(

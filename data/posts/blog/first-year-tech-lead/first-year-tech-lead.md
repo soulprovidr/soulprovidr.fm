@@ -1,7 +1,7 @@
 ---
 title: 'Things I learned in my first year as Tech Lead'
 author: soulprovidr
-date: 2021-02-17T02:41:40.709Z
+date: 2021-03-02T18:36:33.523
 category: blog
 image: ./cover.png
 description: 'Reflections on a year of management in a software company.'
