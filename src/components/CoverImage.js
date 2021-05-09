@@ -10,6 +10,7 @@ import PlayerIcon from './player/PlayerIcon';
 const transitionTimingFn = 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
 
 const StyledCoverImage = styled('div')({
+  border: '1px solid #eee',
   cursor: 'pointer',
   position: 'relative'
 });
