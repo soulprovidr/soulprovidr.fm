@@ -44,6 +44,10 @@ const StyledBadge = styled(Badge)(
   })
 );
 
+const StyledCardHeader = styled(Card.Header)({
+  border: '1px solid #eee'
+});
+
 const ArticleCard = ({ post, ...props }) => {
   const cardRef = useRef(null);
   const linkRef = useRef(null);
@@ -95,7 +99,7 @@ const ArticleCard = ({ post, ...props }) => {
 
   return (
     <ArticleCardContainer ref={cardRef} onClick={onClick} {...props}>
-      <Card.Header>
+      <StyledCardHeader>
         <StyledBadge bg={category.colour} colour="white">
           {category.label}
         </StyledBadge>
@@ -105,7 +109,7 @@ const ArticleCard = ({ post, ...props }) => {
         >
           {overlayContent}
         </Card.Overlay>
-      </Card.Header>
+      </StyledCardHeader>
       <ArticleCardContent>
         <ArticleCardTitle>
           <Link ref={linkRef} to={post.fields.slug}>
