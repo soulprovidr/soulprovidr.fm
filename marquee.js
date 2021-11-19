@@ -30,7 +30,6 @@ window.Marquee = ($node, params) => {
 
   const containerWidth = $node.clientWidth;
   const childScrollWidth = _$childNode.scrollWidth;
-  console.log(containerWidth, childScrollWidth);
   // If child content extends beyond container, we need to add marquee styles.
   if (childScrollWidth > containerWidth) {
     createAnimation(childScrollWidth - containerWidth);
