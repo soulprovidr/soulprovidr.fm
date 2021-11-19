@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOULPROVIDER.FM</title>
+    <meta
+      property="description"
+      content="Internet radio for those who like to groove."
+    />
+    <meta property="og:url" content="https://soulprovider.fm" />
+    <meta property="og:title" content="SOULPROVIDER.FM" />
+    <meta
+      property="og:description"
+      content="Internet radio for those who like to groove."
+    />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:title" content="SOULPROVIDER.FM" />
+    <meta
+      property="twitter:description"
+      content="Internet radio for those who like to groove."
+    />
+    <link rel="icon" href="favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/hk-grotesk.min.css"
+    />
+  </head>
+  <style>
+    @keyframes blink {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    :root {
+      --margin: 0;
+      --width: 414px;
+    }
+
+    @media (max-width: 414px) {
+      :root {
+        --margin: 16px;
+        --width: 100%;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: "Inter", sans-serif;
+      min-height: 100%;
+      width: 100vw;
+    }
+
+    body {
+      color: #343a40;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0;
+      max-height: 684px;
+      padding: 24px 0;
+      width: var(--width);
+    }
+
+    h1 {
+      font-size: 16px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    header {
+      display: flex;
+      font-family: "HK Grotesk", sans-serif;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0 var(--margin);
+      padding: 0 0 24px;
+    }
+
+    header .title {
+      display: flex;
+      align-items: center;
+    }
+
+    header .logo {
+      border-radius: 50%;
+      height: 32px;
+      width: 32px;
+    }
+
+    header .title .logo {
+      margin-right: 12px;
+    }
+
+    header ul {
+      display: flex;
+      align-items: center;
+      list-style: none;
+      margin: 0;
+    }
+
+    header li {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 16px;
+      font-weight: 700;
+      margin-left: 24px;
+    }
+
+    header li .live {
+      animation: blink 1s infinite alternate;
+      background: red;
+      border-radius: 50%;
+      height: 5px;
+      width: 5px;
+      margin-right: 5px;
+    }
+
+    main {
+      display: flex;
+      justify-content: flex-start;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    .metadata__cover {
+      width: 100%;
+    }
+
+    .metadata__text {
+      margin: 18px var(--margin) 0;
+    }
+
+    .metadata__title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .metadata__artist {
+      font-size: 20px;
+      font-weight: 400;
+      margin: 4px 0 0;
+    }
+
+    .progress {
+      margin: 18px var(--margin);
+    }
+
+    .progress .bar {
+      background: #f0f0f0;
+      border-radius: 2px;
+      height: 4px;
+    }
+
+    .progress .fill {
+      background: #007bff;
+      border-radius: 2px;
+      height: 100%;
+      transition: width 200ms ease-in-out;
+      width: 0;
+    }
+
+    .progress .time {
+      color: #686868;
+      display: flex;
+      font-size: 12px;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .listen button {
+      background: #007bff;
+      border: none;
+      border-radius: 4px;
+      color: white;
+      cursor: pointer;
+      flex: 0;
+      font-family: "HK Grotesk", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      margin: 0 var(--margin);
+      padding: 8px;
+      width: 90px;
+    }
+  </style>
+  <body>
+    <header>
+      <div class="title">
+        <img alt="Soul Provider logo" class="logo" src="logo.svg" />
+        <h1>SOULPROVIDER.FM</h1>
+      </div>
+      <ul>
+        <li>
+          <div class="live"></div>
+          LIVE
+        </li>
+      </ul>
+    </header>
+    <div id="radio"></div>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/mithril/1.1.7/mithril.min.js"
+      integrity="sha512-oOGGqM8b2yrDmTny8nZHdghkKcSo6kL7gwHfTvVZXojUthBE/ffb/9ATUUNLATMaahkBIxCWTcFn3obDmQei2Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="helpers.js"></script>
+    <script>
+      (() => {
+        const radio = {
+          metadata: {},
+          status: "stopped",
+          listen: (audio) => {
+            const onPlaySuccess = () => {
+              radio.setStatus("playing");
+              audio.removeEventListener("playing", onPlaySuccess);
+            };
+            audio.addEventListener("playing", onPlaySuccess);
+            audio.load();
+            audio.play();
+            radio.setStatus("buffering");
+          },
+          poll: async () => {
+            radio.metadata = await m.request({
+              method: "GET",
+              url: "https://api.radioking.io/widget/radio/soulprovidr/track/current",
+            });
+            radio?.onPollSuccess();
+            setTimeout(
+              radio.poll,
+              new Date(radio.metadata.next_track) - new Date()
+            );
+          },
+          setStatus: (newStatus) => {
+            radio.status = newStatus;
+            radio?.onStatusChange();
+          },
+          stop: (audio) => {
+            audio.pause();
+            radio.setStatus("stopped");
+          },
+          onPollSuccess: undefined,
+          onStatusChange: undefined,
+        };
+
+        const ListenButton = {
+          oninit: () => {
+            radio.onStatusChange = m.redraw;
+          },
+          oncreate: (vnode) => {
+            const audio = vnode.dom.querySelector("audio");
+            const button = vnode.dom.querySelector("button");
+            button.addEventListener("click", async () => {
+              audio.paused ? radio.listen(audio) : radio.stop(audio);
+            });
+          },
+          view: () => {
+            return m(
+              "div.listen",
+              m("audio", {
+                preload: "none",
+                src: "https://www.radioking.com/play/soulprovidr",
+              }),
+              m(
+                "button",
+                {
+                  disabled: radio.status === "buffering",
+                },
+                {
+                  buffering: "LOADING",
+                  playing: "STOP",
+                  stopped: "LISTEN",
+                }[radio.status]
+              )
+            );
+          },
+        };
+
+        const Progress = {
+          oninit: () => {
+            setInterval(m.redraw, 100);
+          },
+          view: () => {
+            const duration = radio.metadata.duration * 1000;
+            const elapsed = new Date() - new Date(radio.metadata.started_at);
+            const percent = Math.min(100, (elapsed / duration) * 100) || 0;
+            return m("div.progress", [
+              m("div.bar", m("div.fill", { style: `width: ${percent}%` })),
+              m("div.time", [
+                m("div.span", msToTime(elapsed)),
+                m("div.span", msToTime(duration)),
+              ]),
+            ]);
+          },
+        };
+
+        const App = {
+          oninit: () => {
+            radio.onPollSuccess = m.redraw;
+            radio.poll();
+          },
+          view: () =>
+            m("main", [
+              m("img.metadata__cover", { src: radio.metadata.cover }),
+              m("div.metadata__text", [
+                m("div.metadata__title", m("span", radio.metadata.title)),
+                m("span.metadata__artist", radio.metadata.artist),
+              ]),
+              m(Progress),
+              m(ListenButton),
+            ]),
+        };
+
+        m.mount(document.body.querySelector("#radio"), App);
+      })();
+    </script>
+  </body>
+</html>
