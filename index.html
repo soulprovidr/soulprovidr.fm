@@ -265,9 +265,6 @@
         };
 
         const ListenButton = {
-          oninit: () => {
-            radio.onStatusChange = m.redraw;
-          },
           oncreate: (vnode) => {
             const audio = vnode.dom.querySelector("audio");
             const button = vnode.dom.querySelector("button");
@@ -280,13 +277,11 @@
               "div.listen",
               m("audio", {
                 preload: "none",
-                src: "https://www.radioking.com/play/SOULPROVIDER",
+                src: "https://www.radioking.com/play/soulprovidr",
               }),
               m(
                 "button",
-                {
-                  disabled: radio.status === "buffering",
-                },
+                { disabled: radio.status === "buffering" },
                 {
                   buffering: "LOADING",
                   playing: "STOP",
@@ -318,6 +313,7 @@
         const App = {
           oninit: () => {
             radio.onPollSuccess = m.redraw;
+            radio.onStatusChange = m.redraw;
             radio.poll();
           },
           view: () =>
