@@ -1,3 +1,5 @@
+const isEmpty = (obj) => Object.keys(obj).length === 0;
+
 const msToTime = (ms) => {
   // Pad to 2 or 3 digits, default is 2
   if (!ms) {

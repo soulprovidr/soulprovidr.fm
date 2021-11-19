@@ -225,6 +225,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script src="marquee.js"></script>
     <script src="helpers.js"></script>
     <script>
       (() => {
@@ -264,11 +265,57 @@
           onStatusChange: undefined,
         };
 
+        const MarqueeText = ({
+          attrs: { className = "marquee" },
+          children,
+        }) => {
+          let cleanup = null;
+          return {
+            oncreate: (node) => {
+              cleanup = Marquee(node.dom);
+            },
+            onremove: cleanup,
+            view: () => m(`div.${className}`, m("div", children)),
+          };
+        };
+
+        const Metadata = {
+          view: () => [
+            m("img.metadata__cover", { src: radio.metadata.cover }),
+            m("div.metadata__text", [
+              m(
+                MarqueeText,
+                { className: "metadata__title" },
+                `${radio.metadata.title}`
+              ),
+              m("div.metadata__artist", radio.metadata.artist),
+            ]),
+          ],
+        };
+
+        const Progress = {
+          oninit: () => {
+            setInterval(m.redraw, 100);
+          },
+          view: () => {
+            const duration = radio.metadata.duration * 1000;
+            const elapsed = new Date() - new Date(radio.metadata.started_at);
+            const percent = Math.min(100, (elapsed / duration) * 100) || 0;
+            return m("div.progress", [
+              m("div.bar", m("div.fill", { style: `width: ${percent}%` })),
+              m("div.time", [
+                m("div.span", msToTime(elapsed)),
+                m("div.span", msToTime(duration)),
+              ]),
+            ]);
+          },
+        };
+
         const ListenButton = {
           oncreate: (vnode) => {
             const audio = vnode.dom.querySelector("audio");
             const button = vnode.dom.querySelector("button");
-            button.addEventListener("click", async () => {
+            button.addEventListener("click", () => {
               audio.paused ? radio.listen(audio) : radio.stop(audio);
             });
           },
@@ -292,24 +339,6 @@
           },
         };
 
-        const Progress = {
-          oninit: () => {
-            setInterval(m.redraw, 100);
-          },
-          view: () => {
-            const duration = radio.metadata.duration * 1000;
-            const elapsed = new Date() - new Date(radio.metadata.started_at);
-            const percent = Math.min(100, (elapsed / duration) * 100) || 0;
-            return m("div.progress", [
-              m("div.bar", m("div.fill", { style: `width: ${percent}%` })),
-              m("div.time", [
-                m("div.span", msToTime(elapsed)),
-                m("div.span", msToTime(duration)),
-              ]),
-            ]);
-          },
-        };
-
         const App = {
           oninit: () => {
             radio.onPollSuccess = m.redraw;
@@ -317,12 +346,9 @@
             radio.poll();
           },
           view: () =>
+            !isEmpty(radio.metadata) &&
             m("main", [
-              m("img.metadata__cover", { src: radio.metadata.cover }),
-              m("div.metadata__text", [
-                m("div.metadata__title", m("span", radio.metadata.title)),
-                m("span.metadata__artist", radio.metadata.artist),
-              ]),
+              m(Metadata, { key: radio.metadata.started_at }),
               m(Progress),
               m(ListenButton),
             ]),
