@@ -1,0 +1,170 @@
+@keyframes blink {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+:root {
+  --margin: 0;
+  --width: 414px;
+}
+
+@media (max-width: 414px) {
+  :root {
+    --margin: 16px;
+    --width: 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: "Inter", sans-serif;
+  min-height: 100%;
+  width: 100vw;
+}
+
+body {
+  color: #343a40;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+  max-height: 684px;
+  padding: 24px 0;
+  width: var(--width);
+}
+
+h1 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+header {
+  display: flex;
+  font-family: "HK Grotesk", sans-serif;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 var(--margin);
+  padding: 0 0 24px;
+}
+
+header .title {
+  display: flex;
+  align-items: center;
+}
+
+header .logo {
+  border-radius: 50%;
+  height: 32px;
+  width: 32px;
+}
+
+header .title .logo {
+  margin-right: 12px;
+}
+
+header ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+}
+
+header li {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 24px;
+}
+
+header li .live {
+  animation: blink 1s infinite alternate;
+  background: red;
+  border-radius: 50%;
+  height: 5px;
+  width: 5px;
+  margin-right: 5px;
+}
+
+main {
+  display: flex;
+  justify-content: flex-start;
+  flex: 1;
+  flex-direction: column;
+}
+
+.metadata__cover {
+  width: 100%;
+}
+
+.metadata__text {
+  margin: 18px var(--margin) 0;
+}
+
+.metadata__title {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.metadata__artist {
+  font-size: 20px;
+  font-weight: 400;
+  margin: 4px 0 0;
+}
+
+.progress {
+  margin: 18px var(--margin);
+}
+
+.progress__bar {
+  background: #f0f0f0;
+  border-radius: 2px;
+  height: 4px;
+}
+
+.progress__fill {
+  background: #007bff;
+  border-radius: 2px;
+  height: 100%;
+  transition: width 200ms ease-in-out;
+  width: 0;
+}
+
+.progress__time {
+  color: #686868;
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.listen button {
+  background: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  flex: 0;
+  font-family: "HK Grotesk", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 var(--margin);
+  padding: 8px;
+  width: 90px;
+}
