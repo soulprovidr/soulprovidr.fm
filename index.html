@@ -230,39 +230,44 @@
     <script>
       (() => {
         const radio = {
-          metadata: {},
-          status: "stopped",
+          _metadata: {},
+          _status: "stopped",
+          get metadata() {
+            return radio._metadata;
+          },
+          get status() {
+            return radio._status;
+          },
+          set status(value) {
+            radio._status = value;
+            radio?.onupdate();
+          },
           listen: (audio) => {
-            const onPlaySuccess = () => {
-              radio.setStatus("playing");
-              audio.removeEventListener("playing", onPlaySuccess);
+            const onplaying = () => {
+              radio.status = "playing";
+              audio.removeEventListener("playing", onplaying);
             };
-            audio.addEventListener("playing", onPlaySuccess);
+            audio.addEventListener("playing", onplaying);
             audio.load();
             audio.play();
-            radio.setStatus("buffering");
+            radio.status = "buffering";
           },
           poll: async () => {
-            radio.metadata = await m.request({
-              method: "GET",
-              url: "https://api.radioking.io/widget/radio/soulprovidr/track/current",
-            });
-            radio?.onPollSuccess();
+            const res = await fetch(
+              "https://api.radioking.io/widget/radio/soulprovidr/track/current"
+            );
+            radio._metadata = await res.json();
+            radio?.onupdate();
             setTimeout(
               radio.poll,
               new Date(radio.metadata.next_track) - new Date()
             );
           },
-          setStatus: (newStatus) => {
-            radio.status = newStatus;
-            radio?.onStatusChange();
-          },
           stop: (audio) => {
             audio.pause();
-            radio.setStatus("stopped");
+            radio.status = "stopped";
           },
-          onPollSuccess: undefined,
-          onStatusChange: undefined,
+          onupdate: undefined,
         };
 
         const MarqueeText = ({
@@ -285,7 +290,7 @@
             m("div.metadata__text", [
               m(
                 MarqueeText,
-                { className: "metadata__title" },
+                { className: "metadata__title", key: radio.metadata.title },
                 `${radio.metadata.title}`
               ),
               m("div.metadata__artist", radio.metadata.artist),
@@ -341,17 +346,12 @@
 
         const App = {
           oninit: () => {
-            radio.onPollSuccess = m.redraw;
-            radio.onStatusChange = m.redraw;
+            radio.onupdate = m.redraw;
             radio.poll();
           },
           view: () =>
             !isEmpty(radio.metadata) &&
-            m("main", [
-              m(Metadata, { key: radio.metadata.started_at }),
-              m(Progress),
-              m(ListenButton),
-            ]),
+            m("main", [m(Metadata), m(Progress), m(ListenButton)]),
         };
 
         m.mount(document.body.querySelector("#radio"), App);
