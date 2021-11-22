@@ -133,17 +133,32 @@ main {
 }
 
 .progress__bar {
+  height: 4px;
+  position: relative;
+}
+
+.progress__bar::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 0;
+  left: 0;
   background: #f0f0f0;
   border-radius: 2px;
-  height: 4px;
+  height: 2px;
+  z-index: -1;
 }
 
 .progress__fill {
-  background: #007bff;
+  background: #cfcfcf;
   border-radius: 2px;
-  height: 100%;
-  transition: width 200ms ease-in-out;
+  height: 4px;
+  transition: background 300ms ease-in-out, width 200ms ease-in-out;
   width: 0;
+}
+
+.progress__fill--playing {
+  background: #007bff;
 }
 
 .progress__time {
@@ -154,7 +169,7 @@ main {
   margin-top: 10px;
 }
 
-.listen button {
+.listen {
   background: #007bff;
   border: none;
   border-radius: 4px;

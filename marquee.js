@@ -10,7 +10,7 @@ function generateIdentifier() {
  * @param {Object} params { duration, gradientColor, gradientWidth }
  * @returns {Function} Cleanup function. Use this to remove marquee styles and elements.
  */
-window.Marquee = ($node, params) => {
+export function Marquee($node, params) {
   // Validate $node parameter.
   if (!$node || $node.children.length !== 1) {
     throw new Error("[Marquee] Invalid element.");
@@ -30,14 +30,6 @@ window.Marquee = ($node, params) => {
 
   const containerWidth = $node.clientWidth;
   const childScrollWidth = _$childNode.scrollWidth;
-  // If child content extends beyond container, we need to add marquee styles.
-  if (childScrollWidth > containerWidth) {
-    createAnimation(childScrollWidth - containerWidth);
-    // Return a cleanup function.
-    return cleanup;
-  } else {
-    return () => false;
-  }
 
   /**
    * Add styles to container + child. Insert marquee keyframes into the document.
@@ -83,4 +75,13 @@ window.Marquee = ($node, params) => {
     document.head.removeChild(_stylesheet);
     _stylesheet = null;
   }
-};
+
+  // If child content extends beyond container, we need to add marquee styles.
+  if (childScrollWidth > containerWidth) {
+    createAnimation(childScrollWidth - containerWidth);
+    // Return a cleanup function.
+    return cleanup;
+  } else {
+    return () => false;
+  }
+}
