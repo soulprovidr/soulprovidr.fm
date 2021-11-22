@@ -109,11 +109,8 @@ const ListenButton = {
 };
 
 const App = () => {
-  let radio = null;
+  const radio = new Radio();
   return {
-    oninit() {
-      radio = new Radio();
-    },
     oncreate() {
       radio.init(document.querySelector("audio"), { onupdate: m.redraw });
       radio.poll();
