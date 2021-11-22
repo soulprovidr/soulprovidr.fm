@@ -200,6 +200,7 @@ main {
   font-family: "HK Grotesk", sans-serif;
   font-size: 12px;
   font-weight: 700;
+  height: 32px;
   margin: 0 var(--margin);
   padding: 8px 12px 8px 8px;
   width: fit-content;
