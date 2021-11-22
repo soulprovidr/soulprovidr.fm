@@ -81,7 +81,7 @@ const ListenButton = {
     return m(
       "button.listen",
       {
-        disabled: radio.status === "buffering",
+        disabled: attrs.status === "buffering",
         onclick: attrs.onclick,
       },
       {
