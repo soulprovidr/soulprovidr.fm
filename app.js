@@ -54,9 +54,9 @@ const Progress = {
   },
   view({ attrs }) {
     const duration = attrs.duration * 1000;
-    const elapsed = Math.min(
-      new Date() - new Date(attrs.startedAt) - 10000,
-      duration
+    const elapsed = Math.max(
+      Math.min(new Date() - new Date(attrs.startedAt) - 10000, duration),
+      0
     );
     const percent = Math.min(100, (elapsed / duration) * 100) || 0;
     return m("div.progress", [
