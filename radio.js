@@ -24,6 +24,9 @@ export class Radio {
     this.#audio.addEventListener("playing", () => {
       this.status = "playing";
     });
+    this.#audio.addEventListener("error", () => {
+      this.status = "stopped";
+    });
     this.#onupdate = onupdate;
   }
 
