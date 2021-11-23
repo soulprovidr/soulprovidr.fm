@@ -32,10 +32,37 @@ const Header = {
   },
 };
 
+const LazyImage = () => {
+  let isVisible = false;
+  return {
+    oncreate({ attrs }) {
+      const img = new Image();
+      img.onload = () => {
+        isVisible = true;
+        m.redraw();
+      };
+      img.src = attrs.src;
+    },
+    view({ attrs }) {
+      return m("img", {
+        alt: attrs.alt,
+        class: `${attrs.className} ${isVisible ? "visible" : "hidden"}`,
+        src: attrs.src,
+        style: attrs.height ? `height: ${attrs.height}px` : null,
+      });
+    },
+  };
+};
+
 const Metadata = {
   view({ attrs }) {
     return [
-      m("img.metadata__cover", { src: attrs.cover }),
+      m(LazyImage, {
+        alt: `Artwork for ${attrs.title} by ${attrs.artist}`,
+        className: "metadata__cover",
+        height: document.body.clientWidth,
+        src: attrs.cover,
+      }),
       m("div.metadata__text", [
         m(
           MarqueeText,

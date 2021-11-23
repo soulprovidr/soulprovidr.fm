@@ -1,4 +1,4 @@
-@keyframes blink {
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -30,6 +30,14 @@
 
 * {
   box-sizing: border-box;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.visible {
+  opacity: 1;
 }
 
 html {
@@ -100,7 +108,7 @@ header li {
 }
 
 header li .live {
-  animation: blink 1s infinite alternate;
+  animation: fadeIn 1s infinite alternate;
   background: red;
   border-radius: 50%;
   height: 5px;
@@ -116,7 +124,13 @@ main {
 }
 
 .metadata__cover {
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
   width: 100%;
+}
+
+.metadata__cover.visible {
+  opacity: 1;
 }
 
 .metadata__text {
@@ -162,7 +176,8 @@ main {
   background: #cfcfcf;
   border-radius: 2px;
   height: 4px;
-  transition: background 150ms ease-in-out, width 200ms ease-in-out;
+  transition: background 150ms ease-in-out, height 150ms ease-in-out,
+    width 200ms ease-in-out;
   width: 0;
 }
 
