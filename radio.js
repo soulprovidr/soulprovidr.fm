@@ -19,7 +19,7 @@ export class Radio {
     this.#onupdate();
   }
 
-  init(audio, { onupdate = noop }) {
+  init = (audio, { onupdate = noop }) => {
     this.#audio = audio;
     this.#audio.addEventListener("error", () => {
       this.status = "stopped";
@@ -34,27 +34,29 @@ export class Radio {
       this.status = "buffering";
     });
     this.#onupdate = onupdate;
-  }
+  };
 
-  listen() {
+  listen = () => {
     this.#audio.load();
     this.#audio.play();
-  }
+  };
 
-  async poll() {
-    const res = await fetch(
-      "https://api.radioking.io/widget/radio/soulprovidr/track/current"
-    );
-    this.#metadata = await res.json();
-    this.#onupdate();
+  poll = async () => {
+    this.refresh();
     setTimeout(
       this.poll.bind(this),
       // + 10s accounts for drift between stream and metadata
       new Date(this.#metadata.next_track) - new Date() + 10000
     );
-  }
+  };
 
-  stop() {
-    this.#audio.pause();
-  }
+  refresh = async () => {
+    const res = await fetch(
+      "https://api.radioking.io/widget/radio/soulprovidr/track/current"
+    );
+    this.#metadata = await res.json();
+    this.#onupdate();
+  };
+
+  stop = () => this.#audio.pause;
 }

@@ -141,6 +141,7 @@ const App = () => {
     oncreate() {
       radio.init(document.querySelector("audio"), { onupdate: m.redraw });
       radio.poll();
+      window.addEventListener("focus", radio.refresh);
     },
     view() {
       const audio = m("audio", {
