@@ -3,3 +3,10 @@
 ## SOUL PROVIDER
 
 Internet radio for those who like to groove.
+
+### TODO:
+
+- Volume control
+- Refresh meta on page focus
+- Update Media Session API
+- Visualizer
