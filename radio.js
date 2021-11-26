@@ -21,11 +21,17 @@ export class Radio {
 
   init(audio, { onupdate = noop }) {
     this.#audio = audio;
+    this.#audio.addEventListener("error", () => {
+      this.status = "stopped";
+    });
     this.#audio.addEventListener("playing", () => {
       this.status = "playing";
     });
-    this.#audio.addEventListener("error", () => {
+    this.#audio.addEventListener("pause", () => {
       this.status = "stopped";
+    });
+    this.#audio.addEventListener("waiting", () => {
+      this.status = "buffering";
     });
     this.#onupdate = onupdate;
   }
@@ -33,7 +39,6 @@ export class Radio {
   listen() {
     this.#audio.load();
     this.#audio.play();
-    this.status = "buffering";
   }
 
   async poll() {
@@ -51,6 +56,5 @@ export class Radio {
 
   stop() {
     this.#audio.pause();
-    this.status = "stopped";
   }
 }
