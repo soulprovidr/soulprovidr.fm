@@ -44,7 +44,7 @@ export class Radio {
   poll = async () => {
     this.refresh();
     setTimeout(
-      this.poll.bind(this),
+      this.poll,
       // + 10s accounts for drift between stream and metadata
       new Date(this.#metadata.next_track) - new Date() + 10000
     );
@@ -58,5 +58,7 @@ export class Radio {
     this.#onupdate();
   };
 
-  stop = () => this.#audio.pause;
+  stop = () => {
+    this.#audio.pause();
+  };
 }
