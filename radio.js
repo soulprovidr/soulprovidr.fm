@@ -10,6 +10,10 @@ export class Radio {
     return this.#metadata;
   }
 
+  get isMuted() {
+    return this.#audio.muted || false;
+  }
+
   get status() {
     return this.#status;
   }
@@ -19,8 +23,18 @@ export class Radio {
     this.#onupdate();
   }
 
+  get volume() {
+    return this.#audio.volume;
+  }
+
+  set volume(value) {
+    this.#audio.volume = value;
+    this.#onupdate();
+  }
+
   init = (audio, { onupdate = noop }) => {
     this.#audio = audio;
+    this.#onupdate = onupdate;
     this.#audio.addEventListener("error", () => {
       this.status = "stopped";
     });
@@ -30,10 +44,10 @@ export class Radio {
     this.#audio.addEventListener("pause", () => {
       this.status = "stopped";
     });
+    this.#audio.addEventListener("volumechange", this.#onupdate);
     this.#audio.addEventListener("waiting", () => {
       this.status = "buffering";
     });
-    this.#onupdate = onupdate;
   };
 
   listen = () => {
@@ -41,8 +55,12 @@ export class Radio {
     this.#audio.play();
   };
 
+  mute = () => {
+    this.#audio.muted = !this.#audio.muted;
+  };
+
   poll = async () => {
-    this.refresh();
+    await this.refresh();
     setTimeout(
       this.poll,
       // + 10s accounts for drift between stream and metadata

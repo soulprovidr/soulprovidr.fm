@@ -123,6 +123,8 @@ main {
   flex-direction: column;
 }
 
+/* Metadata */
+
 .metadata__cover {
   opacity: 0;
   transition: opacity 150ms ease-in-out;
@@ -151,19 +153,19 @@ main {
   margin: 4px 0 0;
 }
 
-.progress {
-  margin: 18px var(--margin);
-}
+/* ProgressBar */
 
-.progress__bar {
-  height: 4px;
+.progressBar {
+  display: flex;
+  align-items: center;
+  height: 16px;
   position: relative;
 }
 
-.progress__bar::after {
+.progressBar::after {
   content: "";
   position: absolute;
-  top: 1px;
+  top: 7px;
   right: 0;
   left: 0;
   background: #f0f0f0;
@@ -172,20 +174,25 @@ main {
   z-index: -1;
 }
 
-.progress__fill {
+.progressBar__fill {
   background: #cfcfcf;
   border-radius: 2px;
   height: 4px;
-  transition: background 150ms ease-in-out, height 150ms ease-in-out,
-    width 200ms ease-in-out;
+  transition: background 100ms ease-in-out, width 100ms ease-in-out;
   width: 0;
 }
 
-.progress__fill--playing {
+.progressBar__fill--active {
   background: #007bff;
 }
 
-.progress__time {
+/* RadioProgress */
+
+.radioProgress {
+  margin: 18px var(--margin);
+}
+
+.radioProgress__time {
   color: #686868;
   display: flex;
   font-size: 12px;
@@ -193,7 +200,22 @@ main {
   margin-top: 10px;
 }
 
-.listen {
+/* Controls */
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.controls svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ListenButton */
+
+.listenButton {
   background: #007bff;
   border: none;
   border-radius: 4px;
@@ -212,10 +234,33 @@ main {
   width: fit-content;
 }
 
-.listen svg {
+.listenButton svg {
+  width: 16px;
+  height: 16px;
   margin-right: 6px;
 }
 
-.listen svg.loading {
+.listenButton svg.loading {
   animation: rotate 1s linear infinite;
+}
+
+/* VolumeControl */
+
+.volumeControl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.volumeControl__icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+}
+
+.volumeControl .progressBar {
+  cursor: pointer;
 }
