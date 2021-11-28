@@ -206,6 +206,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 var(--margin);
 }
 
 .controls svg {
@@ -229,7 +230,6 @@ main {
   font-size: 12px;
   font-weight: 700;
   height: 32px;
-  margin: 0 var(--margin);
   padding: 8px 12px 8px 8px;
   width: fit-content;
 }
