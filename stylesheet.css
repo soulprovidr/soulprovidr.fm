@@ -178,7 +178,7 @@ main {
   background: #cfcfcf;
   border-radius: 2px;
   height: 4px;
-  transition: background 100ms ease-in-out, width 100ms ease-in-out;
+  transition: background 100ms ease-in-out, width 50ms ease-in-out;
   width: 0;
 }
 
@@ -258,7 +258,7 @@ main {
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-right: 6px;
+  margin-right: 2px;
 }
 
 .volumeControl .progressBar {
