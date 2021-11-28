@@ -227,7 +227,7 @@ const VolumeControl = {
         isActive: !attrs.isMuted,
         onChange: attrs.setVolume,
         value: attrs.volume ?? 1,
-        width: "50px",
+        width: "55px",
       }),
     ]);
   },
