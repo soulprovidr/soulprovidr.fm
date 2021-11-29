@@ -9,3 +9,4 @@ Internet radio for those who like to groove.
 - Update Media Session API
 - Visualizer
 - Dark mode
+- Chromecast
