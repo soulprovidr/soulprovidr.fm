@@ -243,14 +243,15 @@ const Controls = {
         },
         status: attrs.status,
       }),
-      m("div", [
-        m(VolumeControl, {
-          isMuted: attrs.isMuted,
-          mute: attrs.mute,
-          setVolume: attrs.setVolume,
-          volume: attrs.volume,
-        }),
-      ])
+      !isMobile.any &&
+        m("div", [
+          m(VolumeControl, {
+            isMuted: attrs.isMuted,
+            mute: attrs.mute,
+            setVolume: attrs.setVolume,
+            volume: attrs.volume,
+          }),
+        ])
     );
   },
 };
