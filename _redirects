@@ -1,0 +1,4 @@
+# Netlify redirects configuration.
+# Read more: https://docs.netlify.com/routing/redirects/#syntax-for-the-redirects-file
+
+https://soulprovider.fm/* https://soulprovidr.fm/:splat 301!
