@@ -1,6 +1,7 @@
 import { isEmpty, msToTime, noop } from "./helpers";
 import { Marquee } from "./marquee";
 import { Radio } from "./radio";
+import logoUrl from "./logo.svg";
 
 const MarqueeText = ({ attrs: { className = "marquee" }, children }) => {
   let cleanup = null;
@@ -18,7 +19,7 @@ const Header = {
     return m.trust(`
       <header>
           <div class="title">
-            <img alt="Soul Provider logo" class="logo" src="/src/logo.svg" />
+            <img alt="Soul Provider logo" class="logo" src="${logoUrl}" />
             <h1>SOUL PROVIDER</h1>
           </div>
           <ul>
