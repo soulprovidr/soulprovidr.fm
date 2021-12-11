@@ -1,0 +1,11 @@
+[build]
+
+command = "npm run build"
+publish = "dist/"
+
+# Redirect from soulprovider.fm to soulprovidr.fm.
+[[redirects]]
+from = "https://soulprovider.fm/*"
+to = "https://soulprovidr.fm/:splat"
+status = 301
+force = true
