@@ -1,7 +1,6 @@
 function generateIdentifier() {
   return Math.random().toString(36).substring(7);
 }
-
 /**
  * Spotify-like marquee library.
  * If the provided node has hidden overflow content, scroll the hidden content into view.
@@ -15,22 +14,18 @@ export function Marquee($node, params) {
   if (!$node || $node.children.length !== 1) {
     throw new Error("[Marquee] Invalid element.");
   }
-
   // Plugin parameters.
   const {
     duration = 20,
     gradientColor = "white",
     gradientWidth = 30,
   } = params || {};
-
   const _$childNode = $node.children[0];
   let _keyframesName = null;
   let _nodeClassName = null;
   let _stylesheet = null;
-
   const containerWidth = $node.clientWidth;
   const childScrollWidth = _$childNode.scrollWidth;
-
   /**
    * Add styles to container + child. Insert marquee keyframes into the document.
    * @param {Number} scrollDistance Distance the marquee effect should scroll the container's child.
@@ -69,13 +64,11 @@ export function Marquee($node, params) {
     $node.classList.add(_nodeClassName);
     _$childNode.style.animation = `${_keyframesName} ${duration}s linear 3s infinite alternate`;
   }
-
   function cleanup() {
     $node.classList.remove(_nodeClassName);
     document.head.removeChild(_stylesheet);
     _stylesheet = null;
   }
-
   // If child content extends beyond container, we need to add marquee styles.
   if (childScrollWidth > containerWidth) {
     createAnimation(childScrollWidth - containerWidth);

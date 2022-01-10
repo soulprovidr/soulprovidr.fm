@@ -9,11 +9,12 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "typescript": "~4.5.3",
     "vite": "~2.7.1",
     "vite-plugin-solid": "~2.1.4"
   },
   "dependencies": {
+    "debounce": "~1.2.1",
+    "ismobilejs": "~1.1.1",
     "solid-js": "~1.2.6"
   }
 }

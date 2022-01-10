@@ -178,11 +178,10 @@ main {
   background: #cfcfcf;
   border-radius: 2px;
   height: 4px;
-  transition: background 100ms ease-in-out, width 50ms ease-in-out;
-  width: 0;
+  transition: background 100ms ease-in-out;
 }
 
-.progressBar__fill--active {
+.progressBar__fill.active {
   background: #007bff;
 }
 
@@ -252,6 +251,10 @@ main {
   align-items: center;
 }
 
+.volumeControl button {
+  justify-content: flex-start;
+}
+
 .volumeControl__icon {
   background: transparent;
   border: none;
@@ -259,6 +262,8 @@ main {
   display: flex;
   align-items: center;
   margin-right: 2px;
+  width: 32px;
+  height: 22px;
 }
 
 .volumeControl .progressBar {
