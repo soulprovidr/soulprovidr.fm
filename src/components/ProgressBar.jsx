@@ -1,12 +1,10 @@
-import debounce from "debounce";
-import { createEffect, createSignal, mergeProps } from "solid-js";
-import { noop } from "../lib/util";
+import { createSignal, mergeProps, Show } from "solid-js";
 
 export const ProgressBar = (props) => {
   const local = mergeProps(
     {
       isActive: false,
-      onChange: noop,
+      onChange: undefined,
       value: 1,
       width: "100%",
     },
@@ -61,6 +59,8 @@ export const ProgressBar = (props) => {
     return `${local.value * 100}%`;
   };
 
+  const isDraggable = () => typeof local.onChange !== "undefined";
+
   return (
     <div
       class="progressBar"
@@ -70,7 +70,11 @@ export const ProgressBar = (props) => {
     >
       <div
         class="progressBar__fill"
-        classList={{ active: local.isActive }}
+        classList={{
+          active: local.isActive,
+          draggable: isDraggable(),
+          dragging: isDraggable() && isMouseDown(),
+        }}
         style={{ width: fillWidth() }}
       />
     </div>

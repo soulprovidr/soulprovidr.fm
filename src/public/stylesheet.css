@@ -178,11 +178,24 @@ main {
   background: #cfcfcf;
   border-radius: 2px;
   height: 4px;
+  position: relative;
   transition: background 100ms ease-in-out;
 }
 
 .progressBar__fill.active {
   background: #007bff;
+}
+
+.progressBar:hover .progressBar__fill.draggable::after,
+.progressBar__fill.draggable.dragging::after {
+  background: #007bff;
+  border-radius: 50%;
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -2px;
+  width: 8px;
+  height: 8px;
 }
 
 /* RadioProgress */

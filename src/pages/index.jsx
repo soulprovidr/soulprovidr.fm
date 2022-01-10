@@ -52,37 +52,47 @@ const Metadata = (props) => (
 );
 
 const RadioProgress = (props) => {
-  const [progress, setProgress] = createSignal(0);
+  const local = mergeProps(
+    {
+      duration: 0,
+      status: "stopped",
+      startedAt: null,
+    },
+    props
+  );
 
-  const duration = () => (props.duration ? props.duration * 1000 : 0);
-  const elapsed = () =>
+  const getElapsed = () =>
     Math.max(
       Math.min(
         new Date().getTime() -
-          new Date(props.startedAt || "").getTime() -
+          new Date(local.startedAt || "").getTime() -
           10000,
         duration()
       ),
       0
     );
 
+  const [elapsed, setElapsed] = createSignal(0);
+  const [progress, setProgress] = createSignal(0);
+
+  const duration = () => (local.duration ? local.duration * 1000 : 0);
+
   createEffect(() => {
     const tick = () => {
-      setProgress(Math.min(1, elapsed() / duration()));
+      const newElapsed = getElapsed();
+      setElapsed(newElapsed);
+      setProgress(Math.min(1, newElapsed / duration()));
       requestAnimationFrame(tick);
     };
     tick();
   });
 
-  const durationLabel = () => msToTime(duration());
-  const elapsedLabel = () => msToTime(elapsed());
-
   return (
     <div class="radioProgress">
-      <ProgressBar isActive={props.status === "playing"} value={progress()} />
+      <ProgressBar isActive={local.status === "playing"} value={progress()} />
       <div class="radioProgress__time">
-        <span>{elapsedLabel()}</span>
-        <span>{durationLabel()}</span>
+        <span>{msToTime(elapsed())}</span>
+        <span>{msToTime(duration())}</span>
       </div>
     </div>
   );
