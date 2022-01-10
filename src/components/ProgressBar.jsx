@@ -1,4 +1,4 @@
-import { createSignal, mergeProps, Show } from "solid-js";
+import { createSignal, mergeProps } from "solid-js";
 
 export const ProgressBar = (props) => {
   const local = mergeProps(
@@ -52,17 +52,22 @@ export const ProgressBar = (props) => {
     }
   };
 
-  const fillWidth = () => {
+  const percentValue = () => {
     if (local.value > 1) {
-      return "100%";
+      return 100;
     }
-    return `${local.value * 100}%`;
+    return Math.round(local.value * 100);
   };
 
   const isDraggable = () => typeof local.onChange !== "undefined";
+  const ariaRole = () => (isDraggable() ? "slider" : "progressbar");
 
   return (
     <div
+      aria-role={ariaRole()}
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow={percentValue()}
       class="progressBar"
       onMouseDown={handleMouseDown}
       ref={container}
@@ -75,7 +80,7 @@ export const ProgressBar = (props) => {
           draggable: isDraggable(),
           dragging: isDraggable() && isMouseDown(),
         }}
-        style={{ width: fillWidth() }}
+        style={{ width: `${percentValue()}%` }}
       />
     </div>
   );
