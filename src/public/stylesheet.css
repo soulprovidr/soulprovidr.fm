@@ -186,12 +186,12 @@ main {
 }
 
 .progressBar__fill.active {
-  background: #007bff;
+  background: #0071eb;
 }
 
 .progressBar:hover .progressBar__fill.draggable::after,
 .progressBar__fill.draggable.dragging::after {
-  background: #007bff;
+  background: #0071eb;
   border-radius: 50%;
   content: "";
   position: absolute;
@@ -208,7 +208,7 @@ main {
 }
 
 .radioProgress__time {
-  color: #5a5a5a;
+  color: #585858;
   display: flex;
   font-size: 12px;
   justify-content: space-between;
@@ -232,7 +232,7 @@ main {
 /* ListenButton */
 
 .listenButton {
-  background: #007bff;
+  background: #0071eb;
   border: none;
   border-radius: 4px;
   color: white;
