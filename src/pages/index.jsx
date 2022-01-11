@@ -58,14 +58,13 @@ const Metadata = (props) => (
 );
 
 const RadioProgress = (props) => {
-  const local = mergeProps(
-    {
-      duration: 0,
-      status: "stopped",
-      startedAt: null,
-    },
-    props
-  );
+  const defaultProps = {
+    duration: 0,
+    status: "stopped",
+    startedAt: null,
+  };
+
+  const local = mergeProps(defaultProps, props);
 
   const [elapsed, setElapsed] = createSignal(0);
   const [progress, setProgress] = createSignal(0);
@@ -103,14 +102,13 @@ const RadioProgress = (props) => {
 };
 
 const ListenButton = (props) => {
-  const local = mergeProps(
-    {
-      listen: noop,
-      status: "stopped",
-      stop: noop,
-    },
-    props
-  );
+  const defaultProps = {
+    listen: noop,
+    status: "stopped",
+    stop: noop,
+  };
+
+  const local = mergeProps(defaultProps, props);
 
   const children = createMemo(() => {
     switch (local.status) {
@@ -143,7 +141,7 @@ const ListenButton = (props) => {
 
   return (
     <button
-      aria-label={local.status === "stopped" ? "Listen" : "Stop"}
+      aria-label={local.status === "stopped" ? "listen" : "stop"}
       class="listenButton"
       disabled={local.disabled}
       onclick={onclick}
@@ -153,15 +151,14 @@ const ListenButton = (props) => {
 };
 
 const VolumeControl = (props) => {
-  const local = mergeProps(
-    {
-      isMuted: false,
-      mute: noop,
-      setVolume: noop,
-      value: 1,
-    },
-    props
-  );
+  const defaultProps = {
+    isMuted: false,
+    mute: noop,
+    setVolume: noop,
+    value: 1,
+  };
+
+  const local = mergeProps(defaultProps, props);
 
   const handleIconClick = () => {
     if (local.value === 0) {
@@ -196,11 +193,13 @@ const VolumeControl = (props) => {
   return (
     <div class="volumeControl">
       <button
+        aria-label={local.isMuted || local.value === 0 ? "unmute" : "mute"}
         class="volumeControl__icon"
         onclick={handleIconClick}
         innerHTML={icon()}
       />
       <ProgressBar
+        aria-label="volume"
         isActive={!local.isMuted}
         onChange={local.setVolume}
         value={local.value}
@@ -211,18 +210,18 @@ const VolumeControl = (props) => {
 };
 
 const Controls = (props) => {
-  const local = mergeProps(
-    {
-      isMuted: false,
-      listen: noop,
-      mute: noop,
-      setVolume: noop,
-      status: "stopped",
-      stop: noop,
-      volume: 1,
-    },
-    props
-  );
+  const defaultProps = {
+    isMuted: false,
+    listen: noop,
+    mute: noop,
+    setVolume: noop,
+    status: "stopped",
+    stop: noop,
+    volume: 1,
+  };
+
+  const local = mergeProps(defaultProps, props);
+
   return (
     <div class="controls">
       <ListenButton

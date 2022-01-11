@@ -1,15 +1,17 @@
-import { createSignal, mergeProps } from "solid-js";
+import { createSignal, mergeProps, splitProps } from "solid-js";
 
 export const ProgressBar = (props) => {
-  const local = mergeProps(
-    {
-      isActive: false,
-      onChange: undefined,
-      value: 1,
-      width: "100%",
-    },
-    props
+  const defaultProps = {
+    isActive: false,
+    onChange: undefined,
+    value: 1,
+    width: "100%",
+  };
+  const [local, others] = splitProps(
+    mergeProps(defaultProps, props),
+    Object.keys(defaultProps)
   );
+
   let container = undefined;
 
   const [isMouseDown, setIsMouseDown] = createSignal(false);
@@ -77,6 +79,7 @@ export const ProgressBar = (props) => {
       ref={container}
       style={{ width: local.width }}
       {...roleProps()}
+      {...others}
     >
       <div
         class="progressBar__fill"
