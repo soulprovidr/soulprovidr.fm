@@ -6,7 +6,6 @@ Internet radio for those who like to groove.
 
 ### TODO:
 
-- Update Media Session API
 - Visualizer
 - Dark mode
 - Chromecast

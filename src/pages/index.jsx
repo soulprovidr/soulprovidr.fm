@@ -3,6 +3,7 @@ import {
   createEffect,
   createMemo,
   createSignal,
+  createRenderEffect,
   createResource,
   onMount,
   mergeProps,
@@ -12,6 +13,11 @@ import { Show } from "solid-js/web";
 import { LazyImage } from "../components/LazyImage";
 import { MarqueeText } from "../components/MarqueeText";
 import { ProgressBar } from "../components/ProgressBar";
+import {
+  setActionHandler,
+  setMetadata,
+  setPlaybackState,
+} from "../lib/mediaSession";
 import { msToTime, noop } from "../lib/util";
 import logoUrl from "../public/logo.svg";
 
@@ -61,25 +67,23 @@ const RadioProgress = (props) => {
     props
   );
 
-  const getElapsed = () =>
-    Math.max(
-      Math.min(
-        new Date().getTime() -
-          new Date(local.startedAt || "").getTime() -
-          10000,
-        duration()
-      ),
-      0
-    );
-
   const [elapsed, setElapsed] = createSignal(0);
   const [progress, setProgress] = createSignal(0);
 
   const duration = () => (local.duration ? local.duration * 1000 : 0);
 
-  createEffect(() => {
+  // Update progress value.
+  createRenderEffect(() => {
     const tick = () => {
-      const newElapsed = getElapsed();
+      const newElapsed = Math.max(
+        Math.min(
+          new Date().getTime() -
+            new Date(local.startedAt || "").getTime() -
+            10000,
+          duration()
+        ),
+        0
+      );
       setElapsed(newElapsed);
       setProgress(Math.min(1, newElapsed / duration()));
       requestAnimationFrame(tick);
@@ -237,6 +241,36 @@ const Controls = (props) => {
   );
 };
 
+const MediaSession = (props) => {
+  onMount(() => {
+    setActionHandler("play", props.listen);
+    setActionHandler("pause", props.stop);
+    setActionHandler("stop", props.stop);
+  });
+
+  createEffect(() => {
+    setMetadata({
+      artist: props.metadata?.artist,
+      artwork: props.metadata?.cover,
+      title: props.metadata?.title,
+    });
+  });
+
+  createEffect(() => {
+    let playbackState;
+    switch (props.status) {
+      case "buffering":
+      case "playing":
+        playbackState = "playing";
+        break;
+      case "stopped":
+        playbackState = "paused";
+        break;
+    }
+    setPlaybackState(playbackState);
+  });
+};
+
 export default () => {
   let audio = undefined;
 
@@ -256,24 +290,6 @@ export default () => {
     isMuted: false,
     status: "stopped",
     volume: 1,
-  });
-
-  onMount(() => {
-    // Refetch metadata when user focuses the page.
-    window.addEventListener("focus", refetch);
-    // Stop audio when network disconnects.
-    window.addEventListener("offline", stop);
-  });
-
-  // Refresh the metadata in time for the next track.
-  createEffect(() => {
-    const nextTrack = metadata()?.next_track || null;
-    if (nextTrack) {
-      setTimeout(
-        refetch,
-        new Date(nextTrack).getTime() - new Date().getTime() + 10000
-      );
-    }
   });
 
   const handleAudioError = () => setState({ status: "stopped" });
@@ -308,6 +324,22 @@ export default () => {
     }
   };
 
+  onMount(() => {
+    window.addEventListener("focus", refetch);
+    window.addEventListener("offline", stop);
+  });
+
+  // Refresh the metadata in time for the next track.
+  createEffect(() => {
+    const nextTrack = metadata()?.next_track || null;
+    if (nextTrack) {
+      setTimeout(
+        refetch,
+        new Date(nextTrack).getTime() - new Date().getTime() + 10000
+      );
+    }
+  });
+
   return (
     <Show when={metadata()}>
       <Header />
@@ -325,6 +357,12 @@ export default () => {
         status={state.status}
         stop={stop}
         volume={state.volume}
+      />
+      <MediaSession
+        listen={listen}
+        metadata={metadata}
+        status={state.status}
+        stop={stop}
       />
       <audio
         preload="none"
