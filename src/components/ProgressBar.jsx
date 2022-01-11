@@ -63,7 +63,7 @@ export const ProgressBar = (props) => {
   const roleProps = () =>
     isDraggable()
       ? {
-          role: "range",
+          role: "slider",
           "aria-valuemin": 0,
           "aria-valuemax": 100,
           "aria-valuenow": Math.round(percentValue()),
