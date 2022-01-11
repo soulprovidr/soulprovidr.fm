@@ -200,7 +200,7 @@ const VolumeControl = (props) => {
         isActive={!local.isMuted}
         onChange={local.setVolume}
         value={local.value}
-        width="55px"
+        width="60px"
       />
     </div>
   );
