@@ -56,22 +56,27 @@ export const ProgressBar = (props) => {
     if (local.value > 1) {
       return 100;
     }
-    return Math.round(local.value * 100);
+    return local.value * 100;
   };
 
   const isDraggable = () => typeof local.onChange !== "undefined";
-  const ariaRole = () => (isDraggable() ? "slider" : "progressbar");
+  const roleProps = () =>
+    isDraggable()
+      ? {
+          role: "range",
+          "aria-valuemin": 0,
+          "aria-valuemax": 100,
+          "aria-valuenow": Math.round(percentValue()),
+        }
+      : {};
 
   return (
     <div
-      aria-role={ariaRole()}
-      aria-valuemin="0"
-      aria-valuemax="100"
-      aria-valuenow={percentValue()}
       class="progressBar"
       onMouseDown={handleMouseDown}
       ref={container}
       style={{ width: local.width }}
+      {...roleProps()}
     >
       <div
         class="progressBar__fill"
