@@ -105,9 +105,9 @@ const RadioProgress = (props) => {
 const ListenButton = (props) => {
   const local = mergeProps(
     {
-      disabled: false,
-      onclick: noop,
+      listen: noop,
       status: "stopped",
+      stop: noop,
     },
     props
   );
@@ -138,11 +138,15 @@ const ListenButton = (props) => {
     }
   });
 
+  const onclick = () =>
+    local.status === "stopped" ? local.listen() : local.stop();
+
   return (
     <button
+      aria-label={local.status === "stopped" ? "Listen" : "Stop"}
       class="listenButton"
       disabled={local.disabled}
-      onclick={local.onclick}
+      onclick={onclick}
       innerHTML={children()}
     />
   );
@@ -222,10 +226,9 @@ const Controls = (props) => {
   return (
     <div class="controls">
       <ListenButton
-        onclick={() =>
-          local.status === "stopped" ? local.listen() : local.stop()
-        }
+        listen={local.listen}
         status={local.status}
+        stop={local.stop}
       />
       <div>
         {!isMobile(window.navigator).any && (
