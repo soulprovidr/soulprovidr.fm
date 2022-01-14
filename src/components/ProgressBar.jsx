@@ -7,6 +7,7 @@ export const ProgressBar = (props) => {
     value: 1,
     width: "100%",
   };
+
   const [local, others] = splitProps(
     mergeProps(defaultProps, props),
     Object.keys(defaultProps)

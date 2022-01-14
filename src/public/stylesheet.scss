@@ -1,3 +1,5 @@
+$max-width: 414px;
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -17,13 +19,13 @@
 }
 
 :root {
-  --margin: 0;
-  --width: 414px;
+  --viewport-margin: 0;
+  --width: $max-width;
 }
 
-@media (max-width: 414px) {
+@media (max-width: $max-width) {
   :root {
-    --margin: 16px;
+    --viewport-margin: 16px;
     --width: 100%;
   }
 }
@@ -72,7 +74,7 @@ header {
   font-family: "HK Grotesk", sans-serif;
   align-items: center;
   justify-content: space-between;
-  margin: 0 var(--margin);
+  margin: 0 var(--viewport-margin);
   padding: 0 0 24px;
 }
 
@@ -134,12 +136,19 @@ main {
   width: 100%;
 }
 
+@media (max-width: $max-width) {
+  .metadata__cover {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
 .metadata__cover.visible {
   opacity: 1;
 }
 
 .metadata__text {
-  margin: 18px var(--margin) 0;
+  margin: 18px var(--viewport-margin) 0;
 }
 
 .metadata__title {
@@ -204,7 +213,7 @@ main {
 /* RadioProgress */
 
 .radioProgress {
-  margin: 18px var(--margin);
+  margin: 18px var(--viewport-margin);
 }
 
 .radioProgress__time {
@@ -221,7 +230,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 var(--margin);
+  margin: 0 var(--viewport-margin);
 }
 
 .controls svg {
