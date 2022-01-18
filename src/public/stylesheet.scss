@@ -58,7 +58,6 @@ body {
   flex-direction: column;
   justify-content: center;
   margin: 0;
-  max-height: 684px;
   padding: 24px 0;
   width: var(--width);
 }
@@ -131,9 +130,32 @@ main {
   border-radius: 4px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-  opacity: 0;
-  transition: opacity 150ms ease-in-out;
-  width: 100%;
+  position: relative;
+  overflow: hidden;
+  width: var(--width);
+
+  img {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transition: opacity 150ms ease-in-out, transform 250ms ease-in-out;
+    height: 100%;
+    width: 100%;
+
+    &.initial {
+      transform: translateX(100%);
+    }
+    &.active {
+      transform: translateX(0);
+    }
+    &.exited {
+      transform: translateX(-100%);
+    }
+
+    &.isVisible {
+      opacity: 1;
+    }
+  }
 }
 
 @media (max-width: $max-width) {
@@ -141,10 +163,6 @@ main {
     border-radius: 0;
     box-shadow: none;
   }
-}
-
-.metadata__cover.visible {
-  opacity: 1;
 }
 
 .metadata__text {

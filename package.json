@@ -16,6 +16,6 @@
   "dependencies": {
     "debounce": "~1.2.1",
     "ismobilejs": "~1.1.1",
-    "solid-js": "~1.2.6"
+    "solid-js": "~1.3.3"
   }
 }

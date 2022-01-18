@@ -7,6 +7,8 @@ import {
   createResource,
   onMount,
   mergeProps,
+  on,
+  For,
 } from "solid-js";
 import { createStore } from "solid-js/store";
 import { Show } from "solid-js/web";
@@ -36,26 +38,98 @@ const Header = () => (
   </header>
 );
 
-const Metadata = (props) => (
-  <>
-    <LazyImage
-      alt={
-        props.metadata
-          ? `Artwork for ${props.metadata.title} by ${props.metadata.artist}`
-          : ""
-      }
-      src={props.metadata?.cover || ""}
+const CoverImage = (props) => {
+  let container = null;
+
+  const states = {
+    initial: "initial",
+    active: "active",
+    exited: "exited",
+  };
+
+  const [activeCover, setActiveCover] = createSignal(props.metadata.cover);
+  const [metadataItems, setMetadataItems] = createSignal([
+    { ...props.metadata },
+  ]);
+
+  // Remove previous cover image.
+  createEffect((prev) => {
+    if (prev && prev !== props.metadata.cover) {
+      setMetadataItems([...metadataItems(), { ...props.metadata }]);
+      setTimeout(() => setMetadataItems([metadataItems()[1]]), 1000);
+    }
+    return props.metadata.cover;
+  });
+
+  return (
+    <div
       class="metadata__cover"
-      height={document.body.clientWidth}
-    />
-    <div class="metadata__text">
-      <MarqueeText class="metadata__title">{props.metadata?.title}</MarqueeText>
-      <MarqueeText class="metadata__artist">
-        {props.metadata?.artist}
-      </MarqueeText>
+      ref={container}
+      style={{ height: `${props.height}px` }}
+    >
+      <For each={metadataItems()}>
+        {(item) => {
+          const isActive = () => activeCover() === item.cover;
+          const [isLoaded, setIsLoaded] = createSignal(false);
+
+          // First image starts 'active'.
+          const [className, setClassName] = createSignal(
+            isActive() ? states.active : states.initial
+          );
+
+          const handleImageLoad = () => setIsLoaded(true);
+
+          // Set new image as active image, once it loads.
+          createEffect(
+            on(isLoaded, () => setActiveCover(item.cover), { defer: true })
+          );
+
+          // Transition currently active image out; transition new image in.
+          createEffect(
+            on(
+              isActive,
+              (v) => {
+                setClassName(v ? states.active : states.exited);
+              },
+              { defer: true }
+            )
+          );
+
+          return (
+            <img
+              alt={`Artwork for ${item.title} by ${item.artist}`}
+              classList={{
+                [className()]: true,
+                isVisible: isLoaded(),
+              }}
+              onload={handleImageLoad}
+              src={item.cover}
+            />
+          );
+        }}
+      </For>
     </div>
-  </>
-);
+  );
+};
+
+const Metadata = (props) => {
+  return (
+    <>
+      <CoverImage
+        height={document.body.clientWidth}
+        metadata={props.metadata}
+      />
+      <div class="metadata__text">
+        <MarqueeText class="metadata__title">
+          {props.metadata?.title}
+        </MarqueeText>
+        <MarqueeText class="metadata__artist">
+          {props.metadata?.artist}
+        </MarqueeText>
+      </div>
+    </>
+  );
+};
 
 const RadioProgress = (props) => {
   const defaultProps = {
@@ -276,13 +350,25 @@ const MediaSession = (props) => {
 export default () => {
   let audio = undefined;
 
-  const [metadata, { refetch }] = createResource(
+  const [metadata, { refetch: refetchMetadata }] = createResource(
     async () =>
       (
         await fetch(
           "https://api.radioking.io/widget/radio/soulprovidr/track/current"
         )
       ).json(),
+    {
+      initialValue: null,
+    }
+  );
+
+  const [nextMetadata, { refetch: refetchNextMetadata }] = createResource(
+    async () =>
+      (
+        await fetch(
+          "https://api.radioking.io/widget/radio/soulprovidr/track/next?limit=1"
+        )
+      ).json()[0],
     {
       initialValue: null,
     }
@@ -311,6 +397,11 @@ export default () => {
       setState({ isMuted: !audio.muted });
       audio.muted = !audio.muted;
     }
+  };
+
+  const refetch = () => {
+    refetchMetadata();
+    refetchNextMetadata();
   };
 
   const setVolume = (volume) => {
@@ -345,7 +436,7 @@ export default () => {
   return (
     <Show when={metadata()}>
       <Header />
-      <Metadata metadata={metadata()} />
+      <Metadata metadata={metadata()} nextMetadata={nextMetadata()} />
       <RadioProgress
         duration={metadata().duration}
         startedAt={metadata().started_at}
