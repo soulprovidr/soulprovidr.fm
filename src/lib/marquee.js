@@ -36,17 +36,6 @@ export function Marquee($node, params) {
     _nodeClassName = generateIdentifier();
     _stylesheet = document.createElement("style");
     _stylesheet.textContent = `
-        .${_nodeClassName} {
-          position: relative;
-        }
-        .${_nodeClassName}::after {
-          position: absolute;
-          top: 0; right: 0; bottom: 0;
-          width: ${gradientWidth}px;
-          transition: background 200ms ease-in-out;
-          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, ${gradientColor} 20%, ${gradientColor} 100%);
-          content: ' ';
-        }
         @keyframes ${_keyframesName} {
           10% {
             transform: translateX(0);
@@ -59,10 +48,23 @@ export function Marquee($node, params) {
             transform: translateX(0);
           }
         }
+        .${_nodeClassName} {
+          position: relative;
+        }
+        .${_nodeClassName}::after {
+          position: absolute;
+          top: 0; right: 0; bottom: 0;
+          width: ${gradientWidth}px;
+          transition: background 200ms ease-in-out;
+          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, ${gradientColor} 20%, ${gradientColor} 100%);
+          content: ' ';
+        }
+        .${_nodeClassName} > * {
+          animation: ${_keyframesName} ${duration}s linear 3s infinite alternate;
+        }
       `;
     document.head.appendChild(_stylesheet);
     $node.classList.add(_nodeClassName);
-    _$childNode.style.animation = `${_keyframesName} ${duration}s linear 3s infinite alternate`;
   }
   function cleanup() {
     $node.classList.remove(_nodeClassName);
