@@ -1,39 +1,28 @@
-import { createEffect, createSignal, mergeProps } from "solid-js";
+import { createSignal, mergeProps, splitProps } from "solid-js";
 import { noop } from "../lib/util";
 
+const defaultProps = {
+  onload: noop,
+};
+
 export const LazyImage = (props) => {
-  const defaultProps = {
-    alt: "",
-    class: undefined,
-    height: 0,
-    onload: noop,
-    ref: null,
-    src: null,
-  };
-  const local = mergeProps(defaultProps, props);
+  const [local, others] = splitProps(mergeProps(defaultProps, props), [
+    "onload",
+  ]);
 
   const [isLoaded, setIsLoaded] = createSignal(false);
 
-  createEffect(() => {
-    if (local.src) {
-      const img = new Image();
-      img.onload = () => {
-        setIsLoaded(true);
-        local.onload();
-      };
-      img.src = local.src;
-    }
-  });
-
   return (
     <img
-      alt={local.alt}
-      class={local.class}
       classList={{
-        visible: isLoaded(),
+        lazyImage: true,
+        isVisible: isLoaded(),
       }}
-      ref={local.ref}
-      src={local.src}
+      onload={() => {
+        setIsLoaded(true);
+        local.onload();
+      }}
+      {...others}
     />
   );
 };

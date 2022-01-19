@@ -39,72 +39,48 @@ const Header = () => (
 );
 
 const CoverImage = (props) => {
-  let container = null;
-
-  const states = {
-    initial: "initial",
-    active: "active",
-    exited: "exited",
-  };
-
   const [activeCover, setActiveCover] = createSignal(props.metadata.cover);
-  const [metadataItems, setMetadataItems] = createSignal([
-    { ...props.metadata },
-  ]);
+  const [metadata, setMetadata] = createSignal([props.metadata]);
 
   // Remove previous cover image.
   createEffect((prev) => {
     if (prev && prev !== props.metadata.cover) {
-      setMetadataItems([...metadataItems(), { ...props.metadata }]);
-      setTimeout(() => setMetadataItems([metadataItems()[1]]), 1000);
+      setMetadata([...metadata(), props.metadata]);
+      setTimeout(() => setMetadata([metadata()[1]]), 1000);
     }
     return props.metadata.cover;
   });
 
   return (
-    <div
-      class="metadata__cover"
-      ref={container}
-      style={{ height: `${props.height}px` }}
-    >
-      <For each={metadataItems()}>
-        {(item) => {
-          const isActive = () => activeCover() === item.cover;
-          const [isLoaded, setIsLoaded] = createSignal(false);
-
-          // First image starts 'active'.
-          const [className, setClassName] = createSignal(
-            isActive() ? states.active : states.initial
-          );
-
-          const handleImageLoad = () => setIsLoaded(true);
-
-          // Set new image as active image, once it loads.
-          createEffect(
-            on(isLoaded, () => setActiveCover(item.cover), { defer: true })
-          );
-
-          // Transition currently active image out; transition new image in.
+    <div class="metadata__cover" style={{ height: `${props.height}px` }}>
+      <For each={metadata()}>
+        {(m) => {
+          const isActive = () => activeCover() === m.cover;
+          const [isComplete, setIsComplete] = createSignal(false);
           createEffect(
             on(
               isActive,
               (v) => {
-                setClassName(v ? states.active : states.exited);
+                if (!v) {
+                  setIsComplete(true);
+                }
               },
               { defer: true }
             )
           );
-
           return (
-            <img
-              alt={`Artwork for ${item.title} by ${item.artist}`}
+            <div
               classList={{
-                [className()]: true,
-                isVisible: isLoaded(),
+                isActive: isActive(),
+                isComplete: isComplete(),
               }}
-              onload={handleImageLoad}
-              src={item.cover}
-            />
+            >
+              <LazyImage
+                alt={`Artwork for ${m.title} by ${m.artist}`}
+                onload={() => setActiveCover(m.cover)}
+                src={m.cover}
+              />
+            </div>
           );
         }}
       </For>
@@ -350,25 +326,13 @@ const MediaSession = (props) => {
 export default () => {
   let audio = undefined;
 
-  const [metadata, { refetch: refetchMetadata }] = createResource(
+  const [metadata, { refetch }] = createResource(
     async () =>
       (
         await fetch(
           "https://api.radioking.io/widget/radio/soulprovidr/track/current"
         )
       ).json(),
-    {
-      initialValue: null,
-    }
-  );
-
-  const [nextMetadata, { refetch: refetchNextMetadata }] = createResource(
-    async () =>
-      (
-        await fetch(
-          "https://api.radioking.io/widget/radio/soulprovidr/track/next?limit=1"
-        )
-      ).json()[0],
     {
       initialValue: null,
     }
@@ -397,11 +361,6 @@ export default () => {
       setState({ isMuted: !audio.muted });
       audio.muted = !audio.muted;
     }
-  };
-
-  const refetch = () => {
-    refetchMetadata();
-    refetchNextMetadata();
   };
 
   const setVolume = (volume) => {
@@ -436,7 +395,7 @@ export default () => {
   return (
     <Show when={metadata()}>
       <Header />
-      <Metadata metadata={metadata()} nextMetadata={nextMetadata()} />
+      <Metadata metadata={metadata()} />
       <RadioProgress
         duration={metadata().duration}
         startedAt={metadata().started_at}
