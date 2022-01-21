@@ -216,19 +216,19 @@ img.lazyImage {
   height: 4px;
   position: relative;
   transition: background 100ms ease-in-out;
-}
-
-.progressBar__fill.active {
-  background: #0071eb;
   &:focus-visible {
     outline: none;
   }
 }
 
+.progressBar__fill.active {
+  background: #0071eb;
+}
+
 .progressBar:hover .progressBar__fill.draggable::after,
 .progressBar__fill.draggable.dragging::after,
 .progressBar__fill.draggable:focus-visible::after {
-  background: #0071eb;
+  background: inherit;
   border-radius: 50%;
   content: "";
   position: absolute;
