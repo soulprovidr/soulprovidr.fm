@@ -304,7 +304,9 @@ const MediaSession = (props) => {
   createEffect(() => {
     setMetadata({
       artist: props.metadata?.artist,
-      artwork: props.metadata?.cover,
+      artwork: [
+        { src: props.metadata?.cover, sizes: "400x400", type: "image/jpeg" },
+      ],
       title: props.metadata?.title,
     });
   });
@@ -429,7 +431,7 @@ export default () => {
         />
         <MediaSession
           listen={listen}
-          metadata={metadata}
+          metadata={metadata()}
           status={state.status}
           stop={stop}
         />
