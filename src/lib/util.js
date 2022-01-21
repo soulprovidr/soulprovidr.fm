@@ -14,3 +14,13 @@ export const msToTime = (ms) => {
 };
 
 export const noop = () => undefined;
+
+export const pick = (obj, keys = []) => {
+  let pickObj = {};
+  for (const [key, val] of Object.entries(obj)) {
+    if (keys.includes(key)) {
+      pickObj[key] = val;
+    }
+  }
+  return pickObj;
+};

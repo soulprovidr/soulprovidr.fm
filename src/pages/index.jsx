@@ -20,7 +20,7 @@ import {
   setMetadata,
   setPlaybackState,
 } from "../lib/mediaSession";
-import { msToTime, noop } from "../lib/util";
+import { msToTime, noop, pick } from "../lib/util";
 import logoUrl from "../public/logo.svg";
 
 const Header = () => (
@@ -324,6 +324,17 @@ const MediaSession = (props) => {
   });
 };
 
+const createLocalStore = (defaultState, persistKeys = []) => {
+  const [state, setState] = createStore(defaultState);
+  if (localStorage.radio) setState(JSON.parse(localStorage.radio));
+  createEffect(() => {
+    if (persistKeys.length) {
+      localStorage.radio = JSON.stringify(pick(state, persistKeys));
+    }
+  });
+  return [state, setState];
+};
+
 export default () => {
   let audio = undefined;
 
@@ -339,11 +350,14 @@ export default () => {
     }
   );
 
-  const [state, setState] = createStore({
-    isMuted: false,
-    status: "stopped",
-    volume: 1,
-  });
+  const [state, setState] = createLocalStore(
+    {
+      isMuted: false,
+      status: "stopped",
+      volume: 1,
+    },
+    ["volume"]
+  );
 
   const handleAudioError = () => setState({ status: "stopped" });
   const handleAudioPlaying = () => setState({ status: "playing" });
@@ -380,6 +394,7 @@ export default () => {
   onMount(() => {
     window.addEventListener("focus", refetch);
     window.addEventListener("offline", stop);
+    setVolume(state.volume);
   });
 
   // Refresh the metadata in time for the next track.
@@ -394,29 +409,31 @@ export default () => {
   });
 
   return (
-    <Show when={metadata()}>
-      <Header />
-      <Metadata metadata={metadata()} />
-      <RadioProgress
-        duration={metadata().duration}
-        startedAt={metadata().started_at}
-        status={state.status}
-      />
-      <Controls
-        isMuted={state.isMuted}
-        listen={listen}
-        mute={mute}
-        setVolume={setVolume}
-        status={state.status}
-        stop={stop}
-        volume={state.volume}
-      />
-      <MediaSession
-        listen={listen}
-        metadata={metadata}
-        status={state.status}
-        stop={stop}
-      />
+    <>
+      <Show when={metadata()}>
+        <Header />
+        <Metadata metadata={metadata()} />
+        <RadioProgress
+          duration={metadata().duration}
+          startedAt={metadata().started_at}
+          status={state.status}
+        />
+        <Controls
+          isMuted={state.isMuted}
+          listen={listen}
+          mute={mute}
+          setVolume={setVolume}
+          status={state.status}
+          stop={stop}
+          volume={state.volume}
+        />
+        <MediaSession
+          listen={listen}
+          metadata={metadata}
+          status={state.status}
+          stop={stop}
+        />
+      </Show>
       <audio
         preload="none"
         ref={audio}
@@ -426,6 +443,6 @@ export default () => {
         onWaiting={handleAudioWaiting}
         src="https://www.radioking.com/play/soulprovidr"
       />
-    </Show>
+    </>
   );
 };
