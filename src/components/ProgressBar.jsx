@@ -1,4 +1,7 @@
 import { createSignal, mergeProps, splitProps } from "solid-js";
+import { noop } from "../lib/util";
+
+const INCREMENT_AMOUNT = 0.05;
 
 export const ProgressBar = (props) => {
   const defaultProps = {
@@ -29,6 +32,27 @@ export const ProgressBar = (props) => {
       newValue = 0;
     }
     local.onChange(newValue);
+  };
+
+  const handleKeyDown = (e) => {
+    switch (e.key) {
+      case "ArrowUp":
+      case "ArrowRight":
+        local.onChange(
+          local.value + INCREMENT_AMOUNT < 1
+            ? local.value + INCREMENT_AMOUNT
+            : 1
+        );
+        break;
+      case "ArrowDown":
+      case "ArrowLeft":
+        local.onChange(
+          local.value - INCREMENT_AMOUNT > 0
+            ? local.value - INCREMENT_AMOUNT
+            : 0
+        );
+        break;
+    }
   };
 
   const handleMouseDown = (e) => {
@@ -70,6 +94,8 @@ export const ProgressBar = (props) => {
           "aria-valuemin": 0,
           "aria-valuemax": 100,
           "aria-valuenow": Math.round(percentValue()),
+          onkeydown: handleKeyDown,
+          tabindex: 0,
         }
       : {};
 
@@ -79,7 +105,6 @@ export const ProgressBar = (props) => {
       onMouseDown={handleMouseDown}
       ref={container}
       style={{ width: local.width }}
-      {...roleProps()}
       {...others}
     >
       <div
@@ -89,6 +114,7 @@ export const ProgressBar = (props) => {
           draggable: isDraggable(),
           dragging: isDraggable() && isMouseDown(),
         }}
+        {...roleProps()}
         style={{ width: `${percentValue()}%` }}
       />
     </div>

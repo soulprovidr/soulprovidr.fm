@@ -192,6 +192,7 @@ const ListenButton = (props) => {
   return (
     <button
       aria-label={local.status === "stopped" ? "listen" : "stop"}
+      autofocus
       class="listenButton"
       disabled={local.disabled}
       onclick={onclick}
