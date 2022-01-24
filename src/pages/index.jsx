@@ -10,17 +10,17 @@ import {
   on,
   For,
 } from "solid-js";
-import { createStore } from "solid-js/store";
 import { Show } from "solid-js/web";
 import { LazyImage } from "../components/LazyImage";
 import { MarqueeText } from "../components/MarqueeText";
 import { ProgressBar } from "../components/ProgressBar";
+import { createLocalStore } from "../lib/localStore";
 import {
   setActionHandler,
   setMetadata,
   setPlaybackState,
 } from "../lib/mediaSession";
-import { msToTime, noop, pick } from "../lib/util";
+import { msToTime, noop } from "../lib/util";
 import logoUrl from "../public/logo.svg";
 
 const Header = () => (
@@ -324,17 +324,6 @@ const MediaSession = (props) => {
     }
     setPlaybackState(playbackState);
   });
-};
-
-const createLocalStore = (defaultState, persistKeys = []) => {
-  const [state, setState] = createStore(defaultState);
-  if (localStorage.radio) setState(JSON.parse(localStorage.radio));
-  createEffect(() => {
-    if (persistKeys.length) {
-      localStorage.radio = JSON.stringify(pick(state, persistKeys));
-    }
-  });
-  return [state, setState];
 };
 
 export default () => {
