@@ -303,6 +303,7 @@ const MediaSession = (props) => {
 
   createEffect(() => {
     setMetadata({
+      album: "soulprovidr.fm",
       artist: props.metadata?.artist,
       artwork: [
         { src: props.metadata?.cover, sizes: "400x400", type: "image/jpeg" },
