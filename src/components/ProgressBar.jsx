@@ -5,6 +5,7 @@ const INCREMENT_AMOUNT = 0.05;
 
 export const ProgressBar = (props) => {
   const defaultProps = {
+    "aria-label": "",
     isActive: false,
     onChange: undefined,
     value: 1,
@@ -91,6 +92,7 @@ export const ProgressBar = (props) => {
     isDraggable()
       ? {
           role: "slider",
+          "aria-label": local["aria-label"],
           "aria-valuemin": 0,
           "aria-valuemax": 100,
           "aria-valuenow": Math.round(percentValue()),
