@@ -21,12 +21,11 @@ import {
   setPlaybackState,
 } from "../lib/mediaSession";
 import { msToTime, noop } from "../lib/util";
-import logoUrl from "../public/logo.svg";
 
 const Header = () => (
   <header>
     <div class="title">
-      <img alt="Soul Provider logo" class="logo" src={`${logoUrl}`} />
+      <img alt="Soul Provider logo" class="logo" src="/logo.svg" />
       <h1>SOUL PROVIDER</h1>
     </div>
     <ul>
