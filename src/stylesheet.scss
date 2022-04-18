@@ -308,8 +308,22 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
   body {
     padding: 50px 25px;
+  }
+
+  h2 {
+    font-size: 18px;
+    margin: 12px 0;
+  }
+
+  p {
+    line-height: 28px;
+    margin: 8px 0;
   }
 
   header {
