@@ -127,9 +127,11 @@ section {
 .metadata__status {
   display: flex;
   flex-direction: column;
+  flex-grow: 0;
   justify-content: center;
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 .metadata__title {
@@ -141,7 +143,7 @@ section {
 }
 
 .metadata__artist {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 400;
   margin: 4px 0 0;
 }
@@ -319,16 +321,25 @@ footer {
   }
 
   header .title {
-    font-size: 24px;
+    font-size: 22px;
   }
 
   header .description {
     font-size: 14px;
+    margin: 0;
   }
 
   .metadata__content {
     display: flex;
     flex-direction: column;
     align-items: center;
+  }
+
+  .metadata__title {
+    font-size: 24px;
+  }
+
+  .metadata__artist {
+    font-size: 18px;
   }
 }
