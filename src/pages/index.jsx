@@ -434,10 +434,9 @@ export default () => {
       <section>
         <h2>ABOUT</h2>
         <p>
-          Soul Provider is an online radio station based in Toronto, Canada.
-          <br />
-          Its mission is simple: to heal the world through the power of funk,
-          soul, and software.
+          Soul Provider is an online radio station based in Toronto, Canada. Its
+          mission is simple: to heal the world through the power of funk, soul,
+          and software.
         </p>
         <p>Tune in on the web, or get the Soul Provider app for iOS:</p>
         <div class="about__ios">
