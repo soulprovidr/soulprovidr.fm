@@ -24,16 +24,13 @@ import { msToTime, noop } from "../lib/util";
 
 const Header = () => (
   <header>
-    <div class="title">
-      <img alt="Soul Provider logo" class="logo" src="/logo.svg" />
-      <h1>SOUL PROVIDER</h1>
+    <img alt="Soul Provider logo" class="logo" src="/logo.svg" />
+    <div>
+      <div class="title">SOUL PROVIDER</div>
+      <div class="description">
+        Internet radio for those who like to groove.
+      </div>
     </div>
-    <ul>
-      <li>
-        <div class="live"></div>
-        LIVE
-      </li>
-    </ul>
   </header>
 );
 
@@ -87,26 +84,7 @@ const CoverImage = (props) => {
   );
 };
 
-const Metadata = (props) => {
-  return (
-    <>
-      <CoverImage
-        height={document.body.clientWidth}
-        metadata={props.metadata}
-      />
-      <div class="metadata__text">
-        <MarqueeText class="metadata__title">
-          {props.metadata?.title}
-        </MarqueeText>
-        <MarqueeText class="metadata__artist">
-          {props.metadata?.artist}
-        </MarqueeText>
-      </div>
-    </>
-  );
-};
-
-const RadioProgress = (props) => {
+const MetadataProgress = (props) => {
   const defaultProps = {
     duration: 0,
     status: "stopped",
@@ -140,9 +118,9 @@ const RadioProgress = (props) => {
   });
 
   return (
-    <div class="radioProgress">
+    <div class="metadata__progress">
       <ProgressBar isActive={local.status === "playing"} value={progress()} />
-      <div class="radioProgress__time">
+      <div class="metadata__time">
         <span>{msToTime(elapsed())}</span>
         <span>{msToTime(duration())}</span>
       </div>
@@ -259,7 +237,7 @@ const VolumeControl = (props) => {
   );
 };
 
-const Controls = (props) => {
+const MetadataControls = (props) => {
   const defaultProps = {
     isMuted: false,
     listen: noop,
@@ -273,7 +251,7 @@ const Controls = (props) => {
   const local = mergeProps(defaultProps, props);
 
   return (
-    <div class="controls">
+    <div class="metadata__controls">
       <ListenButton
         listen={local.listen}
         status={local.status}
@@ -290,6 +268,40 @@ const Controls = (props) => {
         )}
       </div>
     </div>
+  );
+};
+
+const Metadata = (props) => {
+  return (
+    <section class="metadata">
+      <div class="metadata__content">
+        <CoverImage height={300} metadata={props.metadata} />
+        <div class="metadata__status">
+          <div class="metadata__text">
+            <MarqueeText class="metadata__title">
+              {props.metadata?.title}
+            </MarqueeText>
+            <MarqueeText class="metadata__artist">
+              {props.metadata?.artist}
+            </MarqueeText>
+          </div>
+          <MetadataProgress
+            duration={props.metadata.duration}
+            startedAt={props.metadata.started_at}
+            status={props.status}
+          />
+          <MetadataControls
+            isMuted={props.isMuted}
+            listen={props.listen}
+            mute={props.mute}
+            setVolume={props.setVolume}
+            status={props.status}
+            stop={props.stop}
+            volume={props.volume}
+          />
+        </div>
+      </div>
+    </section>
   );
 };
 
@@ -398,19 +410,13 @@ export default () => {
       );
     }
   });
-
   return (
     <>
+      <Header />
       <Show when={metadata()}>
-        <Header />
-        <Metadata metadata={metadata()} />
-        <RadioProgress
-          duration={metadata().duration}
-          startedAt={metadata().started_at}
-          status={state.status}
-        />
-        <Controls
+        <Metadata
           isMuted={state.isMuted}
+          metadata={metadata()}
           listen={listen}
           mute={mute}
           setVolume={setVolume}
@@ -425,6 +431,147 @@ export default () => {
           stop={stop}
         />
       </Show>
+      <section>
+        <h2>ABOUT</h2>
+        <p>
+          Soul Provider is an online radio station based in Toronto, Canada. Its
+          mission is simple: to heal the world through the power of funk, soul,
+          and software.
+        </p>
+        <p>Tune in on the web, or get the Soul Provider app for iOS:</p>
+        <div class="about__ios">
+          <a
+            href="https://apps.apple.com/ca/app/soul-provider/id1616086357"
+            target="_blank"
+            title="Get the Soul Provider app for iOS"
+          >
+            <img src="/app-store.svg" width="150" />
+          </a>
+        </div>
+      </section>
+      <section class="contact">
+        <h2>CONNECT</h2>
+        <ul>
+          <li>
+            <a
+              href="mailto:shola@soulprovidr.fm"
+              target="_blank"
+              title="Send Soul Provider an email"
+            >
+              Email{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                focusable="false"
+                color="rgb(0, 0, 0)"
+                style="user-select: none; width: 16px; height: 16px; display: inline-block; fill: rgb(0, 0, 0); flex-shrink: 0;"
+              >
+                <g color="rgb(0, 0, 0)" weight="bold">
+                  <line
+                    x1="64"
+                    y1="192"
+                    x2="192"
+                    y2="64"
+                    fill="none"
+                    stroke="rgb(0, 0, 0)"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="24"
+                  ></line>
+                  <polyline
+                    points="88 64 192 64 192 168"
+                    fill="none"
+                    stroke="rgb(0, 0, 0)"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="24"
+                  ></polyline>
+                </g>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/soulprovidr"
+              target="_blank"
+              title="Follow Soul Provider on GitHub"
+            >
+              GitHub{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                focusable="false"
+                color="rgb(0, 0, 0)"
+                style="user-select: none; width: 16px; height: 16px; display: inline-block; fill: rgb(0, 0, 0); flex-shrink: 0;"
+              >
+                <g color="rgb(0, 0, 0)" weight="bold">
+                  <line
+                    x1="64"
+                    y1="192"
+                    x2="192"
+                    y2="64"
+                    fill="none"
+                    stroke="rgb(0, 0, 0)"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="24"
+                  ></line>
+                  <polyline
+                    points="88 64 192 64 192 168"
+                    fill="none"
+                    stroke="rgb(0, 0, 0)"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="24"
+                  ></polyline>
+                </g>
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://soundcloud.com/soulprovidr"
+              target="_blank"
+              title="Follow Soul Provider on SoundCloud"
+            >
+              SoundCloud{" "}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                focusable="false"
+                color="rgb(0, 0, 0)"
+                style="user-select: none; width: 16px; height: 16px; display: inline-block; fill: rgb(0, 0, 0); flex-shrink: 0;"
+              >
+                <g color="rgb(0, 0, 0)" weight="bold">
+                  <line
+                    x1="64"
+                    y1="192"
+                    x2="192"
+                    y2="64"
+                    fill="none"
+                    stroke="rgb(0, 0, 0)"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="24"
+                  ></line>
+                  <polyline
+                    points="88 64 192 64 192 168"
+                    fill="none"
+                    stroke="rgb(0, 0, 0)"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="24"
+                  ></polyline>
+                </g>
+              </svg>
+            </a>
+          </li>
+        </ul>
+      </section>
+      <footer>
+        <p>Soul Provider, Inc.</p>
+        <p>Toronto</p>
+      </footer>
       <audio
         preload="none"
         ref={audio}
