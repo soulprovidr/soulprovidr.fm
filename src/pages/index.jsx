@@ -24,7 +24,7 @@ import { msToTime, noop } from "../lib/util";
 
 const Header = () => (
   <header>
-    <img alt="Soul Provider logo" class="logo" src="/logo.svg" />
+    <img alt="" class="logo" src="/logo.svg" width="72" height="72" />
     <div>
       <div class="title">SOUL PROVIDER</div>
       <div class="description">
@@ -48,7 +48,10 @@ const CoverImage = (props) => {
   });
 
   return (
-    <div class="metadata__cover" style={{ height: `${props.height}px` }}>
+    <div
+      class="metadata__cover"
+      style={{ height: `${props.size}px`, width: `${props.size}px` }}
+    >
       <For each={metadata()}>
         {(m) => {
           const isActive = () => activeCover() === m.cover;
@@ -73,8 +76,10 @@ const CoverImage = (props) => {
             >
               <LazyImage
                 alt={`Artwork for ${m.title} by ${m.artist}`}
+                height={props.size}
                 onload={() => setActiveCover(m.cover)}
                 src={m.cover}
+                width={props.size}
               />
             </div>
           );
@@ -275,7 +280,7 @@ const Metadata = (props) => {
   return (
     <section class="metadata">
       <div class="metadata__content">
-        <CoverImage height={300} metadata={props.metadata} />
+        <CoverImage size={300} metadata={props.metadata} />
         <div class="metadata__status">
           <div class="metadata__text">
             <MarqueeText class="metadata__title">
@@ -445,7 +450,11 @@ export default () => {
             target="_blank"
             title="Get the Soul Provider app for iOS"
           >
-            <img src="/app-store.svg" width="150" />
+            <img
+              alt="Download on the App Store"
+              src="/app-store.svg"
+              width="150"
+            />
           </a>
         </div>
       </section>
