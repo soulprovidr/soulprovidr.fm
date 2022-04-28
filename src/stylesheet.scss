@@ -83,6 +83,10 @@ section {
   margin-bottom: 60px;
 }
 
+#player {
+  height: 300px;
+}
+
 .metadata__content {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -342,6 +346,10 @@ footer {
   header .description {
     font-size: 14px;
     margin: 0;
+  }
+
+  #player {
+    height: 540px;
   }
 
   .metadata__content {
