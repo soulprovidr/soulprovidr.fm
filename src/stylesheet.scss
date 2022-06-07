@@ -1,11 +1,38 @@
 $max-width: 900px;
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes rotate {
   from {
     transform: rotate(0);
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(1.5%);
+  }
+  to {
+    transform: translateY(0);
   }
 }
 
@@ -54,8 +81,15 @@ header .title {
 }
 
 header .logo {
+  animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: backwards;
   border-radius: 50%;
   margin-right: 28px;
+  &:hover {
+    cursor: help;
+    transition: transform 150ms ease;
+    transform: scale(1.1);
+  }
 }
 
 header .description {
@@ -87,6 +121,8 @@ section {
 }
 
 .metadata__content {
+  animation: fadeIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: backwards;
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
   gap: 48px;
@@ -134,6 +170,8 @@ section {
 }
 
 .metadata__title {
+  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: backwards;
   font-size: 28px;
   font-weight: 600;
   margin: 0;
@@ -142,6 +180,8 @@ section {
 }
 
 .metadata__artist {
+  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: backwards;
   font-size: 22px;
   font-weight: 400;
   margin: 4px 0 0;
@@ -298,13 +338,57 @@ section {
 }
 
 footer {
-  color: #aaaaaa;
   display: flex;
   font-size: 14px;
   font-weight: 500;
+  align-items: center;
   justify-content: space-between;
   max-width: $max-width;
   width: 100%;
+}
+
+footer .links {
+  a {
+    color: inherit;
+    margin-right: 16px;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.socials {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+    &:first-of-type {
+      margin-left: 0;
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    transition: transform 150ms ease;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  a img {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -362,5 +446,18 @@ footer {
 
   .metadata__artist {
     font-size: 18px;
+  }
+
+  footer {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 20px;
+  }
+
+  footer .links {
+    span {
+      display: block;
+      margin-top: 12px;
+    }
   }
 }
