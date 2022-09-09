@@ -1,0 +1,12 @@
+import { Layout } from "../components/Layout";
+import RadioPlayer from "../components/RadioPlayer";
+
+export default ({ children }) => (
+  <Layout
+    title="Home"
+    description="Internet radio for those who like to groove."
+  >
+    {children}
+    <RadioPlayer />
+  </Layout>
+);
