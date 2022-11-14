@@ -9,4 +9,17 @@
 .main {
   margin-bottom: 48px;
   width: 100%;
+
+  h1,
+  > div {
+    margin: 36px 0;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+  }
+
+  p {
+    margin: 0 0 22px;
+  }
 }

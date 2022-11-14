@@ -11,18 +11,15 @@ html {
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 16px;
   line-height: 22px;
-  min-height: 100%;
   width: 100%;
 }
 
 #__next {
-  min-height: 100%;
   width: 100%;
 }
 
 body {
   margin: 0;
-  min-height: 100%;
   width: 100%;
 }
 
@@ -31,22 +28,16 @@ a {
   text-decoration: underline;
 }
 
-p {
-  margin: 0 0 22px;
-}
-
 h1 {
   font-size: 36px;
   font-weight: 600;
   line-height: 44px;
-  margin: 0 0 36px;
 }
 
 h2 {
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
-  margin: 0 0 12px;
 }
 
 code {
