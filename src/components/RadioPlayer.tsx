@@ -7,16 +7,6 @@ import {
   useRef,
   useState,
 } from "react";
-import {
-  createEffect,
-  createMemo,
-  createSignal,
-  createRenderEffect,
-  onMount,
-  mergeProps,
-  on,
-  For,
-} from "solid-js";
 import { AsyncImage } from "./AsyncImage";
 import { MarqueeText } from "./MarqueeText";
 import { ProgressBar } from "./ProgressBar";
@@ -87,54 +77,54 @@ const RadioCover = ({ size }: IRadioCoverProps) => {
   );
 };
 
-interface IRadioProgressProps {
-  duration: number;
-  status: RadioStatus;
-}
+// interface IRadioProgressProps {
+//   duration: number;
+//   status: RadioStatus;
+// }
 
-const RadioProgress = (props) => {
-  const defaultProps = {
-    duration: 0,
-    status: "stopped",
-    startedAt: null,
-  };
+// const RadioProgress = (props) => {
+//   const defaultProps = {
+//     duration: 0,
+//     status: "stopped",
+//     startedAt: null,
+//   };
 
-  const local = mergeProps(defaultProps, props);
+//   const local = mergeProps(defaultProps, props);
 
-  const [elapsed, setElapsed] = createSignal(0);
-  const [progress, setProgress] = createSignal(0);
+//   const [elapsed, setElapsed] = createSignal(0);
+//   const [progress, setProgress] = createSignal(0);
 
-  const duration = () => (local.duration ? local.duration * 1000 : 0);
+//   const duration = () => (local.duration ? local.duration * 1000 : 0);
 
-  // Update progress value.
-  createRenderEffect(() => {
-    const tick = () => {
-      const newElapsed = Math.max(
-        Math.min(
-          new Date().getTime() -
-            new Date(local.startedAt || "").getTime() -
-            10000,
-          duration()
-        ),
-        0
-      );
-      setElapsed(newElapsed);
-      setProgress(Math.min(1, newElapsed / duration()));
-      requestAnimationFrame(tick);
-    };
-    tick();
-  });
+//   // Update progress value.
+//   createRenderEffect(() => {
+//     const tick = () => {
+//       const newElapsed = Math.max(
+//         Math.min(
+//           new Date().getTime() -
+//             new Date(local.startedAt || "").getTime() -
+//             10000,
+//           duration()
+//         ),
+//         0
+//       );
+//       setElapsed(newElapsed);
+//       setProgress(Math.min(1, newElapsed / duration()));
+//       requestAnimationFrame(tick);
+//     };
+//     tick();
+//   });
 
-  return (
-    <div class="metadata__progress">
-      <ProgressBar isActive={local.status === "playing"} value={progress()} />
-      <div class="metadata__time">
-        <span>{msToTime(elapsed())}</span>
-        <span>{msToTime(duration())}</span>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div class="metadata__progress">
+//       <ProgressBar isActive={local.status === "playing"} value={progress()} />
+//       <div class="metadata__time">
+//         <span>{msToTime(elapsed())}</span>
+//         <span>{msToTime(duration())}</span>
+//       </div>
+//     </div>
+//   );
+// };
 
 const ListenButton = (props) => {
   const defaultProps = {
@@ -312,7 +302,7 @@ const MediaSession = (props) => {
   });
 };
 
-const RadioPlayer = () => {
+export const RadioPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>();
 
   const [isMuted, setIsMuted] = useState(false);
@@ -420,5 +410,3 @@ const RadioPlayer = () => {
     </RadioContext.Provider>
   );
 };
-
-export default RadioPlayer;

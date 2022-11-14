@@ -1,4 +1,5 @@
 @import "../styles/animations.scss";
+@import "../styles/variables.scss";
 
 .radioPlayer {
   animation: fadeIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -6,7 +7,7 @@
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
   gap: 48px;
-  margin: 24px 0;
+  margin-bottom: $content-margin;
 }
 
 .cover {
