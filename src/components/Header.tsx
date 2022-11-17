@@ -2,8 +2,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import css from "./Header.module.scss";
+import { LiveText } from "./LiveText";
 
-const NavLink = ({ href, children }: { href: string; children: ReactNode }) => {
+interface NavLinkProps {
+  children: ReactNode;
+  href: string;
+}
+
+const NavLink = ({ children, href }: NavLinkProps) => {
   const router = useRouter();
   return (
     <li className={router.asPath === href ? css.active : ""}>
@@ -28,10 +34,7 @@ export const Header = () => (
     </div>
     <nav className={css.navigation}>
       <ul>
-        <NavLink href="/">
-          <span className={css.live} />
-          Live
-        </NavLink>
+        <LiveText as={NavLink} href="/" />
         <NavLink href="/about">FAQ</NavLink>
       </ul>
     </nav>
