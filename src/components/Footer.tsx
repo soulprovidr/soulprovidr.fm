@@ -2,17 +2,17 @@ import Link from "next/link";
 import css from "./Footer.module.scss";
 
 const icons = {
-  github: {
-    href: "https://github.com/soulprovidr",
-    title: "Soul Provider on GitHub",
+  spotify: {
+    href: "https://open.spotify.com/user/soulprovidr",
+    title: "Soul Provider on Spotify",
   },
   soundcloud: {
     href: "https://soundcloud.com/soulprovidr",
     title: "Soul Provider on SoundCloud",
   },
-  spotify: {
-    href: "https://open.spotify.com/user/soulprovidr",
-    title: "Soul Provider on Spotify",
+  github: {
+    href: "https://github.com/soulprovidr",
+    title: "Soul Provider on GitHub",
   },
   email: {
     href: "mailto:shola@soulprovidr.fm",
