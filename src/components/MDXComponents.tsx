@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LinkHTMLAttributes } from "react";
+import { Layout } from "./Layout";
 
 const CustomLink = (props: LinkHTMLAttributes<HTMLAnchorElement>) => {
   const href = props.href;
@@ -18,6 +19,7 @@ const CustomLink = (props: LinkHTMLAttributes<HTMLAnchorElement>) => {
 
 const MDXComponents = {
   a: CustomLink,
+  wrapper: Layout,
 };
 
 export default MDXComponents;

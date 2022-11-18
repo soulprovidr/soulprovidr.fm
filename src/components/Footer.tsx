@@ -31,7 +31,7 @@ export const Footer = () => (
     </ul>
     <ul className={css.footerIcons}>
       {Object.entries(icons).map(([key, { href, title }]) => (
-        <li>
+        <li key={href}>
           <a href={href} rel="noreferrer" target="_blank" title={title}>
             <img src={`/icons/${key}.svg`} />
           </a>

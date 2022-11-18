@@ -35,7 +35,7 @@ export const Header = () => (
     <nav className={css.navigation}>
       <ul>
         <LiveText as={NavLink} href="/" />
-        <NavLink href="/about">FAQ</NavLink>
+        <NavLink href="/faq">FAQ</NavLink>
       </ul>
     </nav>
   </header>

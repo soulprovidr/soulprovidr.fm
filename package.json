@@ -21,6 +21,9 @@
     "ismobilejs": "~1.1.1",
     "next": "~12.3.2",
     "react": "~18.2.0",
-    "react-dom": "~18.2.0"
+    "react-dom": "~18.2.0",
+    "remark-frontmatter": "~4.0.1",
+    "remark-mdx-frontmatter": "~2.1.1",
+    "remark-mdx-next": "~0.1.1"
   }
 }
