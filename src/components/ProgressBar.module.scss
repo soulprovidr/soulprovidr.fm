@@ -1,7 +1,7 @@
 .progressBar {
   display: flex;
   align-items: center;
-  height: 16px;
+  height: 4px;
   position: relative;
   width: 100%;
 }
@@ -9,7 +9,7 @@
 .progressBar::after {
   content: "";
   position: absolute;
-  top: 7px;
+  top: 1px;
   right: 0;
   left: 0;
   background: #f0f0f0;
@@ -19,7 +19,7 @@
 }
 
 .fill {
-  background: #cfcfcf;
+  background-color: #cfcfcf;
   border-radius: 2px;
   height: 4px;
   position: relative;
@@ -27,10 +27,6 @@
   &:focus-visible {
     outline: none;
   }
-}
-
-.fill.active {
-  background: #0071eb;
 }
 
 .progressBar:hover .fill.draggable::after,

@@ -1,9 +1,5 @@
 import cx from "classnames";
-import React, {
-  ComponentPropsWithoutRef,
-  createElement,
-  ElementType,
-} from "react";
+import { ComponentPropsWithoutRef, createElement, ElementType } from "react";
 import css from "./LiveText.module.scss";
 
 interface LiveTextProps<T extends ElementType> {

@@ -4,20 +4,20 @@ import css from "./ProgressBar.module.scss";
 
 const INCREMENT_AMOUNT = 0.05;
 
-interface ProgressBarProps
+interface IProgressBarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  color: string;
-  onChange: (value: number) => void;
+  color?: string;
+  onChange?: (value: number) => void;
   value: number;
 }
 
 export const ProgressBar = ({
-  color = "#0071eb",
+  color = "#cfcfcf",
   className = "",
   onChange = undefined,
   value = 1,
   ...rest
-}: ProgressBarProps) => {
+}: IProgressBarProps) => {
   const containerRef = useRef<HTMLDivElement>();
   const [isMouseDown, setIsMouseDown] = useState(false);
 

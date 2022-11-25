@@ -1,5 +1,5 @@
 import cx from "classnames";
-import { HTMLAttributes, ImgHTMLAttributes, useState } from "react";
+import { ImgHTMLAttributes, useState } from "react";
 
 import css from "./AsyncImage.module.scss";
 

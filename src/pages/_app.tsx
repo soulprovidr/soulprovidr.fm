@@ -1,12 +1,15 @@
-import type { AppProps } from "next/app";
 import { MDXProvider } from "@mdx-js/react";
+import type { AppProps } from "next/app";
 import MDXComponents from "../components/MDXComponents";
+import { RadioProvider } from "../components/radio/RadioContext";
 import "../styles/global.scss";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <MDXProvider components={MDXComponents}>
-      <Component {...pageProps} />
+      <RadioProvider>
+        <Component {...pageProps} />
+      </RadioProvider>
     </MDXProvider>
   );
 }

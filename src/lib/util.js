@@ -1,6 +1,6 @@
 export const isEmpty = (obj) => Object.keys(obj).length === 0;
 
-export const msToTime = (ms) => {
+export const prettyPrintMilliseconds = (ms) => {
   // Pad to 2 or 3 digits, default is 2
   if (!ms) {
     return "--:--";

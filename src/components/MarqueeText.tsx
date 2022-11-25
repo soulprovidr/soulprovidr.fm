@@ -1,11 +1,4 @@
-import { HTMLAttributes, useCallback, useEffect, useRef } from "react";
-import {
-  children,
-  createEffect,
-  mergeProps,
-  onCleanup,
-  onMount,
-} from "solid-js";
+import { HTMLAttributes, useCallback, useRef } from "react";
 import { Marquee } from "../lib/marquee";
 import { noop } from "../lib/util";
 

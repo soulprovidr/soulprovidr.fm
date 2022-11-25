@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
+import { Footer } from "./Footer";
 import { Head, HeadProps } from "./Head";
 import { Header } from "./Header";
-import { Footer } from "./Footer";
 
 import css from "./Layout.module.scss";
 import { PanelBear } from "./PanelBear";
