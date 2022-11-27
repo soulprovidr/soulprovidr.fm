@@ -3,7 +3,7 @@
 
 .container {
   margin: 64px auto;
-  width: 768px;
+  width: $container-width;
 }
 
 .main {
@@ -16,10 +16,22 @@
   }
 
   h2 {
+    margin: 28px 0;
+  }
+
+  h3 {
     margin: 0 0 12px;
   }
 
   p {
     margin: 0 0 22px;
+  }
+}
+
+@media screen and (max-width: $max-width) {
+  .container {
+    margin: 36px 0;
+    padding: 0 $container-padding;
+    width: 100%;
   }
 }

@@ -1,58 +1,9 @@
 import { prettyPrintMilliseconds } from "../../lib/util";
 import { ProgressBar } from "../ProgressBar";
-import { useRadioContext } from "./RadioContext";
+import { useRadioContext } from "./context";
+import { ListenButton } from "./ListenButton";
 import { RadioCover } from "./RadioCover";
 import css from "./RadioWidget.module.scss";
-
-// const ListenButton = (props) => {
-//   const defaultProps = {
-//     listen: noop,
-//     status: "stopped",
-//     stop: noop,
-//   };
-
-//   const local = mergeProps(defaultProps, props);
-
-//   const children = createMemo(() => {
-//     switch (local.status) {
-//       case "buffering":
-//         return `
-//            <svg class="loading" xmlns="http://www.w3.org/2000/svg" width="16" height="12" fill="currentColor" class="bi bi-disc-fill" viewBox="0 0 16 16">
-//              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-6 0a2 2 0 1 0-4 0 2 2 0 0 0 4 0zM4 8a4 4 0 0 1 4-4 .5.5 0 0 0 0-1 5 5 0 0 0-5 5 .5.5 0 0 0 1 0zm9 0a.5.5 0 1 0-1 0 4 4 0 0 1-4 4 .5.5 0 0 0 0 1 5 5 0 0 0 5-5z"/>
-//            </svg>
-//            LOADING
-//          `;
-//       case "playing":
-//         return `
-//            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-fill" viewBox="0 0 16 16">
-//              <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/>
-//            </svg>
-//            STOP
-//          `;
-//       case "stopped":
-//         return `
-//            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
-//              <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
-//            </svg>
-//            LISTEN
-//          `;
-//     }
-//   });
-
-//   const onclick = () =>
-//     local.status === "stopped" ? local.listen() : local.stop();
-
-//   return (
-//     <button
-//       aria-label={local.status === "stopped" ? "listen" : "stop"}
-//       autoFocus
-//       className="listenButton"
-//       disabled={local.disabled}
-//       onclick={onclick}
-//       innerHTML={children()}
-//     />
-//   );
-// };
 
 // const VolumeControl = (props) => {
 //   const defaultProps = {
@@ -113,40 +64,6 @@ import css from "./RadioWidget.module.scss";
 //   );
 // };
 
-// const RadioControls = (props) => {
-//   const defaultProps = {
-//     isMuted: false,
-//     listen: noop,
-//     mute: noop,
-//     setVolume: noop,
-//     status: "stopped",
-//     stop: noop,
-//     volume: 1,
-//   };
-
-//   const local = mergeProps(defaultProps, props);
-
-//   return (
-//     <div class="metadata__controls">
-//       <ListenButton
-//         listen={local.listen}
-//         status={local.status}
-//         stop={local.stop}
-//       />
-//       <div>
-//         {!isMobile(window.navigator).any && (
-//           <VolumeControl
-//             isMuted={local.isMuted}
-//             mute={local.mute}
-//             setVolume={local.setVolume}
-//             value={local.volume}
-//           />
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
 // const MediaSession = (props) => {
 //   onMount(() => {
 //     setActionHandler("play", props.listen);
@@ -183,7 +100,7 @@ import css from "./RadioWidget.module.scss";
 export const RadioWidget = () => {
   const { elapsedTime, metadata, progress, status } = useRadioContext();
 
-  const progressBarColor = status === "playing" ? "#0071eb" : undefined;
+  const isPlaying = status === "playing";
 
   return (
     <div className={css.radioWidget}>
@@ -195,12 +112,13 @@ export const RadioWidget = () => {
             <div className={css.artist}>{metadata.artist}</div>
           </div>
           <div>
-            <ProgressBar color={progressBarColor} value={progress} />
+            <ProgressBar isActive={isPlaying} value={progress} />
             <div className={css.progressLabels}>
               <span>{prettyPrintMilliseconds(elapsedTime)}</span>
               <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
             </div>
           </div>
+          <ListenButton />
         </div>
       )}
     </div>

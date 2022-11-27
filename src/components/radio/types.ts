@@ -15,14 +15,3 @@ export interface IRadioMetadata {
   startedAt: string;
   title: string;
 }
-
-export interface IRadioContext {
-  isMuted: boolean;
-  listen: () => void;
-  mute: () => void;
-  metadata: IRadioMetadata;
-  setVolume: (volume: number) => void;
-  status: RadioStatus;
-  stop: () => void;
-  volume: number;
-}

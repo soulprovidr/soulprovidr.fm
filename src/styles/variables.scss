@@ -1,7 +1,9 @@
-$min-width: 600px;
-$max-width: 768px;
+$container-width: 768px;
+$container-padding: 24px;
 
-$accent-color: #4686e8;
+$max-width: calc($container-width + (2 * $container-padding));
+
+$accent-color: #0071eb;
 $border-color: #ededed;
 
 $primary-text: #000000;

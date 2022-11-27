@@ -54,3 +54,10 @@
     font-weight: 600;
   }
 }
+
+@media screen and (max-width: $max-width) {
+  .header {
+    height: auto;
+    padding: 24px;
+  }
+}

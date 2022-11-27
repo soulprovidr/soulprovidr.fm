@@ -35,13 +35,39 @@ h1 {
 }
 
 h2 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+h3 {
   font-size: 16px;
   font-weight: 600;
   line-height: 22px;
 }
 
-code {
-  font-family: SF Mono;
-  line-height: 1.4;
-  white-space: normal;
+button {
+  align-items: center;
+  justify-content: center;
+  background: $accent-color;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  line-height: 15px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  gap: 6px;
+  height: 32px;
+  padding: 8px 12px;
+  width: fit-content;
+}
+
+@media screen and (max-width: $max-width) {
+  h1 {
+    font-size: 32px;
+    line-height: 38px;
+  }
 }

@@ -1,3 +1,5 @@
+@import "../styles/variables.scss";
+
 .progressBar {
   display: flex;
   align-items: center;
@@ -23,10 +25,15 @@
   border-radius: 2px;
   height: 4px;
   position: relative;
-  transition: background 100ms ease-in-out;
+  transition: background 100ms ease-in-out, width 125ms ease-in;
+
   &:focus-visible {
     outline: none;
   }
+}
+
+.fill.active {
+  background-color: $accent-color;
 }
 
 .progressBar:hover .fill.draggable::after,

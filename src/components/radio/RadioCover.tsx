@@ -1,6 +1,5 @@
 import { AsyncImage } from "../AsyncImage";
-import { useRadioContext } from "./RadioContext";
-
+import { useRadioContext } from "./context";
 import css from "./RadioCover.module.scss";
 
 interface IRadioCoverProps {

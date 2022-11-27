@@ -6,14 +6,14 @@ const INCREMENT_AMOUNT = 0.05;
 
 interface IProgressBarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  color?: string;
+  isActive?: boolean;
   onChange?: (value: number) => void;
   value: number;
 }
 
 export const ProgressBar = ({
-  color = "#cfcfcf",
   className = "",
+  isActive = false,
   onChange = undefined,
   value = 1,
   ...rest
@@ -26,7 +26,7 @@ export const ProgressBar = ({
   const getRoundedValue = (v) => {
     if (v > 1) return 1;
     if (v < 0) return 0;
-    return v;
+    return Math.round(v * 100) / 100;
   };
 
   const handleChange = (e) => {
@@ -96,10 +96,11 @@ export const ProgressBar = ({
     >
       <div
         className={cx(css.fill, {
-          draggable: isDraggable,
-          dragging: isDraggable && isMouseDown,
+          [css.active]: isActive,
+          [css.draggable]: isDraggable,
+          [css.dragging]: isDraggable && isMouseDown,
         })}
-        style={{ backgroundColor: color, width: `${value * 100}%` }}
+        style={{ width: `${value * 100}%` }}
       />
     </div>
   );
