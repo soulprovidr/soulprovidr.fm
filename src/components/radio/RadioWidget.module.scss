@@ -47,7 +47,7 @@
   margin-top: 12px;
 }
 
-@media screen and (max-width: calc($container-width + (2 * $container-padding))) {
+@media screen and (max-width: $max-width) {
   .radioWidget {
     display: flex;
     flex-direction: column;
