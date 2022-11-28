@@ -1,5 +1,11 @@
 import cx from "classnames";
-import { HTMLAttributes, useRef, useState } from "react";
+import {
+  HTMLAttributes,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  useRef,
+  useState,
+} from "react";
 import css from "./ProgressBar.module.scss";
 
 const INCREMENT_AMOUNT = 0.05;
@@ -23,13 +29,13 @@ export const ProgressBar = ({
 
   const isDraggable = typeof onChange !== "undefined";
 
-  const getRoundedValue = (v) => {
+  const getRoundedValue = (v: number) => {
     if (v > 1) return 1;
     if (v < 0) return 0;
     return Math.round(v * 100) / 100;
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: MouseEvent) => {
     if (!containerRef.current || !isDraggable) {
       return;
     }
@@ -37,7 +43,7 @@ export const ProgressBar = ({
     onChange(getRoundedValue((e.pageX - left) / width));
   };
 
-  const handleKeyDown = (e) => {
+  const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = (e) => {
     switch (e.key) {
       case "ArrowUp":
       case "ArrowRight":
@@ -50,24 +56,22 @@ export const ProgressBar = ({
     }
   };
 
-  const handleMouseDown = (e) => {
+  const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
     if (!isDraggable) return;
     setIsMouseDown(true);
     if (onChange) {
-      handleChange(e);
+      handleChange(e.nativeEvent);
       document.addEventListener("mouseup", handleMouseUp);
       document.addEventListener("mousemove", handleMouseMove);
     }
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!isDraggable) return;
-    if (isMouseDown) {
-      handleChange(e);
-    }
+    handleChange(e);
   };
 
-  const handleMouseUp = (e) => {
+  const handleMouseUp = (e: MouseEvent) => {
     setIsMouseDown(false);
     if (onChange) {
       handleChange(e);
@@ -86,7 +90,10 @@ export const ProgressBar = ({
 
   return (
     <div
-      className={css.progressBar}
+      className={cx(css.progressBar, className, {
+        [css.draggable]: isDraggable,
+        [css.dragging]: isDraggable && isMouseDown,
+      })}
       onKeyDown={isDraggable ? handleKeyDown : undefined}
       onMouseDown={handleMouseDown}
       ref={containerRef}
@@ -97,8 +104,6 @@ export const ProgressBar = ({
       <div
         className={cx(css.fill, {
           [css.active]: isActive,
-          [css.draggable]: isDraggable,
-          [css.dragging]: isDraggable && isMouseDown,
         })}
         style={{ width: `${value * 100}%` }}
       />
