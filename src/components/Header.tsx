@@ -4,12 +4,12 @@ import { ReactNode } from "react";
 import css from "./Header.module.scss";
 import { LiveText } from "./LiveText";
 
-interface NavLinkProps {
+interface INavLinkProps {
   children: ReactNode;
   href: string;
 }
 
-const NavLink = ({ children, href }: NavLinkProps) => {
+const NavLink = ({ children, href }: INavLinkProps) => {
   const router = useRouter();
   return (
     <li className={router.asPath === href ? css.active : ""}>

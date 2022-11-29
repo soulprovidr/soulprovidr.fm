@@ -1,7 +1,7 @@
 import NextHead from "next/head";
 import { useRouter } from "next/router";
 
-export interface HeadProps {
+export interface IHeadProps {
   description?: string;
   image?: string;
   title: string;
@@ -11,7 +11,7 @@ export const Head = ({
   description = "Internet radio for those who like to groove.",
   image = "https://soulprovidr.fm/preview.png",
   title,
-}: HeadProps) => {
+}: IHeadProps) => {
   const { asPath } = useRouter();
   const pageTitle = `${title} | Soul Provider`;
   const url = "https://soulprovidr.fm" + asPath;

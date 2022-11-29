@@ -3,11 +3,15 @@ import { ImgHTMLAttributes, useState } from "react";
 
 import css from "./AsyncImage.module.scss";
 
-interface AsyncImageProps extends ImgHTMLAttributes<HTMLImageElement> {
+interface IAsyncImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   onLoad?: () => void;
 }
 
-export const AsyncImage = ({ className, onLoad, ...rest }: AsyncImageProps) => {
+export const AsyncImage = ({
+  className,
+  onLoad,
+  ...rest
+}: IAsyncImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   return (
     <img

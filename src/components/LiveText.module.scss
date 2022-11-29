@@ -1,12 +1,4 @@
-@keyframes blink {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
+@import "../styles/animations.scss";
 
 .container {
   height: 100%;
@@ -15,7 +7,8 @@
 }
 
 .icon {
-  animation: blink 0.8s alternate infinite;
+  animation: fadeIn 0.8s alternate infinite;
+  animation-fill-mode: backwards;
   background: red;
   border-radius: 50%;
 }

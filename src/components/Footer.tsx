@@ -22,14 +22,14 @@ const icons = {
 
 export const Footer = () => (
   <footer className={css.footer}>
-    <ul className={css.footerLinks}>
+    <ul className={css.links}>
       <li>
         <Link href="/privacy">
           <a>Privacy Policy</a>
         </Link>
       </li>
     </ul>
-    <ul className={css.footerIcons}>
+    <ul className={css.icons}>
       {Object.entries(icons).map(([key, { href, title }]) => (
         <li key={href}>
           <a href={href} rel="noreferrer" target="_blank" title={title}>

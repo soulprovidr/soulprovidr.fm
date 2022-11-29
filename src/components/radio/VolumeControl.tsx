@@ -4,7 +4,7 @@ import { ProgressBar } from "../ProgressBar";
 import { useRadioContext } from "./context";
 import css from "./VolumeControl.module.scss";
 
-export const VolumeControl = (props) => {
+export const VolumeControl = () => {
   const { isMuted, mute, setVolume, volume } = useRadioContext();
 
   const handleIconClick = () => {

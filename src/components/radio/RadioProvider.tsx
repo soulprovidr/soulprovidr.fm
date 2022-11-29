@@ -122,7 +122,7 @@ export const RadioProvider = ({ children }) => {
     }
   };
 
-  const setVolume = (volume) => {
+  const setVolume = (volume: number) => {
     if (audio) {
       audio.volume = volume;
       persistVolume(volume);

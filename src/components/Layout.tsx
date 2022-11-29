@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 import { Footer } from "./Footer";
-import { Head, HeadProps } from "./Head";
+import { Head, IHeadProps } from "./Head";
 import { Header } from "./Header";
 
 import css from "./Layout.module.scss";
 import { PanelBear } from "./PanelBear";
 
-interface LayoutProps extends HeadProps {
+interface LayoutProps extends IHeadProps {
   children: ReactNode;
 }
 

@@ -2,12 +2,12 @@ import { HTMLAttributes, useCallback, useRef } from "react";
 import { Marquee } from "../lib/marquee";
 import { noop } from "../lib/util";
 
-interface MarqueeTextProps extends HTMLAttributes<HTMLDivElement> {}
+interface IMarqueeTextProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const MarqueeText = ({
   children,
   className = "marquee",
-}: MarqueeTextProps) => {
+}: IMarqueeTextProps) => {
   const cleanupRef = useRef<Function>(noop);
 
   const marqueeRef = useCallback(
