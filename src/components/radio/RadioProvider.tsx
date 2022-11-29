@@ -1,5 +1,5 @@
 import camelCase from "lodash.camelcase";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useMediaSession } from "../../lib/useMediaSession";
 import { usePersistedState } from "../../lib/usePersistedState";
 import { RadioContext } from "./context";
@@ -152,20 +152,32 @@ export const RadioProvider = ({ children }) => {
     setVolume(volume);
   }, []);
 
-  const mediaSessionActionHandlers = {
-    play: listen,
-    pause: stop,
-    stop,
-  };
+  const mediaSessionActionHandlers = useMemo(
+    () => ({
+      play: listen,
+      pause: stop,
+      stop,
+    }),
+    []
+  );
 
-  const mediaSessionMetadata = metadata && {
-    album: "soulprovidr.fm",
-    artist: metadata.artist,
-    artwork: [{ src: metadata.cover, sizes: "400x400", type: "image/jpeg" }],
-    title: metadata.title,
-  };
+  const mediaSessionMetadata = useMemo(
+    () =>
+      metadata && {
+        album: "soulprovidr.fm",
+        artist: metadata.artist,
+        artwork: [
+          { src: metadata.cover, sizes: "400x400", type: "image/jpeg" },
+        ],
+        title: metadata.title,
+      },
+    [metadata]
+  );
 
-  const mediaSessionPlaybackState = getMediaSessionPlaybackState(status);
+  const mediaSessionPlaybackState = useMemo(
+    () => getMediaSessionPlaybackState(status),
+    [status]
+  );
 
   useMediaSession({
     actionHandlers: mediaSessionActionHandlers,

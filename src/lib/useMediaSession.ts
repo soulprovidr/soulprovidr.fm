@@ -1,4 +1,3 @@
-import isEqual from "lodash.isequal";
 import { useEffect } from "react";
 
 type MediaSessionActionHandlerMap = {
@@ -16,18 +15,6 @@ export const useMediaSession = ({
   metadata,
   playbackState,
 }: IUseMediaSessionParams) => {
-  if (typeof window !== "undefined" && window.navigator.mediaSession) {
-    if (!isEqual(metadata, window?.navigator.mediaSession.metadata)) {
-      window.navigator.mediaSession.metadata = new window.MediaMetadata(
-        metadata
-      );
-    }
-
-    if (playbackState !== window.navigator.mediaSession.playbackState) {
-      window.navigator.mediaSession.playbackState = playbackState;
-    }
-  }
-
   useEffect(() => {
     if (typeof window !== "undefined" && window.navigator.mediaSession) {
       Object.entries(actionHandlers).map(
@@ -40,4 +27,18 @@ export const useMediaSession = ({
       );
     }
   }, [actionHandlers]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.navigator.mediaSession) {
+      window.navigator.mediaSession.metadata = new window.MediaMetadata(
+        metadata
+      );
+    }
+  }, [metadata]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.navigator.mediaSession) {
+      window.navigator.mediaSession.playbackState = playbackState;
+    }
+  }, [playbackState]);
 };
