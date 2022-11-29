@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Button } from "../Button";
 import { useRadioContext } from "./context";
 import css from "./ListenButton.module.scss";
 
@@ -59,12 +60,12 @@ export const ListenButton = () => {
   const isStopped = status === "stopped";
 
   return (
-    <button
+    <Button
       aria-label={isStopped ? "listen" : "stop"}
       autoFocus
       onClick={() => (isStopped ? listen() : stop())}
     >
       {children}
-    </button>
+    </Button>
   );
 };

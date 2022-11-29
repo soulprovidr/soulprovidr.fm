@@ -47,6 +47,12 @@
   margin-top: 12px;
 }
 
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 @media screen and (max-width: $max-width) {
   .radioWidget {
     display: flex;
