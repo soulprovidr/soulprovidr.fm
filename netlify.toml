@@ -1,6 +1,6 @@
 [build]
 
-command = "npm run export"
+command = "npm run build"
 publish = "public/"
 
 # Redirect from soulprovider.fm to soulprovidr.fm.
