@@ -1,8 +1,3 @@
-[build]
-
-command = "npm run build"
-publish = "dist/"
-
 # Redirect from soulprovider.fm to soulprovidr.fm.
 [[redirects]]
 from = "https://soulprovider.fm/*"
