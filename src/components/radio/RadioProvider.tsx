@@ -1,8 +1,19 @@
 import camelCase from "lodash.camelcase";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useMediaSession } from "../../lib/useMediaSession";
 import { usePersistedState } from "../../lib/usePersistedState";
 import { RadioContext } from "./context";
 import { IRadioMetadata, RadioStatus } from "./types";
+
+const getMediaSessionPlaybackState = (status: RadioStatus) => {
+  switch (status) {
+    case "buffering":
+    case "playing":
+      return "playing";
+    case "stopped":
+      return "paused";
+  }
+};
 
 const useMetadata = () => {
   const timeoutRef = useRef<NodeJS.Timeout>();
@@ -140,6 +151,27 @@ export const RadioProvider = ({ children }) => {
     window.addEventListener("offline", stop);
     setVolume(volume);
   }, []);
+
+  const mediaSessionActionHandlers = {
+    play: listen,
+    pause: stop,
+    stop,
+  };
+
+  const mediaSessionMetadata = metadata && {
+    album: "soulprovidr.fm",
+    artist: metadata.artist,
+    artwork: [{ src: metadata.cover, sizes: "400x400", type: "image/jpeg" }],
+    title: metadata.title,
+  };
+
+  const mediaSessionPlaybackState = getMediaSessionPlaybackState(status);
+
+  useMediaSession({
+    actionHandlers: mediaSessionActionHandlers,
+    metadata: mediaSessionMetadata,
+    playbackState: mediaSessionPlaybackState,
+  });
 
   return (
     <RadioContext.Provider

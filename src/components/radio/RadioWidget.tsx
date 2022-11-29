@@ -6,39 +6,6 @@ import { RadioCover } from "./RadioCover";
 import css from "./RadioWidget.module.scss";
 import { VolumeControl } from "./VolumeControl";
 
-// const MediaSession = (props) => {
-//   onMount(() => {
-//     setActionHandler("play", props.listen);
-//     setActionHandler("pause", props.stop);
-//     setActionHandler("stop", props.stop);
-//   });
-
-//   createEffect(() => {
-//     setMetadata({
-//       album: "soulprovidr.fm",
-//       artist: props.metadata?.artist,
-//       artwork: [
-//         { src: props.metadata?.cover, sizes: "400x400", type: "image/jpeg" },
-//       ],
-//       title: props.metadata?.title,
-//     });
-//   });
-
-//   createEffect(() => {
-//     let playbackState;
-//     switch (props.status) {
-//       case "buffering":
-//       case "playing":
-//         playbackState = "playing";
-//         break;
-//       case "stopped":
-//         playbackState = "paused";
-//         break;
-//     }
-//     setPlaybackState(playbackState);
-//   });
-// };
-
 export const RadioWidget = () => {
   const { elapsedTime, metadata, progress, status } = useRadioContext();
 
