@@ -1,3 +1,4 @@
+import isMobile from "ismobilejs";
 import { prettyPrintMilliseconds } from "../../lib/util";
 import { ProgressBar } from "../ProgressBar";
 import { useRadioContext } from "./context";
@@ -10,6 +11,10 @@ export const RadioWidget = () => {
   const { elapsedTime, metadata, progress, status } = useRadioContext();
 
   const isPlaying = status === "playing";
+
+  // Hide the volume control on mobile (since volume is controlled by the device.)
+  const isVolumeControlHidden =
+    typeof window !== "undefined" ? isMobile(window.navigator).any : true;
 
   return (
     <div className={css.radioWidget}>
@@ -29,7 +34,7 @@ export const RadioWidget = () => {
           </div>
           <div className={css.controls}>
             <ListenButton />
-            <VolumeControl />
+            {!isVolumeControlHidden && <VolumeControl />}
           </div>
         </div>
       )}
