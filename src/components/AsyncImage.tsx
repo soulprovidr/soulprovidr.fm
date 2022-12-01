@@ -15,7 +15,7 @@ export const AsyncImage = ({
   const [isLoaded, setIsLoaded] = useState(false);
   return (
     <img
-      className={cx(css.asyncImage, {
+      className={cx(css.asyncImage, className, {
         [css.isVisible]: isLoaded,
       })}
       onLoad={() => {

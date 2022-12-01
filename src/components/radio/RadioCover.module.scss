@@ -5,27 +5,35 @@
   position: relative;
   overflow: hidden;
   width: 300px;
-  height: auto;
+  height: 300px;
   flex-shrink: 0;
-
-  > div {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    transform: translateX(100%);
-    transition: transform 250ms ease-in-out;
-
-    &.isActive {
-      transform: translateX(0);
-    }
-    &.isComplete {
-      transform: translateX(-100%);
-    }
-  }
 
   img {
     height: 100%;
     width: 100%;
   }
+}
+
+.wrapper {
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  transform: translateX(100%);
+  transition: transform ease-in-out;
+
+  &.isCurrent {
+    transform: translateX(0);
+  }
+
+  &.isComplete {
+    transform: translateX(-100%);
+  }
+}
+
+.image {
+  border-radius: 8px;
+  height: 100%;
+  width: 100%;
 }
