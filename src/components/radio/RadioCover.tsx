@@ -6,8 +6,6 @@ import { useRadioContext } from "./context";
 import css from "./RadioCover.module.scss";
 import { IRadioMetadata } from "./types";
 
-const TRANSITION_DURATION = "250ms";
-
 interface IRadioCoverProps {
   size: number;
 }
@@ -18,26 +16,20 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
   const [currentCover, setCurrentCover] = useState<string>();
   const [metadataItems, setMetadataItems] = useState<IRadioMetadata[]>([]);
 
-  const appendMetadata = (m: IRadioMetadata) =>
-    setMetadataItems([].concat(metadataItems, m));
-
   if (metadata) {
-    // If no metadata is currently stored, initialize the currentCover and store metadata.
     if (!metadataItems.length) {
       setCurrentCover(metadata.cover);
-      appendMetadata(metadata);
+      setMetadataItems([metadata]);
       return;
     }
-    // If most recent metadata is different from current metadata, store current metadata.
     if (last(metadataItems)?.cover !== metadata.cover) {
-      appendMetadata(metadata);
+      setMetadataItems([...metadataItems, metadata]);
       return;
     }
   }
 
   useEffect(() => {
-    // Remove previous track's metadata after `transitionDuration` when currentCover changes.
-    // (This provides enough time for the exit transition to take place).
+    // Remove previous cover/metadata after transition has taken place.
     if (metadataItems.length > 1) {
       setTimeout(() => setMetadataItems([last(metadataItems)]), 250);
     }
@@ -58,7 +50,6 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
               [css.isComplete]: isComplete,
             })}
             key={m.cover}
-            style={{ transitionDuration: TRANSITION_DURATION }}
           >
             <AsyncImage
               alt={m && `Artwork for ${m.title} by ${m.artist}`}
