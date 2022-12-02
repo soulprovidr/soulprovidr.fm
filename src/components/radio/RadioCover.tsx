@@ -19,12 +19,9 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
   if (metadata) {
     if (!metadataItems.length) {
       setCurrentCover(metadata.cover);
-      setMetadataItems([metadata]);
-      return;
     }
     if (last(metadataItems)?.cover !== metadata.cover) {
       setMetadataItems([...metadataItems, metadata]);
-      return;
     }
   }
 
