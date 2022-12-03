@@ -16,8 +16,11 @@
   flex-grow: 1;
   gap: 24px;
   justify-content: center;
-  overflow: hidden;
   width: 100%;
+}
+
+.titleContainer {
+  overflow: hidden;
 }
 
 .title {
@@ -58,6 +61,6 @@
   }
 
   .nowPlaying {
-    height: 175px;
+    height: 171px;
   }
 }

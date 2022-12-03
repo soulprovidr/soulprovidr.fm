@@ -23,7 +23,7 @@ export const RadioWidget = () => {
       <div className={css.nowPlaying}>
         {metadata && (
           <>
-            <div>
+            <div className={css.titleContainer}>
               <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
               <MarqueeText className={css.artist}>
                 {metadata.artist}
