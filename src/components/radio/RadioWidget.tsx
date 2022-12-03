@@ -1,5 +1,6 @@
 import isMobile from "ismobilejs";
 import { prettyPrintMilliseconds } from "../../lib/util";
+import { MarqueeText } from "../MarqueeText";
 import { ProgressBar } from "../ProgressBar";
 import { useRadioContext } from "./context";
 import { ListenButton } from "./ListenButton";
@@ -22,8 +23,8 @@ export const RadioWidget = () => {
       {metadata && (
         <div className={css.nowPlaying}>
           <div>
-            <div className={css.title}>{metadata.title}</div>
-            <div className={css.artist}>{metadata.artist}</div>
+            <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
+            <MarqueeText className={css.artist}>{metadata.artist}</MarqueeText>
           </div>
           <div>
             <ProgressBar isActive={isPlaying} value={progress} />

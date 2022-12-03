@@ -20,23 +20,19 @@
 }
 
 .title {
-  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation-fill-mode: backwards;
   font-size: 28px;
   font-weight: 600;
   line-height: 34px;
   margin: 0;
-  overflow: hidden;
   white-space: nowrap;
 }
 
 .artist {
-  animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation-fill-mode: backwards;
   font-size: 20px;
   font-weight: 400;
   line-height: 24px;
   margin: 2px 0 0;
+  white-space: nowrap;
 }
 
 .progressLabels {
