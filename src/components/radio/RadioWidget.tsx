@@ -24,9 +24,7 @@ export const RadioWidget = () => {
         {metadata && (
           <>
             <div>
-              <MarqueeText className={css.title}>
-                {metadata.title} {metadata.title} {metadata.title}
-              </MarqueeText>
+              <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
               <MarqueeText className={css.artist}>
                 {metadata.artist}
               </MarqueeText>
