@@ -49,7 +49,7 @@ export const useMarquee = (
       return;
     }
     const className = containerRef.current.className;
-    const keyframes = generateIdentifier();
+    const keyframes = `keyframes-${generateIdentifier()}`;
     const stylesheet = document.createElement("style");
     stylesheet.textContent = `
         @keyframes ${keyframes} {
