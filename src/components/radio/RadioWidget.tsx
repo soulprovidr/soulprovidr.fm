@@ -20,25 +20,31 @@ export const RadioWidget = () => {
   return (
     <div className={css.radioWidget}>
       <RadioCover size={300} />
-      {metadata && (
-        <div className={css.nowPlaying}>
-          <div>
-            <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
-            <MarqueeText className={css.artist}>{metadata.artist}</MarqueeText>
-          </div>
-          <div>
-            <ProgressBar isActive={isPlaying} value={progress} />
-            <div className={css.progressLabels}>
-              <span>{prettyPrintMilliseconds(elapsedTime)}</span>
-              <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
+      <div className={css.nowPlaying}>
+        {metadata && (
+          <>
+            <div>
+              <MarqueeText className={css.title}>
+                {metadata.title} {metadata.title} {metadata.title}
+              </MarqueeText>
+              <MarqueeText className={css.artist}>
+                {metadata.artist}
+              </MarqueeText>
             </div>
-          </div>
-          <div className={css.controls}>
-            <ListenButton />
-            {!isVolumeControlHidden && <VolumeControl />}
-          </div>
-        </div>
-      )}
+            <div>
+              <ProgressBar isActive={isPlaying} value={progress} />
+              <div className={css.progressLabels}>
+                <span>{prettyPrintMilliseconds(elapsedTime)}</span>
+                <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
+              </div>
+            </div>
+            <div className={css.controls}>
+              <ListenButton />
+              {!isVolumeControlHidden && <VolumeControl />}
+            </div>
+          </>
+        )}
+      </div>
     </div>
   );
 };
