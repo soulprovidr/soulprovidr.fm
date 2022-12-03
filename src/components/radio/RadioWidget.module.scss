@@ -16,7 +16,7 @@
   flex-grow: 1;
   gap: 24px;
   justify-content: center;
-  overflow-x: hidden;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -58,6 +58,6 @@
   }
 
   .nowPlaying {
-    height: 171px;
+    height: 175px;
   }
 }
