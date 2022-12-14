@@ -1,0 +1,61 @@
+@import "../styles/variables.scss";
+
+$backgroundTransition: background-color 100ms ease-in-out;
+$widthTransition: width 125ms ease-in;
+
+.progressBar {
+  display: flex;
+  align-items: center;
+  height: 4px;
+  position: relative;
+}
+
+.progressBar::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 0;
+  left: 0;
+  background: #f0f0f0;
+  border-radius: 2px;
+  height: 2px;
+  z-index: -1;
+}
+
+.fill {
+  background-color: #cfcfcf;
+  border-radius: 2px;
+  height: 4px;
+  position: relative;
+  transition: $backgroundTransition, $widthTransition;
+
+  &.active {
+    background-color: $accent-color;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.progressBar.draggable:hover,
+.progressBar.draggable:focus-visible,
+.progressBar.dragging {
+  cursor: pointer;
+
+  .fill {
+    transition: $backgroundTransition;
+  }
+
+  .fill::after {
+    background: inherit;
+    border-radius: 50%;
+    content: "";
+    cursor: pointer;
+    position: absolute;
+    right: -4px;
+    top: -2px;
+    width: 8px;
+    height: 8px;
+  }
+}

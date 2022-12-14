@@ -1,0 +1,5 @@
+@import "../../styles/animations.scss";
+
+.loading {
+  animation: rotate linear infinite 1s;
+}

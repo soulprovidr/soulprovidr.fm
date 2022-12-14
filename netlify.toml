@@ -1,7 +1,7 @@
 [build]
 
-command = "npm run build"
-publish = "dist/"
+command = "npm run build && npm run export"
+publish = "out/"
 
 # Redirect from soulprovider.fm to soulprovidr.fm.
 [[redirects]]

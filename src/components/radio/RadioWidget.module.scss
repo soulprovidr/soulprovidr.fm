@@ -1,0 +1,66 @@
+@import "../../styles/animations.scss";
+@import "../../styles/variables.scss";
+
+.radioWidget {
+  animation: fadeIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation-fill-mode: backwards;
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 48px;
+  width: 100%;
+}
+
+.nowPlaying {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 24px;
+  justify-content: center;
+  width: 100%;
+}
+
+.titleContainer {
+  overflow: hidden;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 34px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.artist {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 2px 0 0;
+  white-space: nowrap;
+}
+
+.progressLabels {
+  display: flex;
+  font-size: 12px;
+  justify-content: space-between;
+  line-height: 15px;
+  margin-top: 12px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: $max-width) {
+  .radioWidget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nowPlaying {
+    height: 171px;
+  }
+}

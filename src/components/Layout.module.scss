@@ -1,0 +1,45 @@
+@import "../styles/animations.scss";
+@import "../styles/variables.scss";
+
+.container {
+  margin: 64px auto;
+  padding: 0 $container-padding;
+  width: $container-width;
+}
+
+.main {
+  margin-bottom: 48px;
+  width: 100%;
+
+  h1,
+  > div {
+    margin: 36px 0;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+  }
+
+  h3 {
+    margin: 0 0 12px;
+  }
+
+  p {
+    margin: 0 0 22px;
+  }
+
+  ul {
+    margin: 0 0 22px;
+  }
+
+  ul li {
+    margin: 0 0 8px;
+  }
+}
+
+@media screen and (max-width: $max-width) {
+  .container {
+    margin: 36px auto;
+    width: 100%;
+  }
+}

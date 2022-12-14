@@ -1,0 +1,16 @@
+.volumeControl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.progressBar {
+  height: 16px;
+  width: 60px;
+}
