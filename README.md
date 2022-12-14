@@ -3,9 +3,3 @@
 ## SOUL PROVIDER
 
 Internet radio for those who like to groove.
-
-### TODO:
-
-- Visualizer
-- Dark mode
-- Chromecast
