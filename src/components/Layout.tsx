@@ -4,7 +4,6 @@ import { Head, IHeadProps } from "./Head";
 import { Header } from "./Header";
 
 import css from "./Layout.module.scss";
-import { PanelBear } from "./PanelBear";
 
 interface LayoutProps extends IHeadProps {
   children: ReactNode;
@@ -13,7 +12,6 @@ interface LayoutProps extends IHeadProps {
 export const Layout = ({ children, description, title }: LayoutProps) => (
   <>
     <Head description={description} title={title} />
-    <PanelBear />
     <Header />
     <div className={css.container}>
       <main className={css.main}>{children}</main>
