@@ -36,7 +36,7 @@ export const Head = ({
       <meta property="twitter:title" content={pageTitle} />
       <meta property="twitter:description" content={description} />
       <meta property="twitter:image" content={image} />
-      <link rel="icon" href="/favicon.png" />
+      <link rel="icon" href="/logo.png" />
     </NextHead>
   );
 };
