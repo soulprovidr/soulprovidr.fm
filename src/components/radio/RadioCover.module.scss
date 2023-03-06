@@ -27,7 +27,7 @@
     transform: translateX(0);
   }
 
-  &.isComplete {
+  &.isPrevious {
     transform: translateX(-100%);
   }
 }

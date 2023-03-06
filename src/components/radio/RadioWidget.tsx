@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import isMobile from "ismobilejs";
 import { prettyPrintMilliseconds } from "../../lib/util";
 import { MarqueeText } from "../MarqueeText";
@@ -20,29 +21,25 @@ export const RadioWidget = () => {
   return (
     <div className={css.radioWidget}>
       <RadioCover size={300} />
-      <div className={css.nowPlaying}>
-        {metadata && (
-          <>
-            <div className={css.titleContainer}>
-              <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
-              <MarqueeText className={css.artist}>
-                {metadata.artist}
-              </MarqueeText>
+      {metadata && (
+        <motion.div className={css.nowPlaying}>
+          <div className={css.titleContainer}>
+            <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
+            <MarqueeText className={css.artist}>{metadata.artist}</MarqueeText>
+          </div>
+          <div>
+            <ProgressBar isActive={isPlaying} value={progress} />
+            <div className={css.progressLabels}>
+              <span>{prettyPrintMilliseconds(elapsedTime)}</span>
+              <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
             </div>
-            <div>
-              <ProgressBar isActive={isPlaying} value={progress} />
-              <div className={css.progressLabels}>
-                <span>{prettyPrintMilliseconds(elapsedTime)}</span>
-                <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
-              </div>
-            </div>
-            <div className={css.controls}>
-              <ListenButton />
-              {!isVolumeControlHidden && <VolumeControl />}
-            </div>
-          </>
-        )}
-      </div>
+          </div>
+          <div className={css.controls}>
+            <ListenButton />
+            {!isVolumeControlHidden && <VolumeControl />}
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 };

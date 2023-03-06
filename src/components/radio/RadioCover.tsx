@@ -1,5 +1,5 @@
 import cx from "classnames";
-import last from "lodash.last";
+import isEmpty from "lodash.isempty";
 import { useEffect, useState } from "react";
 import { AsyncImage } from "../AsyncImage";
 import { useRadioContext } from "./context";
@@ -13,34 +13,24 @@ interface IRadioCoverProps {
 export const RadioCover = ({ size }: IRadioCoverProps) => {
   const { metadata } = useRadioContext();
 
-  const [currentCover, setCurrentCover] = useState<string>();
+  const [currMetadataId, setCurrMetadataId] = useState<number>();
   const [metadataItems, setMetadataItems] = useState<IRadioMetadata[]>([]);
 
-  if (metadata) {
-    if (!metadataItems.length) {
-      setCurrentCover(metadata.cover);
-    }
-    if (last(metadataItems)?.cover !== metadata.cover) {
-      setMetadataItems([...metadataItems, metadata]);
-    }
+  if (metadata && isEmpty(metadataItems)) {
+    setMetadataItems([metadata]);
+    setCurrMetadataId(metadata.id);
   }
 
   useEffect(() => {
-    // Remove previous cover/metadata after transition has taken place.
-    if (metadataItems.length > 1) {
-      const handleTransition = () =>
-        setTimeout(() => setMetadataItems([last(metadataItems)]), 250);
-      if (document.hasFocus()) {
-        handleTransition();
-      } else {
-        const handleFocus = () => {
-          handleTransition();
-          document.removeEventListener("focus", handleFocus);
-        };
-        document.onfocus = handleFocus;
-      }
+    if (metadata?.id !== currMetadataId) {
+      setMetadataItems([...metadataItems, metadata]);
     }
-  }, [currentCover]);
+  }, [metadata]);
+
+  const handleImageLoad = () => {
+    setCurrMetadataId(metadata.id);
+    setTimeout(() => setMetadataItems([metadata]), 250);
+  };
 
   return (
     <div
@@ -48,21 +38,21 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
       style={{ height: `${size}px`, width: `${size}px` }}
     >
       {metadataItems.map((m, i) => {
-        const isCurrent = currentCover === m.cover;
-        const isComplete = i === 0 && !isCurrent;
+        const isCurrent = currMetadataId === m.id;
+        const isPrevious = i === 0 && !isCurrent;
         return (
           <div
             className={cx(css.wrapper, {
               [css.isCurrent]: isCurrent,
-              [css.isComplete]: isComplete,
+              [css.isPrevious]: isPrevious,
             })}
-            key={m.cover}
+            key={m.id}
           >
             <AsyncImage
               alt={m && `Artwork for ${m.title} by ${m.artist}`}
               className={css.image}
               height={size}
-              onLoad={() => setCurrentCover(m.cover)}
+              onLoad={handleImageLoad}
               src={m.cover}
               width={size}
             />
