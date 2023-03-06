@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import isMobile from "ismobilejs";
 import { prettyPrintMilliseconds } from "../../lib/util";
 import { MarqueeText } from "../MarqueeText";
@@ -22,8 +21,8 @@ export const RadioWidget = () => {
     <div className={css.radioWidget}>
       <RadioCover size={300} />
       {metadata && (
-        <motion.div className={css.nowPlaying}>
-          <div className={css.titleContainer}>
+        <div className={css.metadata}>
+          <div className={css.nowPlaying}>
             <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
             <MarqueeText className={css.artist}>{metadata.artist}</MarqueeText>
           </div>
@@ -38,7 +37,7 @@ export const RadioWidget = () => {
             <ListenButton />
             {!isVolumeControlHidden && <VolumeControl />}
           </div>
-        </motion.div>
+        </div>
       )}
     </div>
   );

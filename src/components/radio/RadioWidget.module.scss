@@ -2,15 +2,16 @@
 @import "../../styles/variables.scss";
 
 .radioWidget {
-  animation: fadeIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  animation-fill-mode: backwards;
   display: grid;
   grid-template-columns: 300px minmax(0, 1fr);
   gap: 48px;
+  height: 300px;
   width: 100%;
 }
 
-.nowPlaying {
+.metadata {
+  animation: fadeIn 0.3s ease-in-out;
+  animation-fill-mode: backwards;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -19,7 +20,9 @@
   width: 100%;
 }
 
-.titleContainer {
+.nowPlaying {
+  animation: slideUp 0.3s ease-in-out;
+  animation-fill-mode: backwards;
   overflow: hidden;
 }
 
@@ -58,9 +61,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 519px;
   }
 
-  .nowPlaying {
+  .metadata {
     height: 171px;
   }
 }
