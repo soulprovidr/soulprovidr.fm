@@ -28,7 +28,17 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
   useEffect(() => {
     // Remove previous cover/metadata after transition has taken place.
     if (metadataItems.length > 1) {
-      setTimeout(() => setMetadataItems([last(metadataItems)]), 250);
+      const handleTransition = () =>
+        setTimeout(() => setMetadataItems([last(metadataItems)]), 250);
+      if (document.hasFocus()) {
+        handleTransition();
+      } else {
+        const handleFocus = () => {
+          handleTransition();
+          document.removeEventListener("focus", handleFocus);
+        };
+        document.onfocus = handleFocus;
+      }
     }
   }, [currentCover]);
 
