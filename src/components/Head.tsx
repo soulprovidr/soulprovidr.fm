@@ -20,6 +20,9 @@ export const Head = ({
       <meta charSet="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <meta name="apple-itunes-app" content="app-id=1616086357" />
+
       <title>{pageTitle}</title>
       <meta name="title" content={pageTitle} />
       <meta name="description" content={description} />
