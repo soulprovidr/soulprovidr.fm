@@ -1,7 +1,7 @@
+import { Button } from "@components/shared/Button";
+import { ProgressBar } from "@components/shared/ProgressBar";
 import { useMemo } from "react";
-import { Button } from "../Button";
-import { ProgressBar } from "../ProgressBar";
-import { useRadioContext } from "./context";
+import { useRadioContext } from "../context";
 import css from "./VolumeControl.module.scss";
 
 export const VolumeControl = () => {

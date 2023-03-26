@@ -1,5 +1,5 @@
+import { noop } from "@lib/util";
 import { createContext, useContext } from "react";
-import { noop } from "../../lib/util";
 import { IRadioMetadata, RadioStatus } from "./types";
 
 interface IRadioContext {

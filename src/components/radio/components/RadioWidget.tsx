@@ -1,8 +1,8 @@
+import { MarqueeText } from "@components/shared/MarqueeText";
+import { ProgressBar } from "@components/shared/ProgressBar";
+import { prettyPrintMilliseconds } from "@lib/util";
 import isMobile from "ismobilejs";
-import { prettyPrintMilliseconds } from "../../lib/util";
-import { MarqueeText } from "../MarqueeText";
-import { ProgressBar } from "../ProgressBar";
-import { useRadioContext } from "./context";
+import { useRadioContext } from "../context";
 import { ListenButton } from "./ListenButton";
 import { RadioCover } from "./RadioCover";
 import css from "./RadioWidget.module.scss";

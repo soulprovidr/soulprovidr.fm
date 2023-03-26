@@ -1,10 +1,10 @@
+import { AsyncImage } from "@components/shared/AsyncImage";
 import cx from "classnames";
 import isEmpty from "lodash.isempty";
 import { useEffect, useState } from "react";
-import { AsyncImage } from "../AsyncImage";
-import { useRadioContext } from "./context";
+import { useRadioContext } from "../context";
+import { IRadioMetadata } from "../types";
 import css from "./RadioCover.module.scss";
-import { IRadioMetadata } from "./types";
 
 interface IRadioCoverProps {
   size: number;

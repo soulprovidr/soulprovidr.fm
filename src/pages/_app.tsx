@@ -1,9 +1,9 @@
+import MDXComponents from "@components/layout/MDXComponents";
+import { RadioProvider } from "@components/radio";
 import { MDXProvider } from "@mdx-js/react";
+import "@styles/global.scss";
 import PlausibleProvider from "next-plausible";
 import type { AppProps } from "next/app";
-import MDXComponents from "../components/MDXComponents";
-import { RadioProvider } from "../components/radio";
-import "../styles/global.scss";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

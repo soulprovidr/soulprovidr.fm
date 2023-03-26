@@ -1,6 +1,6 @@
+import { Button } from "@components/shared/Button";
 import { useMemo } from "react";
-import { Button } from "../Button";
-import { useRadioContext } from "./context";
+import { useRadioContext } from "../context";
 import css from "./ListenButton.module.scss";
 
 export const ListenButton = () => {

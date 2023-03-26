@@ -1,8 +1,8 @@
+import { LiveText } from "@components/shared/LiveText";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import css from "./Header.module.scss";
-import { LiveText } from "./LiveText";
 
 interface INavLinkProps {
   children: ReactNode;
