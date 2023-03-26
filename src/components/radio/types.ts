@@ -1,4 +1,8 @@
-export type RadioStatus = "stopped" | "buffering" | "playing";
+export enum RadioStatus {
+  BUFFERING = "buffering",
+  PLAYING = "playing",
+  STOPPED = "stopped",
+}
 
 export interface IRadioMetadata {
   album: string;

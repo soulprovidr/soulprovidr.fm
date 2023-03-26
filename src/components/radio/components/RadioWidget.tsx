@@ -9,7 +9,7 @@ import css from "./RadioWidget.module.scss";
 import { VolumeControl } from "./VolumeControl";
 
 export const RadioWidget = () => {
-  const { elapsedTime, metadata, progress, status } = useRadioContext();
+  const { elapsed, metadata, progress, status } = useRadioContext();
 
   const isPlaying = status === "playing";
 
@@ -29,7 +29,7 @@ export const RadioWidget = () => {
           <div>
             <ProgressBar isActive={isPlaying} value={progress} />
             <div className={css.progressLabels}>
-              <span>{prettyPrintMilliseconds(elapsedTime)}</span>
+              <span>{prettyPrintMilliseconds(elapsed)}</span>
               <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
             </div>
           </div>

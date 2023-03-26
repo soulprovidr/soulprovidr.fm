@@ -1,37 +1,32 @@
-import { useCallback, useEffect, useState } from "react";
+import { useInterval } from "@lib/useInterval";
+import { useCallback, useState } from "react";
+import { ELAPSED_FUDGE_TIME } from "../constants";
 import { useMetadata } from "./useMetadata";
 
 export const useProgress = () => {
   const { data: metadata } = useMetadata();
 
-  // This number accounts for drift between the audio stream + the API.
-  const ELAPSED_FUDGE_TIME = 10000;
-
-  const [elapsedTime, setElapsedTime] = useState(0);
+  const [elapsed, setElapsed] = useState(0);
   const [progress, setProgress] = useState(0);
 
-  const update = useCallback(() => {
+  const updateProgress = useCallback(() => {
     if (metadata) {
-      const durationTime = metadata.duration * 1000;
-      const newElapsedTime = Math.max(
+      const duration = metadata.duration * 1000;
+      const newElapsed = Math.max(
         Math.min(
           new Date().getTime() -
             new Date(metadata.startedAt).getTime() -
             ELAPSED_FUDGE_TIME,
-          durationTime
+          duration
         ),
         0
       );
-      setElapsedTime(newElapsedTime);
-      setProgress(Math.max(0, newElapsedTime / durationTime));
+      setElapsed(newElapsed);
+      setProgress(Math.max(0, newElapsed / duration));
     }
   }, [metadata]);
 
-  useEffect(() => {
-    update();
-    const updateInterval = setInterval(update, 100);
-    return () => clearInterval(updateInterval);
-  }, [update]);
+  useInterval(updateProgress, 100);
 
-  return { elapsedTime, progress };
+  return { elapsed, progress };
 };

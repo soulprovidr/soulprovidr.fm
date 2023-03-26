@@ -1,6 +1,7 @@
 import { Button } from "@components/shared/Button";
 import { useMemo } from "react";
 import { useRadioContext } from "../context";
+import { RadioStatus } from "../types";
 import css from "./ListenButton.module.scss";
 
 export const ListenButton = () => {
@@ -8,7 +9,7 @@ export const ListenButton = () => {
 
   const children = useMemo(() => {
     switch (status) {
-      case "buffering":
+      case RadioStatus.BUFFERING:
         return (
           <>
             <svg
@@ -24,7 +25,7 @@ export const ListenButton = () => {
             LOADING
           </>
         );
-      case "playing":
+      case RadioStatus.PLAYING:
         return (
           <>
             <svg
@@ -39,7 +40,7 @@ export const ListenButton = () => {
             STOP
           </>
         );
-      case "stopped":
+      case RadioStatus.STOPPED:
         return (
           <>
             <svg
@@ -57,7 +58,7 @@ export const ListenButton = () => {
     }
   }, [status]);
 
-  const isStopped = status === "stopped";
+  const isStopped = status === RadioStatus.STOPPED;
 
   return (
     <Button

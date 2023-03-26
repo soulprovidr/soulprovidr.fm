@@ -4,7 +4,7 @@ type MediaSessionActionHandlerMap = {
   [Property in MediaSessionAction]?: MediaSessionActionHandler;
 };
 
-export interface IUseMediaSessionParams {
+interface IUseMediaSessionParams {
   actionHandlers?: MediaSessionActionHandlerMap;
   metadata?: MediaMetadataInit;
   playbackState?: MediaSessionPlaybackState;

@@ -1,37 +1,33 @@
 import { fetchJSON } from "@lib/fetch";
+import { useQuery } from "@tanstack/react-query";
 import camelCase from "lodash.camelcase";
-import useSWR, { SWRHook } from "swr";
+import { ELAPSED_FUDGE_TIME } from "../constants";
 import { IRadioMetadata } from "../types";
 
-const transformKeysToCamelCase = (obj: any) =>
+const fetchMetadata = (): Promise<IRadioMetadata> =>
+  fetchJSON<IRadioMetadata>(
+    "https://api.radioking.io/widget/radio/soulprovidr/track/current"
+  );
+
+const getRefetchInterval = (metadata?: IRadioMetadata) =>
+  metadata
+    ? new Date(metadata.nextTrack).getTime() -
+      new Date().getTime() +
+      ELAPSED_FUDGE_TIME
+    : 0;
+
+const transformKeysToCamelCase = <T>(obj: any) =>
   Object.keys(obj).reduce(
     (acc, key) => Object.assign(acc, { [camelCase(key)]: obj[key] }),
     {}
-  );
+  ) as T;
 
-const transformKeysToCamelCaseMiddleware =
-  (useSWRNext: SWRHook) => (key, fetcher, config) => {
-    const newFetcher = (key) => fetcher(key).then(transformKeysToCamelCase);
-    return useSWRNext(key, newFetcher, config);
-  };
-
-export const useMetadata = () => {
-  const res = useSWR<IRadioMetadata>(
-    "https://api.radioking.io/widget/radio/soulprovidr/track/current",
-    fetchJSON,
-    { refreshInterval: 10000, use: [transformKeysToCamelCaseMiddleware] }
-  );
-
-  // useEffect(() => {
-  //   if (metadata) {
-  //     const ms =
-  //       new Date(metadata.nextTrack).getTime() - new Date().getTime() + 10000;
-  //     timeoutRef.current = setTimeout(mutate, ms);
-  //     return () => {
-  //       clearTimeout(timeoutRef.current);
-  //     };
-  //   }
-  // }, [metadata]);
-
-  return res;
-};
+export const useMetadata = () =>
+  useQuery({
+    queryKey: ["metadata"],
+    queryFn: fetchMetadata,
+    refetchInterval: getRefetchInterval,
+    refetchIntervalInBackground: true,
+    refetchOnWindowFocus: false,
+    select: (data): IRadioMetadata => transformKeysToCamelCase(data),
+  });

@@ -8,10 +8,10 @@ import { RadioStatus } from "../types";
 
 const getMediaSessionPlaybackState = (status: RadioStatus) => {
   switch (status) {
-    case "buffering":
-    case "playing":
+    case RadioStatus.BUFFERING:
+    case RadioStatus.PLAYING:
       return "playing";
-    case "stopped":
+    case RadioStatus.STOPPED:
       return "paused";
   }
 };
@@ -20,18 +20,18 @@ export const RadioProvider = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>();
 
   const [isMuted, setIsMuted] = useState(false);
-  const [status, setStatus] = useState<RadioStatus>("stopped");
+  const [status, setStatus] = useState<RadioStatus>(RadioStatus.STOPPED);
   const [volume, persistVolume] = usePersistedState<number>("volume", 1);
 
-  const { error, data: metadata, mutate } = useMetadata();
-  const { elapsedTime, progress } = useProgress();
+  const { error, data: metadata } = useMetadata();
+  const { elapsed, progress } = useProgress();
 
   const { current: audio } = audioRef;
 
-  const handleAudioError = () => setStatus("stopped");
-  const handleAudioPlaying = () => setStatus("playing");
-  const handleAudioPause = () => setStatus("stopped");
-  const handleAudioWaiting = () => setStatus("buffering");
+  const handleAudioError = () => setStatus(RadioStatus.STOPPED);
+  const handleAudioPlaying = () => setStatus(RadioStatus.PLAYING);
+  const handleAudioPause = () => setStatus(RadioStatus.STOPPED);
+  const handleAudioWaiting = () => setStatus(RadioStatus.BUFFERING);
 
   const listen = () => {
     if (audio) {
@@ -61,7 +61,6 @@ export const RadioProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("focus", () => mutate());
     window.addEventListener("offline", stop);
     setVolume(volume);
   }, []);
@@ -102,8 +101,8 @@ export const RadioProvider = ({ children }) => {
   return (
     <RadioContext.Provider
       value={{
-        elapsedTime,
-        error,
+        elapsed,
+        error: !!error,
         isMuted,
         listen,
         metadata,
