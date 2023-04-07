@@ -1,6 +1,6 @@
 import { useMediaSession } from "@lib/useMediaSession";
 import { usePersistedState } from "@lib/usePersistedState";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { RadioContext } from "../context";
 import { useMetadata } from "../hooks/useMetadata";
 import { useProgress } from "../hooks/useProgress";
@@ -23,7 +23,7 @@ export const RadioProvider = ({ children }) => {
   const [status, setStatus] = useState<RadioStatus>(RadioStatus.STOPPED);
   const [volume, persistVolume] = usePersistedState<number>("volume", 1);
 
-  const { error, data: metadata } = useMetadata();
+  const { error, data: metadata, refetch: refetchMetadata } = useMetadata();
   const { elapsed, progress } = useProgress();
 
   const { current: audio } = audioRef;
@@ -32,6 +32,12 @@ export const RadioProvider = ({ children }) => {
   const handleAudioPlaying = () => setStatus(RadioStatus.PLAYING);
   const handleAudioPause = () => setStatus(RadioStatus.STOPPED);
   const handleAudioWaiting = () => setStatus(RadioStatus.BUFFERING);
+  const handleFocus = useCallback(() => {
+    // Refresh the metadata when the user returns to the page, if the current track has finished playing.
+    if (progress >= 1) {
+      refetchMetadata();
+    }
+  }, [progress]);
 
   const listen = () => {
     if (audio) {
@@ -61,9 +67,17 @@ export const RadioProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("offline", stop);
+    // Set initial volume (based on persisted value).
     setVolume(volume);
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("offline", stop);
+    window.addEventListener("focus", handleFocus);
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+    };
+  }, [handleFocus]);
 
   const mediaSessionActionHandlers = useMemo(
     () => ({
