@@ -10,7 +10,11 @@ const queryClient = new QueryClient();
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <PlausibleProvider domain="soulprovidr.fm">
+    <PlausibleProvider
+      customDomain="https://analytics.amnoob.cool"
+      domain="soulprovidr.fm"
+      selfHosted
+    >
       <MDXProvider components={MDXComponents}>
         <QueryClientProvider client={queryClient}>
           <RadioProvider>
