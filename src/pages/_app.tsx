@@ -13,7 +13,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <PlausibleProvider
       customDomain="https://analytics.amnoob.cool"
       domain="soulprovidr.fm"
-      selfHosted
     >
       <MDXProvider components={MDXComponents}>
         <QueryClientProvider client={queryClient}>
