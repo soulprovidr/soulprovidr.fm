@@ -7,25 +7,42 @@
   </head>
 
   <style>
-    html,
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
       background: white;
       color: black;
-      width: 100%;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
       height: 100%;
+      width: 100%;
     }
 
     header {
+      border-bottom: 1px solid #ededed;
       display: flex;
+      height: 100px;
       align-items: center;
-      width: 100%;
-      padding: 2em;
+      padding: 16px 48px;
+      width: 100%
     }
 
-    .logo {
+    .header__logo {
       width: 50px;
       height: 50px;
       margin-right: 1em;
+    }
+
+    .header__title {
+      font-size: 16px;
+      font-weight: 700;
     }
 
     main {
@@ -34,23 +51,54 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 100%;
+      flex: 1;
+      margin-top: -150px;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 50%;
+    }
+
+    .live {
+      font-size: 32px;
+      font-weight: 600;
+      margin: 36px 0;
     }
 
     .player {
       display: flex;
       align-items: center;
-      gap: 1em;
-      width: 75%;
+      gap: 36px;
     }
 
     .player__cover {
-      width: 50%;
-      height: 50%;
+      width: 40%;
     }
 
     .player__cover img {
-      object-fit: fill;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+      max-width: 100%;
+    }
+
+    #title {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 34px;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    #artist {
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 24px;
+      margin: 2px 0 0;
+      white-space: nowrap;
     }
 
     cast-media-player {
@@ -60,19 +108,22 @@
   </style>
 
   <body>
-    
+    <header>
+      <img class="header__logo" src="/logo.png" alt="Soul Provider Logo" />
+      <div class="header__title">SOUL PROVIDER</div>
+    </header>
+  
     <main>
-      <header>
-        <img class="logo" src="images/logo.png" alt="Soul Provider Logo" />
-        <h1>Soul Provider</h1>
-      </header>
-      <div class="player">
-        <div class="player__cover">
-          <img id="cover" src="" alt="Cover" />
+      <div class="container">
+        <div class="live">Live</div>
+        <div class="player">
+          <div class="player__cover">
+            <img id="cover" src="" alt="Cover" />
+          </div>
+          <div class="player__info">
+            <div id="title">Title</div>
+            <div id="artist">Artist</div>
         </div>
-        <div class="player__info">
-          <h2 id="title">Title</h2>
-          <h3 id="artist">Artist</h3>
       </div>
     </main>
     <cast-media-player></cast-media-player>
