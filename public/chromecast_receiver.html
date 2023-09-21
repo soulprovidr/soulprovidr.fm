@@ -216,15 +216,14 @@
     <script type="module">
       "use strict";
 
-      const syncMetadata = fetch(
-        "https://api.radioking.io/widget/radio/soulprovidr/track/current"
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          cover.src = data.cover;
-          title.innerText = data.title;
-          artist.innerText = data.artist;
-        });
+      const syncMetadata = () =>
+        fetch("https://api.radioking.io/widget/radio/soulprovidr/track/current")
+          .then((response) => response.json())
+          .then((data) => {
+            cover.src = data.cover;
+            title.innerText = data.title;
+            artist.innerText = data.artist;
+          });
 
       setInterval(syncMetadata, 10000);
       syncMetadata();
