@@ -11,6 +11,46 @@
     body {
       background: white;
       color: black;
+      width: 100%;
+      height: 100%;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 2em;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      margin-right: 1em;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .player {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      width: 75%;
+    }
+
+    .player__cover {
+      width: 50%;
+      height: 50%;
+    }
+
+    .player__cover img {
+      object-fit: fill;
     }
 
     cast-media-player {
@@ -20,12 +60,34 @@
   </style>
 
   <body>
-    <h1>Hello World</h1>
+    
+    <main>
+      <header>
+        <img class="logo" src="images/logo.png" alt="Soul Provider Logo" />
+        <h1>Soul Provider</h1>
+      </header>
+      <div class="player">
+        <div class="player__cover">
+          <img id="cover" src="" alt="Cover" />
+        </div>
+        <div class="player__info">
+          <h2 id="title">Title</h2>
+          <h3 id="artist">Artist</h3>
+      </div>
+    </main>
     <cast-media-player></cast-media-player>
 
     <footer>
       <script type="module">
         "use strict";
+
+        const metadata = fetch("https://api.radioking.io/widget/radio/soulprovidr/track/current")
+          .then((response) => response.json())
+          .then((data) => {
+            cover.src = data.cover;
+            title.innerText = data.title;
+            artist.innerText = data.artist;
+          });
 
         // import { CastQueue } from "./queuing.js";
         // import { MediaFetcher } from "./media_fetcher.js";
