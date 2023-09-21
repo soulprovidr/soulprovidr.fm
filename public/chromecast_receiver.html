@@ -7,6 +7,15 @@
   </head>
 
   <style>
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
     * {
       box-sizing: border-box;
     }
@@ -26,23 +35,34 @@
     }
 
     header {
-      border-bottom: 1px solid #ededed;
       display: flex;
       height: 100px;
       align-items: center;
+      justify-content: space-between;
       padding: 16px 48px;
-      width: 100%
+      width: 100%;
     }
 
     .header__logo {
       width: 50px;
       height: 50px;
-      margin-right: 1em;
     }
 
     .header__title {
-      font-size: 16px;
-      font-weight: 700;
+      display: flex;
+      align-items: center;
+      font-size: 32px;
+      font-weight: 600;
+      gap: 16px;
+    }
+
+    .live-icon {
+      animation: fadeIn 0.8s alternate infinite;
+      animation-fill-mode: backwards;
+      background: red;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
     }
 
     main {
@@ -52,20 +72,13 @@
       justify-content: center;
       width: 100%;
       flex: 1;
-      margin-top: -150px;
     }
-    
+
     .container {
       display: flex;
       flex-direction: column;
       justify-content: center;
       width: 50%;
-    }
-
-    .live {
-      font-size: 32px;
-      font-weight: 600;
-      margin: 36px 0;
     }
 
     .player {
@@ -81,8 +94,53 @@
     .player__cover img {
       aspect-ratio: 1;
       border-radius: 8px;
-      box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.06);
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.06);
       max-width: 100%;
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      width: 100%;
+      padding: 0 48px 32px;
+    }
+
+    .status {
+      width: 100px;
+      height: 100px;
+    }
+
+    .progress {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+      margin-top: 32px;
+    }
+
+    .progress__bar {
+      position: relative;
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+    }
+
+    .progress__fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background: #0071eb;
+      border-radius: 4px;
+      width: 40%;
+    }
+
+    .progress__labels {
+      display: flex;
+      justify-content: space-between;
     }
 
     #title {
@@ -109,13 +167,15 @@
 
   <body>
     <header>
+      <div class="header__title">
+        <span class="live-icon"></span>
+        Live
+      </div>
       <img class="header__logo" src="/logo.png" alt="Soul Provider Logo" />
-      <div class="header__title">SOUL PROVIDER</div>
     </header>
-  
+
     <main>
       <div class="container">
-        <div class="live">Live</div>
         <div class="player">
           <div class="player__cover">
             <img id="cover" src="" alt="Cover" />
@@ -123,301 +183,243 @@
           <div class="player__info">
             <div id="title">Title</div>
             <div id="artist">Artist</div>
+          </div>
         </div>
       </div>
     </main>
-    <cast-media-player></cast-media-player>
 
     <footer>
-      <script type="module">
-        "use strict";
+      <div class="status">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewbox="0 0 16 16"
+        >
+          <path
+            d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"
+          />
+        </svg>
+      </div>
+      <div class="progress">
+        <div class="progress__bar">
+          <div class="progress__fill"></div>
+        </div>
+        <div class="progress__labels">
+          <div class="progress__label progress__label">0:00</div>
+          <div class="progress__label progress__label">0:00</div>
+        </div>
+      </div>
+    </footer>
 
-        const metadata = fetch("https://api.radioking.io/widget/radio/soulprovidr/track/current")
-          .then((response) => response.json())
-          .then((data) => {
-            cover.src = data.cover;
-            title.innerText = data.title;
-            artist.innerText = data.artist;
-          });
+    <cast-media-player></cast-media-player>
 
-        // import { CastQueue } from "./queuing.js";
-        // import { MediaFetcher } from "./media_fetcher.js";
-        // import {
-        //   AdsTracker,
-        //   SenderTracker,
-        //   ContentTracker,
-        // } from "./cast_analytics.js";
+    <script type="module">
+      "use strict";
 
-        /**
-         * @fileoverview This sample demonstrates how to build your own Web Receiver for
-         * use with Google Cast. The main receiver implementation is provided in this
-         * file which sets up access to the CastReceiverContext and PlayerManager. Some
-         * added functionality can be enabled by uncommenting some of the code blocks
-         * below.
-         */
+      const syncMetadata = fetch(
+        "https://api.radioking.io/widget/radio/soulprovidr/track/current"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          cover.src = data.cover;
+          title.innerText = data.title;
+          artist.innerText = data.artist;
+        });
 
-        /*
-         * Convenience variables to access the CastReceiverContext and PlayerManager.
-         */
-        const context = cast.framework.CastReceiverContext.getInstance();
-        const playerManager = context.getPlayerManager();
+      setInterval(syncMetadata, 10000);
+      syncMetadata();
 
-        /*
-         * Constant to be used for fetching media by entity from sample repository.
-         */
-        const ID_REGEX = "\/?([^\/]+)\/?$";
+      /**
+       * @fileoverview This sample demonstrates how to build your own Web Receiver for
+       * use with Google Cast. The main receiver implementation is provided in this
+       * file which sets up access to the CastReceiverContext and PlayerManager. Some
+       * added functionality can be enabled by uncommenting some of the code blocks
+       * below.
+       */
 
-        /**
-         * Debug Logger
-         */
-        const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
-        const LOG_RECEIVER_TAG = "Receiver";
+      /*
+       * Convenience variables to access the CastReceiverContext and PlayerManager.
+       */
+      const context = cast.framework.CastReceiverContext.getInstance();
+      const playerManager = context.getPlayerManager();
 
-        /*
-         * WARNING: Make sure to turn off debug logger for production release as it
-         * may expose details of your app.
-         * Uncomment below line to enable debug logger, show a 'DEBUG MODE' tag at
-         * top left corner and show debug overlay.
-         */
-        //  context.addEventListener(cast.framework.system.EventType.READY, () => {
-        //   if (!castDebugLogger.debugOverlayElement_) {
-        //     /**
-        //      *  Enable debug logger and show a 'DEBUG MODE' tag at
-        //      *  top left corner.
-        //      */
-        //       castDebugLogger.setEnabled(true);
+      /*
+       * Constant to be used for fetching media by entity from sample repository.
+       */
+      const ID_REGEX = "\/?([^\/]+)\/?$";
 
-        //     /**
-        //      * Show debug overlay.
-        //      */
-        //       castDebugLogger.showDebugLogs(true);
-        //   }
-        // });
+      /**
+       * Debug Logger
+       */
+      const castDebugLogger = cast.debug.CastDebugLogger.getInstance();
+      const LOG_RECEIVER_TAG = "Receiver";
 
-        /*
-         * Set verbosity level for Core events.
-         */
-        castDebugLogger.loggerLevelByEvents = {
-          "cast.framework.events.category.CORE":
-            cast.framework.LoggerLevel.INFO,
-          "cast.framework.events.EventType.MEDIA_STATUS":
-            cast.framework.LoggerLevel.DEBUG,
-        };
+      /*
+       * WARNING: Make sure to turn off debug logger for production release as it
+       * may expose details of your app.
+       * Uncomment below line to enable debug logger, show a 'DEBUG MODE' tag at
+       * top left corner and show debug overlay.
+       */
+      //  context.addEventListener(cast.framework.system.EventType.READY, () => {
+      //   if (!castDebugLogger.debugOverlayElement_) {
+      //     /**
+      //      *  Enable debug logger and show a 'DEBUG MODE' tag at
+      //      *  top left corner.
+      //      */
+      //       castDebugLogger.setEnabled(true);
 
-        if (!castDebugLogger.loggerLevelByTags) {
-          castDebugLogger.loggerLevelByTags = {};
-        }
+      //     /**
+      //      * Show debug overlay.
+      //      */
+      //       castDebugLogger.showDebugLogs(true);
+      //   }
+      // });
 
-        /*
-         * Set verbosity level for custom tag.
-         * Enables log messages for error, warn, info and debug.
-         */
-        castDebugLogger.loggerLevelByTags[LOG_RECEIVER_TAG] =
-          cast.framework.LoggerLevel.DEBUG;
+      /*
+       * Set verbosity level for Core events.
+       */
+      castDebugLogger.loggerLevelByEvents = {
+        "cast.framework.events.category.CORE": cast.framework.LoggerLevel.INFO,
+        "cast.framework.events.EventType.MEDIA_STATUS":
+          cast.framework.LoggerLevel.DEBUG,
+      };
 
-        /*
-         * Example of how to listen for events on playerManager.
-         */
-        playerManager.addEventListener(
-          cast.framework.events.EventType.ERROR,
-          (event) => {
+      if (!castDebugLogger.loggerLevelByTags) {
+        castDebugLogger.loggerLevelByTags = {};
+      }
+
+      /*
+       * Set verbosity level for custom tag.
+       * Enables log messages for error, warn, info and debug.
+       */
+      castDebugLogger.loggerLevelByTags[LOG_RECEIVER_TAG] =
+        cast.framework.LoggerLevel.DEBUG;
+
+      /*
+       * Example of how to listen for events on playerManager.
+       */
+      playerManager.addEventListener(
+        cast.framework.events.EventType.ERROR,
+        (event) => {
+          castDebugLogger.error(
+            LOG_RECEIVER_TAG,
+            "Detailed Error Code - " + event.detailedErrorCode
+          );
+          if (event && event.detailedErrorCode == 905) {
             castDebugLogger.error(
               LOG_RECEIVER_TAG,
-              "Detailed Error Code - " + event.detailedErrorCode
+              "LOAD_FAILED: Verify the load request is set up " +
+                "properly and the media is able to play."
             );
-            if (event && event.detailedErrorCode == 905) {
-              castDebugLogger.error(
-                LOG_RECEIVER_TAG,
-                "LOAD_FAILED: Verify the load request is set up " +
-                  "properly and the media is able to play."
-              );
-            }
           }
-        );
+        }
+      );
 
-        /*
-         * Example analytics tracking implementation. To enable this functionality see
-         * the implmentation and complete the TODO item in ./google_analytics.js. Once
-         * complete uncomment the the calls to startTracking below to enable each
-         * Tracker.
-         */
-        // const adTracker = new AdsTracker();
-        // const senderTracker = new SenderTracker();
-        // const contentTracker = new ContentTracker();
-        // adTracker.startTracking();
-        // senderTracker.startTracking();
-        // contentTracker.startTracking();
+      /*
+       * Intercept the LOAD request to load and set the contentUrl.
+       */
+      playerManager.setMessageInterceptor(
+        cast.framework.messages.MessageType.LOAD,
+        (loadRequestData) => {
+          castDebugLogger.debug(
+            LOG_RECEIVER_TAG,
+            `loadRequestData: ${JSON.stringify(loadRequestData)}`
+          );
 
-        /**
-         * Modifies the provided mediaInformation by adding a pre-roll break clip to it.
-         * @param {cast.framework.messages.MediaInformation} mediaInformation The target
-         * MediaInformation to be modified.
-         * @return {Promise} An empty promise.
-         */
-        // function addBreaks(mediaInformation) {
-        //   castDebugLogger.debug(LOG_RECEIVER_TAG, "addBreaks: " +
-        //     JSON.stringify(mediaInformation));
-        //   return MediaFetcher.fetchMediaById('fbb_ad')
-        //   .then((clip1) => {
-        //     mediaInformation.breakClips = [
-        //       {
-        //         id: 'fbb_ad',
-        //         title: clip1.title,
-        //         contentUrl: clip1.stream.dash,
-        //         contentType: 'application/dash+xml',
-        //         whenSkippable: 5
-        //       }
-        //     ];
-
-        //     mediaInformation.breaks = [
-        //       {
-        //         id: 'pre-roll',
-        //         breakClipIds: ['fbb_ad'],
-        //         position: 0
-        //       }
-        //     ];
-        //   });
-        // }
-
-        /*
-         * Intercept the LOAD request to load and set the contentUrl.
-         */
-        playerManager.setMessageInterceptor(
-          cast.framework.messages.MessageType.LOAD,
-          (loadRequestData) => {
-            castDebugLogger.debug(
-              LOG_RECEIVER_TAG,
-              `loadRequestData: ${JSON.stringify(loadRequestData)}`
+          // If the loadRequestData is incomplete, return an error message.
+          if (!loadRequestData || !loadRequestData.media) {
+            const error = new cast.framework.messages.ErrorData(
+              cast.framework.messages.ErrorType.LOAD_FAILED
             );
+            error.reason = cast.framework.messages.ErrorReason.INVALID_REQUEST;
+            return error;
+          }
 
-            // If the loadRequestData is incomplete, return an error message.
-            if (!loadRequestData || !loadRequestData.media) {
-              const error = new cast.framework.messages.ErrorData(
-                cast.framework.messages.ErrorType.LOAD_FAILED
-              );
-              error.reason =
-                cast.framework.messages.ErrorReason.INVALID_REQUEST;
-              return error;
-            }
+          // Check all content source fields for the asset URL or ID.
+          let source =
+            loadRequestData.media.contentUrl ||
+            loadRequestData.media.entity ||
+            loadRequestData.media.contentId;
 
-            // Check all content source fields for the asset URL or ID.
-            let source =
-              loadRequestData.media.contentUrl ||
-              loadRequestData.media.entity ||
-              loadRequestData.media.contentId;
+          // If there is no source or a malformed ID then return an error.
+          if (!source || source == "" || !source.match(ID_REGEX)) {
+            let error = new cast.framework.messages.ErrorData(
+              cast.framework.messages.ErrorType.LOAD_FAILED
+            );
+            error.reason = cast.framework.messages.ErrorReason.INVALID_REQUEST;
+            return error;
+          }
 
-            // If there is no source or a malformed ID then return an error.
-            if (!source || source == "" || !source.match(ID_REGEX)) {
-              let error = new cast.framework.messages.ErrorData(
-                cast.framework.messages.ErrorType.LOAD_FAILED
-              );
-              error.reason =
-                cast.framework.messages.ErrorReason.INVALID_REQUEST;
-              return error;
-            }
+          let sourceId = source.match(ID_REGEX)[1];
 
-            let sourceId = source.match(ID_REGEX)[1];
-
-            // Optionally add breaks to the media information and set the contentUrl.
-            return (
-              Promise.resolve()
-                // .then(() => addBreaks(loadRequestData.media)) // Uncomment to enable ads.
-                .then(() => {
-                  // If the source is a url that points to an asset don't fetch from the
-                  // content repository.
-                  if (sourceId.includes(".")) {
-                    castDebugLogger.debug(
-                      LOG_RECEIVER_TAG,
-                      "Interceptor received full URL"
-                    );
-                    loadRequestData.media.contentUrl = source;
-                    return loadRequestData;
-                  } else {
-                    // Fetch the contentUrl if provided an ID or entity URL.
-                    castDebugLogger.debug(
-                      LOG_RECEIVER_TAG,
-                      "Interceptor received ID"
-                    );
-                    return loadRequestData;
-                    // return MediaFetcher.fetchMediaInformationById(
-                    //   sourceId
-                    // ).then((mediaInformation) => {
-                    //   loadRequestData.media = mediaInformation;
-                    //   return loadRequestData;
-                    // });
-                  }
-                })
-                .catch((errorMessage) => {
-                  let error = new cast.framework.messages.ErrorData(
-                    cast.framework.messages.ErrorType.LOAD_FAILED
+          // Optionally add breaks to the media information and set the contentUrl.
+          return (
+            Promise.resolve()
+              // .then(() => addBreaks(loadRequestData.media)) // Uncomment to enable ads.
+              .then(() => {
+                // If the source is a url that points to an asset don't fetch from the
+                // content repository.
+                if (sourceId.includes(".")) {
+                  castDebugLogger.debug(
+                    LOG_RECEIVER_TAG,
+                    "Interceptor received full URL"
                   );
-                  error.reason =
-                    cast.framework.messages.ErrorReason.INVALID_REQUEST;
-                  castDebugLogger.error(LOG_RECEIVER_TAG, errorMessage);
-                  return error;
-                })
-            );
-          }
-        );
+                  loadRequestData.media.contentUrl = source;
+                  return loadRequestData;
+                } else {
+                  // Fetch the contentUrl if provided an ID or entity URL.
+                  castDebugLogger.debug(
+                    LOG_RECEIVER_TAG,
+                    "Interceptor received ID"
+                  );
+                  return loadRequestData;
+                  // return MediaFetcher.fetchMediaInformationById(
+                  //   sourceId
+                  // ).then((mediaInformation) => {
+                  //   loadRequestData.media = mediaInformation;
+                  //   return loadRequestData;
+                  // });
+                }
+              })
+              .catch((errorMessage) => {
+                let error = new cast.framework.messages.ErrorData(
+                  cast.framework.messages.ErrorType.LOAD_FAILED
+                );
+                error.reason =
+                  cast.framework.messages.ErrorReason.INVALID_REQUEST;
+                castDebugLogger.error(LOG_RECEIVER_TAG, errorMessage);
+                return error;
+              })
+          );
+        }
+      );
 
-        /*
-         * Set the control buttons in the UI controls.
-         */
-        const controls = cast.framework.ui.Controls.getInstance();
-        controls.clearDefaultSlotAssignments();
+      /*
+       * Configure the CastReceiverOptions.
+       */
+      const castReceiverOptions = new cast.framework.CastReceiverOptions();
 
-        // Assign buttons to control slots.
-        controls.assignButton(
-          cast.framework.ui.ControlsSlot.SLOT_SECONDARY_1,
-          cast.framework.ui.ControlsButton.QUEUE_PREV
-        );
-        controls.assignButton(
-          cast.framework.ui.ControlsSlot.SLOT_PRIMARY_1,
-          cast.framework.ui.ControlsButton.CAPTIONS
-        );
-        controls.assignButton(
-          cast.framework.ui.ControlsSlot.SLOT_PRIMARY_2,
-          cast.framework.ui.ControlsButton.SEEK_FORWARD_15
-        );
-        controls.assignButton(
-          cast.framework.ui.ControlsSlot.SLOT_SECONDARY_2,
-          cast.framework.ui.ControlsButton.QUEUE_NEXT
-        );
+      /*
+       * Set the player configuration.
+       */
+      const playbackConfig = new cast.framework.PlaybackConfig();
+      playbackConfig.autoResumeDuration = 5;
+      castReceiverOptions.playbackConfig = playbackConfig;
+      castDebugLogger.info(
+        LOG_RECEIVER_TAG,
+        `autoResumeDuration set to: ${playbackConfig.autoResumeDuration}`
+      );
 
-        /*
-         * Configure the CastReceiverOptions.
-         */
-        const castReceiverOptions = new cast.framework.CastReceiverOptions();
+      /*
+       * Set the SupportedMediaCommands.
+       */
+      castReceiverOptions.supportedCommands =
+        cast.framework.messages.Command.ALL_BASIC_MEDIA |
+        cast.framework.messages.Command.QUEUE_PREV |
+        cast.framework.messages.Command.QUEUE_NEXT |
+        cast.framework.messages.Command.STREAM_TRANSFER;
 
-        /*
-         * Set the player configuration.
-         */
-        const playbackConfig = new cast.framework.PlaybackConfig();
-        playbackConfig.autoResumeDuration = 5;
-        castReceiverOptions.playbackConfig = playbackConfig;
-        castDebugLogger.info(
-          LOG_RECEIVER_TAG,
-          `autoResumeDuration set to: ${playbackConfig.autoResumeDuration}`
-        );
-
-        /*
-         * Set the SupportedMediaCommands.
-         */
-        castReceiverOptions.supportedCommands =
-          cast.framework.messages.Command.ALL_BASIC_MEDIA |
-          cast.framework.messages.Command.QUEUE_PREV |
-          cast.framework.messages.Command.QUEUE_NEXT |
-          cast.framework.messages.Command.STREAM_TRANSFER;
-
-        /*
-         * Optionally enable a custom queue implementation. Custom queues allow the
-         * receiver app to manage and add content to the playback queue. Uncomment the
-         * line below to enable the queue.
-         */
-        // castReceiverOptions.queue = new CastQueue();
-
-        context.start(castReceiverOptions);
-      </script>
-    </footer>
+      context.start(castReceiverOptions);
+    </script>
   </body>
 </html>
