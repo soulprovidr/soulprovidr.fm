@@ -12,6 +12,11 @@ export default function ChromecastPage() {
         src="https://www.gstatic.com/cast/sdk/libs/caf_receiver/v3/cast_receiver_framework.js"
         strategy="beforeInteractive"
       />
+      {/* Cast Debug Logger */}
+      <Script
+        src="//www.gstatic.com/cast/sdk/libs/devtools/debug_layer/caf_receiver_logger.js"
+        strategy="beforeInteractive"
+      />
       <ChromecastPlayer />
     </>
   );
