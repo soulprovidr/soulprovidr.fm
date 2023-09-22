@@ -1,4 +1,4 @@
-import { LiveText } from "@components/shared/LiveText";
+import { LiveText } from "@components/ui/LiveText";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";

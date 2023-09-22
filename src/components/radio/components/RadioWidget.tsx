@@ -1,14 +1,17 @@
-import { MarqueeText } from "@components/shared/MarqueeText";
-import { ProgressBar } from "@components/shared/ProgressBar";
-import { prettyPrintMilliseconds } from "@lib/util";
+import { MarqueeText } from "@components/ui/MarqueeText";
 import isMobile from "ismobilejs";
 import { useRadioContext } from "../context";
 import { ListenButton } from "./ListenButton";
 import { RadioCover } from "./RadioCover";
+import { RadioProgress } from "./RadioProgress";
 import css from "./RadioWidget.module.scss";
 import { VolumeControl } from "./VolumeControl";
 
-export const RadioWidget = () => {
+interface IRadioWidgetProps {
+  hideControls?: boolean;
+}
+
+export const RadioWidget = ({ hideControls }: IRadioWidgetProps) => {
   const { elapsed, metadata, progress, status } = useRadioContext();
 
   const isPlaying = status === "playing";
@@ -26,17 +29,15 @@ export const RadioWidget = () => {
             <MarqueeText className={css.title}>{metadata.title}</MarqueeText>
             <MarqueeText className={css.artist}>{metadata.artist}</MarqueeText>
           </div>
-          <div>
-            <ProgressBar isActive={isPlaying} value={progress} />
-            <div className={css.progressLabels}>
-              <span>{prettyPrintMilliseconds(elapsed)}</span>
-              <span>{prettyPrintMilliseconds(metadata.duration * 1000)}</span>
-            </div>
-          </div>
-          <div className={css.controls}>
-            <ListenButton />
-            {!isVolumeControlHidden && <VolumeControl />}
-          </div>
+          {!hideControls && (
+            <>
+              <RadioProgress />
+              <div className={css.controls}>
+                <ListenButton />
+                {!isVolumeControlHidden && <VolumeControl />}
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

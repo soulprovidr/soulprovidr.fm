@@ -16,6 +16,11 @@ const getMediaSessionPlaybackState = (status: RadioStatus) => {
   }
 };
 
+/**
+ * @deprecated
+ * TODO: Convert to `app` directory and turn this into `WebRadioProvider`, which will be used by the web app.
+ * The Chromecast receiver app will use `ChromecastRadioProvider`.
+ */
 export const RadioProvider = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement>();
 

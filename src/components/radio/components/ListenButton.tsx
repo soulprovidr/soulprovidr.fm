@@ -1,4 +1,4 @@
-import { Button } from "@components/shared/Button";
+import { Button } from "@components/ui/Button";
 import { useMemo } from "react";
 import { useRadioContext } from "../context";
 import { RadioStatus } from "../types";

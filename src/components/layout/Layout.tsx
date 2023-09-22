@@ -5,11 +5,11 @@ import { Header } from "./Header";
 
 import css from "./Layout.module.scss";
 
-interface LayoutProps extends IHeadProps {
+interface ILayoutProps extends IHeadProps {
   children: ReactNode;
 }
 
-export const Layout = ({ children, description, title }: LayoutProps) => (
+export const Layout = ({ children, description, title }: ILayoutProps) => (
   <>
     <Head description={description} title={title} />
     <Header />

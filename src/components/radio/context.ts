@@ -2,7 +2,7 @@ import { noop } from "@lib/util";
 import { createContext, useContext } from "react";
 import { IRadioMetadata, RadioStatus } from "./types";
 
-interface IRadioContext {
+export interface IRadioContext {
   /** The elapsed time in milliseconds. */
   elapsed: number;
 
@@ -19,7 +19,7 @@ interface IRadioContext {
   mute: () => void;
 
   /** The current metadata. */
-  metadata: IRadioMetadata;
+  metadata?: IRadioMetadata;
 
   /** A value between 0 and 1 representing the progress of the current track. */
   progress: number;
@@ -43,7 +43,7 @@ export const RadioContext = createContext<IRadioContext>({
   isMuted: false,
   listen: noop,
   mute: noop,
-  metadata: null,
+  metadata: undefined,
   progress: 0,
   setVolume: noop,
   status: RadioStatus.STOPPED,

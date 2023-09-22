@@ -1,4 +1,4 @@
-import { AsyncImage } from "@components/shared/AsyncImage";
+import { AsyncImage } from "@components/ui/AsyncImage";
 import cx from "classnames";
 import isEmpty from "lodash.isempty";
 import { useEffect, useState } from "react";
