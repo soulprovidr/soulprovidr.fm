@@ -85,10 +85,9 @@ export const ChromecastProvider = ({ children }) => {
      * Set the SupportedMediaCommands.
      */
     castReceiverOptions.supportedCommands =
-      window.cast.framework.messages.Command.ALL_BASIC_MEDIA |
-      window.cast.framework.messages.Command.QUEUE_PREV |
-      window.cast.framework.messages.Command.QUEUE_NEXT |
-      window.cast.framework.messages.Command.STREAM_TRANSFER;
+      window.cast.framework.messages.Command.PAUSE |
+      window.cast.framework.messages.Command.STREAM_VOLUME |
+      window.cast.framework.messages.Command.STREAM_MUTE;
 
     context.start(castReceiverOptions);
   }, []);

@@ -12,6 +12,7 @@ const INCREMENT_AMOUNT = 0.05;
 
 interface IProgressBarProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
+  disableTransition?: boolean;
   isActive?: boolean;
   onChange?: (value: number) => void;
   value: number;
@@ -19,6 +20,7 @@ interface IProgressBarProps
 
 export const ProgressBar = ({
   className = "",
+  disableTransition = false,
   isActive = false,
   onChange = undefined,
   value = 1,
@@ -104,6 +106,7 @@ export const ProgressBar = ({
       <div
         className={cx(css.fill, {
           [css.active]: isActive,
+          [css.disableTransition]: disableTransition,
         })}
         style={{ width: `${value * 100}%` }}
       />

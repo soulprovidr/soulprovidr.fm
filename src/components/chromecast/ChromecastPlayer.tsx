@@ -16,7 +16,7 @@ export const ChromecastPlayer = () => {
           <RadioWidget hideControls />
         </main>
         <footer className={css.footer}>
-          <RadioProgress className={css.progressBar} />
+          <RadioProgress className={css.progressBar} disableTransition />
         </footer>
       </div>
     </ChromecastProvider>

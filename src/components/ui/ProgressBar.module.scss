@@ -33,6 +33,10 @@ $widthTransition: width 125ms ease-in;
     background-color: $accent-color;
   }
 
+  &.disableTransition {
+    transition: none;
+  }
+
   &:focus-visible {
     outline: none;
   }

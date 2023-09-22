@@ -5,12 +5,20 @@ import { useRadioContext } from "../context";
 import { RadioStatus } from "../types";
 import css from "./RadioProgress.module.scss";
 
-export const RadioProgress = (props: HTMLAttributes<HTMLDivElement>) => {
+interface IRadioProgressProps extends HTMLAttributes<HTMLDivElement> {
+  disableTransition?: boolean;
+}
+
+export const RadioProgress = ({
+  disableTransition,
+  ...rest
+}: IRadioProgressProps) => {
   const { elapsed, metadata, progress, status } = useRadioContext();
   return (
-    <div {...props}>
+    <div {...rest}>
       <ProgressBar
         className={css.progressBar}
+        disableTransition={disableTransition}
         isActive={status === RadioStatus.PLAYING}
         value={progress}
       />
