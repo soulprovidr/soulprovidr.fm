@@ -12,9 +12,7 @@ interface IRadioWidgetProps {
 }
 
 export const RadioWidget = ({ hideControls }: IRadioWidgetProps) => {
-  const { elapsed, metadata, progress, status } = useRadioContext();
-
-  const isPlaying = status === "playing";
+  const { metadata } = useRadioContext();
 
   // Hide the volume control on mobile (since volume is controlled by the device.)
   const isVolumeControlHidden =
