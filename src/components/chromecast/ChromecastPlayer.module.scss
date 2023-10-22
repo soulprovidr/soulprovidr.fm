@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 24px 48px;
+}
+
+.header {
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  max-width: 768px;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  padding-bottom: 32px;
+}
+
+.progressBar {
+  width: 100%;
+}
