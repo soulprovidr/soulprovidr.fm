@@ -24,9 +24,7 @@ export const Footer = () => (
   <footer className={css.footer}>
     <ul className={css.links}>
       <li>
-        <Link href="/privacy">
-          <a>Privacy Policy</a>
-        </Link>
+        <Link href="/privacy">Privacy Policy</Link>
       </li>
     </ul>
     <ul className={css.icons}>

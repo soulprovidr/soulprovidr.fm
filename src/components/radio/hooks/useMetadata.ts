@@ -1,11 +1,11 @@
-import { fetchJSON } from "@lib/fetch";
+import { fetchJson } from "@lib/util";
 import { useQuery } from "@tanstack/react-query";
 import camelCase from "lodash.camelcase";
 import { ELAPSED_FUDGE_TIME } from "../constants";
 import { IRadioMetadata } from "../types";
 
 const fetchMetadata = (): Promise<IRadioMetadata> =>
-  fetchJSON<IRadioMetadata>(
+  fetchJson<IRadioMetadata>(
     "https://api.radioking.io/widget/radio/soulprovidr/track/current"
   );
 

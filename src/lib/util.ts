@@ -1,3 +1,11 @@
+export const fetchJson = async <T>(url: string, options: RequestInit = {}) => {
+  const response = await fetch(url, options);
+  if (!response.ok) {
+    throw new Error(response.statusText);
+  }
+  return (await response.json()) as T;
+};
+
 export const prettyPrintMilliseconds = (ms) => {
   // Pad to 2 or 3 digits, default is 2
   if (!ms) {

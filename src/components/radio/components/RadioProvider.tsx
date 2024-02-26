@@ -1,5 +1,5 @@
-import { useMediaSession } from "@lib/useMediaSession";
-import { usePersistedState } from "@lib/usePersistedState";
+import { useMediaSession } from "@lib/hooks/useMediaSession";
+import { usePersistedState } from "@lib/hooks/usePersistedState";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { RadioContext } from "../context";
 import { useMetadata } from "../hooks/useMetadata";
