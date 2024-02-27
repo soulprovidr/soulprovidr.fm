@@ -22,19 +22,21 @@ const icons = {
 
 export const Footer = () => (
   <footer className={css.footer}>
-    <ul className={css.links}>
-      <li>
-        <Link href="/privacy">Privacy Policy</Link>
-      </li>
-    </ul>
-    <ul className={css.icons}>
-      {Object.entries(icons).map(([key, { href, title }]) => (
-        <li key={href}>
-          <a href={href} rel="noreferrer" target="_blank" title={title}>
-            <img src={`/icons/${key}.svg`} />
-          </a>
+    <div className={css.content}>
+      <ul className={css.links}>
+        <li>
+          <Link href="/privacy">Privacy Policy</Link>
         </li>
-      ))}
-    </ul>
+      </ul>
+      <ul className={css.icons}>
+        {Object.entries(icons).map(([key, { href, title }]) => (
+          <li key={href}>
+            <a href={href} rel="noreferrer" target="_blank" title={title}>
+              <img src={`/icons/${key}.svg`} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </footer>
 );

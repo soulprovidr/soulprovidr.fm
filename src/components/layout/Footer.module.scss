@@ -1,8 +1,15 @@
 @import "../../styles/variables.scss";
 
 .footer {
+  border-top: 1px solid $border-color;
+  padding: 0 48px;
+}
+
+.content {
   display: flex;
   font-size: 14px;
+  grid-column: 3;
+  height: 100%;
   align-items: center;
   justify-content: space-between;
 
@@ -57,10 +64,8 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $break-small) {
   .footer {
-    align-items: flex-start;
-    flex-direction: column-reverse;
-    gap: 20px;
+    padding-inline: 24px;
   }
 }

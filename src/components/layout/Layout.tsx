@@ -13,9 +13,9 @@ export const Layout = ({ children, description, title }: ILayoutProps) => (
   <>
     <Head description={description} title={title} />
     <Header />
-    <div className={css.container}>
+    <div className={css.wrapper}>
       <main className={css.main}>{children}</main>
-      <Footer />
     </div>
+    <Footer />
   </>
 );

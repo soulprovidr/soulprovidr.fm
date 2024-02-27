@@ -35,7 +35,7 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
   return (
     <div
       className={css.radioCover}
-      style={{ height: `${size}px`, width: `${size}px` }}
+      // style={{ height: `${size}px`, width: `${size}px` }}
     >
       {metadataItems.map((m, i) => {
         const isCurrent = currMetadataId === m.id;

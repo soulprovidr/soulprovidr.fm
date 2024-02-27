@@ -1,7 +1,8 @@
-$container-width: 768px;
+$container-width: 65ch;
 $container-padding: 24px;
 
-$max-width: calc($container-width + (2 * $container-padding));
+$break-small: calc($container-width + (2 * $container-padding));
+$break-medium: calc($break-small * 2);
 
 $accent-color: #0071eb;
 $border-color: #ededed;

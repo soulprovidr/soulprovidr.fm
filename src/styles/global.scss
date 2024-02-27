@@ -16,6 +16,10 @@ html {
 }
 
 #__next {
+  display: grid;
+  grid-template-rows: 100px 1fr 60px;
+  flex-direction: column;
+  min-height: 100dvh;
   width: 100%;
 }
 
@@ -41,7 +45,26 @@ h3 {
   font-weight: 600;
 }
 
-@media screen and (max-width: $max-width) {
+fieldset {
+  border: none;
+  padding: 0;
+
+  legend {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+}
+
+input[type="text"] {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 18px;
+  padding: 8px;
+  width: 100%;
+}
+
+@media screen and (max-width: $break-small) {
   h1 {
     font-size: 32px;
   }
