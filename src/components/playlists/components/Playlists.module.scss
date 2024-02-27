@@ -1,0 +1,103 @@
+@import "../../../styles/variables.scss";
+
+div.controls {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 4fr 1fr;
+  margin: 12px 0 48px;
+  width: 100%;
+}
+
+ul.playlists {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+div.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+
+  p.title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 0;
+  }
+
+  p.description {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  p.attributes {
+    color: #a0a0a0;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  a.link {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 14px;
+    text-decoration: none;
+  }
+}
+
+ul.playlists:global(.grid) {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 64px;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  li img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+}
+
+ul.playlists:global(.list) {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  grid-column: 3;
+
+  li {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+  }
+
+  li img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  div.content {
+    flex-direction: row;
+  }
+}
+
+@media screen and (max-width: $break-medium) {
+  ul.playlists:global(.grid) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: $break-small) {
+  ul.playlists:global(.grid) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
