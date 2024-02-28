@@ -3,12 +3,8 @@
 .footer {
   border-top: 1px solid $border-color;
   padding: 0 48px;
-}
-
-.content {
   display: flex;
   font-size: 14px;
-  grid-column: 3;
   height: 100%;
   align-items: center;
   justify-content: space-between;
