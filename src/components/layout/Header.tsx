@@ -27,7 +27,7 @@ export const Header = () => (
         <Link href="/" passHref>
           <a>
             <img alt="" src="/logo.png" />
-            Soul Provider
+            <span>Soul Provider</span>
           </a>
         </Link>
       </div>
