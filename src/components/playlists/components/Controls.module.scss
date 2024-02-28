@@ -1,0 +1,44 @@
+div.controls {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 4fr 1fr;
+  margin: 12px 0 48px;
+  width: 100%;
+
+  input[type="checkbox"] {
+    appearance: none;
+    margin: 0;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: none;
+
+      &::before {
+        border: 2px solid #0071eb !important;
+      }
+    }
+
+    &::before {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      box-sizing: border-box;
+      content: "";
+      display: block;
+      height: 39px;
+      width: 39px;
+    }
+
+    &:first-of-type::before {
+      border-radius: 4px 0 0 4px;
+      border-right: none;
+    }
+
+    &:last-of-type::before {
+      border-radius: 0 4px 4px 0;
+    }
+
+    &:checked::before {
+      border: 2px solid #777;
+    }
+  }
+}

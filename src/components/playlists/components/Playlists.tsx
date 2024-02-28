@@ -1,53 +1,22 @@
-import { AsyncImage } from "@components/ui/AsyncImage";
-import cx from "classnames";
+import { Layout } from "@components/layout";
 import { useState } from "react";
-import { ISpotifyPlaylist } from "../types";
-import css from "./Playlists.module.scss";
-
-const Controls = ({ displayMode, setDisplayMode, setFilterTerm }) => (
-  <div className={css.controls}>
-    <fieldset>
-      <legend>Filter</legend>
-      <input
-        type="text"
-        onChange={(e) => setFilterTerm(e.target.value)}
-        placeholder="Start typing..."
-      />
-    </fieldset>
-    <fieldset>
-      <legend>Display Mode</legend>
-      <label htmlFor="grid">Grid</label>
-      <input
-        aria-checked={displayMode === "list"}
-        checked={displayMode === "grid"}
-        id="grid"
-        name="display"
-        onChange={(e) => e.target.checked && setDisplayMode("grid")}
-        type="checkbox"
-      />
-      <label htmlFor="list">List</label>
-      <input
-        aria-checked={displayMode === "list"}
-        checked={displayMode === "list"}
-        className={css.checkbox}
-        id="list"
-        name="display"
-        onChange={(e) => e.target.checked && setDisplayMode("list")}
-        type="checkbox"
-      />
-    </fieldset>
-  </div>
-);
+import { DisplayMode, ISpotifyPlaylist } from "../types";
+import { Controls } from "./Controls";
+import { Items } from "./Items";
 
 interface IPlaylistsProps {
   playlists: ISpotifyPlaylist[];
 }
 
 export const Playlists = ({ playlists }: IPlaylistsProps) => {
-  const [displayMode, setDisplayMode] = useState<"grid" | "list">("grid");
+  const [displayMode, setDisplayMode] = useState<DisplayMode>(DisplayMode.GRID);
   const [filterTerm, setFilterTerm] = useState<string>("");
 
   const visiblePlaylists = playlists
+    .sort((a) => {
+      if (a.id === "5s9tY7Jrrh64aFVfgOBopi") return 1;
+      return -1;
+    })
     .sort((a, b) => {
       if (a.name < b.name) return -1;
       if (a.name > b.name) return 1;
@@ -57,78 +26,20 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
       playlist.name.toLowerCase().includes(filterTerm.toLowerCase())
     );
 
-  const renderGridItem = (playlist: ISpotifyPlaylist) => (
-    <li key={playlist.id}>
-      <AsyncImage src={playlist.images[0].url} />
-      <div className={css.content}>
-        <p className={css.title}>{playlist.name}</p>
-        {!!playlist.description && (
-          <p
-            className={css.description}
-            dangerouslySetInnerHTML={{ __html: playlist.description }}
-          />
-        )}
-        <p className={css.attributes}>{playlist.tracks.total} songs</p>
-        <a
-          className={css.link}
-          href={playlist.external_urls.spotify}
-          target="_blank"
-        >
-          <AsyncImage
-            src="/icons/spotify.svg"
-            style={{ width: 21, height: 21 }}
-          />{" "}
-          Listen on Spotify
-        </a>
-      </div>
-    </li>
-  );
-
-  const renderListItem = (playlist: ISpotifyPlaylist) => (
-    <li key={playlist.id}>
-      <AsyncImage src={playlist.images[0].url} />
-      <div className={css.content}>
-        <p className={css.title}>{playlist.name}</p>
-        {!!playlist.description && (
-          <p
-            className={css.description}
-            dangerouslySetInnerHTML={{ __html: playlist.description }}
-          />
-        )}
-        <p className={css.attributes}>{playlist.tracks.total} songs</p>
-        <a
-          className={css.link}
-          href={playlist.external_urls.spotify}
-          target="_blank"
-        >
-          <AsyncImage
-            src="/icons/spotify.svg"
-            style={{ width: 21, height: 21 }}
-          />{" "}
-          Listen on Spotify
-        </a>
-      </div>
-    </li>
-  );
-
   return (
-    <>
+    <Layout title="Playlists">
+      <h1>Playlists</h1>
+      <p>
+        Looking for something new to listen to? Don't worry,{" "}
+        <strong>SOUL PROVIDER®</strong>'s got your back. Find your new favourite
+        song in one of our hand-crafted playlists.
+      </p>
       <Controls
         displayMode={displayMode}
         setDisplayMode={setDisplayMode}
         setFilterTerm={setFilterTerm}
       />
-      <ul
-        className={cx(css.playlists, displayMode, {
-          "layout-medium": displayMode === "grid",
-        })}
-      >
-        {visiblePlaylists.map((playlist) =>
-          displayMode === "grid"
-            ? renderGridItem(playlist)
-            : renderListItem(playlist)
-        )}
-      </ul>
-    </>
+      <Items displayMode={displayMode} playlists={visiblePlaylists} />
+    </Layout>
   );
 };

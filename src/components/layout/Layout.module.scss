@@ -14,38 +14,38 @@
     grid-column: 3;
   }
 
-  > *:global(.layout-medium) {
+  > *:global(.w-medium) {
     display: grid;
     grid-column: 2 / 5;
   }
 
-  > *:global(.layout-full) {
+  > *:global(.w-full) {
     display: grid;
     grid-column: 1 / -1;
   }
 
-  h1,
+  > h1,
   > div {
     margin: 0 0 36px;
   }
 
-  h2 {
+  > h2 {
     margin: 0 0 12px;
   }
 
-  h3 {
+  > h3 {
     margin: 0 0 12px;
   }
 
-  p {
+  > p {
     margin: 0 0 22px;
   }
 
-  ul {
+  > ul {
     margin: 0 0 22px;
   }
 
-  ul li {
+  > ul li {
     margin: 0 0 8px;
   }
 }

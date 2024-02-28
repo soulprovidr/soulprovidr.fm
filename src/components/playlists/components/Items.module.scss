@@ -1,0 +1,105 @@
+@import "../../../styles/variables.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+p.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+p.description {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+p.attribute {
+  color: #a0a0a0;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.link {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+ul.items:global(.grid) {
+  display: grid;
+  gap: 64px;
+  grid-template-columns: repeat(4, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  li img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .content {
+    gap: 8px;
+  }
+
+  @media screen and (max-width: $break-medium) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: $break-small) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+ul.items:global(.list) {
+  display: flex;
+  flex-direction: column;
+  grid-column: 3;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    align-items: center;
+    border-bottom: 1px dashed #ddd;
+    display: flex;
+    gap: 24px;
+    margin: 0;
+    padding: 20px 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  li img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  .content {
+    gap: 4px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}

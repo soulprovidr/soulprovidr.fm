@@ -1,19 +1,6 @@
-import { Layout } from "@components/layout";
 import { Playlists } from "@components/playlists";
 
-const PlaylistsPage = ({ playlists }) => {
-  return (
-    <Layout title="Playlists">
-      <h1>Playlists</h1>
-      <p>
-        Looking for something new to listen to? Don't worry,{" "}
-        <strong>SOUL PROVIDER®</strong>'s got your back. Find your new favourite
-        song in one of our hand-crafted playlists.
-      </p>
-      <Playlists playlists={playlists} />
-    </Layout>
-  );
-};
+const PlaylistsPage = ({ playlists }) => <Playlists playlists={playlists} />;
 
 export const getStaticProps = async () => {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
