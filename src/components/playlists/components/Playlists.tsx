@@ -34,11 +34,7 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
         <strong>SOUL PROVIDER®</strong>'s got your back. Find your new favourite
         song in one of our hand-crafted playlists.
       </p>
-      <Controls
-        displayMode={displayMode}
-        setDisplayMode={setDisplayMode}
-        setFilterTerm={setFilterTerm}
-      />
+      <Controls setFilterTerm={setFilterTerm} />
       <Items displayMode={displayMode} playlists={visiblePlaylists} />
     </Layout>
   );
