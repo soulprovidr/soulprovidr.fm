@@ -2,7 +2,7 @@ import { Layout } from "@components/layout";
 import Fuse from "fuse.js";
 import partition from "lodash.partition";
 import { useState } from "react";
-import { DAILY_LISTENING_PLAYLIST_ID } from "../constants";
+import { isSpecialPlaylist, sortPlaylists } from "../helpers";
 import { ISpotifyPlaylist } from "../types";
 import { Controls } from "./Controls";
 import { Items } from "./Items";
@@ -14,8 +14,9 @@ interface IPlaylistsProps {
 export const Playlists = ({ playlists }: IPlaylistsProps) => {
   const [filterTerm, setFilterTerm] = useState<string>("");
 
-  const [stickyPlaylists, otherPlaylists] = partition(playlists, (p) =>
-    [DAILY_LISTENING_PLAYLIST_ID].includes(p.id)
+  const [specialPlaylists, otherPlaylists] = partition(
+    playlists,
+    isSpecialPlaylist
   );
 
   const visiblePlaylists = filterTerm.length
@@ -26,13 +27,7 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
       })
         .search(filterTerm)
         .map((p) => p.item)
-    : stickyPlaylists.concat(
-        otherPlaylists.sort((a, b) => {
-          if (a.name < b.name) return -1;
-          if (a.name > b.name) return 1;
-          return 0;
-        })
-      );
+    : sortPlaylists(specialPlaylists).concat(sortPlaylists(otherPlaylists));
 
   return (
     <Layout title="Playlists">

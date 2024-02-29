@@ -1,6 +1,6 @@
 import { AsyncImage } from "@components/ui/AsyncImage";
 import cx from "classnames";
-import { DAILY_LISTENING_PLAYLIST_ID } from "../constants";
+import { isSpecialPlaylist } from "../helpers";
 import { ISpotifyPlaylist } from "../types";
 import css from "./Items.module.scss";
 import { VerifiedCheckmark } from "./VerifiedCheckmark";
@@ -18,7 +18,7 @@ export const Items = ({ playlists }: IItemsProps) =>
           <div className={css.content}>
             <h2 className={css.title}>
               {playlist.name}{" "}
-              {playlist.id === DAILY_LISTENING_PLAYLIST_ID && (
+              {isSpecialPlaylist(playlist) && (
                 <VerifiedCheckmark aria-hidden className={css.checkmark} />
               )}
             </h2>
