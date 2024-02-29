@@ -27,7 +27,7 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
         .search(filterTerm)
         .map((p) => p.item)
     : stickyPlaylists.concat(
-        otherPlaylists.toSorted((a, b) => {
+        otherPlaylists.sort((a, b) => {
           if (a.name < b.name) return -1;
           if (a.name > b.name) return 1;
           return 0;
