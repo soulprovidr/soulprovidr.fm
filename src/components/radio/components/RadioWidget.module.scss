@@ -3,7 +3,7 @@
 
 .radioWidget {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   gap: 48px;
   width: 100%;
 }
@@ -15,7 +15,6 @@
   flex-direction: column;
   gap: 24px;
   justify-content: center;
-  min-width: 0; // prevent grid cell from expanding with content
   width: 100%;
 }
 
