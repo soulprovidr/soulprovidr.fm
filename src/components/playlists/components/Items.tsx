@@ -16,7 +16,7 @@ export const Items = ({
     <ul className={cx(css.items, displayMode, "w-medium")}>
       {playlists.map((playlist) => (
         <li key={playlist.id}>
-          <AsyncImage src={playlist.images[0].url} />
+          <AsyncImage className={css.image} src={playlist.images[0].url} />
           <div className={css.content}>
             <p className={css.title}>{playlist.name}</p>
             <p className={css.attribute}>{playlist.tracks.total} songs</p>

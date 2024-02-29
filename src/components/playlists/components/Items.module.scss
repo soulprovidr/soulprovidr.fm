@@ -48,10 +48,11 @@ ul.items:global(.grid) {
   }
 
   li img {
-    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
     height: auto;
     object-fit: cover;
-    border-radius: 4px;
+    width: 100%;
   }
 
   .content {

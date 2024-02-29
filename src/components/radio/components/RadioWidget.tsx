@@ -20,7 +20,7 @@ export const RadioWidget = ({ hideControls }: IRadioWidgetProps) => {
 
   return (
     <div className={css.radioWidget}>
-      <RadioCover size={300} />
+      <RadioCover className={css.cover} />
       {metadata && (
         <div className={css.metadata}>
           <div className={css.nowPlaying}>

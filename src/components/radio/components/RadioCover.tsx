@@ -7,10 +7,10 @@ import { IRadioMetadata } from "../types";
 import css from "./RadioCover.module.scss";
 
 interface IRadioCoverProps {
-  size: number;
+  className?: string;
 }
 
-export const RadioCover = ({ size }: IRadioCoverProps) => {
+export const RadioCover = ({ className }: IRadioCoverProps) => {
   const { metadata } = useRadioContext();
 
   const [currMetadataId, setCurrMetadataId] = useState<number>();
@@ -33,10 +33,7 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
   };
 
   return (
-    <div
-      className={css.radioCover}
-      // style={{ height: `${size}px`, width: `${size}px` }}
-    >
+    <div className={cx(css.radioCover, className)}>
       {metadataItems.map((m, i) => {
         const isCurrent = currMetadataId === m.id;
         const isPrevious = i === 0 && !isCurrent;
@@ -51,10 +48,8 @@ export const RadioCover = ({ size }: IRadioCoverProps) => {
             <AsyncImage
               alt={m && `Artwork for ${m.title} by ${m.artist}`}
               className={css.image}
-              height={size}
               onLoad={handleImageLoad}
               src={m.cover}
-              width={size}
             />
           </div>
         );

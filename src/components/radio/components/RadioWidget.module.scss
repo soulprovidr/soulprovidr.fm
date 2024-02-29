@@ -3,7 +3,7 @@
 
 .radioWidget {
   display: grid;
-  grid-template-columns: 4fr 5fr;
+  grid-template-columns: 1fr 2fr;
   gap: 48px;
   width: 100%;
 }
@@ -17,6 +17,7 @@
   gap: 24px;
   justify-content: center;
   width: 100%;
+  overflow: hidden;
 }
 
 .nowPlaying {
@@ -26,7 +27,7 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   line-height: 34px;
   margin: 0;
@@ -49,9 +50,15 @@
 
 @media screen and (max-width: $break-small) {
   .radioWidget {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    height: 520px;
+  }
+
+  .cover {
+    width: 300px;
+    height: 300px;
   }
 
   .metadata {
