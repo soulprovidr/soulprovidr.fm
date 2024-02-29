@@ -1,6 +1,8 @@
 import { Layout } from "@components/layout";
 import Fuse from "fuse.js";
+import partition from "lodash.partition";
 import { useState } from "react";
+import { DAILY_LISTENING_PLAYLIST_ID } from "../constants";
 import { ISpotifyPlaylist } from "../types";
 import { Controls } from "./Controls";
 import { Items } from "./Items";
@@ -12,7 +14,11 @@ interface IPlaylistsProps {
 export const Playlists = ({ playlists }: IPlaylistsProps) => {
   const [filterTerm, setFilterTerm] = useState<string>("");
 
-  const visiblePlaylists = filterTerm
+  const [stickyPlaylists, otherPlaylists] = partition(playlists, (p) =>
+    [DAILY_LISTENING_PLAYLIST_ID].includes(p.id)
+  );
+
+  const visiblePlaylists = filterTerm.length
     ? new Fuse(playlists, {
         keys: ["name", "description"],
         ignoreLocation: true,
@@ -20,11 +26,13 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
       })
         .search(filterTerm)
         .map((p) => p.item)
-    : playlists.sort((a, b) => {
-        if (a.name < b.name) return -1;
-        if (a.name > b.name) return 1;
-        return 0;
-      });
+    : stickyPlaylists.concat(
+        otherPlaylists.toSorted((a, b) => {
+          if (a.name < b.name) return -1;
+          if (a.name > b.name) return 1;
+          return 0;
+        })
+      );
 
   return (
     <Layout title="Playlists">
