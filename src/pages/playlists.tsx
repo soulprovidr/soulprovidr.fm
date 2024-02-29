@@ -40,11 +40,11 @@ export const getStaticProps = async () => {
       },
     };
   } catch (e) {
-    console.error(e);
     return {
       props: {
         playlists: [],
       },
+      revalidate: 3600,
     };
   }
 };

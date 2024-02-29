@@ -1,19 +1,15 @@
 import { AsyncImage } from "@components/ui/AsyncImage";
 import cx from "classnames";
-import { DisplayMode, ISpotifyPlaylist } from "../types";
+import { ISpotifyPlaylist } from "../types";
 import css from "./Items.module.scss";
 
 interface IItemsProps {
-  displayMode?: DisplayMode;
   playlists: ISpotifyPlaylist[];
 }
 
-export const Items = ({
-  displayMode = DisplayMode.GRID,
-  playlists,
-}: IItemsProps) =>
+export const Items = ({ playlists }: IItemsProps) =>
   playlists.length ? (
-    <ul className={cx(css.items, displayMode, "w-medium")}>
+    <ul className={cx(css.items, "w-medium")}>
       {playlists.map((playlist) => (
         <li key={playlist.id}>
           <AsyncImage className={css.image} src={playlist.images[0].url} />
@@ -32,6 +28,7 @@ export const Items = ({
               target="_blank"
             >
               <AsyncImage
+                alt=""
                 src="/icons/spotify.svg"
                 style={{ width: 21, height: 21 }}
               />{" "}

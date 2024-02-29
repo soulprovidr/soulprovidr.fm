@@ -1,8 +1,3 @@
-export enum DisplayMode {
-  GRID = "grid",
-  LIST = "list",
-}
-
 export interface ISpotifyImageObject {
   height: number;
   width: number;
