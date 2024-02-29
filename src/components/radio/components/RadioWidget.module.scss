@@ -13,11 +13,10 @@
   animation-fill-mode: backwards;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 24px;
   justify-content: center;
+  min-width: 0; // prevent grid cell from expanding with content
   width: 100%;
-  overflow: hidden;
 }
 
 .nowPlaying {
