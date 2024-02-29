@@ -1,6 +1,7 @@
 import { Layout } from "@components/layout";
+import Fuse from "fuse.js";
 import { useState } from "react";
-import { DisplayMode, ISpotifyPlaylist } from "../types";
+import { ISpotifyPlaylist } from "../types";
 import { Controls } from "./Controls";
 import { Items } from "./Items";
 
@@ -9,33 +10,31 @@ interface IPlaylistsProps {
 }
 
 export const Playlists = ({ playlists }: IPlaylistsProps) => {
-  const [displayMode, setDisplayMode] = useState<DisplayMode>(DisplayMode.GRID);
   const [filterTerm, setFilterTerm] = useState<string>("");
 
-  const visiblePlaylists = playlists
-    .sort((a) => {
-      if (a.id === "5s9tY7Jrrh64aFVfgOBopi") return 1;
-      return -1;
-    })
-    .sort((a, b) => {
-      if (a.name < b.name) return -1;
-      if (a.name > b.name) return 1;
-      return 0;
-    })
-    .filter((playlist) =>
-      playlist.name.toLowerCase().includes(filterTerm.toLowerCase())
-    );
+  const visiblePlaylists = filterTerm
+    ? new Fuse(playlists, {
+        keys: ["name", "description"],
+        threshold: 0.4,
+      })
+        .search(filterTerm)
+        .map((p) => p.item)
+    : playlists.sort((a, b) => {
+        if (a.name < b.name) return -1;
+        if (a.name > b.name) return 1;
+        return 0;
+      });
 
   return (
     <Layout title="Playlists">
       <h1>Playlists</h1>
       <p>
-        Looking for something new to listen to? Don't worry,{" "}
-        <strong>SOUL PROVIDER®</strong>'s got your back. Find your new favourite
-        song in one of our hand-crafted playlists.
+        Looking for something new to listen to? Don't worry, Soul Provider's got
+        you covered. Find your new favourite song in one of our hand-crafted
+        playlists.
       </p>
       <Controls setFilterTerm={setFilterTerm} />
-      <Items displayMode={displayMode} playlists={visiblePlaylists} />
+      <Items playlists={visiblePlaylists} />
     </Layout>
   );
 };

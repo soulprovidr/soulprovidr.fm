@@ -21,6 +21,7 @@
     "@tanstack/react-query": "~4.28.0",
     "classnames": "~2.3.1",
     "eslint-config-next": "~13.0.2",
+    "fuse.js": "~7.0.0",
     "ismobilejs": "~1.1.1",
     "lodash.camelcase": "~4.3.0",
     "lodash.isempty": "~4.4.0",

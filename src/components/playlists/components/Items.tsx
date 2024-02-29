@@ -4,11 +4,14 @@ import { DisplayMode, ISpotifyPlaylist } from "../types";
 import css from "./Items.module.scss";
 
 interface IItemsProps {
-  displayMode: DisplayMode;
+  displayMode?: DisplayMode;
   playlists: ISpotifyPlaylist[];
 }
 
-export const Items = ({ displayMode, playlists }: IItemsProps) =>
+export const Items = ({
+  displayMode = DisplayMode.GRID,
+  playlists,
+}: IItemsProps) =>
   playlists.length ? (
     <ul className={cx(css.items, displayMode, "w-medium")}>
       {playlists.map((playlist) => (
