@@ -15,7 +15,8 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
   const visiblePlaylists = filterTerm
     ? new Fuse(playlists, {
         keys: ["name", "description"],
-        threshold: 0.4,
+        ignoreLocation: true,
+        threshold: 0.3,
       })
         .search(filterTerm)
         .map((p) => p.item)
