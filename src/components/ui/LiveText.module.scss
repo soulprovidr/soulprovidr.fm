@@ -1,7 +1,6 @@
 @import "../../styles/animations.scss";
 
 .container {
-  height: 100%;
   display: flex;
   align-items: center;
 }
@@ -11,4 +10,5 @@
   animation-fill-mode: backwards;
   background: red;
   border-radius: 50%;
+  display: inline-block;
 }

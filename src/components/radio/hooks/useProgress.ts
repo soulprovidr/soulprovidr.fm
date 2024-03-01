@@ -1,4 +1,4 @@
-import { useInterval } from "@lib/useInterval";
+import { useInterval } from "@lib/hooks/useInterval";
 import { useCallback, useState } from "react";
 import { ELAPSED_FUDGE_TIME } from "../constants";
 import { useMetadata } from "./useMetadata";

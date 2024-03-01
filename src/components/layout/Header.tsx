@@ -27,7 +27,7 @@ export const Header = () => (
         <Link href="/" passHref>
           <a>
             <img alt="" src="/logo.png" />
-            Soul Provider
+            <span>Soul Provider</span>
           </a>
         </Link>
       </div>
@@ -35,6 +35,7 @@ export const Header = () => (
     <nav className={css.navigation}>
       <ul>
         <LiveText as={NavLink} href="/" />
+        <NavLink href="/playlists">Playlists</NavLink>
         <NavLink href="/faq">FAQ</NavLink>
       </ul>
     </nav>

@@ -1,0 +1,116 @@
+@import "../../../styles/variables.scss";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 0;
+}
+
+.checkmark {
+  color: $accent-color;
+  margin-left: 2px;
+  vertical-align: top;
+}
+
+p.description {
+  font-size: 16px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+p.attribute {
+  color: #a0a0a0;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 0;
+}
+
+.link {
+  align-items: center;
+  display: inline-flex;
+  font-size: 14px;
+  gap: 6px;
+  margin-top: 12px;
+  text-decoration: none;
+}
+
+ul.items {
+  display: grid;
+  gap: 64px;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  li img {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    height: auto;
+    object-fit: cover;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: $break-medium) {
+  ul.items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: $break-small) {
+  ul.items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    grid-column: 3;
+    grid-template-columns: repeat(1, 1fr);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      align-items: flex-start;
+      border-bottom: 1px dashed #ddd;
+      flex-direction: row;
+      gap: 24px;
+      margin: 0;
+      padding: 20px 0;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+
+    li img {
+      width: 75px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .checkmark {
+      height: 20px;
+      width: 20px;
+      vertical-align: text-top;
+    }
+
+    .title {
+      font-size: 18px;
+    }
+  }
+}

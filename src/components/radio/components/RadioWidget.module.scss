@@ -3,9 +3,8 @@
 
 .radioWidget {
   display: grid;
-  grid-template-columns: 300px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
   gap: 48px;
-  height: 300px;
   width: 100%;
 }
 
@@ -14,7 +13,6 @@
   animation-fill-mode: backwards;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 24px;
   justify-content: center;
   width: 100%;
@@ -27,7 +25,7 @@
 }
 
 .title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 600;
   line-height: 34px;
   margin: 0;
@@ -48,12 +46,17 @@
   justify-content: space-between;
 }
 
-@media screen and (max-width: $max-width) {
+@media screen and (max-width: $break-small) {
   .radioWidget {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    height: 519px;
+    height: 520px;
+  }
+
+  .cover {
+    width: 300px;
+    height: 300px;
   }
 
   .metadata {

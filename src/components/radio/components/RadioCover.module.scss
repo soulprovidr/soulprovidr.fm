@@ -1,14 +1,14 @@
 .radioCover {
+  aspect-ratio: 1;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
     rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   position: relative;
   overflow: hidden;
-  width: 300px;
-  height: 300px;
-  flex-shrink: 0;
+  width: 100%;
 
   img {
+    aspect-ratio: 1;
     height: 100%;
     width: 100%;
   }

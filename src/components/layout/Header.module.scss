@@ -4,6 +4,7 @@
   background: white;
   border-bottom: 1px solid $border-color;
   display: flex;
+  font-size: 18px;
   height: 100px;
   justify-content: space-between;
   align-items: center;
@@ -15,8 +16,8 @@
   img {
     border-radius: 50%;
     transition: transform 150ms ease;
-    width: 32px;
-    height: 32px;
+    height: 42px;
+    width: 42px;
   }
 
   &:hover img {
@@ -28,7 +29,7 @@
     align-items: center;
     color: $primary-text;
     font-weight: 700;
-    gap: 12px;
+    gap: 16px;
     text-decoration: none;
     text-transform: uppercase;
   }
@@ -55,9 +56,18 @@
   }
 }
 
-@media screen and (max-width: $max-width) {
+@media screen and (max-width: $break-small) {
   .header {
     height: auto;
     padding: 24px;
+  }
+
+  .logo img {
+    height: 42px;
+    width: 42px;
+  }
+
+  .logo span {
+    display: none;
   }
 }
