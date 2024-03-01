@@ -7,9 +7,8 @@ interface IControlsProps {
 export const Controls = ({ setFilterTerm }: IControlsProps) => (
   <div className={css.controls}>
     <fieldset>
-      <legend>Filter</legend>
+      <legend>Type to filter</legend>
       <input
-        autoFocus
         type="text"
         onChange={(e) => setFilterTerm(e.target.value)}
         placeholder="Start typing to filter..."
