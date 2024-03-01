@@ -1,9 +1,9 @@
 import { Layout } from "@components/layout";
+import { ISpotifyPlaylist } from "@lib/spotify";
 import Fuse from "fuse.js";
 import partition from "lodash.partition";
 import { useState } from "react";
 import { isSpecialPlaylist, sortPlaylists } from "../helpers";
-import { ISpotifyPlaylist } from "../types";
 import { Controls } from "./Controls";
 import { Items } from "./Items";
 

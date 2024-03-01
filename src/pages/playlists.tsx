@@ -1,4 +1,5 @@
 import { Playlists } from "@components/playlists";
+import { Spotify } from "@lib/spotify";
 
 const PlaylistsPage = ({ playlists }) => <Playlists playlists={playlists} />;
 
@@ -6,47 +7,24 @@ export const getStaticProps = async () => {
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
-  const formData = new URLSearchParams();
-  formData.append("grant_type", "client_credentials");
+  const spotify = new Spotify(client_id, client_secret);
 
-  const authResponse = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      Authorization:
-        "Basic " +
-        Buffer.from(client_id + ":" + client_secret).toString("base64"),
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: formData,
-  });
-
-  try {
-    const { access_token } = await authResponse.json();
-
-    const response = await fetch(
-      "https://api.spotify.com/v1/users/soulprovidr/playlists",
-      {
-        headers: {
-          Authorization: "Bearer " + access_token,
-        },
-      }
-    );
-
-    const data = await response.json();
-
+  if (await spotify.authenticate()) {
+    const playlists = await spotify.getUserPlaylists("soulprovidr");
     return {
       props: {
-        playlists: data.items,
-      },
-    };
-  } catch (e) {
-    return {
-      props: {
-        playlists: [],
+        playlists,
       },
       revalidate: 3600,
     };
   }
+
+  return {
+    props: {
+      playlists: [],
+    },
+    revalidate: 60,
+  };
 };
 
 export default PlaylistsPage;

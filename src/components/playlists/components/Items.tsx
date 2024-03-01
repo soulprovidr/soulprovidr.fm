@@ -1,7 +1,7 @@
 import { AsyncImage } from "@components/ui/AsyncImage";
+import { ISpotifyPlaylist } from "@lib/spotify";
 import cx from "classnames";
 import { isSpecialPlaylist } from "../helpers";
-import { ISpotifyPlaylist } from "../types";
 import css from "./Items.module.scss";
 import { VerifiedCheckmark } from "./VerifiedCheckmark";
 
@@ -32,6 +32,7 @@ export const Items = ({ playlists }: IItemsProps) =>
             <a
               className={css.link}
               href={playlist.external_urls.spotify}
+              rel="noopener noreferrer"
               target="_blank"
             >
               <AsyncImage

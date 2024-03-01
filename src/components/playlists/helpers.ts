@@ -1,8 +1,8 @@
+import { ISpotifyPlaylist } from "@lib/spotify";
 import {
   DAILY_LISTENING_PLAYLIST_ID,
   FRESH_FRIDAYS_PLAYLIST_ID,
 } from "./constants";
-import { ISpotifyPlaylist } from "./types";
 
 export const isSpecialPlaylist = (playlist: ISpotifyPlaylist) => {
   return [DAILY_LISTENING_PLAYLIST_ID, FRESH_FRIDAYS_PLAYLIST_ID].includes(
