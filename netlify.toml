@@ -3,6 +3,9 @@
 command = "npm run build"
 publish = ".next/"
 
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
 # Redirect from soulprovider.fm to soulprovidr.fm.
 [[redirects]]
 from = "https://soulprovider.fm/*"
