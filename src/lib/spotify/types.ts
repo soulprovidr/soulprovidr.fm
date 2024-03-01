@@ -4,6 +4,11 @@ export interface ISpotifyImageObject {
   url: string;
 }
 
+export interface ISpotifyPaginationParams {
+  limit: number;
+  offset: number;
+}
+
 export interface ISpotifyPlaylist {
   id: string;
   name: string;

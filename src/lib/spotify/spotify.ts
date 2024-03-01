@@ -1,9 +1,44 @@
-import { ISpotifyTokenResponse, ISpotifyUserPlaylistsResponse } from "./types";
+import {
+  ISpotifyPaginationParams,
+  ISpotifyTokenResponse,
+  ISpotifyUserPlaylistsResponse,
+} from "./types";
 
 export class Spotify {
   #clientId: string;
   #clientSecret: string;
   #token: string;
+
+  #fetch = async <T>(
+    path: string,
+    params: Record<string, any> = {},
+    options: RequestInit = {}
+  ): Promise<T> => {
+    const url = new URL(`https://api.spotify.com/v1${path}`);
+
+    for (const key in params) {
+      const stringValue = String(params[key]) ?? null;
+      if (stringValue) {
+        url.searchParams.append(key, stringValue);
+      }
+    }
+
+    const headers = Object.assign(
+      { Authorization: "Bearer " + this.#token },
+      options.headers
+    );
+
+    const response = await fetch(
+      url.toString(),
+      Object.assign({ headers }, options)
+    );
+
+    if (!response.ok) {
+      throw new Error(await response.text());
+    }
+
+    return (await response.json()) as T;
+  };
 
   get isAuthenticated() {
     return !!this.#token;
@@ -47,24 +82,21 @@ export class Spotify {
     }
   };
 
-  getUserPlaylists = async (username: string) => {
+  getUserPlaylists = async (
+    username: string,
+    params: ISpotifyPaginationParams = { limit: 50, offset: 0 }
+  ) => {
     if (!this.isAuthenticated) {
       console.error("[Spotify] Not authenticated.");
       return [];
     }
 
     try {
-      const response = await fetch(
-        `https://api.spotify.com/v1/users/${username}/playlists`,
-        {
-          headers: {
-            Authorization: "Bearer " + this.#token,
-          },
-        }
+      const { items } = await this.#fetch<ISpotifyUserPlaylistsResponse>(
+        `/users/${username}/playlists`,
+        params
       );
-
-      const data: ISpotifyUserPlaylistsResponse = await response.json();
-      return data.items;
+      return items;
     } catch (e) {
       console.error(e);
       return [];
