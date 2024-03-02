@@ -14,27 +14,24 @@ export class Spotify {
     params: Record<string, any> = {},
     options: RequestInit = {}
   ): Promise<T> => {
-    const url = new URL(`https://api.spotify.com/v1${path}`);
+    const url = new URL(
+      path.startsWith("http") ? path : `https://api.spotify.com/v1${path}`
+    );
 
-    for (const key in params) {
-      const stringValue = String(params[key]) ?? null;
-      if (stringValue) {
-        url.searchParams.append(key, stringValue);
-      }
+    for (const [key, value] of Object.entries(params)) {
+      url.searchParams.append(key, value);
     }
 
-    const headers = Object.assign(
-      { Authorization: "Bearer " + this.#token },
-      options.headers
-    );
-
-    const response = await fetch(
-      url.toString(),
-      Object.assign({ headers }, options)
-    );
+    const response = await fetch(url, {
+      ...options,
+      headers: {
+        Authorization: "Bearer " + this.#token,
+        ...options.headers,
+      },
+    });
 
     if (!response.ok) {
-      throw new Error(await response.text());
+      throw new Error(`Status: ${response.status} ${await response.text()}`);
     }
 
     return (await response.json()) as T;
@@ -57,8 +54,9 @@ export class Spotify {
       return false;
     }
     try {
-      const authResponse = await fetch(
+      const { access_token } = await this.#fetch<ISpotifyTokenResponse>(
         "https://accounts.spotify.com/api/token",
+        {},
         {
           method: "POST",
           headers: {
@@ -73,8 +71,7 @@ export class Spotify {
         }
       );
 
-      const data: ISpotifyTokenResponse = await authResponse.json();
-      this.#token = data.access_token;
+      this.#token = access_token;
       return true;
     } catch (e) {
       console.error(e);
