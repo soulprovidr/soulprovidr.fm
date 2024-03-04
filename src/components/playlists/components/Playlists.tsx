@@ -1,4 +1,3 @@
-import { Layout } from "@components/layout";
 import { ISpotifyPlaylist } from "@lib/spotify";
 import Fuse from "fuse.js";
 import partition from "lodash.partition";
@@ -30,15 +29,9 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
     : sortPlaylists(specialPlaylists).concat(sortPlaylists(otherPlaylists));
 
   return (
-    <Layout title="Playlists">
-      <h1>Playlists</h1>
-      <p>
-        Looking for something new to listen to? Don&apos;t worry, Soul
-        Provider&apos;s got you covered. Find your new favourite song in one of
-        our hand-crafted playlists.
-      </p>
+    <>
       <Controls setFilterTerm={setFilterTerm} />
       <Items playlists={visiblePlaylists} />
-    </Layout>
+    </>
   );
 };

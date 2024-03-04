@@ -1,21 +1,17 @@
+import { MDXProvider } from "@components/mdx";
 import { ReactNode } from "react";
 import { Footer } from "./Footer";
-import { Head, IHeadProps } from "./Head";
 import { Header } from "./Header";
-
 import css from "./Layout.module.scss";
 
-interface ILayoutProps extends IHeadProps {
+interface ILayoutProps {
   children: ReactNode;
 }
 
-export const Layout = ({ children, description, title }: ILayoutProps) => (
-  <>
-    <Head description={description} title={title} />
+export const Layout = ({ children }: ILayoutProps) => (
+  <MDXProvider>
     <Header />
-    <div className={css.wrapper}>
-      <main className={css.main}>{children}</main>
-    </div>
+    <main className={css.main}>{children}</main>
     <Footer />
-  </>
+  </MDXProvider>
 );

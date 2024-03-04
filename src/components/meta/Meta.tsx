@@ -1,27 +1,26 @@
 import NextHead from "next/head";
 import { useRouter } from "next/router";
+import { OpenGraph } from "./OpenGraph";
+import { Twitter } from "./Twitter";
 
-export interface IHeadProps {
+export interface IMetaProps {
   description?: string;
   image?: string;
   title: string;
 }
 
-export const Head = ({
+export const Meta = ({
   description = "Internet radio for those who like to groove.",
   image = "https://soulprovidr.fm/preview.png",
   title,
-}: IHeadProps) => {
+}: IMetaProps) => {
   const { asPath } = useRouter();
   const pageTitle = `${title} | Soul Provider`;
   const url = "https://soulprovidr.fm" + asPath;
   return (
     <NextHead>
-      <meta charSet="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-      <meta name="apple-itunes-app" content="app-id=1616086357" />
 
       <title>{pageTitle}</title>
       <meta name="title" content={pageTitle} />
@@ -30,16 +29,17 @@ export const Head = ({
         name="keywords"
         content="shola,anozie,soul,music,radio,funk,disco,rnb,reggae,online,stream"
       />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content={url} />
-      <meta property="og:title" content={pageTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={image} />
-      <meta property="twitter:card" content="summary" />
-      <meta property="twitter:title" content={pageTitle} />
-      <meta property="twitter:description" content={description} />
-      <meta property="twitter:image" content={image} />
       <link rel="icon" href="/logo.png" />
+
+      <OpenGraph
+        description={description}
+        image={image}
+        title={title}
+        url={url}
+      />
+      <Twitter description={description} image={image} title={title} />
+
+      <meta name="apple-itunes-app" content="app-id=1616086357" />
     </NextHead>
   );
 };

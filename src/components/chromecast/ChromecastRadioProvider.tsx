@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export const ChromecastProvider = ({ children }) => {
+export const ChromecastRadioProvider = ({ children }) => {
   const { error, data: metadata } = useMetadata();
   const { elapsed, progress } = useProgress();
 
