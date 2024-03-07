@@ -16,6 +16,7 @@
     "@types/react": "~18.0.25",
     "@typescript-eslint/parser": "~7.1.0",
     "prettier-plugin-organize-imports": "~3.2.0",
+    "sass": "~1.71.1",
     "typescript": "~5.3.3"
   },
   "dependencies": {
