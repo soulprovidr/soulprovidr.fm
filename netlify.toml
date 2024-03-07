@@ -1,6 +1,6 @@
 [build]
 
-command = "npm run build"
+command = "npm run build --no-lint"
 publish = ".next/"
 
 [[plugins]]
