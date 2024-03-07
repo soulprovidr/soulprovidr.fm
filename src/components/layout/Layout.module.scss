@@ -1,12 +1,18 @@
 @import "../../styles/animations.scss";
 @import "../../styles/variables.scss";
 
+.layout {
+  display: grid;
+  grid-template-rows: 100px 1fr 60px;
+  flex-direction: column;
+  height: 100%;
+}
+
 .main {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) min($container-width, 100%) repeat(
-      2,
-      1fr
-    );
+  grid-template-columns:
+    2fr 1fr min($container-width, 100%)
+    1fr 2fr;
   height: fit-content;
   padding: 64px $container-padding;
   width: 100%;
@@ -49,6 +55,10 @@
   > ul li {
     margin: 0 0 8px;
   }
+}
+
+.footer {
+  z-index: 2;
 }
 
 @media screen and (max-width: $break-small) {

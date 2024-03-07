@@ -1,8 +1,9 @@
 $container-width: 65ch;
+
 $container-padding: 24px;
 
 $break-small: calc($container-width + (2 * $container-padding));
-$break-medium: calc($break-small * 2);
+$break-medium: calc(($container-width * 2) + (2 * $container-padding));
 
 $accent-color: #0071eb;
 $accent-color-hover: #0056b3;

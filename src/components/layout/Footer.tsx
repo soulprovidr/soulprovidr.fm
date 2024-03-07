@@ -1,3 +1,4 @@
+import cx from "classnames";
 import Link from "next/link";
 import css from "./Footer.module.scss";
 
@@ -20,8 +21,12 @@ const icons = {
   },
 };
 
-export const Footer = () => (
-  <footer className={css.footer}>
+interface IFooterProps {
+  className?: string;
+}
+
+export const Footer = ({ className }: IFooterProps) => (
+  <footer className={cx(css.footer, className)}>
     <ul className={css.links}>
       <li>
         <Link href="/privacy">Privacy Policy</Link>

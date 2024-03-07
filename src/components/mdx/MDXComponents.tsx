@@ -9,11 +9,13 @@ const MDXLink = ({
 }: LinkHTMLAttributes<HTMLAnchorElement>) => {
   const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
   return isInternalLink ? (
-    <Link href={href} passHref>
-      <a {...rest}>{children}</a>
+    <Link href={href} {...rest}>
+      {children}
     </Link>
   ) : (
-    <a target="_blank" rel="noopener noreferrer" {...rest} />
+    <a target="_blank" rel="noopener noreferrer" {...rest}>
+      {children}
+    </a>
   );
 };
 

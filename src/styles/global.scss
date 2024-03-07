@@ -16,10 +16,7 @@ html {
 }
 
 #__next {
-  display: grid;
-  grid-template-rows: 100px 1fr 60px;
-  flex-direction: column;
-  min-height: 100dvh;
+  height: 100dvh;
   width: 100%;
 }
 
