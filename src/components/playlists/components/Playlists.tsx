@@ -1,13 +1,13 @@
-import { ISpotifyPlaylist } from "@lib/spotify";
 import Fuse from "fuse.js";
 import partition from "lodash.partition";
 import { useState } from "react";
-import { isSpecialPlaylist, sortPlaylists } from "../helpers";
+import { sortPlaylists } from "../helpers";
 import { Controls } from "./Controls";
 import { Items } from "./Items";
+import { Playlist } from "@lib/api";
 
 interface IPlaylistsProps {
-  playlists: ISpotifyPlaylist[];
+  playlists: Playlist[];
 }
 
 export const Playlists = ({ playlists }: IPlaylistsProps) => {
@@ -15,7 +15,7 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
 
   const [specialPlaylists, otherPlaylists] = partition(
     playlists,
-    isSpecialPlaylist
+    (p) => p.verified
   );
 
   const visiblePlaylists = filterTerm.length

@@ -1,6 +1,6 @@
 import { Meta } from "@components/meta";
 import { Playlists } from "@components/playlists";
-import { Spotify } from "@lib/spotify";
+import { fetchJson } from "@lib/util";
 
 export default function PlaylistsPage({ playlists }) {
   return (
@@ -21,25 +21,15 @@ export default function PlaylistsPage({ playlists }) {
 }
 
 export const getStaticProps = async () => {
-  const client_id = process.env.SPOTIFY_CLIENT_ID;
-  const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-
-  const spotify = new Spotify(client_id, client_secret);
-
-  if (await spotify.authenticate()) {
-    const playlists = await spotify.getUserPlaylists("soulprovidr");
+  try {
+    const playlists = await fetchJson(`${process.env.API_URL}/playlists`);
     return {
-      props: {
-        playlists,
-      },
+      props: { playlists },
       revalidate: 3600,
     };
+  } catch (e) {
+    return {
+      props: { playlists: [] },
+    };
   }
-
-  return {
-    props: {
-      playlists: [],
-    },
-    revalidate: 60,
-  };
 };

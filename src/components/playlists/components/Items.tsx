@@ -1,12 +1,11 @@
 import { AsyncImage } from "@components/ui/AsyncImage";
-import { ISpotifyPlaylist } from "@lib/spotify";
 import cx from "classnames";
-import { isSpecialPlaylist } from "../helpers";
 import css from "./Items.module.scss";
 import { VerifiedCheckmark } from "./VerifiedCheckmark";
+import { Playlist } from "@lib/api";
 
 interface IItemsProps {
-  playlists: ISpotifyPlaylist[];
+  playlists: Playlist[];
 }
 
 export const Items = ({ playlists }: IItemsProps) =>
@@ -14,15 +13,15 @@ export const Items = ({ playlists }: IItemsProps) =>
     <ul className={cx(css.items, "w-medium")}>
       {playlists.map((playlist) => (
         <li key={playlist.id}>
-          <AsyncImage className={css.image} src={playlist.images[0].url} />
+          <AsyncImage className={css.image} src={playlist.imageUrl} />
           <div className={css.content}>
             <h2 className={css.title}>
               {playlist.name}{" "}
-              {isSpecialPlaylist(playlist) && (
+              {playlist.verified && (
                 <VerifiedCheckmark aria-hidden className={css.checkmark} />
               )}
             </h2>
-            <p className={css.attribute}>{playlist.tracks.total} songs</p>
+            <p className={css.attribute}>{playlist.numTracks} songs</p>
             {!!playlist.description && (
               <p
                 className={css.description}
@@ -31,7 +30,7 @@ export const Items = ({ playlists }: IItemsProps) =>
             )}
             <a
               className={css.link}
-              href={playlist.external_urls.spotify}
+              href={playlist.externalUrls.spotify}
               rel="noopener noreferrer"
               target="_blank"
             >
