@@ -4,8 +4,10 @@ export interface Playlist {
   externalUrls: {
     spotify: string;
   };
+  featured: boolean;
   imageUrl: string;
   name: string;
-  numTracks: number;
-  verified: boolean;
+  tracks: {
+    total: number;
+  };
 }

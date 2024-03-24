@@ -1,7 +1,7 @@
 import Fuse from "fuse.js";
 import partition from "lodash.partition";
 import { useState } from "react";
-import { sortPlaylists } from "../helpers";
+import { sortAlphabetically } from "../helpers";
 import { Controls } from "./Controls";
 import { Items } from "./Items";
 import { Playlist } from "@lib/api";
@@ -13,9 +13,9 @@ interface IPlaylistsProps {
 export const Playlists = ({ playlists }: IPlaylistsProps) => {
   const [filterTerm, setFilterTerm] = useState<string>("");
 
-  const [specialPlaylists, otherPlaylists] = partition(
+  const [featuredPlaylists, otherPlaylists] = partition(
     playlists,
-    (p) => p.verified
+    (p: Playlist) => p.featured
   );
 
   const visiblePlaylists = filterTerm.length
@@ -26,7 +26,9 @@ export const Playlists = ({ playlists }: IPlaylistsProps) => {
       })
         .search(filterTerm)
         .map((p) => p.item)
-    : sortPlaylists(specialPlaylists).concat(sortPlaylists(otherPlaylists));
+    : sortAlphabetically(featuredPlaylists).concat(
+        sortAlphabetically(otherPlaylists)
+      );
 
   return (
     <>

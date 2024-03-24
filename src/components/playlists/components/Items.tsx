@@ -17,11 +17,11 @@ export const Items = ({ playlists }: IItemsProps) =>
           <div className={css.content}>
             <h2 className={css.title}>
               {playlist.name}{" "}
-              {playlist.verified && (
+              {playlist.featured && (
                 <VerifiedCheckmark aria-hidden className={css.checkmark} />
               )}
             </h2>
-            <p className={css.attribute}>{playlist.numTracks} songs</p>
+            <p className={css.attribute}>{playlist.tracks.total} songs</p>
             {!!playlist.description && (
               <p
                 className={css.description}
