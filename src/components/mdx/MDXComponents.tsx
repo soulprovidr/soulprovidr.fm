@@ -1,4 +1,5 @@
 import { Meta } from "@components/meta";
+import { Page } from "@components/page";
 import Link from "next/link";
 import { LinkHTMLAttributes, ReactNode } from "react";
 
@@ -28,10 +29,10 @@ interface IMDXWrapperProps {
 }
 
 const MDXWrapper = (props: IMDXWrapperProps) => (
-  <>
+  <Page>
     <Meta description={props.description} title={props.title} />
-    {props.children}
-  </>
+    <Page.Content>{props.children}</Page.Content>
+  </Page>
 );
 
 export const MDXComponents = {

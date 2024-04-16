@@ -1,8 +1,8 @@
 import { AsyncImage } from "@components/ui/AsyncImage";
+import { Playlist } from "@lib/api/playlists";
 import cx from "classnames";
 import css from "./Items.module.scss";
 import { VerifiedCheckmark } from "./VerifiedCheckmark";
-import { Playlist } from "@lib/api";
 
 interface IItemsProps {
   playlists: Playlist[];
@@ -10,7 +10,7 @@ interface IItemsProps {
 
 export const Items = ({ playlists }: IItemsProps) =>
   playlists.length ? (
-    <ul className={cx(css.items, "w-medium")}>
+    <ul className={cx(css.items, "wide")}>
       {playlists.map((playlist) => (
         <li key={playlist.id}>
           <AsyncImage className={css.image} src={playlist.imageUrl} />

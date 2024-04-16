@@ -1,4 +1,4 @@
-import { Layout } from "@components/layout";
+import { MDXProvider } from "@components/mdx";
 import { WebRadioProvider } from "@components/radio";
 import "@styles/global.scss";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -27,9 +27,9 @@ export default function App({ Component, pageProps }: CustomAppProps) {
           <Component {...pageProps} />
         ) : (
           <WebRadioProvider>
-            <Layout>
+            <MDXProvider>
               <Component {...pageProps} />
-            </Layout>
+            </MDXProvider>
           </WebRadioProvider>
         )}
       </QueryClientProvider>

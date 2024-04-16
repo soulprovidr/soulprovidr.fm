@@ -1,30 +1,13 @@
-import { Meta } from "@components/meta";
-import { Playlists } from "@components/playlists";
-import { fetchJson } from "@lib/util";
+import { PlaylistsView, PlaylistsViewProps } from "@components/playlists";
+import { getPlaylists } from "@lib/api/playlists";
+import { GetStaticProps } from "next";
 
-export default function PlaylistsPage({ playlists }) {
-  return (
-    <>
-      <Meta
-        title="Playlists"
-        description="Find your new favourite song in one of Soul Provider's hand-crafted playlists."
-      />
-      <h1>Playlists</h1>
-      <p>
-        Looking for something new to listen to? Don&apos;t worry, Soul
-        Provider&apos;s got you covered. Find your new favourite song in one of
-        our hand-crafted playlists.
-      </p>
-      <Playlists playlists={playlists} />
-    </>
-  );
-}
+export default PlaylistsView;
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps<PlaylistsViewProps> = async () => {
   try {
-    const playlists = await fetchJson(`${process.env.API_URL}/playlists`);
     return {
-      props: { playlists },
+      props: { playlists: await getPlaylists() },
       revalidate: 3600,
     };
   } catch (e) {

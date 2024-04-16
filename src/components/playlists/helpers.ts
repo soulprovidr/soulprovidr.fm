@@ -1,4 +1,4 @@
-import { Playlist } from "@lib/api";
+import { Playlist } from "@lib/api/playlists";
 
 export const sortAlphabetically = (playlists: Playlist[]) =>
   playlists.sort((a, b) => {

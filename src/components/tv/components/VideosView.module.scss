@@ -1,0 +1,70 @@
+@import "../../../styles/variables.scss";
+
+.guide {
+  // display: flex;
+  display: none;
+  flex-direction: column;
+  gap: 24px;
+  height: 100%;
+  list-style: none;
+  overflow-y: scroll;
+  padding: 16px;
+}
+
+.thumbnail {
+  max-width: 100%;
+}
+
+.cinema {
+  background: black;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.header {
+  background: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.5));
+  border: none;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  transition: transform 0.2s ease-in-out;
+  transform: translateY(-100%);
+  z-index: 10;
+
+  &.visible {
+    transform: translateY(0);
+  }
+}
+
+.player {
+  max-height: 100%;
+
+  :global(.vds-blocker) {
+    aspect-ratio: unset;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.static {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.progressBar {
+  width: 100%;
+}

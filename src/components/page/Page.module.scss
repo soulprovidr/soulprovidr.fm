@@ -1,19 +1,23 @@
 @import "../../styles/animations.scss";
 @import "../../styles/variables.scss";
 
-.layout {
+.page {
   display: grid;
   grid-template-rows: 100px 1fr 60px;
   flex-direction: column;
   height: 100%;
 }
 
-.main {
+.page.noFooter {
+  grid-template-rows: 100px 1fr;
+}
+
+.content.default {
+  align-content: flex-start;
   display: grid;
   grid-template-columns:
     2fr 1fr min($container-width, 100%)
     1fr 2fr;
-  height: fit-content;
   padding: 64px $container-padding;
   width: 100%;
 
@@ -21,14 +25,9 @@
     grid-column: 3;
   }
 
-  > *:global(.w-medium) {
+  > .wide {
     display: grid;
     grid-column: 2 / 5;
-  }
-
-  > *:global(.w-full) {
-    display: grid;
-    grid-column: 1 / -1;
   }
 
   > h1,
@@ -57,12 +56,19 @@
   }
 }
 
+.content.fixed {
+  align-content: normal;
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
 .footer {
   z-index: 2;
 }
 
 @media screen and (max-width: $break-small) {
-  .main {
+  .content.default {
     padding-block: 36px;
   }
 }

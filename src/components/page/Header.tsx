@@ -1,7 +1,8 @@
 import { LiveText } from "@components/ui/LiveText";
+import cx from "classnames";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { HTMLAttributes, ReactNode } from "react";
 import css from "./Header.module.scss";
 
 interface INavLinkProps {
@@ -18,8 +19,8 @@ const NavLink = ({ children, href }: INavLinkProps) => {
   );
 };
 
-export const Header = () => (
-  <header className={css.header}>
+export const Header = ({ className, ...rest }: HTMLAttributes<HTMLElement>) => (
+  <header className={cx(css.header, className)} {...rest}>
     <div>
       <div className={css.logo}>
         <Link href="/">
