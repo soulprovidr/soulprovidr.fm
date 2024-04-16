@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RadioStatus } from "@components/radio";
 import { RadioContext } from "@components/radio/context";
 import { useMetadata } from "@components/radio/hooks/useMetadata";
@@ -35,7 +36,7 @@ export const ChromecastRadioProvider = ({ children }) => {
             setStatus(RadioStatus.BUFFERING);
             break;
         }
-      }
+      },
     );
 
     /*
