@@ -6,7 +6,10 @@ export const useIsMouseActive = (inactiveDuration: number = 3000) => {
   const [isMouseActive, setIsMouseActive] = useState<boolean>(false);
 
   const onMouseMove = () => {
+<<<<<<< Updated upstream
     console.log("mouse move");
+=======
+>>>>>>> Stashed changes
     clearTimeout(timeoutRef.current);
     setIsMouseActive(true);
     timeoutRef.current = setTimeout(() => {
@@ -22,7 +25,10 @@ export const useIsMouseActive = (inactiveDuration: number = 3000) => {
     };
   }, []);
 
+<<<<<<< Updated upstream
   console.log(isMouseActive);
 
+=======
+>>>>>>> Stashed changes
   return isMouseActive;
 };
