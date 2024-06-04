@@ -6,11 +6,8 @@ import {
   MediaPlayer,
   MediaPlayerInstance,
   MediaProvider,
-<<<<<<< Updated upstream
-=======
   MediaProviderAdapter,
   isYouTubeProvider,
->>>>>>> Stashed changes
   useMediaRemote,
   useMediaStore,
 } from "@vidstack/react";
@@ -55,15 +52,12 @@ export const VideosView = ({ videos }: VideosViewProps) => {
     setIsMouseOverControls(false);
   };
 
-<<<<<<< Updated upstream
-=======
   const onProviderChange = (provider: MediaProviderAdapter) => {
     if (isYouTubeProvider(provider)) {
       provider.cookies = true;
     }
   };
 
->>>>>>> Stashed changes
   return (
     <Page.Content fixed>
       <Meta title="TV" description="I want my Soul Provider TV" />
@@ -91,18 +85,6 @@ export const VideosView = ({ videos }: VideosViewProps) => {
         />
         <MediaPlayer
           aspectRatio="16/9"
-<<<<<<< Updated upstream
-          autoPlay
-          className={css.player}
-          crossOrigin
-          onEnded={nextVideo}
-          onError={nextVideo}
-          onPlayFail={nextVideo}
-          onSuspend={nextVideo}
-          playsInline
-          ref={playerRef}
-          src={`youtube/${currentVideo.videoId}`}
-=======
           className={css.player}
           crossorigin
           onEnded={nextVideo}
@@ -113,7 +95,6 @@ export const VideosView = ({ videos }: VideosViewProps) => {
           playsInline
           ref={playerRef}
           src={currentVideo.videoUrl}
->>>>>>> Stashed changes
           title={currentVideo.title}
         >
           <MediaProvider>

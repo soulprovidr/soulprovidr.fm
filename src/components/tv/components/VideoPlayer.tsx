@@ -3,11 +3,8 @@ import {
   MediaPlayerInstance,
   MediaPlayerProps,
   MediaProvider,
-<<<<<<< Updated upstream
-=======
   MediaProviderAdapter,
   isYouTubeProvider,
->>>>>>> Stashed changes
   useMediaStore,
 } from "@vidstack/react";
 import "@vidstack/react/player/styles/base.css";
@@ -26,16 +23,7 @@ export const VideoPlayer = forwardRef<MediaPlayerInstance, VideoPlayerProps>(
 
     useImperativeHandle(ref, () => playerRef.current as MediaPlayerInstance);
 
-<<<<<<< Updated upstream
-    return (
-      <MediaPlayer
-        aspectRatio="16/9"
-        autoPlay
-        crossOrigin
-        playsInline
-=======
     const onProviderChange = (provider: MediaProviderAdapter) => {
-      console.log("onProviderChange");
       if (isYouTubeProvider(provider)) {
         provider.cookies = true;
       }
@@ -44,11 +32,9 @@ export const VideoPlayer = forwardRef<MediaPlayerInstance, VideoPlayerProps>(
     return (
       <MediaPlayer
         aspectRatio="16/9"
-        // autoPlay
         crossorigin
         onProviderChange={onProviderChange}
-        // playsInline
->>>>>>> Stashed changes
+        playsInline
         ref={playerRef}
         {...props}
       >

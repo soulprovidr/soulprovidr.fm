@@ -5,4 +5,4 @@ node_modules/
 reports/
 .next
 out/
-.env.local
+.env*
