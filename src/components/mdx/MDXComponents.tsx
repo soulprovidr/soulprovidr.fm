@@ -14,7 +14,7 @@ const MDXLink = ({
       {children}
     </Link>
   ) : (
-    <a target="_blank" rel="noopener noreferrer" {...rest}>
+    <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
       {children}
     </a>
   );
