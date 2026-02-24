@@ -8,7 +8,7 @@ export const getStaticProps: GetStaticProps<PlaylistsViewProps> = async () => {
   try {
     return {
       props: { playlists: await getPlaylists() },
-      revalidate: 3600,
+      revalidate: 60 * 60 * 24, // once a day
     };
   } catch (e) {
     return {

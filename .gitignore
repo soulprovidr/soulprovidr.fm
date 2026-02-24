@@ -6,3 +6,4 @@ reports/
 .next
 out/
 .env*
+mise.toml
