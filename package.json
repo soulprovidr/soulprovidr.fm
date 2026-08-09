@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
-    "start": "vite start"
+    "build": "vite build"
   },
   "devDependencies": {
     "@mdx-js/rollup": "^3.1.0",
