@@ -1,5 +1,5 @@
+import { Link } from "@tanstack/react-router";
 import cx from "classnames";
-import Link from "next/link";
 import css from "./Footer.module.scss";
 
 const icons = {
@@ -29,7 +29,7 @@ export const Footer = ({ className }: IFooterProps) => (
   <footer className={cx(css.footer, className)}>
     <ul className={css.links}>
       <li>
-        <Link href="/privacy">Privacy Policy</Link>
+        <Link to="/privacy">Privacy Policy</Link>
       </li>
     </ul>
     <ul className={css.icons}>

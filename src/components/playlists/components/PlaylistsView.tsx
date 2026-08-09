@@ -1,8 +1,6 @@
-import { Meta } from "@components/meta";
 import { Page } from "@components/page";
 import { Playlist } from "@lib/api/playlists";
 import Fuse from "fuse.js";
-import partition from "lodash.partition";
 import { useState } from "react";
 import { sortAlphabetically } from "../helpers";
 import { Controls } from "./Controls";
@@ -15,10 +13,8 @@ export interface PlaylistsViewProps {
 export const PlaylistsView = ({ playlists }: PlaylistsViewProps) => {
   const [filterTerm, setFilterTerm] = useState<string>("");
 
-  const [featuredPlaylists, otherPlaylists] = partition(
-    playlists,
-    (p: Playlist) => p.featured,
-  );
+  const featuredPlaylists = playlists.filter((p) => p.featured);
+  const otherPlaylists = playlists.filter((p) => !p.featured);
 
   const visiblePlaylists = filterTerm.length
     ? new Fuse(playlists, {
@@ -35,10 +31,6 @@ export const PlaylistsView = ({ playlists }: PlaylistsViewProps) => {
   return (
     <Page>
       <Page.Content>
-        <Meta
-          title="Playlists"
-          description="Find your new favourite song in one of Soul Provider's hand-crafted playlists."
-        />
         <h1>Playlists</h1>
         <p>
           Looking for something new to listen to? Don&apos;t worry, Soul

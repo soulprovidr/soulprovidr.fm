@@ -1,4 +1,3 @@
-import { Meta } from "@components/meta";
 import { Page } from "@components/page";
 import { Video } from "@lib/api/tv";
 import { useIsMouseActive } from "@lib/hooks/useIsMouseActive";
@@ -60,7 +59,6 @@ export const VideosView = ({ videos }: VideosViewProps) => {
 
   return (
     <Page.Content fixed>
-      <Meta title="TV" description="I want my Soul Provider TV" />
       <ol className={css.guide}>
         {videos.map((video, index) => (
           <div>

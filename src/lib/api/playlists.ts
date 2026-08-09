@@ -1,4 +1,4 @@
-import axios from "axios";
+import { fetchJson } from "@lib/util";
 import { API_URL } from "./constants";
 
 export interface Playlist {
@@ -15,7 +15,5 @@ export interface Playlist {
   };
 }
 
-export const getPlaylists = async (): Promise<Playlist[]> => {
-  const { data } = await axios.get<Playlist[]>(`${API_URL}/playlists`);
-  return data;
-};
+export const getPlaylists = async (): Promise<Playlist[]> =>
+  fetchJson<Playlist[]>(`${API_URL}/playlists`);

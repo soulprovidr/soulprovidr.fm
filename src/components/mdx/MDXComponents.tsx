@@ -1,6 +1,5 @@
-import { Meta } from "@components/meta";
 import { Page } from "@components/page";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { LinkHTMLAttributes, ReactNode } from "react";
 
 const MDXLink = ({
@@ -10,7 +9,7 @@ const MDXLink = ({
 }: LinkHTMLAttributes<HTMLAnchorElement>) => {
   const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
   return isInternalLink ? (
-    <Link href={href} {...rest}>
+    <Link to={href} {...(rest as any)}>
       {children}
     </Link>
   ) : (
@@ -21,17 +20,12 @@ const MDXLink = ({
 };
 
 interface IMDXWrapperProps {
-  /** Frontmatter `title` property. */
-  title: string;
-  /** Frontmatter `description` property.  */
-  description: string;
   children: ReactNode;
 }
 
-const MDXWrapper = (props: IMDXWrapperProps) => (
+const MDXWrapper = ({ children }: IMDXWrapperProps) => (
   <Page>
-    <Meta description={props.description} title={props.title} />
-    <Page.Content>{props.children}</Page.Content>
+    <Page.Content>{children}</Page.Content>
   </Page>
 );
 

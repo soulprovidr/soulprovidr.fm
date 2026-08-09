@@ -5,5 +5,7 @@ node_modules/
 reports/
 .next
 out/
+.vinxi/
+src/routeTree.gen.ts
 .env*
 mise.toml

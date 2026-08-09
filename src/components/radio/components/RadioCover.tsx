@@ -1,6 +1,5 @@
 import { AsyncImage } from "@components/ui/AsyncImage";
 import cx from "classnames";
-import isEmpty from "lodash.isempty";
 import { useEffect, useState } from "react";
 import { useRadioContext } from "../context";
 import { IRadioMetadata } from "../types";
@@ -16,7 +15,7 @@ export const RadioCover = ({ className }: IRadioCoverProps) => {
   const [currMetadataId, setCurrMetadataId] = useState<number>();
   const [metadataItems, setMetadataItems] = useState<IRadioMetadata[]>([]);
 
-  if (metadata && isEmpty(metadataItems)) {
+  if (metadata && metadataItems.length === 0) {
     setMetadataItems([metadata]);
     setCurrMetadataId(metadata.id);
   }
