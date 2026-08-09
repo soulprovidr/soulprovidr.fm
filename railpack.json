@@ -1,0 +1,20 @@
+{
+  "$schema": "https://schema.railpack.com",
+  "provider": "node",
+  "packages": {
+    "node": "22.12.0"
+  },
+  "steps": {
+    "install": {
+      "commands": ["npm ci"]
+    },
+    "build": {
+      "inputs": [{ "step": "install" }],
+      "commands": ["npm run build"]
+    }
+  },
+  "deploy": {
+    "inputs": [{ "step": "build" }],
+    "startCommand": "npx srvx serve --entry dist/server/server.js --dir . --static dist/client --prod"
+  }
+}
