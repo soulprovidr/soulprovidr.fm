@@ -1,10 +1,6 @@
 import { fetchJson } from "@lib/util";
 import { API_URL } from "./constants";
 
-export enum VideoType {
-  YOUTUBE = "youtube",
-}
-
 export interface Video {
   id: string;
   thumbnailUrl: string;
