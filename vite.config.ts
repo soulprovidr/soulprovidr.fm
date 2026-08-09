@@ -13,6 +13,7 @@ export default defineConfig({
   },
   plugins: [
     tanstackStart(),
+    nitro(),
     {
       enforce: "pre",
       ...mdx({
@@ -23,6 +24,5 @@ export default defineConfig({
     viteTsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
-    nitro()
   ],
 });

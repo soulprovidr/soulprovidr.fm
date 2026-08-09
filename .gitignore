@@ -6,6 +6,7 @@ reports/
 .next
 out/
 .vinxi/
+.output/
 src/routeTree.gen.ts
 .env*
 mise.toml

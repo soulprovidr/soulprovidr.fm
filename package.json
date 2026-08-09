@@ -3,9 +3,13 @@
   "description": "Internet radio for those who like to groove.",
   "version": "2.0.0",
   "type": "module",
+  "engines": {
+    "node": "^20.19.0 || >=22.12.0"
+  },
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build"
+    "build": "vite build",
+    "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
     "@mdx-js/rollup": "^3.1.0",
@@ -18,7 +22,7 @@
     "prettier-plugin-organize-imports": "~3.2.4",
     "sass": "~1.71.1",
     "typescript": "~5.3.3",
-    "vite": "^6.0.0",
+    "vite": "^7.0.0",
     "vite-tsconfig-paths": "^5.1.0"
   },
   "dependencies": {
@@ -29,6 +33,7 @@
     "@tanstack/react-start": "^1.114.0",
     "@vidstack/react": "~1.11.21",
     "classnames": "~2.3.1",
+    "dotenv": "~17.4.2",
     "fuse.js": "~7.0.0",
     "ismobilejs": "~1.1.1",
     "lodash.isequal": "~4.5.0",
