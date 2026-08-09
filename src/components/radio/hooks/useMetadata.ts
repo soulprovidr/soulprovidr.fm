@@ -1,6 +1,5 @@
 import { fetchJson } from "@lib/util";
 import { useQuery } from "@tanstack/react-query";
-import camelCase from "lodash.camelcase";
 import { ELAPSED_FUDGE_TIME } from "../constants";
 import { IRadioMetadata } from "../types";
 
@@ -16,9 +15,12 @@ const getRefetchInterval = (metadata?: IRadioMetadata) =>
       ELAPSED_FUDGE_TIME
     : 0;
 
+const toCamelCase = (str: string) =>
+  str.replace(/_([a-z])/g, (_, c: string) => c.toUpperCase());
+
 const transformKeysToCamelCase = <T>(obj: any) =>
   Object.keys(obj).reduce(
-    (acc, key) => Object.assign(acc, { [camelCase(key)]: obj[key] }),
+    (acc, key) => Object.assign(acc, { [toCamelCase(key)]: obj[key] }),
     {}
   ) as T;
 

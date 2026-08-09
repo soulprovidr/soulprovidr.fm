@@ -1,9 +1,5 @@
-import axios from "axios";
+import { fetchJson } from "@lib/util";
 import { API_URL } from "./constants";
-
-export enum VideoType {
-  YOUTUBE = "youtube",
-}
 
 export interface Video {
   id: string;
@@ -13,7 +9,5 @@ export interface Video {
   videoUrl: string;
 }
 
-export const getVideos = async (): Promise<Video[]> => {
-  const { data } = await axios.get<Video[]>(`${API_URL}/tv`);
-  return data;
-};
+export const getVideos = async (): Promise<Video[]> =>
+  fetchJson<Video[]>(`${API_URL}/tv`);

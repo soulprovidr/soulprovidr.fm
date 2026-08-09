@@ -1,3 +1,4 @@
+@import "@fontsource-variable/inter";
 @import "./variables.scss";
 
 * {
@@ -25,15 +26,13 @@ html {
     "Segoe UI Symbol";
   font-size: 16px;
   line-height: 1.6rem;
-  width: 100%;
-}
-
-#__next {
-  height: 100dvh;
+  height: 100%;
   width: 100%;
 }
 
 body {
+  height: 100dvh;
+  letter-spacing: 0.3px;
   margin: 0;
   width: 100%;
 }
