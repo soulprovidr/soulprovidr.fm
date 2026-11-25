@@ -8,8 +8,15 @@ const Wide = ({ className, ...rest }: HTMLAttributes<HTMLDivElement>) => (
   <div className={cx(css.wide, className)} {...rest} />
 );
 
-const Content = ({ className, ...rest }: HTMLAttributes<HTMLElement>) => (
-  <main className={cx(css.content, className)} {...rest} />
+interface ContentProps extends HTMLAttributes<HTMLElement> {
+  fixed?: boolean;
+}
+
+const Content = ({ className, fixed, ...rest }: ContentProps) => (
+  <main
+    className={cx(css.content, fixed ? css.fixed : css.default, className)}
+    {...rest}
+  />
 );
 
 const Page = ({ children }: HTMLAttributes<HTMLDivElement>) => (

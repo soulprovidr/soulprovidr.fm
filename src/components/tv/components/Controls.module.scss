@@ -1,0 +1,75 @@
+@import "../../../styles/variables.scss";
+
+.controls {
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: transform 0.2s ease-in-out;
+  transform: translateY(100%);
+  z-index: 10;
+
+  &.visible {
+    transform: translateY(0);
+  }
+}
+
+.nowPlaying {
+  align-items: center;
+  color: white;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.button {
+  align-items: center;
+  appearance: none;
+  background: none;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  transition: transform 0.1s ease-in;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.button svg {
+  width: 36px;
+  height: 36px;
+}
+
+.progressBar {
+  height: 4px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
