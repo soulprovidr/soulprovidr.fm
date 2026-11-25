@@ -1,0 +1,159 @@
+@import "../../styles/variables.scss";
+
+.feed {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.monthHeading {
+  color: $muted-text;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.entries {
+  background: $surface;
+  border: 1px solid $border-color;
+  border-radius: $radius;
+  list-style: none;
+  margin: 0;
+  padding: 4px 20px;
+}
+
+.entry {
+  align-items: flex-start;
+  border-bottom: 1px dashed $border-color;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  padding: 18px 0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.icon {
+  align-items: center;
+  background: $background;
+  border-radius: 50%;
+  color: $secondary-text;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
+}
+
+// A touch of colour per kind of thing.
+.post .icon {
+  background: $accent-color;
+  color: white;
+}
+
+.song .icon,
+.album .icon {
+  background: #fdecc8;
+  color: #a86a00;
+}
+
+.article .icon {
+  background: #e3ecfb;
+  color: $accent-color;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.meta {
+  align-items: center;
+  color: $muted-text;
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 6px;
+  line-height: 18px;
+}
+
+.label {
+  color: $secondary-text;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.title {
+  color: $primary-text;
+  font-family: $heading-font-family;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+a.title:hover {
+  color: $accent-color;
+  text-decoration: underline;
+}
+
+.note .title {
+  font-family: $font-family;
+  font-weight: 500;
+}
+
+.external {
+  color: $muted-text;
+  font-size: 13px;
+  margin-left: 4px;
+}
+
+.by {
+  color: $secondary-text;
+  font-size: 15px;
+}
+
+.comment {
+  color: $secondary-text;
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.5;
+  margin-top: 6px !important;
+}
+
+.cover {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  box-shadow: rgba(60, 40, 10, 0.12) 0 6px 16px -6px;
+  height: 64px;
+  object-fit: cover;
+  width: 64px;
+}
+
+@media screen and (max-width: $break-small) {
+  .entries {
+    padding: 2px 16px;
+  }
+
+  .entry {
+    gap: 12px;
+    grid-template-columns: 30px minmax(0, 1fr) auto;
+  }
+
+  .icon {
+    height: 30px;
+    width: 30px;
+  }
+
+  .cover {
+    height: 52px;
+    width: 52px;
+  }
+}

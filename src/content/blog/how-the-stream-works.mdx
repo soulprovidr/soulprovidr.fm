@@ -1,0 +1,22 @@
+---
+title: How the Soul Provider stream works
+date: 2026-10-24
+description: A quick tour of the software behind the station, from the playlist to your speakers.
+---
+
+_Placeholder post. Replace or delete this file._
+
+People sometimes ask what's actually running behind the radio. The short version: less than you'd think.
+
+## The pieces
+
+1. **The library.** Tracks are tagged and sorted into playlists by mood and tempo.
+2. **The scheduler.** It picks what plays next so that a slow jam doesn't land right after a floor-filler.
+3. **The encoder.** It turns the audio into a stream that browsers and the iOS app can play.
+4. **This website.** It shows what's playing now and lets you hit play.
+
+The web player polls for the current track and updates the cover art and progress bar as songs change. If you want to poke at it, the player lives in `src/components/radio/`.
+
+## What's next
+
+I'd like to add a "recently played" list and better Chromecast support. If there's something you'd want, [send me a note](/faq).

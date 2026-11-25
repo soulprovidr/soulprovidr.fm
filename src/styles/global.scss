@@ -78,6 +78,16 @@ p {
   margin: 0;
 }
 
+// Small uppercase label above a heading, e.g. "From the desk".
+.eyebrow {
+  color: $secondary-text;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
 fieldset {
   border: none;
   padding: 0;

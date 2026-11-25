@@ -11,8 +11,10 @@ interface INavLinkProps {
 
 const NavLink = ({ children, href }: INavLinkProps) => {
   const { pathname } = useLocation();
+  const isActive =
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
   return (
-    <li className={pathname === href ? css.active : ""}>
+    <li className={isActive ? css.active : ""}>
       <Link to={href}>{children}</Link>
     </li>
   );
@@ -32,6 +34,8 @@ export const Header = ({ className, ...rest }: HTMLAttributes<HTMLElement>) => (
       <ul>
         <LiveText as={NavLink} href="/" />
         <NavLink href="/playlists">Playlists</NavLink>
+        <NavLink href="/blog">Blog</NavLink>
+        <NavLink href="/feed">Feed</NavLink>
         <NavLink href="/faq">FAQ</NavLink>
       </ul>
     </nav>

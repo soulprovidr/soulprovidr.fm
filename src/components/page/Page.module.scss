@@ -51,19 +51,61 @@
     margin: 0 0 22px;
   }
 
-  > ul li {
+  > ul li,
+  > ol li {
     margin: 0 0 8px;
+  }
+
+  > ol {
+    margin: 0 0 22px;
   }
 
   // Headings that follow body copy get room to breathe.
   > p + h2,
-  > ul + h2 {
+  > ul + h2,
+  > ol + h2,
+  > blockquote + h2,
+  > pre + h2 {
     margin-top: 20px;
   }
 
   > p + h3,
-  > ul + h3 {
+  > ul + h3,
+  > ol + h3 {
     margin-top: 12px;
+  }
+
+  > blockquote {
+    border-left: 4px solid $highlight;
+    color: $secondary-text;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin: 8px 0 30px;
+    padding: 2px 0 2px 20px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  > pre {
+    background: $surface;
+    border: 1px solid $border-color;
+    border-radius: 10px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0 0 22px;
+    overflow-x: auto;
+    padding: 16px 18px;
+  }
+
+  :not(pre) > code {
+    background: $surface;
+    border: 1px solid $border-color;
+    border-radius: 6px;
+    font-size: 0.88em;
+    padding: 1px 5px;
   }
 
   > p img,
@@ -71,6 +113,13 @@
     border-radius: $radius;
     height: auto;
     max-width: 100%;
+  }
+
+  > hr {
+    border: none;
+    border-top: 1px solid $border-color;
+    margin: 12px 0 34px;
+    width: 100%;
   }
 }
 
