@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
 .header {
-  background: white;
+  background: $background;
   border-bottom: 1px solid $border-color;
   color: $primary-text;
   display: flex;

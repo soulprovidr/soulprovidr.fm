@@ -16,14 +16,14 @@ $widthTransition: width 125ms ease-in;
   top: calc(50% - 1px);
   right: 0;
   left: 0;
-  background: #f0f0f0;
+  background: $border-color;
   border-radius: 2px;
   height: 2px;
   z-index: -1;
 }
 
 .fill {
-  background-color: #cfcfcf;
+  background-color: #c9c0ae;
   border-radius: 2px;
   height: 4px;
   position: relative;

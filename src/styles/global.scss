@@ -1,4 +1,5 @@
-@import "@fontsource-variable/inter";
+@import "@fontsource-variable/figtree";
+@import "@fontsource-variable/plus-jakarta-sans";
 @import "./variables.scss";
 
 * {
@@ -6,56 +7,70 @@
 }
 
 html {
-  background: white;
+  background: $background;
   color: $primary-text;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    Oxygen-Sans,
-    Ubuntu,
-    Cantrell,
-    "Open Sans",
-    "Helvetica Neue",
-    Arial,
-    sans-serif,
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol";
-  font-size: 16px;
+  font-family: $font-family;
+  font-size: 18px;
+  font-weight: 500;
   line-height: 1.6rem;
   height: 100%;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   height: 100dvh;
-  letter-spacing: 0.3px;
   margin: 0;
   width: 100%;
+}
+
+::selection {
+  background: $highlight;
+  color: $primary-text;
 }
 
 a {
   color: $accent-color;
   text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: $accent-color-hover;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font-family;
 }
 
 h1 {
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
   margin: 0;
+  text-wrap: balance;
 }
 
 h2 {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.018em;
+  line-height: 1.15;
   margin: 0;
+  text-wrap: balance;
 }
 
 h3 {
-  font-weight: 600;
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin: 0;
 }
 
@@ -75,15 +90,22 @@ fieldset {
 }
 
 input[type="text"] {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 18px;
-  padding: 8px;
+  background: $surface;
+  border: 1px solid $border-color;
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 16px;
+  padding: 10px 18px;
   width: 100%;
+
+  &:focus {
+    border-color: $accent-color;
+    outline: none;
+  }
 }
 
 @media screen and (max-width: $break-small) {
   h1 {
-    font-size: 32px;
+    font-size: 36px;
   }
 }

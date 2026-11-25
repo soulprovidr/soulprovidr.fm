@@ -54,6 +54,24 @@
   > ul li {
     margin: 0 0 8px;
   }
+
+  // Headings that follow body copy get room to breathe.
+  > p + h2,
+  > ul + h2 {
+    margin-top: 20px;
+  }
+
+  > p + h3,
+  > ul + h3 {
+    margin-top: 12px;
+  }
+
+  > p img,
+  > img {
+    border-radius: $radius;
+    height: auto;
+    max-width: 100%;
+  }
 }
 
 .content.fixed {

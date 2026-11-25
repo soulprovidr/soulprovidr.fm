@@ -8,7 +8,8 @@
 
 .title {
   font-size: 20px;
-  font-weight: 700;
+  font-weight: 800;
+  letter-spacing: -0.01em;
   margin-bottom: 0;
   text-wrap: balance;
 }
@@ -26,7 +27,7 @@ p.description {
 }
 
 p.attribute {
-  color: #a0a0a0;
+  color: $muted-text;
   font-size: 14px;
   font-weight: 400;
   margin-bottom: 0;
@@ -57,7 +58,7 @@ ul.items {
 
   li img {
     aspect-ratio: 1;
-    border-radius: 4px;
+    border-radius: 10px;
     height: auto;
     object-fit: cover;
     width: 100%;
@@ -83,7 +84,7 @@ ul.items {
 
     li {
       align-items: flex-start;
-      border-bottom: 1px dashed #ddd;
+      border-bottom: 1px dashed $border-color;
       flex-direction: row;
       gap: 24px;
       margin: 0;
@@ -101,7 +102,7 @@ ul.items {
     li img {
       width: 75px;
       object-fit: cover;
-      border-radius: 4px;
+      border-radius: 10px;
     }
 
     .checkmark {

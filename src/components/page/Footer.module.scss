@@ -1,7 +1,7 @@
 @import "../../styles/variables.scss";
 
 .footer {
-  background: white;
+  background: $background;
   border-top: 1px solid $border-color;
   padding: 0 48px;
   display: flex;

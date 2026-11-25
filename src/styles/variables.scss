@@ -5,9 +5,35 @@ $container-padding: 24px;
 $break-small: calc($container-width + (2 * $container-padding));
 $break-medium: calc(($container-width * 2) + (2 * $container-padding));
 
-$accent-color: #0071eb;
-$accent-color-hover: #0056b3;
-$border-color: #ededed;
+// Type
+$font-family:
+  "Figtree Variable",
+  "Figtree",
+  ui-sans-serif,
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif,
+  "Apple Color Emoji",
+  "Segoe UI Emoji";
 
-$primary-text: #000000;
-$secondary-text: #343a40;
+// Headings, the logo wordmark, and other title-like text.
+$heading-font-family:
+  "Plus Jakarta Sans Variable",
+  "Plus Jakarta Sans",
+  $font-family;
+
+// Palette — warm paper + the blue and sunflower from the logo.
+$background: #f4efe6;
+$surface: #fbf8f2;
+$accent-color: #1d62d8;
+$accent-color-hover: #144aa8;
+$highlight: #f6b93b;
+$border-color: #e3dccd;
+
+$primary-text: #2a2a2d;
+$secondary-text: #5c5850;
+$muted-text: #8e877a;
+
+$radius: 14px;
