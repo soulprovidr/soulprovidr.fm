@@ -1,0 +1,22 @@
+@import "../../styles/variables.scss";
+
+// Added to the marquee container only when its content overflows.
+.overflowing {
+  position: relative;
+
+  // Fades the text out at the right edge, into the background it sits on.
+  &::after {
+    background: linear-gradient(
+      90deg,
+      rgba($background, 0) 0%,
+      $background 20%,
+      $background 100%
+    );
+    bottom: 0;
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: var(--marquee-gradient-width);
+  }
+}

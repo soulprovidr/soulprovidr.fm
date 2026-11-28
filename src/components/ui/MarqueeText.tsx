@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import css from "./MarqueeText.module.scss";
 
 function generateIdentifier() {
   return Math.random().toString(36).substring(7);
@@ -15,7 +16,6 @@ function generateIdentifier() {
 
 interface IUseMarqueeParams {
   duration: number;
-  gradientColor: string;
   gradientWidth: number;
 }
 
@@ -27,11 +27,7 @@ export const useMarquee = (
   const containerRef = useRef<HTMLDivElement>();
   const stylesheetRef = useRef<HTMLStyleElement>();
 
-  const {
-    duration = 20,
-    gradientColor = "white",
-    gradientWidth = 30,
-  } = params || {};
+  const { duration = 20, gradientWidth = 30 } = params || {};
 
   const createContainer = () => {
     const container = document.createElement("div");
@@ -44,11 +40,20 @@ export const useMarquee = (
   };
 
   const createStylesheet = () => {
-    const scrollDistance = node.scrollWidth - containerRef.current.clientWidth;
+    const container = containerRef.current;
+    if (!container) {
+      return;
+    }
+    const scrollDistance = node.scrollWidth - container.clientWidth;
     if (scrollDistance <= 0) {
       return;
     }
-    const className = containerRef.current.className;
+    const className = container.className;
+    container.classList.add(css.overflowing);
+    container.style.setProperty(
+      "--marquee-gradient-width",
+      `${gradientWidth}px`
+    );
     const keyframes = `keyframes-${generateIdentifier()}`;
     const stylesheet = document.createElement("style");
     stylesheet.textContent = `
@@ -63,17 +68,6 @@ export const useMarquee = (
           90%{
             transform: translateX(0);
           }
-        }
-        .${className} {
-          position: relative;
-        }
-        .${className}::after {
-          position: absolute;
-          top: 0; right: 0; bottom: 0;
-          width: ${gradientWidth}px;
-          transition: background 200ms ease-in-out;
-          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, ${gradientColor} 20%, ${gradientColor} 100%);
-          content: ' ';
         }
         .${className} > * {
           animation: ${keyframes} ${duration}s linear 3s infinite alternate;
