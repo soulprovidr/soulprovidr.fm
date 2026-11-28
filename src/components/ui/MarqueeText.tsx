@@ -79,9 +79,8 @@ export const useMarquee = (
 
   const destroyContainer = () => {
     if (containerRef.current) {
-      const parentElement = containerRef.current.parentElement;
-      parentElement.removeChild(containerRef.current);
-      parentElement.appendChild(node);
+      // Put the node back where the container was, so sibling order is kept.
+      containerRef.current.replaceWith(node);
       containerRef.current = null;
     }
   };
