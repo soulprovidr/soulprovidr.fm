@@ -18,6 +18,9 @@
   grid-template-columns:
     2fr 1fr min($container-width, 100%)
     1fr 2fr;
+  // Grid items default to min-width: auto, which lets text that can't wrap
+  // (like the radio's track title) widen the page past the screen.
+  min-width: 0;
   padding: 64px $container-padding;
   width: 100%;
 
